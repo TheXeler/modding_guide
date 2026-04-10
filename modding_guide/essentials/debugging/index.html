@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,82 +7,82 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>How to debug your errors</title>
+        <title>错误调试方法</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>How to debug your errors</h1>
+            <h1>错误调试方法</h1>
             <ul>
-                <li><a href="#DebuggingTips">Debugging tips</a></li>
-                <li><a href="#DebuggingUI">Debugging the UI</a></li>
-                <li><a href="#QuickTesting">Testing your mods faster</a></li>
-                <li><a href="#Microworld">Microworld</a></li>
-                <li><a href="#LoadingSaves">Loading savefiles</a></li>
+                <li><a href="#DebuggingTips">调试技巧</a></li>
+                <li><a href="#DebuggingUI">调试用户界面</a></li>
+                <li><a href="#QuickTesting">更快地测试你的模组</a></li>
+                <li><a href="#Microworld">微型世界（Microworld）</a></li>
+                <li><a href="#LoadingSaves">加载存档</a></li>
             </ul>
-            <h2><a name="DebuggingTips"></a>Debugging tips</h2>
-            <p>While modding it is pretty common to break things accidentally, so here are a few tips for when you don't know why something's not working as intended:</p>
+            <h2><a name="DebuggingTips"></a>调试技巧</h2>
+            <p>在模组制作过程中，意外破坏某些功能是很常见的，所以当某些东西没有按预期工作时，这里有一些提示：</p>
             <ol>
                 <li>
-                    <p><strong>Take a look at the stonehearth.log file.</strong> It is inside the folder where Stonehearth is installed, and it gets overwritten every time you run the game.
-                        If there's some file that couldn't be loaded properly, it will be mentioned in the log (sometimes errors will only appear inside the log, instead of popping up in the game). You can also output text to the stonehearth.log from within your mod's Lua files. <a href="../../advanced/logging/index.html#Logging">Instructions</a>.
+                    <p><strong>查看 stonehearth.log 文件。</strong>它位于 Stonehearth 安装的文件夹中，每次运行游戏时都会被覆盖。
+                        如果某些文件无法正确加载，将在日志中提到（有时错误只出现在日志中，而不会在游戏中弹出）。你还可以从模组的 Lua 文件中向 stonehearth.log 输出文本。<a href="../../advanced/logging/index.html#Logging">说明</a>。
                     </p>
                 </li>
                 <li>
-                    <p><strong>Make sure that your mod is enabled</strong> before starting a game. If you had something wrong in your manifest, it might get marked as invalid or outdated in the Mods menu, and the game won't load your mod.</p>
+                    <p>在开始游戏之前，<strong>确保你的模组已启用</strong>。如果你的清单文件有问题，它可能会在模组菜单中被标记为无效或过时，游戏将不会加载你的模组。</p>
                 </li>
                 <li>
-                    <p><strong>Verify your JSON files</strong> with <a href="https://jsonlint.com">JsonLint</a>. This will tell you if you had any missing or trailing commas, which is a common typo that will make the game not read your files correctly. You can also compare your JSON files with other files from the game with <a href="http://www.jsondiff.com/">JSON Diff</a>. This tool will tell you the differences even if the key-value pairs are in different order, it's good for checking if you've missed some key or value.</p>
+                    <p>使用 <a href="https://jsonlint.com">JsonLint</a> <strong>验证你的 JSON 文件</strong>。这将告诉你是否有任何缺失或多余的逗号，这是一个常见的拼写错误，会导致游戏无法正确读取你的文件。你还可以使用 <a href="http://www.jsondiff.com/">JSON Diff</a> 将你的 JSON 文件与游戏中的其他文件进行比较。即使键值对的顺序不同，此工具也会告诉你差异，这对于检查是否遗漏了某些键或值很有用。</p>
                 </li>
                 <li>
-                    <p><strong>Search for typos in your aliases, or in your localization strings</strong>. They might have some wrong letter and therefore they reference something that doesn't exist, or you forgot to prefix your aliases with the correct namespace in your files. You can also open your mod with SHED and it will tell you if something's pointing to unexisting files. It's also common to forget to prefix the mixintos and overrides with the mod's namespace. <br/>
-                        If you copy-paste text from some document (such as a .pdf file, or a .doc file), there might be invisible characters that the game considers invalid, so be careful with that.
+                    <p><strong>搜索别名或本地化字符串中的拼写错误</strong>。它们可能包含错误的字母，因此引用了不存在的内容，或者你忘记在文件中为别名添加正确的命名空间前缀。你还可以使用 SHED 打开你的模组，它会告诉你是否有指向不存在文件的内容。忘记为 mixintos 和 overrides 添加模组命名空间前缀也很常见。<br/>
+                        如果你从某些文档（如 .pdf 文件或 .doc 文件）复制粘贴文本，可能会有游戏认为无效的不可见字符，所以要小心。
                     </p>
                 </li>
                 <li>
-                    <p><strong>Test on a new game instead of on a savefile</strong>. Some changes won't be applied for old entities, so you'll need to create new ones in order to see them.</p>
+                    <p><strong>在新游戏中测试而不是在存档中测试</strong>。某些更改不会应用于旧实体，因此你需要创建新实体才能看到它们。</p>
                 </li>
             </ol>
-            <p>In general, when an error pops up inside the game, it <strong>will have a trace of the code that failed</strong>, so you should be able to figure out the problem by looking at that code. Even if the trace points to files from the stonehearth mod, the errors may be caused by wrong data from your mod. <br/>
-                These errors will also be printed in the stonehearth.log, so if the game closes, you can still check the log until you reopen the game. 
+            <p>一般来说，当游戏中出现错误时，它<strong>将包含失败代码的跟踪信息</strong>，因此你应该能够通过查看该代码来找出问题。即使跟踪指向 stonehearth 模组中的文件，错误也可能是由你的模组中的错误数据引起的。<br/>
+                这些错误也将打印在 stonehearth.log 中，所以如果游戏关闭，你仍然可以检查日志，直到你重新打开游戏。
             </p>
-            <p><strong>If your game crashed</strong> while testing your mod and now it won't open, check the Task Manager and see if you have Stonehearth.exe processes running in the background. Right-click on them and select "End Task" if needed. <br/>
-                On extreme cases, it might be due to your user_settings.json (located inside the same folder than the stonehearth.log). You can try removing it and restarting the game (the file will be re-created).
+            <p><strong>如果你的游戏在测试模组时崩溃</strong>并且现在无法打开，请检查任务管理器，看看是否有 Stonehearth.exe 进程在后台运行。如果需要，右键单击它们并选择"结束任务"。<br/>
+                在极端情况下，这可能是由于你的 user_settings.json（位于与 stonehearth.log 相同的文件夹中）。你可以尝试删除它并重新启动游戏（文件将被重新创建）。
             </p>
-            <h2><a name="DebuggingUI"></a>Debugging the UI</h2>
-            <p><strong>For UI errors</strong>, which usually appear at the right side of the screen, <strong>you must always reload the UI</strong> (with F5 or the button in the error dialog). It might be in an inconsistent state and you won't be able to continue using it correctly unless you reload it. If you forgot to take a look at the trace in the error dialog, you can look at the stonehearth.log too (provided you haven't restarted the game).</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Reloading the UI will make any non-UI error reappear, even if you've already closed them. Simply close them again if you've already checked all of them.</p>
-            <p>If you make mods related to the UI, you can make use of the CEF debugger, provided you have Google Chrome installed:</p>
+            <h2><a name="DebuggingUI"></a>调试用户界面</h2>
+            <p><strong>对于用户界面错误</strong>，通常出现在屏幕右侧，<strong>你必须始终重新加载用户界面</strong>（使用 F5 或错误对话框中的按钮）。它可能处于不一致状态，除非重新加载，否则你将无法继续使用它。如果你忘记查看错误对话框中的跟踪信息，你也可以查看 stonehearth.log（前提是你尚未重新启动游戏）。</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>重新加载用户界面将使任何非用户界面错误重新出现，即使你已经关闭了它们。如果你已经检查了所有错误，只需再次关闭它们即可。</p>
+            <p>如果你制作与用户界面相关的模组，你可以使用 CEF 调试器，前提是你安装了 Google Chrome：</p>
             <ol>
-                <li>With the game running, open Chrome.</li>
-                <li>In the address bar, type <strong>localhost:1338</strong> and press Enter.
+                <li>在游戏运行时，打开 Chrome。</li>
+                <li>在地址栏中输入 <strong>localhost:1338</strong> 并按 Enter 键。
                     <img src="/modding_guide/images/essentials/debugging/ui_port.png" alt="ui_port"/>
                 </li>
-                <li>Click on the "Stonehearth UI" link. Other links might appear if you're not inside the game (for example, if you're loading a game).</li>
-                <li>When you need to reload the debugger, make sure that the address is only <strong>localhost:1338</strong>, as the browser will append parameters to it as you use it.</li>
-                <li>Also make sure that you only have one instance of Stonehearth running, otherwise the port might change and not respond to the instance that you want.</li>
+                <li>点击 "Stonehearth UI" 链接。如果你不在游戏中（例如，如果你在加载游戏），可能会出现其他链接。</li>
+                <li>当你需要重新加载调试器时，确保地址仅为 <strong>localhost:1338</strong>，因为浏览器会在使用时向其附加参数。</li>
+                <li>还要确保你只有一个 Stonehearth 实例在运行，否则端口可能会更改并且不响应你想要的实例。</li>
             </ol>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>A security update was applied to browsers, disallowing this form of debugging. You can use an old browser instead, where such security was not implemented yet. Chrome version 68 is known to be the last one working. It is best to install a different browser brand to avoid conflicts with your main browser though. One recommended browser by modders is this one: <a href="https://www.slimjetbrowser.com/release/archive/20.0.5.0/">Slimjet</a>, as it uses the chromium engine version 68</p>
-            <p>Examples of use:</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>浏览器应用了安全更新，禁止这种形式的调试。你可以使用旧版浏览器，其中尚未实施此类安全措施。已知 Chrome 68 版本是最后一个有效的版本。最好安装不同的浏览器品牌以避免与主浏览器冲突。模组制作者推荐的一款浏览器是：<a href="https://www.slimjetbrowser.com/release/archive/20.0.5.0/">Slimjet</a>，因为它使用 chromium 引擎版本 68</p>
+            <p>使用示例：</p>
             <ol>
-                <li>You can inspect UI elements. Click on the "Inspect element" tool, then go to the game, and hover over any UI elements. You might need to open the UI view you want to inspect before activating this tool.
+                <li>你可以检查用户界面元素。点击"检查元素"工具，然后转到游戏，并将鼠标悬停在任何用户界面元素上。你可能需要在激活此工具之前打开要检查的用户界面视图。
                     <img src="/modding_guide/images/essentials/debugging/inspect_element_tool.png" alt="inspect_element_tool"/>
                 </li>
-                <li>Click on the one you want to inspect, and go to the browser. It will be selected in the HTML, and you can check all its properties, temporarily tweak its CSS, etc.
+                <li>点击你要检查的元素，然后转到浏览器。它将在 HTML 中被选中，你可以检查其所有属性，临时调整其 CSS 等。
                     <img src="/modding_guide/images/essentials/debugging/inspecting_element.png" alt="inspecting_element"/>
                     <img src="/modding_guide/images/essentials/debugging/inspected_element.png" alt="inspected_element"/>
                 </li>
-                <li>You can also check for Javascript warnings and errors in the web console.
+                <li>你还可以在网络控制台中检查 Javascript 警告和错误。
                     <img src="/modding_guide/images/essentials/debugging/web_console.png" alt="web_console"/>
                 </li>
-                <li>And you can debug your Javascript code with the CEF debugger. Mind that sometimes it might become unresponsive and you might need to reload it.
+                <li>你可以使用 CEF 调试器调试你的 Javascript 代码。请注意，有时它可能会无响应，你可能需要重新加载它。
                     <img src="/modding_guide/images/essentials/debugging/cef_debugger.png" alt="cef_debugger"/>
                 </li>
             </ol>
-            <h2><a name="QuickTesting"></a>Testing your mods faster</h2>
-            <p>In order to test your mods more easily you can use the <strong>debugtools</strong> that come bundled with the game. Instructions on how to use them <a href="../debugtools/debugtools_mod/index.html">here</a>. Some of the commands from the default console can be used by shift+clicking an entity in the game. This is faster than having to type the command in the console.</p>
-            <p>Tired of starting new games every time you need to test a new change?
-                You can <strong>shorten the world generation</strong> step by adding this to your user_settings.json file at the same level than the "user_id" node:
+            <h2><a name="QuickTesting"></a>更快地测试你的模组</h2>
+            <p>为了更轻松地测试你的模组，你可以使用游戏附带的 <strong>debugtools</strong>。如何使用它们的说明在<a href="../debugtools/debugtools_mod/index.html">这里</a>。默认控制台的一些命令可以通过在游戏中 shift+点击实体来使用。这比必须在控制台中输入命令更快。</p>
+            <p>厌倦了每次需要测试新更改时都启动新游戏？
+                你可以通过将此内容添加到 user_settings.json 文件中与 "user_id" 节点相同的级别来<strong>缩短世界生成</strong>步骤：
             </p>
             <pre><code>  "mods" : {
      "stonehearth" : {
@@ -92,20 +92,20 @@
      }
   }
 </code></pre>
-            <p>You might already have these "mods" : { "stonehearth" : {} } keys in your settings so just paste the "world_generation" node at the corresponding level (but remember to add commas where needed). This will generate a tiny world so it will take less time to load it.
+            <p>你的设置中可能已经有这些 "mods" : { "stonehearth" : {} } 键，所以只需在相应级别粘贴 "world_generation" 节点（但记得在需要的地方添加逗号）。这将生成一个微型世界，因此加载它将花费更少的时间。
                 <img src="/modding_guide/images/essentials/debugging/tiny_world_ui.png" alt="tiny_world_ui"/>
                 <img src="/modding_guide/images/essentials/debugging/tiny_world_terrain.png" alt="tiny_world_terrain"/>
             </p>
-            <h2><a name="Microworld"></a>Microworld</h2>
-            <p>You can also create your own <a href="../../intermediate/testing/index.html">test worlds</a> with the help of this mod. Microworld, once configured in your user_settings.json, will skip the main menu and load directly your test world, which is much faster.</p>
-            <h2><a name="LoadingSaves"></a>Loading savefiles</h2>
-            <p>If you want to fix save compatibility for your own mods, there's a faster way to load a specific savefile for testing. You can add these keys to your user_settings.json at the same level than your user_id:</p>
+            <h2><a name="Microworld"></a>微型世界（Microworld）</h2>
+            <p>你还可以在此模组的帮助下创建自己的<a href="../../intermediate/testing/index.html">测试世界</a>。Microworld 一旦在你的 user_settings.json 中配置，将跳过主菜单并直接加载你的测试世界，这要快得多。</p>
+            <h2><a name="LoadingSaves"></a>加载存档</h2>
+            <p>如果你想修复自己模组的存档兼容性，有一种更快的方法来加载特定存档进行测试。你可以在 user_settings.json 中与 user_id 相同的级别添加这些键：</p>
             <pre><code>  "game" : {
      "load_game" : "test_save"
   }
 </code></pre>
-            <p>Remember to add commas where needed so that the JSON is still valid. The value for <strong>"load_game"</strong> should be the name of the folder of the savefile you want to load.</p>
-            <p>Don't forget to remove this key or prefix it with an underscore ("_load_game") to invalidate it, whenever you want to run the normal game again.</p>
+            <p>记得在需要的地方添加逗号，以便 JSON 仍然有效。<strong>"load_game"</strong> 的值应该是你想要加载的存档文件夹的名称。</p>
+            <p>每当你想再次运行正常游戏时，不要忘记删除此键或为其添加下划线前缀（"_load_game"）以使其无效。</p>
         </main>
     </body>
 </html>

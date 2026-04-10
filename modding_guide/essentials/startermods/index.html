@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,45 +7,45 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Startermod example</title>
+        <title>入门模组示例</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Startermod example</h1>
+            <h1>入门模组示例</h1>
             <p>
-            <h2><a name="FirstSteps"></a>First steps with modding</h2>
+            <h2><a name="FirstSteps"></a>模组制作的第一步</h2>
             </p>
-            <p>We have several starter mods available to get started with modding Stonehearth. It is recommended to start making small mods (or modifying existing ones), to get used to the structure and modding API, and then try more complex modding if you want to venture with Lua files.</p>
-            <p>After reading the essentials guide you should be able to create your own mod from scratch, but let's start by modifying existing mods to get used to the files. We're going to use a sample mod called startermod_basic, whose manifest is way less overwhelming than the stonehearth mod's one:</p>
+            <p>我们有几个入门模组可供开始制作 Stonehearth 模组。建议从制作小模组（或修改现有模组）开始，以熟悉结构和模组 API，然后如果你想尝试 Lua 文件，再尝试更复杂的模组制作。</p>
+            <p>阅读基础指南后，你应该能够从头创建自己的模组，但让我们先从修改现有模组开始以熟悉文件。我们将使用一个名为 startermod_basic 的示例模组，其清单文件比 stonehearth 模组的清单文件简单得多：</p>
             <ol>
-                <li>Download the <a href="https://github.com/stonehearth/startermod_basic">startermod_basic</a> mod from Github.</li>
-                <li>Unzip it to your stonehearth mods directory, as a peer to stonehearth.smod and radiant.smod. <br/>
-                    <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Some compression software might create an inner subfolder with the same name. Make sure that after unzipping the mod, the directory from the mods folder looks like <strong>mods/startermod_basic/&lt; files of the mod ></strong> and not like mods/startermod_basic/startermod_basic/&lt; files of the mod >.
+                <li>从 Github 下载 <a href="https://github.com/stonehearth/startermod_basic">startermod_basic</a> 模组。</li>
+                <li>将其解压到你的 stonehearth 模组目录中，与 stonehearth.smod 和 radiant.smod 并列。<br/>
+                    <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 某些压缩软件可能会创建一个同名的内部子文件夹。确保解压模组后，模组目录的结构为 <strong>mods/startermod_basic/&lt; 模组文件 ></strong>，而不是 mods/startermod_basic/startermod_basic/&lt; 模组文件 >。
                 </li>
-                <li>Inside the startermod_basic folder, you should see several folders and some files, one of them called manifest.json.</li>
-                <li>Start the game. In the Main Menu, click on the Mods button. You should see the startermod_basic mod listed in the Local Mods list and enabled. While we're here, enable the debugtools mod if it isn't.</li>
+                <li>在 startermod_basic 文件夹内，你应该看到几个文件夹和一些文件，其中一个名为 manifest.json。</li>
+                <li>启动游戏。在主菜单中，点击模组按钮。你应该在本地模组列表中看到 startermod_basic 模组并已启用。当我们在这里时，如果 debugtools 模组未启用，请启用它。</li>
             </ol>
-            <p>The mod adds two new objects to the world, and a new recipe to the carpenter, so that you can see at least one of the objects in the world.</p>
-            <p>Before digging into the mod's files, start a new game and make a carpenter. You should see a "Sample Recipe" in his recipe list under the "furniture" category. The Sample Recipe creates a decorative object that you can place in the world.
+            <p>该模组向世界添加了两个新对象，并为木匠添加了一个新配方，以便你至少可以看到世界中的一个对象。</p>
+            <p>在深入探讨模组的文件之前，开始一个新游戏并制作一个木匠。你应该在他的配方列表中的"家具"类别下看到一个"Sample Recipe"（示例配方）。示例配方创建一个你可以放置在世界中的装饰对象。
                 <img src="/modding_guide/images/essentials/startermods/sample_recipe.png" alt="sample_recipe"/>
             </p>
-            <p>startermod_basic also adds a "Sample Object" to the world. This object is so basic that it has almost no use in the game. In order to even see it (as it does not participate in any recipes), you must open the item stamper debug tool, and type:</p>
+            <p>startermod_basic 还向世界添加了一个"Sample Object"（示例对象）。这个对象非常基础，在游戏中几乎没有用途。为了甚至看到它（因为它不参与任何配方），你必须打开物品生成器调试工具，并输入：</p>
             <pre><code>  startermod_basic:sample_object
 </code></pre>
-            <p>Press enter and then click somewhere on the ground of the game:
+            <p>按 Enter 键，然后点击游戏中的地面某处：
                 <img src="/modding_guide/images/essentials/startermods/sample_object.png" alt="sample_object"/>
             </p>
-            <p>Now that you've seen what the startermod_basic adds to the game, you are now ready to use this mod to add your own objects to Stonehearth.</p>
-            <p>The simplest way is to replace the sample object's model file (startermod_basic/entities/sample_object/sample.qb) with your own model. (To create a stonehearth model, you want a voxel editing program that can save things in the .qb file format. Go to the <a href="../tools/index.html">tools</a> or the <a href="../../basic/art/index.html">art sections</a> of the guide to find out how).</p>
-            <p>Once you've named your new model sample.qb and copied it into the folder by overwriting the existing sample.qb file, restart Stonehearth and use the item stamper to see your model inside the game.</p>
-            <p>If you do this model replacement with the decorative object that the carpenter makes, he will craft your decorative object, instead of the default one.</p>
-            <p>You can add additional objects to the mod by copying the example of sample_object and the decorative object and modifying the files. Try these exercises:</p>
+            <p>现在你已经看到了 startermod_basic 向游戏添加的内容，你现在可以使用此模组向 Stonehearth 添加你自己的对象了。</p>
+            <p>最简单的方法是用你自己的模型替换示例对象的模型文件（startermod_basic/entities/sample_object/sample.qb）。（要创建 stonehearth 模型，你需要一个可以保存 .qb 文件格式的体素编辑程序。前往指南的<a href="../tools/index.html">工具</a>或<a href="../../basic/art/index.html">美术部分</a>了解如何操作）。</p>
+            <p>一旦你将新模型命名为 sample.qb 并通过覆盖现有的 sample.qb 文件将其复制到文件夹中，重新启动 Stonehearth 并使用物品生成器在游戏中查看你的模型。</p>
+            <p>如果你用木匠制作的装饰对象进行此模型替换，他将制作你的装饰对象，而不是默认对象。</p>
+            <p>你可以通过复制 sample_object 和装饰对象的示例并修改文件来向模组添加其他对象。尝试这些练习：</p>
             <ul>
-                <li>Create a brand new object in the startermod_basic mod, and use the debugtools item stamper to put both it and the sample_object down into the world.</li>
-                <li>Give your carpenter an additional recipe, that will enable him to create your object.</li>
+                <li>在 startermod_basic 模组中创建一个全新的对象，并使用 debugtools 物品生成器将它和 sample_object 放置到世界中。</li>
+                <li>给你的木匠一个额外的配方，使他能够创建你的对象。</li>
             </ul>
-            <p>If you have read the essentials guide you should be able to figure out those exercises by now. This mod is small so you won't be overwhelmed due to too many files. Just in case, we'll be covering how to <a href="../../basic/adding_items/index.html">create items</a> and <a href="../../basic/craftables/index.html">recipes</a> in other sections of the modding guide.</p>
+            <p>如果你已经阅读了基础指南，你现在应该能够弄清楚这些练习。这个模组很小，所以你不会因为太多文件而感到不知所措。以防万一，我们将在模组制作指南的其他部分介绍如何<a href="../../basic/adding_items/index.html">创建物品</a>和<a href="../../basic/craftables/index.html">配方</a>。</p>
         </main>
     </body>
 </html>

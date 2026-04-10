@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
      <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,24 +7,24 @@
           <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
           <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
           <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-          <title>Mixintos and overrides</title>
+          <title>Mixintos 和 Overrides</title>
      </head>
      <body>
           <script src="/modding_guide/menus.js"></script>
           <main>
-               <h1>Mixintos and overrides</h1>
-               <p>Using Mixintos and Overrides, you'll be able to modify content in the Stonehearth mod (or in any mod, actually) without tampering with the mod's internal files. Both mixintos and overrides are specified in your mod's manifest.</p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Remember to add commas only when <a href="../json/index.html">needed</a>, or the game won't be able to read your manifest and it won't be able to load your mod. See these other <a href="../debugging/index.html">tips</a> for debugging.</p>
+               <h1>Mixintos 和 Overrides</h1>
+               <p>使用 Mixintos 和 Overrides，你将能够修改 Stonehearth 模组（或任何模组）中的内容，而无需篡改模组的内部文件。Mixintos 和 Overrides 都在你的模组清单中指定。</p>
+               <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 记得仅在<a href="../json/index.html">需要时</a>添加逗号，否则游戏将无法读取你的清单并且无法加载你的模组。查看这些其他<a href="../debugging/index.html">提示</a>以进行调试。</p>
                <ul>
-                    <li><a href="#Mixintos">The mixinto</a></li>
-                    <li><a href="#ModifyingMixinto">Modifying content using mixintos</a></li>
-                    <li><a href="#Override">The override</a></li>
-                    <li><a href="#OverrideNonExisting">Injecting content using overrides</a></li>
-                    <li><a href="#Compatibility">Mod compatibility</a></li>
+                    <li><a href="#Mixintos">Mixinto</a></li>
+                    <li><a href="#ModifyingMixinto">使用 Mixintos 修改内容</a></li>
+                    <li><a href="#Override">Override</a></li>
+                    <li><a href="#OverrideNonExisting">使用 Overrides 注入内容</a></li>
+                    <li><a href="#Compatibility">模组兼容性</a></li>
                </ul>
-               <h2><a name="Mixintos"></a>The mixinto</h2>
-               <p>A "mixinto" allows for pushing content into existing files from a different mod. An outside mod (like your mod!) specifies what content to push into a destination data file. Mixintos only work for JSON files, we can't add to nor modify Lua/HTML/Javascript/other types of files with them.</p>
-               <p>Let's take a look at the manifest from the <code>rayyas_children</code> mod, which uses mixintos to inject content into the <code>stonehearth</code> mod. This is the "mixintos" node from its manifest (located at the same level than "info"):</p>
+               <h2><a name="Mixintos"></a>Mixinto</h2>
+               <p>"Mixinto" 允许将内容推送到来自不同模组的现有文件中。外部模组（如你的模组！）指定要将什么内容推送到目标数据文件中。Mixintos 仅适用于 JSON 文件，我们无法使用它们添加或修改 Lua/HTML/Javascript/其他类型的文件。</p>
+               <p>让我们看看 <code>rayyas_children</code> 模组的清单，它使用 mixintos 将内容注入到 <code>stonehearth</code> 模组中。这是其清单中的 "mixintos" 节点（位于与 "info" 相同的级别）：</p>
                <pre><code>  "mixintos": {
      "stonehearth:playable_kingdom_index": "file(data/rc_playable_kingdom_index.json)",
      "stonehearth:data:gm_index": "rayyas_children:data:gm_index",
@@ -34,18 +34,18 @@
      "stonehearth:gm:campaigns:arcs:ambient_threats": "file(data/mixintos/encounters/rc_ambient_threats_arc.json)"
   }
 </code></pre>
-               <p>As you can see, the keys on the left are references to assets from the stonehearth mod, while the values on the right refer to files in the rayyas_children mod that contain the data that we want to mix into those assets. In the "mixintos" node we can use either aliases or paths, for both keys and values.</p>
-               <p>For mixintos, we ALWAYS need to prefix the keys on the left with the <strong>namespace</strong> of the other mod plus a <strong>colon</strong>, in this case <code>"stonehearth:"</code>. If it's a path, it should be in the form <strong><code>"/&lt;other_mod_namespace&gt;/..."</code></strong> (in the example above, instead of the alias "stonehearth:data:gm_index" we could have used the path "/stonehearth/data/gm/gm_index.json").</p>
-               <p>This way the game knows exactly which file from which mod do we want to alter, since it's easy to have files with the same name in different mods.</p>
-               <p>If you use aliases for the values (on the right) inside the "mixintos" node, make sure they are always prefixed by the namespace of your mod, too. If you use paths, they can be either <a href="../mixins/index.html#RelativePaths">relative</a> or <a href="../mixins/index.html#AbsolutePaths">"absolute"</a>.</p>
-               <p>Our mixintos shouldn't be an exact copy of the original file from the other mod, they should contain just the part that we want to add or modify. For example, this is what the rc_playable_kingdom_index.json mixinto looks like:</p>
+               <p>正如你所见，左侧的键是对 stonehearth 模组中资源的引用，而右侧的值指的是 rayyas_children 模组中包含我们要混入到这些资源中的数据的文件。在 "mixintos" 节点中，我们可以对键和值使用别名或路径。</p>
+               <p>对于 mixintos，我们总是需要用其他模组的<strong>命名空间</strong>加上<strong>冒号</strong>作为左侧键的前缀，在这种情况下是 <code>"stonehearth:"</code>。如果是路径，它应该是 <strong><code>"/&lt;other_mod_namespace&gt;/..."</code></strong> 的形式（在上面的示例中，我们可以使用路径 "/stonehearth/data/gm/gm_index.json" 而不是别名 "stonehearth:data:gm_index"）。</p>
+               <p>这样游戏就能准确知道我们要修改哪个模组的哪个文件，因为在不同模组中很容易有同名的文件。</p>
+               <p>如果你在 "mixintos" 节点中对值（右侧）使用别名，请确保它们也始终以你的模组命名空间为前缀。如果你使用路径，它们可以是<a href="../mixins/index.html#RelativePaths">相对</a>或<a href="../mixins/index.html#AbsolutePaths">"绝对"</a>路径。</p>
+               <p>我们的 mixintos 不应该是其他模组原始文件的精确副本，它们应该只包含我们要添加或修改的部分。例如，这是 rc_playable_kingdom_index.json mixinto 的样子：</p>
                <pre><code>  {
      "kingdoms": {
         "rayyas_children" : "rayyas_children:kingdoms:rayyas_children"
      }
   }
 </code></pre>
-               <p>And this is the original playable_kingdom_index.json from the stonehearth mod:</p>
+               <p>这是 stonehearth 模组中原始的 playable_kingdom_index.json：</p>
                <pre><code>  {
      "type": "index",
      "kingdoms": {
@@ -53,7 +53,7 @@
      }
   }
 </code></pre>
-               <p>In the mixinto, we need to specify the parent nodes (in this case, "kingdoms") so that the game will know exactly at which level of the JSON nodes inject our content. After applying the mixinto from rayyas_children, the playable_kingdom_index from stonehearth will be read by the game as the following, effectively adding a new kingdom to the list of available choices:</p>
+               <p>在 mixinto 中，我们需要指定父节点（在这种情况下是 "kingdoms"），以便游戏确切知道在 JSON 节点的哪个级别注入我们的内容。应用来自 rayyas_children 的 mixinto 后，stonehearth 的 playable_kingdom_index 将被游戏读取为以下内容，有效地在可用选择列表中添加了一个新王国：</p>
                <pre><code>  {
      "type": "index",
      "kingdoms": {
@@ -62,9 +62,9 @@
      }
   }
 </code></pre>
-               <p>For most of the cases, we will create aliases for our new entities, then inject them via mixinto into the corresponding files from the stonehearth mod. Examples would be adding new crafting recipes, new factions, new biomes, new traits, new commands, etc.</p>
-               <h2><a name="ModifyingMixinto"></a>Modifying content using mixintos</h2>
-               <p>We can change existing content with mixintos, if the value we want to change is not an object nor an array. For example, we can change the scale of an existing entity using a mixinto like this one:</p>
+               <p>在大多数情况下，我们将为我们的新实体创建别名，然后通过 mixinto 将它们注入到 stonehearth 模组的相应文件中。示例包括添加新的制作配方、新派系、新生物群系、新特性、新命令等。</p>
+               <h2><a name="ModifyingMixinto"></a>使用 Mixintos 修改内容</h2>
+               <p>我们可以使用 mixintos 更改现有内容，如果我们要更改的值不是对象或数组。例如，我们可以使用这样的 mixinto 更改现有实体的缩放比例：</p>
                <pre><code>  {
      "components": {
         "render_info": {
@@ -73,32 +73,32 @@
      }
   }
 </code></pre>
-               <p>In this case, the final value after the files have been merged will be the one from our mixinto.</p>
-               <h2><a name="Override"></a>The override</h2>
-               <p>Mixintos are used to modify or enhance the content in a mod. An override will completely overwrite that asset. Here's the syntax for adding an override in the manifest (the "overrides" node is located at the same level than "info"):</p>
+               <p>在这种情况下，文件合并后的最终值将是我们 mixinto 中的值。</p>
+               <h2><a name="Override"></a>Override</h2>
+               <p>Mixintos 用于修改或增强模组中的内容。Override 将完全覆盖该资源。这是在清单中添加 override 的语法（"overrides" 节点位于与 "info" 相同的级别）：</p>
                <pre><code>  "overrides": {
      "/stonehearth/entities/critters/poyo/poyo.qb": "file(sandy_poyo/sandy_poyo_tan.qb)"
   }
 </code></pre>
-               <p>Just like with mixintos, we specify an alias (preceded by the namespace of the mod we want to modify plus a colon) or an <a href="../mixins/index.html#AbsolutePaths">"absolute"</a> path (if for example the specific asset doesn't have an alias for it) and then we tell which file of our mod do we want to override it with, either with an alias (preceded by our mod's namespace plus a colon), or with a <a href="../manifest/index.html#Filepaths">path</a> (either <a href="../mixins/index.html#RelativePaths">relative</a> or <a href="../mixins/index.html#AbsolutePaths">"absolute"</a>). </p>
-               <p>While mixintos allow for many mods to add content to the same files, overrides completely replace that file. This means that if two mods override the same file, only one of them will win, which can cause compatibility problems. Thus, overriding is not recommended for code files, but it can be useful for things like swapping models or images in some cases. </p>
-               <p>For example, the override above (which pertains to a deferred manifest) is applied when we choose to play in the desert biome, and changes the .qb model of poyos to be more fitting with the desert theme.</p>
-               <h2><a name="OverrideNonExisting"></a>Injecting content using overrides</h2>
-               <p>We can add certain type of content using overrides, too. This is useful when we need to add animations to hearthlings, for example, since the list of effects for those is not an index, just a path to a folder inside the stonehearth mod, so there's no file that we can mixinto to.</p>
-               <p>In order to do this, we can specify a path that doesn't exist in the stonehearth mod, pointing to the file in our mod. Animations are specified in effect files, so we would have an effect file that references an animation in our mod's folder. This is how it would look in our manifest, in the overrides node:</p>
+               <p>就像 mixintos 一样，我们指定一个别名（前面加上我们要修改的模组命名空间和冒号）或<a href="../mixins/index.html#AbsolutePaths">"绝对"</a>路径（如果例如特定资源没有别名），然后我们告诉游戏要用我们模组的哪个文件覆盖它，可以使用别名（前面加上我们的模组命名空间和冒号），或使用<a href="../manifest/index.html#Filepaths">路径</a>（<a href="../mixins/index.html#RelativePaths">相对</a>或<a href="../mixins/index.html#AbsolutePaths">"绝对"</a>）。</p>
+               <p>虽然 mixintos 允许多个模组向同一文件添加内容，但 overrides 会完全替换该文件。这意味着如果两个模组覆盖同一个文件，只有一个会胜出，这可能导致兼容性问题。因此，不建议对代码文件使用 override，但在某些情况下它对交换模型或图像很有用。</p>
+               <p>例如，上面的 override（属于延迟清单）在我们选择在沙漠生物群系中游玩时应用，并将 poyos 的 .qb 模型更改为更适合沙漠主题。</p>
+               <h2><a name="OverrideNonExisting"></a>使用 Overrides 注入内容</h2>
+               <p>我们也可以使用 overrides 添加某些类型的内容。当我们需要向 Hearthlings 添加动画时，这很有用，因为这些效果列表不是索引，只是指向 stonehearth 模组内文件夹的路径，所以没有我们可以 mixinto 的文件。</p>
+               <p>为了做到这一点，我们可以指定一个在 stonehearth 模组中不存在的路径，指向我们模组中的文件。动画在效果文件中指定，所以我们会有一个引用我们模组文件夹中动画的效果文件。这在清单的 overrides 节点中看起来是这样的：</p>
                <pre><code>  "overrides" : {
      "stonehearth/data/rigs/entities/humans/effects/my_effect.json" : "/my_mod_namespace/my_effect.json",
      "stonehearth/data/rigs/entities/humans/animations/female/my_anim.json": "/my_mod_namespace/animations/female/my_anim.json",
      "stonehearth/data/rigs/entities/humans/animations/male/my_anim.json": "/my_mod_namespace/animations/male/my_anim.json"
   }
 </code></pre>
-               <p>Of course you can have the same path in your mod so that your files are organized in the same way than in the stonehearth mod, if you want.</p>
-               <p>In this case, "my_effect.json" does not exist in the stonehearth mod, only in our mod, but by specifying it like this in the manifest, the game will think that it really has that non-existent file and will override it with our content. When will this effect/animation be played is another issue.</p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Notice that the paths in these overrides (the paths to files that don't exist inside the stonehearth mod) <strong>don't</strong> start by a forward slash. For this type of overrides they must be declared this way, otherwise they won't work. <br/>
-                    Other full paths in the manifest and the rest of files must start by a forward slash unless specified otherwise. Some of them will work fine either with or without the slash but for consistency we'll be using the same syntax throughout our examples.
+               <p>当然，如果你愿意，你可以在模组中使用相同的路径，以便你的文件组织方式与 stonehearth 模组相同。</p>
+               <p>在这种情况下，"my_effect.json" 在 stonehearth 模组中不存在，只存在于我们的模组中，但通过在清单中这样指定，游戏会认为它确实有这个不存在的文件，并用我们的内容覆盖它。这个效果/动画何时播放是另一个问题。</p>
+               <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 注意这些 overrides 中的路径（指向 stonehearth 模组中不存在的文件的路径）<strong>不</strong>以正斜杠开头。对于这种类型的 overrides，必须以这种方式声明，否则它们将无法工作。<br/>
+                    清单和其他文件中的其他完整路径必须以正斜杠开头，除非另有说明。其中一些无论有没有斜杠都能正常工作，但为了保持一致性，我们将在示例中使用相同的语法。
                </p>
-               <h2><a name="Compatibility"></a>Mod compatibility</h2>
-               <p>As you can guess, when several mods mixinto the same file all the new content will be read. If the mixintos change specific values, it will happen the same than with overrides, only one mod will win, so be aware of your changes to notify users of possible incompatibilities with mods that touch the same files as yours.</p>
+               <h2><a name="Compatibility"></a>模组兼容性</h2>
+               <p>你可以猜到，当多个模组 mixinto 同一个文件时，所有新内容都会被读取。如果 mixintos 更改特定值，情况将与 overrides 相同，只有一个模组会胜出，所以要注意你对文件的更改，以通知用户可能与触及与你相同文件的模组存在不兼容性。</p>
                <!-- Hakz, I say!! https://discourse.stonehearth.net/t/strange-question/33910/2 -->
           </main>
      </body>

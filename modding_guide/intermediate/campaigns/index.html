@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,50 +7,50 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Adding campaigns</title>
+      <title>添加战役</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Adding campaigns</h1>
-         <p>The game_master service is responsible for managing the different campaigns for the players. We can trigger different campaigns depending on the kingdom that the player chose, and also depending on factors such as the biome, game mode, etc.</p>
+         <h1>添加战役</h1>
+         <p>game_master 服务负责管理玩家的不同战役。我们可以根据玩家选择的王国触发不同的战役，也可以根据生物群系、游戏模式等因素触发。</p>
          <ul>
-            <li><a href="#Campaigns">What are campaigns, arcs and encounters?</a></li>
-            <li><a href="#GMTree">Game master tree</a></li>
-            <li><a href="#Edges">In-edges and out-edges</a></li>
-            <li><a href="#CanStart">Starting encounters conditionally</a></li>
-            <li><a href="#Planning">Planning your campaigns</a></li>
-            <li><a href="#AddingCampaigns">How to create campaigns</a></li>
-            <li><a href="#AddingArcs">How to create arcs</a></li>
-            <li><a href="#CreatingEncounters">How to create encounters</a></li>
-            <li><a href="encounters/index.html">The generic encounters</a></li>
-            <li><a href="#CustomEncounterType">How to create your own encounter type</a></li>
-            <li><a href="#Testing">How to test your campaigns with debugtools</a></li>
-            <li><a href="#SHED">Editing campaigns with SHED</a></li>
+            <li><a href="#Campaigns">什么是战役、弧线和遭遇？</a></li>
+            <li><a href="#GMTree">游戏主持者树</a></li>
+            <li><a href="#Edges">入边和出边</a></li>
+            <li><a href="#CanStart">有条件地启动遭遇</a></li>
+            <li><a href="#Planning">规划你的战役</a></li>
+            <li><a href="#AddingCampaigns">如何创建战役</a></li>
+            <li><a href="#AddingArcs">如何创建弧线</a></li>
+            <li><a href="#CreatingEncounters">如何创建遭遇</a></li>
+            <li><a href="encounters/index.html">通用遭遇</a></li>
+            <li><a href="#CustomEncounterType">如何创建你自己的遭遇类型</a></li>
+            <li><a href="#Testing">如何使用 debugtools 测试你的战役</a></li>
+            <li><a href="#SHED">使用 SHED 编辑战役</a></li>
          </ul>
-         <h2><a name="Campaigns"></a>What are campaigns, arcs and encounters?</h2>
-         <p>Campaigns are narrative-guided gameplay events (for example the goblin campaign, the trader campaign, etc).</p>
-         <p>They are divided into arcs, each of which fulfills a dramatic/gameplay purpose, and which are made up of encounters.</p>
-         <p>Encounters are campaign-specific instances of generic, modular, gameplay pieces. A generic encounter (such as spawn camp, or show dialog) can be re-skinned or instantiated with a specific campaign in mind, and put together with other encounters to create many possible narratively-coherent gameplay challenges.</p>
-         <p>For example, the goblin campaign, which throws increasing numbers of enemies at the player, is made of three arcs (beginning, hit-and-run, and finale) and multiple goblin-specific instances of a few basic, generic encounters (spawn camp, wait, city raid, etc).</p>
-         <h2><a name"GMTree"></a>Game master tree</h2>
-         <p>All encounters, arcs, and campaigns are nodes (they inherit from <code>stonehearth/services/server/game_master/controllers/node.lua</code>) and exist in a tree, with the game master controller as root node. You can visualize them in the <a href="../../essentials/debugtools/debugtools_mod/index.html#CampaignBrowser">Campaign browser</a> from debugtools:</p>
+         <h2><a name="Campaigns"></a>什么是战役、弧线和遭遇？</h2>
+         <p>战役是叙事引导的游戏事件（例如 goblin 战役、trader 战役等）。</p>
+         <p>它们被分为弧线，每个弧线都实现戏剧性/游戏性目的，并由遭遇组成。</p>
+         <p>遭遇是针对特定战役的通用、模块化游戏片段的实例。一个通用遭遇（如 spawn camp 或 show dialog）可以重新皮肤化或以特定战役为目标实例化，并与其他遭遇组合在一起，创建许多可能的叙事连贯的游戏挑战。</p>
+         <p>例如，goblin 战役向玩家抛出越来越多的敌人，由三个弧线（开始、游击和 finale）以及几个基本通用遭遇的多个 goblin 特定实例（spawn camp、wait、city raid 等）组成。</p>
+         <h2><a name="GMTree"></a>游戏主持者树</h2>
+         <p>所有遭遇、弧线和战役都是节点（它们继承自 <code>stonehearth/services/server/game_master/controllers/node.lua</code>）并存在于树中，以 game master 控制器为根节点。你可以在 debugtools 的<a href="../../essentials/debugtools/debugtools_mod/index.html#CampaignBrowser">Campaign browser</a>中可视化它们：</p>
          <p><img src="/modding_guide/images/intermediate/campaigns/campaign_browser_tree.png" alt="campaign_browser_tree"/></p>
-         <p>The game master has campaigns (as children), campaigns have arcs (Trigger, Challenge, Climax), and arcs have encounters. Encounters themselves actually run the content using a reusable script (e.g.: <code>create_camp_encounter.lua</code>) and the JSON data of the specific node listed in the arc index file (e.g.: <code>ambient_threats_arc.json</code>) to customize the encounter parameters.</p>
-         <p>All the existing campaigns, arcs and encounters can be found inside subdirectories of <code>stonehearth/data/gm</code>.</p>
-         <h2><a name="Edges"></a>In-edges and out-edges</h2>
-         <p>Each encounter node needs to have what we call an <strong>"in_edge"</strong> and can have zero, one, or more <strong>"out_edge"</strong>s.</p>
-         <p>These are used to shape a graph or tree that defines the flow of the campaign. The in_edge is a custom identifier, usually the same name than the encounter file, so that different nodes can trigger the same encounters. Example from <code>daily_report_encounter.json</code>:</p>
+         <p>游戏主持者有战役（作为子节点），战役有弧线（Trigger、Challenge、Climax），弧线有遭遇。遭遇本身实际上使用可重用脚本（例如：<code>create_camp_encounter.lua</code>）和列在弧线索引文件中的特定节点的 JSON 数据（例如：<code>ambient_threats_arc.json</code>）来运行内容，以自定义遭遇参数。</p>
+         <p>所有现有的战役、弧线和遭遇都可以在 <code>stonehearth/data/gm</code> 的子目录中找到。</p>
+         <h2><a name="Edges"></a>入边和出边</h2>
+         <p>每个遭遇节点都需要有我们称之为 <strong>"in_edge"</strong> 的内容，并且可以有零个、一个或多个 <strong>"out_edge"</strong>。</p>
+         <p>这些用于塑造定义战役流的图或树。in_edge 是一个自定义标识符，通常与遭遇文件同名，以便不同的节点可以触发相同的遭遇。来自 <code>daily_report_encounter.json</code> 的示例：</p>
          <pre><code>  "in_edge": "daily_report_encounter",
 </code></pre>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> For the first encounter of each arc, the <strong>"in_edge"</strong> must be <strong>"start"</strong>. You can only have one encounter with this in_edge per arc.</p>
-         <p><a name="OutEdge"></a>For out_edges, the syntax will vary. Examples:</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 对于每个弧线的第一个遭遇，<strong>"in_edge"</strong> 必须是 <strong>"start"</strong>。每个弧线只能有一个具有此 in_edge 的遭遇。</p>
+         <p><a name="OutEdge"></a>对于 out_edges，语法会有所不同。示例：</p>
          <ul>
             <li>
-               <p>Trigger one -- after this encounter finishes executing, it will trigger only one encounter (in this case, an encounter whose in_edge is "create_camps"):</p>
+               <p>Trigger one -- 在此遭遇执行完成后，它将仅触发一个遭遇（在这种情况下，in_edge 为 "create_camps" 的遭遇）：</p>
                <pre><code>"out_edge" : "create_camps",
 </code></pre>
-               <p>  This other encounter will trigger one encounter chosen randomly from the ones in the array:</p>
+               <p>  另一个遭遇将从数组中的遭遇中随机选择一个触发：</p>
                <pre><code>"out_edge": {
    "type": "trigger_one",
    "out_edges": [
@@ -68,8 +68,8 @@
    "fallback": "quest_finish"
 }
 </code></pre>
-               <p>  The <strong>"fallback"</strong> key points to an encounter that will be triggered if none of the encounters in the array can be triggered (all of their "can_start" checks fail). It is optional.</p>
-               <p>  This will do the same, but the edges will have a weight so that we can control the chances of trigger each one of them:</p>
+               <p>  <strong>"fallback"</strong> 键指向如果数组中的任何遭遇都无法触发（它们的 "can_start" 检查全部失败）时将触发的遭遇。它是可选的。</p>
+               <p>  这将执行相同的操作，但边将有权重，以便我们可以控制触发每个边的机会：</p>
                <pre><code>"out_edge": {
    "type": "trigger_one",
       "out_edges": [
@@ -89,19 +89,19 @@
 </code></pre>
             </li>
             <li>
-               <p>Trigger many -- this encounter will trigger all of the encounters in the array at the same time once it finishes executing:</p>
+               <p>Trigger many -- 此遭遇在执行完成后将同时触发数组中的所有遭遇：</p>
                <pre><code>"out_edge": {
    "type": "trigger_many",
    "out_edges": [
       "check_honor_token",
-      "wait_for_mountain_event", 
+      "wait_for_mountain_event",
       "wait_for_ogo_death"
    ]
 }
 </code></pre>
             </li>
             <li>
-               <p>Trigger sequence -- this will trigger a sequence of edges, one each time this out edge specification is triggered (so usually you'd use this in a generator encounter, or in an encounter that can get triggered many times):</p>
+               <p>Trigger sequence -- 这将触发一系列边，每次触发此出边规范时触发一个（所以通常你会在生成器遭遇或可以多次触发的遭遇中使用它）：</p>
                <pre><code>"out_edge": {
    "type": "trigger_sequence",
    "out_edges": [
@@ -114,20 +114,20 @@
    "repeat_last": false
 }
 </code></pre>
-               <p>  The entries inside the array can be either names of out edges, like for the "trigger_many" type, or an object with an <strong>"out_edge"</strong> and a <strong>"repeats"</strong> field. This will make the encounter repeat N times before the next encounter of the sequence gets triggered. Optionally we can also define a <strong>"repeat_last"</strong> field outside of the array (defaults to <strong>false</strong>). If we set it to <strong>true</strong>, the last encounter will repeat forever each time this encounter triggers an out edge after finishing the sequence, otherwise the sequence will just stop after finishing with the last encounter.</p>
+               <p>  数组内的条目可以是出边的名称，如 "trigger_many" 类型，或者是具有 <strong>"out_edge"</strong> 和 <strong>"repeats"</strong> 字段的对象。这将使遭遇在序列中的下一个遭遇被触发之前重复 N 次。我们还可以选择在数组外定义 <strong>"repeat_last"</strong> 字段（默认为 <strong>false</strong>）。如果我们将其设置为 <strong>true</strong>，最后一个遭遇将在完成序列后每次此遭遇触发 out edge 时无限重复，否则序列将在完成最后一个遭遇后停止。</p>
             </li>
             <li>
-               <p>Destroy tree -- this will destroy a branch from the campaign tree (useful so that already finished quests don't clutter up the tree):</p>
+               <p>Destroy tree -- 这将销毁战役树中的一个分支（用于使已完成的任务不会使树变得杂乱）：</p>
                <pre><code>"out_edge": {
    "type": "destroy_tree",
    "root": "generator_for_chance",
    "destroy_root": true
 }
 </code></pre>
-               <p>  We'll destroy the path from the edge specified in <strong>"root"</strong>, including it depending on the <strong>"destroy_root"</strong> field. You might see encounters in the game with type <code>"none"</code> that simply have an out edge of this type, to clean up after finishing a series of encounters. Be careful when using this, you might delete some node that you still want to keep.</p>
+               <p>  我们将销毁从 <strong>"root"</strong> 中指定的边开始的路径，包括它取决于 <strong>"destroy_root"</strong> 字段。你可能会在游戏中看到类型为 <code>"none"</code> 的遭遇，它们只有一个这种类型的出边，用于在完成一系列遭遇后进行清理。使用此功能时要小心，你可能会删除一些你仍想保留的节点。</p>
             </li>
          </ul>
-         <p>We can also mix types, like this:</p>
+         <p>我们也可以混合类型，如下所示：</p>
          <pre><code>  "out_edge" : {
      "type" : "trigger_many",
      "out_edges" : [
@@ -146,15 +146,15 @@
      ]
   }
 </code></pre>
-         <p><a name="ArcFinish"></a>To signal the end of the current arc, allowing the campaign to start another arc, we use <strong>"arc:finish"</strong>:</p>
+         <p><a name="ArcFinish"></a>为了表示当前弧线的结束，允许战役开始另一个弧线，我们使用 <strong>"arc:finish"</strong>：</p>
          <pre><code>  "out_edge" : "arc:finish"
 </code></pre>
-         <p>Other encounters from this arc might still be around, but they should resolve themselves on their own.</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Some of the encounters will define their out edges inside their info section so that they can control which one will spawn depending on how the encounter ends, so they won't have the <strong>"out_edge"</strong> property at the root level of the JSON.</p>
-         <h2><a name="CanStart"></a>Starting encounters conditionally</h2>
-         <p>There are <a href="encounters/index.html#WaitForRequirementsMet">some encounters</a> that are used to check for conditions themselves, in order to trigger their out edges when the condition is met.</p>
-         <p>But we can also add checks in any encounter JSON file to allow the encounter to start only under certain conditions.</p>
-         <p>These are added in a <strong>"can_start" : {}</strong> section, normally below the in/out edges. For example:</p>
+         <p>此弧线的其他遭遇可能仍然存在，但它们应该自行解决。</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 某些遭遇将在其 info 部分中定义它们的出边，以便它们可以根据遭遇如何结束来控制将生成哪个遭遇，因此它们在 JSON 的根级别不会有 <strong>"out_edge"</strong> 属性。</p>
+         <h2><a name="CanStart"></a>有条件地启动遭遇</h2>
+         <p>有<a href="encounters/index.html#WaitForRequirementsMet">一些遭遇</a>用于检查条件本身，以便在满足条件时触发它们的出边。</p>
+         <p>但我们也可以在任何遭遇 JSON 文件中添加检查，以允许仅在特定条件下启动遭遇。</p>
+         <p>这些添加在 <strong>"can_start" : {}</strong> 部分中，通常在入/出边下方。例如：</p>
          <pre><code>  "can_start": {
      "test_1": {
         "game_mode_check": {
@@ -165,68 +165,68 @@
      }
   }
 </code></pre>
-         <p>Here, <code>"test_1"</code> is a custom identifier for the test set. If we have more than one set, the encounter will start when <strong>ANY</strong> of them passes. We can have more than one check inside a test, in that case the encounter will start only when <strong>ALL</strong> of its checks pass.</p>
-         <p>We can use whatever name for the checks (<code>"game_mode_check"</code> in the example above), because what matters is the properties inside:</p>
+         <p>这里，<code>"test_1"</code> 是测试集的自定义标识符。如果我们有多个集，当<strong>任何</strong>一个通过时，遭遇将启动。我们可以在一个测试中有多个检查，在这种情况下，只有当<strong>所有</strong>检查都通过时，遭遇才会启动。</p>
+         <p>我们可以为检查使用任何名称（上面示例中的 <code>"game_mode_check"</code>），因为重要的是内部的属性：</p>
          <ul>
             <li>
-               <p><strong>"type"</strong> -- one of the following:</p>
+               <p><strong>"type"</strong> -- 以下之一：</p>
                <pre><code>"deny_if" / "deny_if_not" / "deny_if_less_than" / "deny_if_greater_than" / "deny_if_between" / "deny_if_not_between"
 </code></pre>
             </li>
             <li>
-               <p><strong>"item"</strong> -- the thing that we're comparing to. It can be one of these:</p>
+               <p><strong>"item"</strong> -- 我们正在比较的东西。它可以是以下之一：</p>
                <ul>
-                  <li><strong>"kingdom"</strong> -- we'll compare the URI of the player's kingdom ("value" will be the URI of a kingdom).</li>
-                  <li><strong>"net_worth"</strong> -- we'll compare the value of the player's net worth. This is deprecated, use "score" instead.</li>
-                  <li><strong>"score"</strong> -- we'll compare one of the player's score fields. In this case, we'll add a <strong>"score_type"</strong> field, to specify the score name (e.g. "military_strength" / "net_worth").</li>
-                  <li><strong>"num_citizens"</strong> -- we'll compare the player's current number of citizens.</li>
-                  <li><strong>"days_elapsed"</strong> -- we'll compare the number of days that passed since game start.</li>
-                  <li><strong>"reached_citizen_cap"</strong> -- we'll check if the player has already reached their citizen cap ("value" will be either <strong>true</strong> or <strong>false</strong>).</li>
-                  <li><strong>"biome"</strong> -- we'll compare the URI of the current biome ("value" will be the URI of a biome).</li>
-                  <li><strong>"game_mode"</strong> -- we'll compare the URI of the current game mode ("value" will be <code>"stonehearth:game_mode:peaceful"</code>, <code>"stonehearth:game_mode:normal"</code> or <code>"stonehearth:game_mode:hard"</code>, assuming a vanilla game).</li>
-                  <li><strong>"hostility"</strong> -- whether the player is hostile to the <strong>"npc_player_id"</strong> from this node's context. The "npc_player_id" is a field used in certain types of encounters (e.g. create_camp), and will become part of the context that is shared among nodes on the same branch.</li>
-                  <li><strong>"time_of_day"</strong> -- we'll compare the current time of day ("value" will be a number greater or equal to 0 and lower than 24).</li>
-                  <li><strong>"exists_in_world"</strong> -- we'll check if an item is placed in the world and owned by the player. For this type, we'll need to add a <strong>"uri"</strong> field to specify the URI of the item, and "value" will be <strong>true</strong> or <strong>false</strong>.</li>
-                  <li><strong>"campaign_completed"</strong> -- we'll check whether the player has finished a given campaign. We'll need to add a <strong>"campaign_name"</strong> field with the name of the campaign as defined in the <code>gm_index.json</code> file ("value" will be <strong>true</strong> or <strong>false</strong>).</li>
-                  <li><strong>"script"</strong> -- runs the <code>start()</code> function of the specified Lua script (we'll add an extra <strong>"script"</strong> field pointing to it) and compares its return value to the specified "value" field.</li>
-                  <li><strong>"number_active"</strong> -- we'll check how many instances of the given node are currently active, (i.e. how many times <strong>"start_node"</strong> has been triggered minus how many times <strong>"end_node"</strong> has triggered, if we don't specify a "start_node" it will default to the value of "in_edge").</li>
-                  <li><strong>"number_spawned"</strong> -- check how many times a given node has been triggered (we'll add a <strong>"node_name"</strong> field with the ID of the node as defined in the arc's JSON file).</li>
-                  <li><strong>"city_tier"</strong> -- we'll compare the city tier of the player's town (for a vanilla game, "value" would normally be 1, 2 or 3).</li>
-                  <li><strong>"highest_job_level"</strong> -- check the hearthlings that have a specific job (we'll add a <strong>"job_alias"</strong> field to point to the job URI) and return the highest level that they have, to compare with "value".</li>
-                  <li><strong>"config"</strong> -- we'll compare the value of an arbitrary config variable. These can be specified in <code>stonehearth.json</code>, <code>user_settings.json</code> or on the command line. We'll add a <strong>"key"</strong> field with the name of the config variable.</li>
-                  <li><strong>"counter"</strong> -- compare the value of an arbitrary counter variable. Counter variables are campaign-wide and set using the <code>set_counters</code> encounter. We'll add a <strong>"key"</strong> here for the name of the counter variable.</li>
-                  <li><strong>"weather"</strong> -- we'll compare the URI of the current weather ("value" will be the URI of a weather).</li>
-                  <li><strong>"and"</strong> -- returns true if ALL subtests pass. We'll add a <strong>"tests" : {}</strong> field containing checks.</li>
-                  <li><strong>"or"</strong> -- same than "and", but returns true if ANY subtest passes.</li>
-                  <li><strong>"none"</strong> -- this is used for testing purposes, the check will always pass.</li>
+                  <li><strong>"kingdom"</strong> -- 我们将比较玩家王国的 URI（"value" 将是王国的 URI）。</li>
+                  <li><strong>"net_worth"</strong> -- 我们将比较玩家的净资产值。这已弃用，请改用 "score"。</li>
+                  <li><strong>"score"</strong> -- 我们将比较玩家的某个分数字段。在这种情况下，我们将添加一个 <strong>"score_type"</strong> 字段，以指定分数名称（例如 "military_strength" / "net_worth"）。</li>
+                  <li><strong>"num_citizens"</strong> -- 我们将比较玩家当前的市民数量。</li>
+                  <li><strong>"days_elapsed"</strong> -- 我们将比较自游戏开始以来经过的天数。</li>
+                  <li><strong>"reached_citizen_cap"</strong> -- 我们将检查玩家是否已达到其市民上限（"value" 将是 <strong>true</strong> 或 <strong>false</strong>）。</li>
+                  <li><strong>"biome"</strong> -- 我们将比较当前生物群系的 URI（"value" 将是生物群系的 URI）。</li>
+                  <li><strong>"game_mode"</strong> -- 我们将比较当前游戏模式的 URI（"value" 将是 <code>"stonehearth:game_mode:peaceful"</code>、<code>"stonehearth:game_mode:normal"</code> 或 <code>"stonehearth:game_mode:hard"</code>，假设是原版游戏）。</li>
+                  <li><strong>"hostility"</strong> -- 玩家是否对此节点的上下文中的 <strong>"npc_player_id"</strong> 敌对。"npc_player_id" 是在某些类型的遭遇（例如 create_camp）中使用的字段，并将成为在同一分支上的节点之间共享的上下文的一部分。</li>
+                  <li><strong>"time_of_day"</strong> -- 我们将比较当前时间（"value" 将是大于或等于 0 且小于 24 的数字）。</li>
+                  <li><strong>"exists_in_world"</strong> -- 我们将检查物品是否放置在世界中并为玩家所有。对于此类型，我们需要添加一个 <strong>"uri"</strong> 字段以指定物品的 URI，"value" 将是 <strong>true</strong> 或 <strong>false</strong>。</li>
+                  <li><strong>"campaign_completed"</strong> -- 我们将检查玩家是否完成了给定的战役。我们需要添加一个 <strong>"campaign_name"</strong> 字段，其中包含在 <code>gm_index.json</code> 文件中定义的战役名称（"value" 将是 <strong>true</strong> 或 <strong>false</strong>）。</li>
+                  <li><strong>"script"</strong> -- 运行指定 Lua 脚本的 <code>start()</code> 函数（我们将添加一个额外的 <strong>"script"</strong> 字段指向它）并将其返回值与指定的 "value" 字段进行比较。</li>
+                  <li><strong>"number_active"</strong> -- 我们将检查给定节点的多少个实例当前处于活动状态（即，<strong>"start_node"</strong> 被触发的次数减去 <strong>"end_node"</strong> 触发的次数，如果我们不指定 "start_node"，它将默认为 "in_edge" 的值）。</li>
+                  <li><strong>"number_spawned"</strong> -- 检查给定节点被触发了多少次（我们将添加一个 <strong>"node_name"</strong> 字段，其中包含在弧线的 JSON 文件中定义的节点 ID）。</li>
+                  <li><strong>"city_tier"</strong> -- 我们将比较玩家城镇的城市等级（对于原版游戏，"value" 通常是 1、2 或 3）。</li>
+                  <li><strong>"highest_job_level"</strong> -- 检查具有特定职业的 Hearthlings（我们将添加一个 <strong>"job_alias"</strong> 字段以指向职业 URI）并返回他们的最高等级，以与 "value" 进行比较。</li>
+                  <li><strong>"config"</strong> -- 我们将比较任意配置变量的值。这些可以在 <code>stonehearth.json</code>、<code>user_settings.json</code> 或命令行中指定。我们将添加一个 <strong>"key"</strong> 字段，其中包含配置变量的名称。</li>
+                  <li><strong>"counter"</strong> -- 比较任意计数器变量的值。计数器变量是战役范围的，并使用 <code>set_counters</code> 遭遇设置。我们将为此处的计数器变量名称添加一个 <strong>"key"</strong>。</li>
+                  <li><strong>"weather"</strong> -- 我们将比较当前天气的 URI（"value" 将是天气的 URI）。</li>
+                  <li><strong>"and"</strong> -- 如果所有子测试都通过，则返回 true。我们将添加一个包含检查的 <strong>"tests" : {}</strong> 字段。</li>
+                  <li><strong>"or"</strong> -- 与 "and" 相同，但如果任何子测试通过则返回 true。</li>
+                  <li><strong>"none"</strong> -- 这用于测试目的，检查将始终通过。</li>
                </ul>
             </li>
             <li>
-               <p><strong>"value"</strong> -- we'll compare the value returned by "item" with the value here using the condition from "type". If the value is meant to be a number, we can also specify a range (e.g. for the "deny_if_between" checks), like this:</p>
+               <p><strong>"value"</strong> -- 我们将使用 "type" 中的条件将 "item" 返回的值与此处的值进行比较。如果值应该是数字，我们还可以指定一个范围（例如，对于 "deny_if_between" 检查），如下所示：</p>
                <pre><code>"value" : { "min" : 0, "max" : 10 }
 </code></pre>
             </li>
          </ul>
-         <p>The custom name that we use for the check can be used in game mode tuning overrides. If you create a custom encounter type, you can have a custom <code>can_start</code> function in it too.</p>
-         <h2><a name="Planning"></a>Planning your campaigns</h2>
-         <p>You can make many types of encounters, from a storyline that evolves with player choices, to just random ambient encounters, like the ambient threats from the stonehearth mod.</p>
-         <p>It is important that you plan carefully what you want to add to your campaigns and work on it little by little, since depending on the encounter type, creating chains of encounters can involve many files.</p>
-         <p>Once you know how will your campaign develop, think which of the different <a href="encounters/index.html">encounter types</a> available is most suited for your encounters, and if none is useful, create your own reusable encounter type, or use a <a href="encounters/index.html#Script">script encounter</a> instead.</p>
-         <p>Reusing the existing encounter types allows us to create campaigns by using only JSON files, which is easy. For script encounters or custom controllers, you will need to use Lua.</p>
-         <h2><a name="AddingCampaigns"></a>How to create campaigns</h2>
-         <p>To create campaigns you can copy the <code>stonehearth/data/gm/gm_index.json</code> file and edit it.</p>
-         <p>Make sure to add this alias to your manifest:</p>
+         <p>我们为检查使用的自定义名称可以用于游戏模式调整覆盖。如果你创建了自定义遭遇类型，你也可以在其中有一个自定义的 <code>can_start</code> 函数。</p>
+         <h2><a name="Planning"></a>规划你的战役</h2>
+         <p>你可以制作许多类型的遭遇，从随着玩家选择而演变的故事情节，到随机环境遭遇，如 stonehearth 模组中的 ambient threats。</p>
+         <p>重要的是你要仔细计划你想要添加到战役中的内容并逐步处理，因为根据遭遇类型，创建遭遇链可能涉及许多文件。</p>
+         <p>一旦你知道你的战役将如何发展，想想可用的不同<a href="encounters/index.html">遭遇类型</a>中哪一个最适合你的遭遇，如果没有一个有用，创建你自己的可重用遭遇类型，或者使用<a href="encounters/index.html#Script">script encounter</a>代替。</p>
+         <p>重用现有的遭遇类型允许我们仅使用 JSON 文件创建战役，这很容易。对于 script encounters 或自定义控制器，你需要使用 Lua。</p>
+         <h2><a name="AddingCampaigns"></a>如何创建战役</h2>
+         <p>要创建战役，你可以复制 <code>stonehearth/data/gm/gm_index.json</code> 文件并编辑它。</p>
+         <p>确保将此别名添加到你的清单中：</p>
          <pre><code>  "aliases" : {
      "data:gm_index" : "file(data/gm/gm_index.json)"
   }
 </code></pre>
-         <p>Then add a mixinto to the gm index of the stonehearth mod:</p>
+         <p>然后向 stonehearth 模组的 gm index 添加 mixinto：</p>
          <pre><code>  "mixintos" : {
      "stonehearth:data:gm_index" : "my_mod:data:gm_index"
   }
 </code></pre>
-         <p>If you want to remove campaigns from the stonehearth mod so that they don't run when your mod is enabled, you can use <a href="../../essentials/removing/index.html#MixintypeRemove">mixintypes</a>, but remember that it may affect other mods that assume that those campaigns will run.</p>
-         <p>Your <code>gm_index.json</code> file will look something like this (example from the northern_alliance mod):</p>
+         <p>如果你想从 stonehearth 模组中移除战役，以便在你的模组启用时它们不运行，你可以使用 <a href="../../essentials/removing/index.html#MixintypeRemove">mixintypes</a>，但请记住，它可能会影响假设那些战役将运行的其他模组。</p>
+         <p>你的 <code>gm_index.json</code> 文件将看起来像这样（来自 northern_alliance 模组的示例）：</p>
          <pre><code>  {
      "type": "index",
      "campaigns": {
@@ -239,9 +239,9 @@
      }
   }
 </code></pre>
-         <p>Each key under <strong>"campaigns"</strong> is a custom identifier (the campaign subtype), and contains a campaign node name pointing to a campaign index file path.</p>
-         <h2><a name="AddingArcs"></a>How to create arcs</h2>
-         <p>Once you've created your campaign file, it's time to edit it. Continuing from the example above, this is from <code>animal_campaign.json</code>:</p>
+         <p><strong>"campaigns"</strong> 下的每个键都是一个自定义标识符（战役子类型），并包含一个指向战役索引文件路径的战役节点名称。</p>
+         <h2><a name="AddingArcs"></a>如何创建弧线</h2>
+         <p>创建战役文件后，是时候编辑它了。继续上面的示例，这是来自 <code>animal_campaign.json</code>：</p>
          <pre><code>  {
      "type": "campaign",
      "rarity": "common",
@@ -263,9 +263,9 @@
      }
   }
 </code></pre>
-         <p>We can have <a href="#CanStart">can_start</a> checks for preventing the campaign to start here. The <code>"rarity"</code> is not really implemented.</p>
-         <p>Then we have an <strong>"arcs"</strong> section. Arcs progress from "trigger" to "challenge" to "climax". Only the <strong>"trigger"</strong> arc is mandatory. Many campaigns such as the ambient threats and trader campaigns only use the trigger arc.</p>
-         <p>We define only one arc file per each, with an identifier name for debugging, pointing to the arc index JSON file. An example of what it should contain (from the kitties campaign):</p>
+         <p>我们可以有 <a href="#CanStart">can_start</a> 检查以防止战役在此处启动。<code>"rarity"</code> 实际上并未实现。</p>
+         <p>然后我们有一个 <strong>"arcs"</strong> 部分。弧线从 "trigger" 进展到 "challenge" 再到 "climax"。只有 <strong>"trigger"</strong> 弧线是必需的。许多战役，如 ambient threats 和 trader 战役，只使用 trigger 弧线。</p>
+         <p>我们为每个弧线定义一个弧线文件，带有一个用于调试的标识符名称，指向弧线索引 JSON 文件。它应包含的内容示例（来自 kitties 战役）：</p>
          <pre><code>  {
      "type": "arc",
      "rarity": "common",
@@ -277,10 +277,10 @@
      }
   }
 </code></pre>
-         <p>The <strong>"type"</strong> is <strong>"arc"</strong>. Inside <strong>"encounters"</strong> we list all of the encounter JSON files that we'll use in our campaign (add them as you create them). The identifiers for the encounters only have lowercase, numbers and underscores by convention. Try to use short, descriptive names.</p>
-         <h2><a name="CreatingEncounters"></a>How to create encounters</h2>
-         <p>Encounters are just JSON files, like the campaign and arc indexes. We can organize our GM files in subfolders, so that every folder contains the encounters of a different arc, etc.</p>
-         <p>In general, encounter files will have the following:</p>
+         <p><strong>"type"</strong> 是 <strong>"arc"</strong>。在 <strong>"encounters"</strong> 内，我们列出我们将在战役中使用的所有遭遇 JSON 文件（在创建它们时添加它们）。按照惯例，遭遇的标识符只有小写字母、数字和下划线。尽量使用简短的描述性名称。</p>
+         <h2><a name="CreatingEncounters"></a>如何创建遭遇</h2>
+         <p>遭遇只是 JSON 文件，如战役和弧线索引。我们可以将 GM 文件组织在子文件夹中，以便每个文件夹包含不同弧线的遭遇等。</p>
+         <p>一般来说，遭遇文件将具有以下內容：</p>
          <pre><code>  {
      "type": "encounter",
      "encounter_type": "create_camp",
@@ -297,85 +297,85 @@
      }
   }
 </code></pre>
-         <p>As mentioned before, the "rarity" is not really used.</p>
+         <p>如前所述，"rarity" 实际上并未使用。</p>
          <ul>
             <li>
                <p><strong>"type" : "encounter"</strong></p>
             </li>
             <li>
-               <p><strong>"encounter_type"</strong> -- this is one of the existing <a href="encounters/index.html">types</a> or a custom one if you created it.</p>
+               <p><strong>"encounter_type"</strong> -- 这是现有的<a href="encounters/index.html">类型</a>之一，或者如果你创建了自定义类型。</p>
             </li>
             <li>
-               <p><strong>"in_edge"</strong> -- required field, this is the identifier for this encounter and usually matches the identifier for this file from the arc index.</p>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> For each arc, you should have one encounter whose in edge is named <strong>"start"</strong>. This will be the encounter that triggers when the arc starts to run.</p>
+               <p><strong>"in_edge"</strong> -- 必需字段，这是此遭遇的标识符，通常与弧线索引中此文件的标识符匹配。</p>
+               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 对于每个弧线，你应该有一个 in edge 名为 <strong>"start"</strong> 的遭遇。这将是弧线开始运行时触发的遭遇。</p>
             </li>
             <li>
-               <p><strong>"out_edge"</strong> -- optional field, an out edge as explained <a href="#OutEdge">before</a>.</p>
+               <p><strong>"out_edge"</strong> -- 可选字段，如<a href="#OutEdge">之前</a>解释的出边。</p>
             </li>
             <li>
-               <p><strong>"unique"</strong> -- optional field (a boolean). When <strong>true</strong>, only one encounter of this type can be running at the same time.</p>
+               <p><strong>"unique"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，一次只能运行一个此类型的遭遇。</p>
             </li>
             <li>
-               <p><strong>"can_start" : {}</strong> -- optional field. As explained <a href="#CanStart">before</a>, these are flags to prevent running this encounter.</p>
+               <p><strong>"can_start" : {}</strong> -- 可选字段。如<a href="#CanStart">之前</a>解释的，这些是防止运行此遭遇的标志。</p>
             </li>
             <li>
-               <p><strong>"mixins"</strong> -- optional field. A URI or array of URIs of mixins, so that you can reuse information in your encounters. Be careful if you nest mixins for encounter files, sometimes it's better to have all the information in sight.</p>
+               <p><strong>"mixins"</strong> -- 可选字段。Mixin 的 URI 或 URI 数组，以便你可以在遭遇中重用信息。如果你为遭遇文件嵌套 mixins，请小心，有时最好将所有信息放在眼前。</p>
             </li>
             <li>
-               <p><strong>"encounter_info"</strong> -- this field's name will vary, it's normally the encounter type with <code>_info</code> attached at the end. Will contain all the data required for this encounter type.</p>
+               <p><strong>"encounter_info"</strong> -- 此字段的名称会有所不同，通常是遭遇类型，末尾附加 <code>_info</code>。将包含此遭遇类型所需的所有数据。</p>
             </li>
          </ul>
-         <h2><a name="CustomEncounterType"></a>How to create your own encounter type</h2>
-         <p>You can create a new type of reusable encounter in your mod (pretty similar to the <a href="encounters/index.html#Script">script</a> encounter but more organized). To do this:</p>
+         <h2><a name="CustomEncounterType"></a>如何创建你自己的遭遇类型</h2>
+         <p>你可以在你的模组中创建一种新的可重用遭遇类型（与<a href="encounters/index.html#Script">script</a>遭遇非常相似，但更有组织）。要做到这一点：</p>
          <ul>
-            <li>Create a controller and add it under the "controllers" section of your manifest</li>
-            <li>The key for the controller must be named <strong>"game_master:encounters:your_custom_type"</strong></li>
-            <li>When using it in an encounter's JSON file, you must add an extra key called <strong>"mod_root"</strong>, at the same level than <strong>"encounter_type"</strong>, and its value should be the namespace of your mod.</li>
+            <li>创建一个控制器并将其添加到清单的 "controllers" 部分下</li>
+            <li>控制器的键必须命名为 <strong>"game_master:encounters:your_custom_type"</strong></li>
+            <li>在遭遇的 JSON 文件中使用它时，你必须添加一个名为 <strong>"mod_root"</strong> 的额外键，与 <strong>"encounter_type"</strong> 处于同一级别，其值应为你模组的命名空间。</li>
          </ul>
-         <p>All encounters (and all scripts started from encounters) are controllers. More on controllers in <a href="../../advanced/controllers/index.html">this section</a> of the guide. So you can use lifecycle functions if you need to. These controllers need to have the <code>start(ctx,info)</code> function, and may also have other functions, such as <code>stop()</code>, <code>suspend()</code>/<code>continue()</code> or <code>can_start(ctx)</code>, besides any custom function that you create.</p>
-         <p>You can find the controllers for the existing encounter types in <code>stonehearth/services/server/game_master/controllers/encounters</code>. There's also other scripts used for encounters in other subfolders of <code>stonehearth/services/server/game_master/controllers</code>.</p>
-         <h2><a name="Testing"></a>How to test your campaigns with debugtools</h2>
-         <p>Refer to the section about the <a href="../../essentials/debugtools/debugtools_mod/index.html#CampaignBrowser">Campaign Browser</a> for how to use it.</p>
-         <h2><a name="SHED"></a>Editing campaigns with SHED</h2>
-         <p>SHED has a great tool for creating encounters. At the time that this guide was written, you must prepare the <code>gm_index.json</code>, the <a href="#AddingCampaigns">campaign</a> and <a href="#AddingArcs">arc</a> JSON files before using it.</p>
+         <p>所有遭遇（以及从遭遇启动的所有脚本）都是控制器。更多关于控制器的内容在指南的<a href="../../advanced/controllers/index.html">此部分</a>中。所以如果需要，你可以使用生命周期函数。这些控制器需要有 <code>start(ctx,info)</code> 函数，也可能有其他函数，如 <code>stop()</code>、<code>suspend()</code>/<code>continue()</code> 或 <code>can_start(ctx)</code>，除了你创建的任何自定义函数。</p>
+         <p>你可以在 <code>stonehearth/services/server/game_master/controllers/encounters</code> 中找到现有遭遇类型的控制器。<code>stonehearth/services/server/game_master/controllers</code> 的其他子文件夹中也有用于遭遇的其他脚本。</p>
+         <h2><a name="Testing"></a>如何使用 debugtools 测试你的战役</h2>
+         <p>请参阅关于<a href="../../essentials/debugtools/debugtools_mod/index.html#CampaignBrowser">Campaign Browser</a>的部分以了解如何使用它。</p>
+         <h2><a name="SHED"></a>使用 SHED 编辑战役</h2>
+         <p>SHED 有一个很好的工具用于创建遭遇。在编写本指南时，你必须在使用它之前准备 <code>gm_index.json</code>、<a href="#AddingCampaigns">战役</a>和<a href="#AddingArcs">弧线</a> JSON 文件。</p>
          <ol>
             <li>
-               <p>Add an alias in your mod pointing to your gm_index.</p>
+               <p>在你的模组中添加一个指向你的 gm_index 的别名。</p>
                <pre><code>"aliases": {
    "data:gm_index" : "file(data/gm/gm_index.json)"
 }
 </code></pre>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> The alias has to be exactly <strong>"data:gm_index"</strong>, otherwise SHED won't be able to find it. Also, remember to add a mixinto to the stonehearth's gm_index so that you can test your campaigns in the game.</p>
+               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 别名必须完全是 <strong>"data:gm_index"</strong>，否则 SHED 将无法找到它。另外，记得向 stonehearth 的 gm_index 添加 mixinto，以便你可以在游戏中测试你的战役。</p>
             </li>
             <li>
-               <p>Open SHED and click on the "Encounter Designer" tab.</p>
-               <p>  You should see a tree listing the campaigns of all the mods you have ready in your folder. Click on one of the campaigns and you should see a graph at the right displaying what the campaign looks like:</p>
+               <p>打开 SHED 并点击 "Encounter Designer" 选项卡。</p>
+               <p>  你应该看到一个列出你文件夹中准备好的所有模组的战役的树。点击其中一个战役，你应该在右侧看到一个显示战役样子的图表：</p>
                <p>  <img src="/modding_guide/images/intermediate/campaigns/goblin_campaign.png" alt="goblin_campaign"/></p>
-               <p>  You can zoom in/out of the graph with the mouse wheel, and you can pan around the graph with the third mouse button (press the mouse wheel, hold it down, and move the mouse). You can see subtrees in the graph being highlighted when you hover over them.</p>
-               <p>  Whenever you change a node, remember to save the changes and click on the "Refresh Encounters" button at the top right, so that the graph gets updated (for example, imagine you create a new encounter/node, it will be unattached to the graph. But if you edit another node so that it points to your new node as an out_edge, that won't be reflected in the graph until you reload/refresh). Sometimes it will refresh automatically, for example when deleting nodes.</p>
+               <p>  你可以使用鼠标滚轮放大/缩小图表，并可以使用第三个鼠标按钮在图表周围平移（按下鼠标滚轮，按住它，然后移动鼠标）。当你将鼠标悬停在子树上时，你可以看到它们在图表中被突出显示。</p>
+               <p>  每当你更改节点时，记得保存更改并点击右上角的 "Refresh Encounters" 按钮，以便图表更新（例如，假设你创建了一个新遭遇/节点，它将未附加到图表。但如果你编辑另一个节点使其指向你的新节点作为 out_edge，那将不会反映在图表中，直到你重新加载/刷新）。有时它会自动刷新，例如删除节点时。</p>
             </li>
             <li>
-               <p>To create an encounter: right-click in an empty part of the tree/graph, go to 'Add New Node->' and choose the type of the encounter you want to add (only default <a href="encounters/index.html">encounter types</a> are supported, custom ones won't appear).</p>
-               <p>  Then, a dialog will appear. Go to the encounters folder of your choice (it might be pointing to the wrong arc perhaps) and write a name for your new JSON file. It is recommended that the name for the file is in lowercase and with no spaces or symbols. It can contain underscores and numbers, though.</p>
-               <p>  Once you click on 'Save', the JSON file will be created and the encounter will get added to the list of encounters (if you have more than one arc it won't, but right-clicking on the node in the graph will show you an option to parent it to the arc of your choice). If you don't see it added you might need to refresh the encounters.</p>
-               <p>  After it is created, select its node and change some of the default values to get rid of the errors in the file, such as the in/out edges, etc. If it's your first encounter, make sure to give it an in edge of <strong>"start"</strong>, so that it gets parented to the arc node after refreshing and starts shaping the tree.</p>
-               <p>  You can also clone an encounter or delete it via context menu action (right-clicking on the encounter node). It will add/remove the encounter to the arc JSON file automatically. When deleting, it will really delete the JSON file (unlike when removing aliases in the Manifest tab) so make sure that you truly want to delete it.</p>
+               <p>要创建遭遇：在树/图表的空白部分右键单击，转到 'Add New Node->' 并选择你要添加的遭遇类型（仅支持默认<a href="encounters/index.html">遭遇类型</a>，自定义类型不会出现）。</p>
+               <p>  然后，将出现一个对话框。转到你选择的遭遇文件夹（它可能指向错误的弧线）并为你的新 JSON 文件写一个名称。建议文件名使用小写字母且没有空格或符号。不过，它可以包含下划线和数字。</p>
+               <p>  点击 'Save' 后，JSON 文件将被创建，遭遇将被添加到遭遇列表中（如果你有多个弧线，它不会，但在图表中右键单击节点将显示一个选项，将其父级化到你选择的弧线）。如果你没有看到它被添加，你可能需要刷新遭遇。</p>
+               <p>  创建后，选择其节点并更改一些默认值以消除文件中的错误，如入/出边等。如果这是你的第一个遭遇，确保给它一个 <strong>"start"</strong> 的入边，以便它在刷新后父级化到弧线节点并开始塑造树。</p>
+               <p>  你也可以通过上下文菜单操作（右键单击遭遇节点）克隆或删除遭遇。它将自动向弧线 JSON 文件添加/移除遭遇。删除时，它将真正删除 JSON 文件（与在 Manifest 选项卡中移除别名不同），所以确保你真的想删除它。</p>
             </li>
          </ol>
-         <p>You should see several options in the bar above the JSON editor. The first one is to open the current file in your default text editor (for JSON files), the second one is for opening the containing folder of this file, the third one is to save, and the last one is to localize the file (remember that sometimes localizing might not work). If you added mixins, the preview with mixins button should also appear at the end.</p>
-         <p>When you save, the JSON will be formatted nicely if you had some bad indentations.</p>
-         <p>The JSON editor in SHED supports autocomplete and hints for encounters, which is extremely useful. If you don't get the dropdown for a property, try deleting everything until the property name, then type the ':' and see if it appears. Navigate through the options with the arrow keys and press Enter or double click to confirm an option:</p>
+         <p>你应该在 JSON 编辑器上方的栏中看到几个选项。第一个是在默认文本编辑器中打开当前文件（对于 JSON 文件），第二个是打开此文件的包含文件夹，第三个是保存，最后一个是本地化文件（记住，有时本地化可能不起作用）。如果你添加了 mixins，带有 mixins 的预览按钮也应该出现在最后。</p>
+         <p>保存时，如果你有一些不良缩进，JSON 将被很好地格式化。</p>
+         <p>SHED 中的 JSON 编辑器支持遭遇的自动完成和提示，这非常有用。如果你没有得到属性的下拉列表，尝试删除直到属性名的所有内容，然后输入 ':' 看看它是否出现。使用箭头键浏览选项并按 Enter 或双击确认选项：</p>
          <p><img src="/modding_guide/images/intermediate/campaigns/auto_complete.png" alt="auto_complete"/></p>
-         <p>If the color at the left of the file is green, everything's fine. When it's red, SHED won't let you save the file (syntax errors). Hovering over the arrows at the left will show a tooltip describing the problem. If it's orange, there might be some missing field or some data that SHED doesn't recognize, but will let you proceed. When it's gray it means that SHED isn't checking for errors in this file because it doesn't know what should it contain, so you're responsible for what you're writing.</p>
-         <p>These are different node types you can see in the graph and their meaning:</p>
+         <p>如果文件左侧的颜色是绿色，一切正常。当它是红色时，SHED 不会让你保存文件（语法错误）。将鼠标悬停在左侧的箭头上将显示描述问题的工具提示。如果是橙色，可能缺少某些字段或 SHED 无法识别的一些数据，但会让你继续。当它是灰色时，意味着 SHED 没有检查此文件中的错误，因为它不知道它应该包含什么，所以你要对你写的内容负责。</p>
+         <p>这些是你可以在图表中看到的不同节点类型及其含义：</p>
          <ul>
-            <li>Blue nodes: represent the campaign itself. Click on one and you should see the corresponding campaign.json file, and you will be able to edit it. You can edit the gm_index file in the Manifest tab, if you need to.</li>
-            <li>Turquoise nodes: represent arcs. Click on one and you should see the corresponding arc.json file, which lists all the encounters from that arc.</li>
-            <li>Gray nodes: represent arc starting or ending nodes, and out_edges from some encounters. They don't have associated files, they are just indicating choices or naming out edges.</li>
-            <li>Green nodes: encounter nodes. These can be of any type. They have a little icon at the left indicating the type of encounter.</li>
-            <li>Orange nodes: these are <a href="encounters/index.html#Generator">generator</a> encounters. They are used to spawn the same out edges in a loop, according to specific conditions.</li>
-            <li>Nodes with red borders: these either have errors in their JSON, or are not specified in the list of encounters.</li>
-            <li>Nodes with a streaked background: they have unsaved changes.</li>
+            <li>蓝色节点：代表战役本身。点击一个，你应该看到相应的 campaign.json 文件，并且你将能够编辑它。如果需要，你可以在 Manifest 选项卡中编辑 gm_index 文件。</li>
+            <li>青色节点：代表弧线。点击一个，你应该看到相应的 arc.json 文件，其中列出了该弧线中的所有遭遇。</li>
+            <li>灰色节点：代表弧线起始或结束节点，以及一些遭遇的出边。它们没有关联的文件，它们只是指示选择或命名出边。</li>
+            <li>绿色节点：遭遇节点。这些可以是任何类型。它们左侧有一个小图标，指示遭遇的类型。</li>
+            <li>橙色节点：这些是<a href="encounters/index.html#Generator">generator</a>遭遇。它们用于根据特定条件循环生成相同的出边。</li>
+            <li>带有红色边框的节点：这些要么在其 JSON 中有错误，要么未在遭遇列表中指定。</li>
+            <li>带有条纹背景的节点：它们有未保存的更改。</li>
          </ul>
       </main>
    </body>

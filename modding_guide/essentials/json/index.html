@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,80 +7,80 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Small intro to JSON</title>
+        <title>JSON 简介</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Small intro to JSON</h1>
-            <p>In Stonehearth, we use <a href="https://www.json.org/">JSON</a> for our data files (those that are not 3D models / 2D images / scripts / etc).
-                JSON files are text files with a certain format to them, they're a way of structuring information into objects. Here's a brief list of the basic rules to write data in JSON for Stonehearth mods.
+            <h1>JSON 简介</h1>
+            <p>在 Stonehearth 中，我们使用 <a href="https://www.json.org/">JSON</a> 作为数据文件（那些不是 3D 模型/2D 图像/脚本等的文件）。
+                JSON 文件是具有特定格式的文本文件，它们是将信息结构化为对象的一种方式。以下是为 Stonehearth 模组编写 JSON 数据的基本规则简要列表。
             </p>
             <ul>
                 <li>
-                    <a href="#WritingJson">Writing JSON</a>
+                    <a href="#WritingJson">编写 JSON</a>
                     <ul>
-                        <li><a href="#Objects">Objects</a></li>
-                        <li><a href="#Strings">Strings</a></li>
-                        <li><a href="#Numbers">Numbers</a></li>
-                        <li><a href="#Booleans">Booleans</a></li>
-                        <li><a href="#Arrays">Arrays</a></li>
-                        <li><a href="#NestedObjects">Nested objects</a></li>
+                        <li><a href="#Objects">对象</a></li>
+                        <li><a href="#Strings">字符串</a></li>
+                        <li><a href="#Numbers">数字</a></li>
+                        <li><a href="#Booleans">布尔值</a></li>
+                        <li><a href="#Arrays">数组</a></li>
+                        <li><a href="#NestedObjects">嵌套对象</a></li>
                     </ul>
                 </li>
-                <li><a href="#LastNotes">Last notes</a></li>
+                <li><a href="#LastNotes">最后说明</a></li>
             </ul>
-            <h2><a name="WritingJson"></a>Writing JSON</h2>
-            <p>JSON objects are usually made up of key-value pairs, or lists of information. In some programming languages, a collection of key-value pairs is called a dictionary, because it resembles the structure of a set of words linked to their definitions.
-                Since JSON is read by a computer program, it uses punctuation: things like brackets and commas to delineate the ends of lines. Without proper punctuation, the program won't know how to read the data from the JSON files.
+            <h2><a name="WritingJson"></a>编写 JSON</h2>
+            <p>JSON 对象通常由键值对或信息列表组成。在某些编程语言中，键值对的集合被称为字典，因为它类似于单词与其定义链接的结构。
+                由于 JSON 由计算机程序读取，它使用标点符号：如括号和逗号来 delineate 行的结尾。如果没有适当的标点符号，程序将不知道如何从 JSON 文件中读取数据。
             </p>
-            <h3><a name="Objects"></a>Objects</h3>
-            <p>The basic piece of punctuation in JSON is the curly brace.
-                To denote that an object is a JSON object it must be between curly braces. So all of our JSON files start and end with curly braces:
+            <h3><a name="Objects"></a>对象</h3>
+            <p>JSON 中的基本标点符号是花括号。
+                要表示一个对象是 JSON 对象，它必须在花括号之间。因此，我们所有的 JSON 文件都以花括号开始和结束：
             </p>
             <pre><code>  {
 
   }
 </code></pre>
-            <p>As in any coding language, if you open a curly brace / parenthesis / bracket or the like, you always have to make sure to close it.</p>
-            <h3><a name="Strings"></a>Strings</h3>
-            <p>The first thing that we want to put in this object is a key-value pair. The key in a JSON object is the way by which the program identifies the data that it's gonna use later. For example:</p>
+            <p>与任何编程语言一样，如果你打开了花括号/圆括号/方括号或类似符号，你必须始终确保关闭它。</p>
+            <h3><a name="Strings"></a>字符串</h3>
+            <p>我们要放入此对象的第一件事是键值对。JSON 对象中的键是程序识别稍后将使用的数据的方式。例如：</p>
             <pre><code>  {
      "game_name" : "Stonehearth"
   }
 </code></pre>
-            <p>In this case, the key is "game_name". In JSON, keys are ALWAYS something we call <em>strings</em>. Strings are words or sentences, composed by letters, numbers, spaces, or any of the characters that you normally use when you're writing. Even though strings can have spaces in them, we tend not to like that when using them for keys, so if we need to separate several words for easier reading, we use underscores instead. For Stonehearth, we also tend to use lowercase for all the keys, that way we avoid typos if we had mixed uppercase and lowercase in them.</p>
-            <p>Strings are ALWAYS put inside quotes (some programming languages allow strings inside single quotes too, but for JSON we use double quotes).
-                The key ("game_name") is separated from the value ("Stonehearth", also a string) by a colon. It doesn't matter if you put spaces around the colon, but the file is easier to read if you do.
+            <p>在这种情况下，键是 "game_name"。在 JSON 中，键始终是我们称为<em>字符串</em>的东西。字符串是由字母、数字、空格或你在书写时通常使用的任何字符组成的单词或句子。尽管字符串中可以有空格，但在将它们用作键时我们倾向于不喜欢这样，所以如果我们需要分隔几个单词以便于阅读，我们使用下划线代替。对于 Stonehearth，我们也倾向于对所有键使用小写，这样如果我们混合使用大写和小写，可以避免拼写错误。</p>
+            <p>字符串始终放在引号内（某些编程语言也允许单引号内的字符串，但对于 JSON 我们使用双引号）。
+                键（"game_name"）与值（"Stonehearth"，也是字符串）用冒号分隔。在冒号周围放置空格并不重要，但如果这样做，文件更容易阅读。
             </p>
-            <p>In the example we have a JSON object with only one key-value pair. When our object has more than one pair on its list, we need to separate each pair with a comma. This way the program that reads the JSON knows where to stop reading a line. The last item in the list won't have a comma at the end. Like this:</p>
+            <p>在示例中，我们有一个只有一个键值对的 JSON 对象。当我们的对象在其列表中有多个键值对时，我们需要用逗号分隔每个键值对。这样读取 JSON 的程序就知道在哪里停止读取一行。列表中的最后一项末尾不会有逗号。如下所示：</p>
             <pre><code>  {
      "game_name" : "Stonehearth",
      "genre" : "City Builder/Sim/Sandbox"
   }
 </code></pre>
             <blockquote>
-                <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> We CAN'T have duplicate keys at the same level inside a JSON object. Keys are identifiers, so if instead of "genre" (in the example) we had written "game_name" again, even with a different value, the program that reads the JSON would have trouble determining which one is the correct value that we want to assign to that key.</p>
+                <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 我们<strong>不能</strong>在 JSON 对象的同一级别拥有重复的键。键是标识符，所以如果我们在示例中再次写入 "game_name" 而不是 "genre"，即使值不同，读取 JSON 的程序也会难以确定哪个是我们想要分配给该键的正确值。</p>
             </blockquote>
-            <h3><a name="Numbers"></a>Numbers</h3>
-            <p>When we need to write values that are not strings, we don't need to use quotes. For example, for using numbers, we write them like this:</p>
+            <h3><a name="Numbers"></a>数字</h3>
+            <p>当我们需要编写不是字符串的值时，我们不需要使用引号。例如，对于数字，我们这样写：</p>
             <pre><code>  {
      "num_days" : 7,
      "scale" : 0.5,
      "temperature" : -10
   }
 </code></pre>
-            <h3><a name="Booleans"></a>Booleans</h3>
-            <p>In programming languages there's also a data type called "boolean", used to represent Yes/No values (for example, we could use a boolean to represent whether a checkbox is checked or not).
-                In JSON we can also represent those Yes/No values, by writing "true" or "false" without quotes:
+            <h3><a name="Booleans"></a>布尔值</h3>
+            <p>在编程语言中，还有一种称为"布尔值"的数据类型，用于表示是/否值（例如，我们可以使用布尔值来表示复选框是否被勾选）。
+                在 JSON 中，我们也可以通过写入不带引号的 "true" 或 "false" 来表示这些是/否值：
             </p>
             <pre><code>  {
      "is_enabled" : true,
      "finished" : false
   }
 </code></pre>
-            <h3><a name="Arrays"></a>Arrays</h3>
-            <p>If we need to write a list of things inside a JSON object, we can use an array. An array is a collection of values, they don't have keys, they're ONLY values. These values are separated by commas too. The array MUST begin and end with a bracket. For example:</p>
+            <h3><a name="Arrays"></a>数组</h3>
+            <p>如果我们需要在 JSON 对象中写入事物列表，我们可以使用数组。数组是值的集合，它们没有键，只有值。这些值也用逗号分隔。数组必须以方括号开始和结束。例如：</p>
             <pre><code>  {
      "days" : [ "Sunday", "Monday", "Thursday" ],
      "colors" : [
@@ -91,9 +91,9 @@
      "some_numbers" : [ 1, 4.5, 6 ]
   }
 </code></pre>
-            <p>JSON arrays can have values of different types, but normally we use them with the same type (e.g.: all of the values are strings, or numbers, or objects, etc). As you can see, it doesn't matter if we write each value on a different line, or all on the same line, as long as they're separated by commas. Notice that the last element in the array doesn't have a comma at the end before the closing bracket.</p>
-            <h3><a name="NestedObjects"></a>Nested objects</h3>
-            <p>Lastly, we can also use other JSON objects as values. Which means we can nest objects and arrays, and even make arrays of objects. We can also have an empty object as a value, which can be useful sometimes. For example:</p>
+            <p>JSON 数组可以具有不同类型的值，但通常我们将它们与相同类型一起使用（例如：所有值都是字符串，或数字，或对象等）。正如你所见，只要它们用逗号分隔，将每个值写在不同的行上还是全部写在同一行上都无关紧要。注意数组中的最后一个元素在结束方括号之前没有逗号。</p>
+            <h3><a name="NestedObjects"></a>嵌套对象</h3>
+            <p>最后，我们还可以使用其他 JSON 对象作为值。这意味着我们可以嵌套对象和数组，甚至可以制作对象数组。我们还可以将空对象作为值，这有时很有用。例如：</p>
             <pre><code>  {
      "raid": {
         "difficulty" : 3,
@@ -112,12 +112,12 @@
         "boss" : {
            "name" : "Titan",
            "attributes" : [
-              "speed", "strength", "health" 
+              "speed", "strength", "health"
            ],
            "random_spawn_points" : [
-              [0, 1], 
-              [21, 3], 
-              [34, 7], 
+              [0, 1],
+              [21, 3],
+              [34, 7],
               [50, 10]
            ]
         },
@@ -126,12 +126,12 @@
      "empty_object" : {}
   }
 </code></pre>
-            <p>Notice that each item inside the "enemies" array is an object. Each item inside "random_spawn_points" is an array in itself, and we can have duplicate keys (the "name" ones), because they're inside different objects and at different levels inside the JSON object. Like so, in Stonehearth files you'll see nested arrays and nested objects all the time.</p>
-            <p>There's also a special value called "null" which is written without quotes (like "true" and "false"). It usually represents the absence of a value, as opposed to an empty object (since you can't have a key without a value). We don't use null very often in our JSON files so we haven't added it to this list.</p>
-            <h2><a name="LastNotes"></a>Last notes</h2>
-            <p>In this modding guide, we might use different words to refer to the JSON keys, for example fields, keys, nodes, aliases, URIs, entries, or sections, depending on the context.</p>
-            <p>If you're having trouble with the JSON files in your mod, you can use an online tool called <a href="https://jsonlint.com/">JSONLint</a>. You can copy the content of your whole JSON file, paste it there, and validate it. Many times the JSON is broken because there's a comma where there shouldn't be, or you forgot to close some quotes, or have some repeated key at the same level, or any other inconsistency in your file that makes the JSON invalid and therefore the game can't read it.</p>
-            <p>Also, since the order of the key-value pairs is irrelevant inside the JSON file, you might find it difficult to know if you have the same fields than another file from the game sometimes. To check that, you can use <a href="http://www.jsondiff.com/">JSON Diff</a>. It's an online tool that will show you the differences between two JSON objects even if the order of the key-value pairs is different between them.</p>
+            <p>注意 "enemies" 数组中的每个项目都是一个对象。"random_spawn_points" 中的每个项目本身就是一个数组，我们可以有重复的键（"name"），因为它们位于不同的对象中并且在 JSON 对象中的不同级别。因此，在 Stonehearth 文件中，你将经常看到嵌套数组和嵌套对象。</p>
+            <p>还有一个称为 "null" 的特殊值，它不带引号写入（如 "true" 和 "false"）。它通常表示值的缺失，与空对象相反（因为你不能有没有值的键）。我们在 JSON 文件中不经常使用 null，所以我们没有将其添加到此列表中。</p>
+            <h2><a name="LastNotes"></a>最后说明</h2>
+            <p>在本模组制作指南中，我们可能会使用不同的词语来指代 JSON 键，例如字段、键、节点、别名、URI、条目或部分，具体取决于上下文。</p>
+            <p>如果你在模组的 JSON 文件中遇到问题，可以使用名为 <a href="https://jsonlint.com/">JSONLint</a> 的在线工具。你可以复制整个 JSON 文件的内容，粘贴到那里，然后验证它。很多时候 JSON 出错是因为在不应该有逗号的地方有逗号，或者你忘记关闭某些引号，或者在同一级别有重复的键，或者文件中的任何其他不一致之处使 JSON 无效，因此游戏无法读取它。</p>
+            <p>此外，由于 JSON 文件中键值对的顺序无关紧要，有时你可能会发现很难知道是否与游戏中的另一个文件具有相同的字段。要检查这一点，你可以使用 <a href="http://www.jsondiff.com/">JSON Diff</a>。这是一个在线工具，即使键值对的顺序不同，它也会显示两个 JSON 对象之间的差异。</p>
         </main>
     </body>
 </html>

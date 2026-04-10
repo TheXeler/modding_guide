@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,34 +7,34 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Combat jobs</title>
+        <title>战斗类职业</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Combat jobs</h1>
-            <p>Combat is controlled using many files: the combat service, combat_state / target_tables components, AI actions under <code>stonehearth/ai/actions/combat</code>, etc.</p>
-            <p>Let's create a new combat job. We'll call it Crusader, they will be an advanced class promoted from Footman.</p>
+            <h1>战斗类职业</h1>
+            <p>战斗由许多文件控制：combat 服务、combat_state / target_tables 组件、<code>stonehearth/ai/actions/combat</code> 下的 AI 行为等。</p>
+            <p>让我们创建一个新的战斗类职业。我们称它为 Crusader（十字军），他们将是从 Footman（步兵）提升的高级职业。</p>
             <ul>
                 <li>
-                    <a href="#CombatJob">Adding a combat job</a>
+                    <a href="#CombatJob">添加战斗类职业</a>
                     <ul>
-                        <li><a href="#CombatSkills">About attacks and defenses</a></li>
+                        <li><a href="#CombatSkills">关于攻击和防御</a></li>
                     </ul>
                 </li>
-                <li><a href="#SHED">Using SHED</a></li>
+                <li><a href="#SHED">使用 SHED</a></li>
             </ul>
-            <h2><a name="CombatJob"></a>Adding a combat job</h2>
-            <p>These are the steps to add a combat job manually. We'll quickly go over them since the common parts have already been explained in <a href="../index.html">another page</a>, and explain the features specific to combat jobs.</p>
+            <h2><a name="CombatJob"></a>添加战斗类职业</h2>
+            <p>这些是手动添加战斗类职业的 steps。我们将快速浏览它们，因为通用部分已在<a href="../index.html">另一个页面</a>中解释，并解释战斗类职业特有的功能。</p>
             <ol>
                 <li>
-                    <p>We'll start by copying the footman job, for example (you can copy any other combat job, you'll likely want to copy the archer if you want to make a ranged unit).</p>
+                    <p>我们将从复制 footman 职业开始（你可以复制任何其他战斗类职业，如果你想制作远程单位，你可能想复制 archer）。</p>
                 </li>
                 <li>
-                    <p>We rename the files replacing footman with crusader.</p>
+                    <p>我们用 crusader 替换 footman 来重命名文件。</p>
                 </li>
                 <li>
-                    <p>We add an alias for our job in our mod's manifest, as well as an alias for our job index, to use it for the mixinto:</p>
+                    <p>我们在模组的清单中为我们的职业添加别名，以及为我们的职业索引添加别名，以便在 mixinto 中使用它：</p>
                     <pre><code>"aliases": {
    "jobs:index": "file(jobs/index.json)",
    "jobs:crusader": "file(jobs/crusader/crusader_description.json)"
@@ -42,19 +42,19 @@
 </code></pre>
                 </li>
                 <li>
-                    <p>We add the alias of the controller to the "controllers" section of our manifest:</p>
+                    <p>我们将控制器的别名添加到清单的 "controllers" 部分：</p>
                     <pre><code>"controllers":{
    "class:crusader": "file(jobs/crusader/crusader.lua)"
 }
 </code></pre>
                 </li>
                 <li>
-                    <p>We add a mixinto to the jobs index to add our Crusader job to the list of existing jobs:</p>
+                    <p>我们向职业索引添加 mixinto，以将我们的 Crusader 职业添加到现有职业列表中：</p>
                     <pre><code>"mixintos": {
    "stonehearth:jobs:index": "crusader:jobs:index"
 }
 </code></pre>
-                    <p>  Our <code>index.json</code> file looks like this:</p>
+                    <p>  我们的 <code>index.json</code> 文件看起来像这样：</p>
                     <pre><code>{
     "jobs": {
         "crusader:jobs:crusader": {
@@ -63,20 +63,20 @@
     }
 }
 </code></pre>
-                    <p>  The key of the job happens to match with the alias, which is what the <strong>"description"</strong> field points to.</p>
+                    <p>  职业的键恰好与别名匹配，这就是 <strong>"description"</strong> 字段指向的内容。</p>
                 </li>
                 <li>
-                    <p>Since the <a href="../index.html#TheTalisman">talisman</a> corresponds to an actual weapon, we have created it under <code>my_mod/entities/weapons</code>. We edit its related files (<code>battle_hammer_talisman.json</code>, <code>battle_hammer.json</code>, <code>battle_hammer_iconic.json</code>, and all their models and images).</p>
-                    <p>  We also add aliases for both the talisman and the weapon:</p>
+                    <p>由于<a href="../index.html#TheTalisman">护身符</a>对应于实际武器，我们在 <code>my_mod/entities/weapons</code> 下创建了它。我们编辑其相关文件（<code>battle_hammer_talisman.json</code>、<code>battle_hammer.json</code>、<code>battle_hammer_iconic.json</code> 及其所有模型和图像）。</p>
+                    <p>  我们还为护身符和武器添加别名：</p>
                     <pre><code>"crusader:talisman": "file(entities/weapons/battle_hammer/battle_hammer_talisman.json)",
 "weapons:battle_hammer": "file(entities/weapons/battle_hammer)"
 </code></pre>
                 </li>
                 <li>
-                    <p>Now we edit the <code>crusader_description.json</code> file. There are many fields that are common for <a href="../index.html#JobDescription">any type of job</a>. Here's how to set them up for combat jobs:</p>
+                    <p>现在我们编辑 <code>crusader_description.json</code> 文件。有许多字段对于<a href="../index.html#JobDescription">任何类型的职业</a>都是通用的。以下是如何为战斗类职业设置它们：</p>
                     <ul>
                         <li>
-                            <p><strong>"abilities"</strong> -- for our example, the <code>crusader_abilities.json</code> file will look like this:</p>
+                            <p><strong>"abilities"</strong> -- 对于我们的示例，<code>crusader_abilities.json</code> 文件将如下所示：</p>
                             <pre><code>{
    "type": "entity",
    "components": {
@@ -117,34 +117,34 @@
    }
 }
 </code></pre>
-                            <p> Notice that we inject the patrolling AI pack so that the crusader knows how to patrol, a buff common for all combat units that increases their attributes, and an initial attack and defense skill (animation effects).</p>
-                            <p> The <strong>"military_score"</strong> property inside the equipment_piece component will make it so that the town's military score increases by the value defined there every time we promote someone to, in this case, Crusader. In the stonehearth mod only the advanced combat units have it. This way we can automatically increase / decrease the score by a higher amount every time we promote / demote a hearthling to a combat job.</p>
-                            <p> Military score (which you'll see in the town overview menu) is based on the weapons / tools / armor of the hearthlings, plus the combat units that we have (via these abilities files). Some aspects of the game will scale based on your military score.</p>
-                            <p> If you look at other examples from the stonehearth mod, you'll see that we can add any other AI pack here, or don't specify any attack (that's usually dependent on weapons themselves, so that the animations match with the weapon). The abilities file is like a default <a href="../../../basic/wearables/index.html">equipment piece</a> or default skills that the job comes with.</p>
+                            <p> 注意我们注入了 patrolling AI 包，以便 crusader 知道如何巡逻，一个对所有战斗单位通用的 buff，增加他们的属性，以及初始攻击和防御技能（动画效果）。</p>
+                            <p> equipment_piece 组件内的 <strong>"military_score"</strong> 属性将使城镇的军事分数每次有人提升到 Crusader 时增加那里定义的值。在 stonehearth 模组中，只有高级战斗单位有它。这样我们可以通过每次提升/降级 Hearthling 到战斗职业来自动增加/减少更多的分数。</p>
+                            <p> 军事分数（你将在城镇概览菜单中看到）基于 Hearthlings 的武器/工具/盔甲，加上我们拥有的战斗单位（通过这些 abilities 文件）。游戏的某些方面将根据你的军事分数进行缩放。</p>
+                            <p> 如果你查看 stonehearth 模组中的其他示例，你会看到我们可以在此处添加任何其他 AI 包，或不指定任何攻击（这通常取决于武器本身，以便动画与武器匹配）。Abilities 文件就像默认的<a href="../../../basic/wearables/index.html">equipment piece</a>或职业附带的默认技能。</p>
                         </li>
                         <li>
-                            <p><strong>"task_groups": []</strong> -- for our example, this array will look like this:</p>
+                            <p><strong>"task_groups": []</strong> -- 对于我们的示例，此数组将如下所示：</p>
                             <pre><code>"task_groups": [
   "stonehearth:task_group:common_tasks",
   "stonehearth:task_group:restock",
   "stonehearth:task_groups:rescue"
 ]
 </code></pre>
-                            <p> Here we have very few task groups since we want our unit to focus on combat. Notice how combat units don't have the town_alert AI pack / task group. In the case of the cleric, they have the healing task group here too.</p>
+                            <p> 这里我们有很少的任务组，因为我们希望我们的单位专注于战斗。注意战斗单位没有 town_alert AI 包/任务组。对于 cleric，他们也有 healing 任务组。</p>
                         </li>
                         <li>
-                            <p><strong>"xp_rewards": {}</strong> -- for combat units, we set them up like this:</p>
+                            <p><strong>"xp_rewards": {}</strong> -- 对于战斗单位，我们这样设置它们：</p>
                             <pre><code>"xp_rewards": {
    "town_protection": 1
 }
 </code></pre>
-                            <p>This is the amount of experience that they will gain every now and then when protecting the town (either patrolling or standing in a defense zone). It is controlled by listening to an event in <code>combat_job.lua</code>. The amount of experience that they gain by killing enemies depends on the monster_tuning files (it will be scaled with difficulty, and each monster will reward a different amount of experience points).</p>
-                            <p>All party members receive the same experience while in combat, no matter who killed the enemies.</p>
-                            <p>The cleric also has a couple more settings in their "xp_rewards". In general, you can grant exp points via the <code>add_exp</code> function of the job component.</p>
+                            <p>这是他们在保护城镇时（无论是巡逻还是站在防御区域）不时获得的经验值量。它通过监听 <code>combat_job.lua</code> 中的事件来控制。他们通过杀死敌人获得的经验值量取决于 monster_tuning 文件（它将随难度缩放，每个怪物将奖励不同数量的经验值）。</p>
+                            <p>所有队伍成员在战斗中获得相同的经验，无论谁杀死了敌人。</p>
+                            <p>Cleric 在他们的 "xp_rewards" 中还有几个更多设置。一般来说，你可以通过 job 组件的 <code>add_exp</code> 函数授予经验值。</p>
                         </li>
                         <li>
-                            <p><strong>"level_data": {}</strong> -- combat units usually unlock permanent buffs and new combat skills.</p>
-                            <p> For example, the Crusader will have these two perks:</p>
+                            <p><strong>"level_data": {}</strong> -- 战斗单位通常解锁永久 buff 和新的战斗技能。</p>
+                            <p> 例如，Crusader 将有这两个特权：</p>
                             <pre><code>"level_data": {
    "1": {
       "perks": [
@@ -179,37 +179,37 @@
 </code></pre>
                             <ul>
                                 <li>
-                                    <p>The first one has <strong>"type" : "add_combat_action"</strong>. This is the name of a function defined in <code>combat_job.lua</code>. Notice how we have the <strong>"demote_fn"</strong> field with the opposite function, <strong>"remove_combat_action"</strong>.</p>
-                                    <p>We declare an <strong>"action_type"</strong> so that the game knows where to inject the new combat skill (in this case, <strong>"stonehearth:combat:melee_attacks"</strong>) and an <strong>"equipment"</strong> (in this case, <code>"crusader:crusader:holy_punch"</code>) which is the URI of a JSON file describing an <a href="../../../basic/wearables/index.html">equipment piece</a>, normally an invisible one that just adds a new combat skill (animation), or inflictable debuffs, etc.</p>
-                                    <p>Remember that the damage is defined in the weapon, not in the attacks themselves, and that it will be modified by factors like attributes, buffs, or some <a href="#CombatSkills">properties</a> of the attacks (that are added together with the animation info). For healing we have <strong>"stonehearth:combat:healing_spells"</strong>, instead of melee attacks. It's used for the cleric, and doesn't have any special property besides the animation ones, because the heal amount depends on the entity_data of the weapon:</p>
+                                    <p>第一个有 <strong>"type" : "add_combat_action"</strong>。这是在 <code>combat_job.lua</code> 中定义的函数的名称。注意我们有 <strong>"demote_fn"</strong> 字段，具有相反的函数，<strong>"remove_combat_action"</strong>。</p>
+                                    <p>我们声明一个 <strong>"action_type"</strong>，以便游戏知道在哪里注入新的战斗技能（在这种情况下，<strong>"stonehearth:combat:melee_attacks"</strong>）和一个 <strong>"equipment"</strong>（在这种情况下，<code>"crusader:crusader:holy_punch"</code>），它是描述 <a href="../../../basic/wearables/index.html">equipment piece</a> 的 JSON 文件的 URI，通常是一个不可见的，只添加新战斗技能（动画）或可施加 debuffs 等的。</p>
+                                    <p>请记住，伤害是在武器中定义的，而不是在攻击本身中定义的，并且它将受到属性、buff 或攻击的一些<a href="#CombatSkills">属性</a>（与动画信息一起添加）等因素的影响。对于治疗，我们有 <strong>"stonehearth:combat:healing_spells"</strong>，而不是近战攻击。它用于 cleric，除了动画属性外没有任何特殊属性，因为治疗量取决于武器的 entity_data：</p>
                                     <pre><code>"stonehearth:combat:healing_data": {
    "base_healing": 5
 }
 </code></pre>
-                                    <p>Normally we'll set the "priority" of the unlocked skills from the perks a bit higher, so that they have more chances to run than the basic attacks.</p>
+                                    <p>通常我们会将从特权解锁的技能的 "priority" 设置得稍高一些，以便它们比基本攻击更有机会运行。</p>
                                 </li>
                                 <li>
-                                    <p>The second one has <strong>"type": "apply_buff"</strong> (with <strong>"demote_fn": "remove_buff"</strong>). These functions are defined in <code>base_job.lua</code>. We declare a <strong>"buff_name"</strong> property linking to the URI of the buff that we want to apply (normally a permanent buff).</p>
+                                    <p>第二个有 <strong>"type": "apply_buff"</strong>（带有 <strong>"demote_fn": "remove_buff"</strong>）。这些函数在 <code>base_job.lua</code> 中定义。我们声明一个 <strong>"buff_name"</strong> 属性，链接到我们要应用的 buff 的 URI（通常是永久 buff）。</p>
                                 </li>
                             </ul>
-                            <p> There are some more functions in base_job.lua and combat_job.lua that we can use for the perks.</p>
+                            <p> base_job.lua 和 combat_job.lua 中还有一些更多我们可以用于特权的函数。</p>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p>We would now proceed to edit the rest of files:</p>
+                    <p>我们现在将继续编辑其余文件：</p>
                     <ul>
                         <li>
-                            <p>We edit the files for the default job outfit, which are the same than for any other type of <a href="../../../basic/wearables/armor/index.html">armor</a>, and normally include <a href="../../../basic/wearables/armor/index.html#ArmorData">armor data</a>:</p>
+                            <p>我们编辑默认职业服装的文件，这与任何其他类型的<a href="../../../basic/wearables/armor/index.html">盔甲</a>相同，通常包括<a href="../../../basic/wearables/armor/index.html#ArmorData">盔甲数据</a>：</p>
                             <pre><code>"stonehearth:combat:armor_data": {
    "base_damage_reduction": 7
 }
 </code></pre>
                         </li>
                         <li>
-                            <p>We edit the controller file. This is very important. Our renamed controller file will still have the same code inside so we have to rename some stuff in it.</p>
-                            <p> <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> All jobs in the game inherit from <code>base_job.lua</code>. Combat jobs inherit from <code>combat_job.lua</code> instead, because that file already inherits from base_job.lua. The <code>CombatJob</code> class defined in combat_job.lua takes care of adding the combat unit to a default party when they get promoted, removing them when they are demoted to a non-combat job, and managing the experience gain for combat units when they patrol.</p>
-                            <p> Our <code>crusader.lua</code> file would look like this after we rename Footman to Crusader:</p>
+                            <p>我们编辑控制器文件。这非常重要。我们重命名的控制器文件仍将具有相同的代码，所以我们必须在其中重命名一些内容。</p>
+                            <p> <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 游戏中的所有职业都继承自 <code>base_job.lua</code>。战斗类职业改为继承自 <code>combat_job.lua</code>，因为该文件已经继承自 base_job.lua。<code>CombatJob</code> 类在 combat_job.lua 中定义，负责在战斗单位提升时将它们添加到默认队伍中，在他们降级到非战斗职业时移除它们，并管理战斗单位在巡逻时的经验获取。</p>
+                            <p> 在我们重命名 Footman 为 Crusader 后，我们的 <code>crusader.lua</code> 文件将如下所示：</p>
                             <pre><code>local CrusaderClass = class()
 
 local CombatJob = radiant.mods.require 'stonehearth.jobs.combat_job'
@@ -217,8 +217,8 @@ radiant.mixin(CrusaderClass, CombatJob)
 
 return CrusaderClass
 </code></pre>
-                            <p> Notice how we mixin the CombatJob class to our CrusaderClass, to retrieve all the common code for combat units. The example above is the minimal code that a combat class should have. In this Lua file we can add more custom functions if we need to. For example, take a look at <code>cleric.lua</code>.</p>
-                            <p> In order to override inherited functions, we'd do this (after inheriting from the CombatJob class and before returning our CrusaderClass class):</p>
+                            <p> 注意我们如何将 CombatJob 类 mixin 到我们的 CrusaderClass，以检索战斗单位的通用代码。上面的示例是战斗类应具有的最少代码。如果需要，我们可以在此 Lua 文件中添加更多自定义函数。例如，查看 <code>cleric.lua</code>。</p>
+                            <p> 为了覆盖继承的函数，我们将这样做（在从 CombatJob 类继承之后并在返回我们的 CrusaderClass 类之前）：</p>
                             <pre><code>-- Overriding standard combat class functions looks like this
 function CrusaderClass:promote(json_path, options)
    -- First call the combat class's version
@@ -226,41 +226,41 @@ function CrusaderClass:promote(json_path, options)
    -- Your custom code goes here
 end
 </code></pre>
-                            <p> This allows us to extend the functionality if we need to add extra variables or whatever new behavior to the class.</p>
+                            <p> 这允许我们在需要向类添加额外变量或任何新行为时扩展功能。</p>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p>Now we add a crafting recipe for the talisman to be obtainable in the game, or make it obtainable in some other way.</p>
+                    <p>现在我们为护身符添加制作配方，使其在游戏中可获得，或以其他方式使其可获得。</p>
                 </li>
                 <li>
-                    <p>Finally we can test our new combat job in the game and make sure that everything works as expected.</p>
-                    <p>  You can either stamp the required talisman with the Item Stamper debugtool and promote the hearthlings via the promotion UI, or make a crafter craft the talisman if you made a recipe for it, etc.</p>
-                    <p>  You can also promote them with the default console if you have the debugtools mod enabled, e.g.:</p>
+                    <p>最后，我们可以在游戏中测试我们的新战斗类职业，并确保一切按预期工作。</p>
+                    <p>  你可以使用 Item Stamper debugtool 生成所需的护身符，并通过晋升 UI 提升 Hearthlings，或者如果你为其制作了配方，让工匠制作护身符等。</p>
+                    <p>  如果你启用了 debugtools 模组，你也可以使用默认控制台提升他们，例如：</p>
                     <pre><code>  promote_to crusader:jobs:crusader
 </code></pre>
-                    <p>  And then check if they get added to the parties menu, patrol, can fight, etc.</p>
+                    <p>  然后检查他们是否被添加到队伍菜单中，巡逻，可以战斗等。</p>
                 </li>
             </ol>
-            <h3><a name="CombatSkills"></a>About attacks and defenses</h3>
-            <p>We can easily add new combat skills with equipment pieces. <a href="../../../basic/wearables/weapons/index.html#MeleeAttacks">Earlier</a> we already explained the basic properties that they can have. But there are even more than just the info for the combat animation effect.</p>
-            <p>You can check the existing combat jobs, armor and weapons for examples.</p>
-            <p>For melee attacks:</p>
+            <h3><a name="CombatSkills"></a>关于攻击和防御</h3>
+            <p>我们可以轻松地使用 equipment pieces 添加新的战斗技能。<a href="../../../basic/wearables/weapons/index.html#MeleeAttacks">早些时候</a>我们已经解释了它们可以具有的基本属性。但除了战斗动画效果的信息外，还有更多。</p>
+            <p>你可以检查现有的战斗类职业、盔甲和武器以获取示例。</p>
+            <p>对于近战攻击：</p>
             <ul>
                 <li>
-                    <p><strong>"damage_multiplier"</strong> -- with this property, when the attack is executed the total damage is increased or decreased based on this multiplier.</p>
+                    <p><strong>"damage_multiplier"</strong> -- 使用此属性，当执行攻击时，总伤害将根据此乘数增加或减少。</p>
                 </li>
                 <li>
-                    <p><strong>"aggro_addition"</strong> -- we can make this attack increase the aggro towards our combat unit.</p>
+                    <p><strong>"aggro_addition"</strong> -- 我们可以使此攻击增加对我们战斗单位的 aggro。</p>
                 </li>
                 <li>
-                    <p><strong>"aggro_multiplier"</strong> -- like the above property, but using a multiplier instead of adding some amount. If both are present, the multiplier will be applied before the addition.</p>
+                    <p><strong>"aggro_multiplier"</strong> -- 与上述属性类似，但使用乘数而不是添加一些数量。如果两者都存在，将在添加之前应用乘数。</p>
                 </li>
                 <li>
-                    <p><strong>"minimum_damage"</strong> -- we can limit the minimum damage that this attack should make. If the damage is negative, then it will be changed to either 0 or 1.</p>
+                    <p><strong>"minimum_damage"</strong> -- 我们可以限制此攻击应造成的最小伤害。如果伤害为负，则将其更改为 0 或 1。</p>
                 </li>
                 <li>
-                    <p><strong>"inflictable_debuffs" : {}</strong> -- same syntax than for other inflictable debuffs. We can make this attack inflict a debuff on the target with a chance.</p>
+                    <p><strong>"inflictable_debuffs" : {}</strong> -- 与其他 inflictable debuffs 相同的语法。我们可以使此攻击有机会对目标施加 debuff。</p>
                     <pre><code>"inflictable_debuffs": {
    "infection": {
       "uri": "stonehearth:buffs:knight:taunted_effect",
@@ -270,57 +270,57 @@ end
 </code></pre>
                 </li>
                 <li>
-                    <p><strong>"aoe_effect" : {}</strong> -- this attack will cause aoe damage. It includes at least an <strong>"aoe_range"</strong> property (the range in world units where the aoe damage will have effect, by default it will be the melee attack's range) and an <strong>"aoe_target_limit"</strong> property (the maximum number of targets that can be affected by the aoe, 10 by default). It can also include any of the fields described above, so that the aoe attack can increase aggro, inflict debuffs on multiple targets, etc.</p>
+                    <p><strong>"aoe_effect" : {}</strong> -- 此攻击将造成 aoe 伤害。它至少包括一个 <strong>"aoe_range"</strong> 属性（aoe 伤害将生效的世界单位范围，默认为近战攻击的范围）和一个 <strong>"aoe_target_limit"</strong> 属性（受 aoe 影响的最大目标数量，默认为 10）。它还可以包括上述任何字段，以便 aoe 攻击可以增加 aggro，对多个目标施加 debuffs 等。</p>
                 </li>
             </ul>
-            <p>For ranged attacks:</p>
+            <p>对于远程攻击：</p>
             <ul>
-                <li>Besides the normal <strong>"active_frame"</strong> property, we can have an <strong>"active_frames" : []</strong> array, to specify more than one frame. It's used for the archer double shot skill. We could also use this property for melee attacks.</li>
-                <li><strong>"target_armor_multiplier"</strong> -- normally a value between 0 and 1, this will reduce the armor for the target, so the damage will be higher. Also possible to use in melee attacks.</li>
+                <li>除了正常的 <strong>"active_frame"</strong> 属性外，我们可以有一个 <strong>"active_frames" : []</strong> 数组，以指定多个帧。它用于 archer double shot 技能。我们也可以将此属性用于近战攻击。</li>
+                <li><strong>"target_armor_multiplier"</strong> -- 通常是 0 到 1 之间的值，这将减少目标的盔甲，因此伤害将更高。也可用于近战攻击。</li>
             </ul>
-            <p>For melee defenses:</p>
+            <p>对于近战防御：</p>
             <ul>
-                <li><strong>"chance_of_success"</strong> -- normally a value between 0 and 1 (1 by default). It is the chance to block attacks.</li>
-                <li><strong>"defense_attribute"</strong> -- the name of an attribute that we can use to increase the chance of success, 0 by default. We can use any attribute in this field, but for it to have effect the hearthlings must already have it in their attributes component.</li>
+                <li><strong>"chance_of_success"</strong> -- 通常是 0 到 1 之间的值（默认为 1）。它是阻挡攻击的机会。</li>
+                <li><strong>"defense_attribute"</strong> -- 我们可以用来增加成功机会的属性的名称，默认为 0。我们可以在此字段中使用任何属性，但要使其生效，Hearthlings 必须在其 attributes 组件中已有它。</li>
             </ul>
-            <h2><a name="SHED"></a>Using SHED</h2>
-            <p><strong>Disclaimer</strong>: These steps refer to creating a combat job using SHED at the time that this page was written.</p>
+            <h2><a name="SHED"></a>使用 SHED</h2>
+            <p><strong>免责声明</strong>：这些步骤指的是在此页面编写时使用 SHED 创建战斗类职业。</p>
             <ul>
                 <li>
-                    <p>First we'll need to clone a job node from the stonehearth mod (for example, 'jobs:footman').</p>
+                    <p>首先我们需要从 stonehearth 模组克隆一个职业节点（例如，'jobs:footman'）。</p>
                 </li>
                 <li>
-                    <p>Right-click on it and click on 'Clone!'. Select your mod as the Target mod for the clone, and type the name of your combat job in the replacement text box.</p>
+                    <p>右键单击它并点击 'Clone!'。选择你的模组作为克隆的目标模组，并在替换文本框中输入你的战斗类职业的名称。</p>
                 </li>
                 <li>
-                    <p>Click on clone and review the dependencies. Uncheck any unwanted files from buffs and the like if you won't use them, and go back if you want to add more replacement texts for the names of the rest of the files, so that they're cloned already with the name that you want.</p>
-                    <p>  Make sure to uncheck the alias for the controller (your_mod:class:your_job) since it would be created inside the aliases node, which is something that we don't want. Click on 'Accept'.</p>
+                    <p>点击 clone 并审查依赖项。如果你不使用 buffs 等中的任何不需要的文件，请取消选中它们，如果你想为其余文件的名称添加更多替换文本，以便它们已经以你想要的名称克隆，请返回。</p>
+                    <p>  确保取消选中控制器的别名（your_mod:class:your_job），因为它将在 aliases 节点内创建，这是我们不想要的。点击 'Accept'。</p>
                 </li>
                 <li>
-                    <p>Once SHED refreshes the view, look for the <strong>controllers</strong> node of the stonehearth mod and find (for example) the 'class:footman' node. Clone it replacing footman with the name of your custom job, but uncheck the Lua file, since we already cloned it in the previous step.</p>
-                    <p>  This will make it so that the alias of the controller is cloned into the <strong>"controllers"</strong> section of your manifest, which is what we want.</p>
+                    <p>一旦 SHED 刷新视图，查找 stonehearth 模组的 <strong>controllers</strong> 节点并找到（例如）'class:footman' 节点。克隆它，用你的自定义职业的名称替换 footman，但取消选中 Lua 文件，因为我们已在上一步中克隆了它。</p>
+                    <p>  这将使控制器的别名克隆到你清单的 <strong>"controllers"</strong> 部分，这是我们想要的。</p>
                 </li>
                 <li>
-                    <p>Now search for the 'weapons:wooden_sword' node on the stonehearth mod and clone it to your mod, so that your talisman JSON file detects the missing models and images.</p>
+                    <p>现在在 stonehearth 模组中搜索 'weapons:wooden_sword' 节点并将其克隆到你的模组，以便你的护身符 JSON 文件检测到缺少的模型和图像。</p>
                 </li>
                 <li>
-                    <p>Select the node of your cloned job and start editing the files:</p>
+                    <p>选择你克隆的职业节点并开始编辑文件：</p>
                     <ul>
                         <li>
-                            <p>Edit the <strong>"alias"</strong>, <strong>"controller"</strong>, <strong>"talisman_uri"</strong> and any other fields with aliases so that they point to your mod's manifest. If SHED detects the file that they point to, it will highlight them in light green.</p>
+                            <p>编辑 <strong>"alias"</strong>、<strong>"controller"</strong>、<strong>"talisman_uri"</strong> 和任何其他带有别名的字段，以便它们指向你模组的清单。如果 SHED 检测到它们指向的文件，它将以浅绿色突出显示它们。</p>
                         </li>
                         <li>
-                            <p>If your job perks include buffs, edit their aliases so that they point to the stonehearth mod (if you plan on reusing them) or to your mod (if you've cloned them). Same for the combat skills.</p>
-                            <p> Remember that the name of the effects is based on the stonehearth mod. If you plan to add custom animations, make sure to set the overrides properly so that the hearthlings detect them.</p>
+                            <p>如果你的职业特权包括 buffs，编辑它们的别名，以便它们指向 stonehearth 模组（如果你计划重用它们）或你的模组（如果你已克隆它们）。战斗技能也是如此。</p>
+                            <p> 请记住，效果的名称基于 stonehearth 模组。如果你计划添加自定义动画，请确保正确设置 overrides，以便 Hearthlings 检测到它们。</p>
                         </li>
                         <li>
-                            <p>Save the changes.</p>
+                            <p>保存更改。</p>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p>Finally, keep editing the models, data of the perks, controller, etc. like mentioned in the <a href="#CombatJob">guide above</a> until your cloned job is ready for testing. You can use the 'Localize This File' button to try auto-localizing your JSON files (mind that for some files it might not work).</p>
-                    <p>  Remember to add your job to the job index via a mixinto outside of SHED, otherwise you won't be able to test it. Also make a recipe for the talisman or make it obtainable in some other way.</p>
+                    <p>最后，继续编辑模型、特权数据、控制器等，如<a href="#CombatJob">上述指南</a>中所述，直到你克隆的职业准备好进行测试。你可以使用 'Localize This File' 按钮尝试自动本地化你的 JSON 文件（请注意，对于某些文件可能不起作用）。</p>
+                    <p>  记住通过 SHED 外部的 mixinto 将你的职业添加到职业索引中，否则你将无法测试它。还要为护身符制作配方或以其他方式使其可获得。</p>
                 </li>
             </ul>
         </main>

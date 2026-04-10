@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,92 +7,92 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Generic encounters</title>
+        <title>通用遭遇战</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Generic encounters</h1>
-            <p>Let's take a look at the available encounter types and their associated properties. Their controllers can be found in <code>stonehearth/services/server/game_master/controllers/encounters</code>.</p>
+            <h1>通用遭遇战</h1>
+            <p>让我们来看看可用的遭遇战类型及其相关属性。它们的控制器可以在 <code>stonehearth/services/server/game_master/controllers/encounters</code> 中找到。</p>
             <ul>
                 <li>
-                    <a href="#WaitEncounters">Wait encounters</a>
+                    <a href="#WaitEncounters">等待类遭遇战</a>
                     <ul>
-                        <li><a href="#Wait">Wait</a></li>
-                        <li><a href="#WaitForTimeOfDay">Wait for time of day</a></li>
-                        <li><a href="#WaitForEvent">Wait for event</a></li>
-                        <li><a href="#WaitForNetWorth">Wait for net worth</a></li>
-                        <li><a href="#WaitForRequirementsMet">Wait for requirements met</a></li>
+                        <li><a href="#Wait">等待</a></li>
+                        <li><a href="#WaitForTimeOfDay">等待特定时间</a></li>
+                        <li><a href="#WaitForEvent">等待事件</a></li>
+                        <li><a href="#WaitForNetWorth">等待净资产</a></li>
+                        <li><a href="#WaitForRequirementsMet">等待条件满足</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#GateEncounters">Gate encounters</a>
+                    <a href="#GateEncounters">门控类遭遇战</a>
                     <ul>
-                        <li><a href="#Generator">Generator</a></li>
-                        <li><a href="#ItemThreshold">Item threshold</a></li>
+                        <li><a href="#Generator">生成器</a></li>
+                        <li><a href="#ItemThreshold">物品阈值</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#FlagEncounters">Flag encounters</a>
+                    <a href="#FlagEncounters">标记类遭遇战</a>
                     <ul>
-                        <li><a href="#Counter">Counter</a></li>
-                        <li><a href="#SetCounters">Set counters</a></li>
+                        <li><a href="#Counter">计数器</a></li>
+                        <li><a href="#SetCounters">设置计数器</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#UtilityEncounters">Utility encounters</a>
+                    <a href="#UtilityEncounters">工具类遭遇战</a>
                     <ul>
-                        <li><a href="#DestroyEntity">Destroy entity</a></li>
-                        <li><a href="#Script">Script</a></li>
+                        <li><a href="#DestroyEntity">销毁实体</a></li>
+                        <li><a href="#Script">脚本</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#DialogEncounters">Dialog encounters</a>
+                    <a href="#DialogEncounters">对话类遭遇战</a>
                     <ul>
-                        <li><a href="#Bulletin">Bulletin</a></li>
-                        <li><a href="#DialogTree">Dialog tree</a></li>
-                        <li><a href="#Shop">Shop</a></li>
-                        <li><a href="#DeliveryQuest">Delivery quest</a></li>
-                        <li><a href="#CollectionQuest">Collection quest</a></li>
+                        <li><a href="#Bulletin">公告</a></li>
+                        <li><a href="#DialogTree">对话树</a></li>
+                        <li><a href="#Shop">商店</a></li>
+                        <li><a href="#DeliveryQuest">递送任务</a></li>
+                        <li><a href="#CollectionQuest">收集任务</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#RewardEncounters">Reward encounters</a>
+                    <a href="#RewardEncounters">奖励类遭遇战</a>
                     <ul>
-                        <li><a href="#DonationDialog">Donation dialog</a></li>
-                        <li><a href="#Donation">Donation</a></li>
-                        <li><a href="#UnlockRecipe">Unlock recipe</a></li>
+                        <li><a href="#DonationDialog">捐赠对话</a></li>
+                        <li><a href="#Donation">捐赠</a></li>
+                        <li><a href="#UnlockRecipe">解锁配方</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#TownProgressionEncounters">Town progression encounters</a>
+                    <a href="#TownProgressionEncounters">城镇发展遭遇战</a>
                     <ul>
-                        <li><a href="#TownUpgradeChoice">Town upgrade choice</a></li>
-                        <li><a href="#TownUpgrade">Town upgrade</a></li>
-                        <li><a href="#CityTierAchieved">City tier achieved</a></li>
-                        <li><a href="#CityTierQuest">City tier quest</a></li>
+                        <li><a href="#TownUpgradeChoice">城镇升级选择</a></li>
+                        <li><a href="#TownUpgrade">城镇升级</a></li>
+                        <li><a href="#CityTierAchieved">达成城市等级</a></li>
+                        <li><a href="#CityTierQuest">城市等级任务</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#CitizenEncounters">Citizen encounters</a>
+                    <a href="#CitizenEncounters">市民遭遇战</a>
                     <ul>
-                        <li><a href="#AddCitizen">Add citizen</a></li>
-                        <li><a href="#Reembarkation">Reembarkation</a></li>
-                        <li><a href="#DispatchQuest">Dispatch quest</a></li>
+                        <li><a href="#AddCitizen">添加市民</a></li>
+                        <li><a href="#Reembarkation">重新登船</a></li>
+                        <li><a href="#DispatchQuest">派遣任务</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#RaidEncounters">Raid encounters</a>
+                    <a href="#RaidEncounters">袭击类遭遇战</a>
                     <ul>
-                        <li><a href="#CreateCamp">Create camp</a></li>
-                        <li><a href="#CreateMission">Create mission</a></li>
-                        <li><a href="#CityRaid">City raid</a></li>
+                        <li><a href="#CreateCamp">创建营地</a></li>
+                        <li><a href="#CreateMission">创建任务</a></li>
+                        <li><a href="#CityRaid">城市袭击</a></li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="WaitEncounters"></a>Wait encounters</h2>
-            <h3><a name="Wait"></a>Wait</h3>
-            <p>An encounter that waits for the specified length of game time before triggering its out edges.</p>
+            <h2><a name="WaitEncounters"></a>等待类遭遇战</h2>
+            <h3><a name="Wait"></a>等待</h3>
+            <p>一种在触发输出边之前等待指定游戏时间长度的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "wait"</strong></p>
@@ -100,15 +100,15 @@
                 <li>
                     <p><strong>"wait_info" : {}</strong></p>
                     <ul>
-                        <li><strong>"duration"</strong> -- a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a> representing how much in-game time we want to wait.</li>
-                        <li><strong>"game_mode_tuning"</strong> -- optional field. A boolean for enabling tuning overrides for the <strong>"duration"</strong> parameter of this encounter. You can check an example in the <code>"encounter_tuning_overrides"</code> section from <code>stonehearth/data/game_mode/hard/hard.json</code> (the field is called `"delay" there). In this case, the modifier would be applied when the player chooses hard mode.</li>
-                        <li><strong>"destroy_on_trigger"</strong> -- optional field. A boolean to destroy this node after the out edge is triggered.</li>
-                        <li><strong>"continue_on_disconnect"</strong> -- optional field. A boolean for continuing to run this node when a player (client) disconnects from a multiplayer game. It's <strong>false</strong> by default (pauses this encounter / timer and resumes it once the player reconnects).</li>
+                        <li><strong>"duration"</strong> -- 一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>，表示我们想要等待的游戏内时间长度。</li>
+                        <li><strong>"game_mode_tuning"</strong> -- 可选字段。一个布尔值，用于为此遭遇战的 <strong>"duration"</strong> 参数启用调优覆盖。您可以在 <code>stonehearth/data/game_mode/hard/hard.json</code> 的 <code>"encounter_tuning_overrides"</code> 部分中查看示例（该字段在那里称为 <code>"delay"</code>）。在这种情况下，当玩家选择困难模式时会应用此修改器。</li>
+                        <li><strong>"destroy_on_trigger"</strong> -- 可选字段。一个布尔值，用于在触发输出边后销毁此节点。</li>
+                        <li><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战/计时器，并在玩家重新连接后恢复）。</li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="WaitForTimeOfDay"></a>Wait for time of day</h3>
-            <p>An encounter that waits until a given game time of day before triggering its out edges.</p>
+            <h3><a name="WaitForTimeOfDay"></a>等待特定时间</h3>
+            <p>一种在触发输出边之前等待到给定游戏时间的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "wait_for_time_of_day"</strong></p>
@@ -116,13 +116,13 @@
                 <li>
                     <p><strong>"wait_for_time_of_day_info" : {}</strong></p>
                     <ul>
-                        <li><strong>"time"</strong> -- the in-game time of day with an optional random element. E.g.: <code>"15:30"</code> means '3:30 PM'. <code>"5:00+1h30m"</code> means 'between 5:00 AM and 6:30 AM'.</li>
-                        <li><strong>"continue_on_disconnect"</strong> -- optional field. A boolean for continuing to run this node when a player (client) disconnects from a multiplayer game. It's <strong>false</strong> by default (pauses this encounter / timer and resumes it once the player reconnects).</li>
+                        <li><strong>"time"</strong> -- 带有可选随机元素的游戏内一天中的时间。例如：<code>"15:30"</code> 表示'下午 3:30'。<code>"5:00+1h30m"</code> 表示'上午 5:00 到 6:30 之间'。</li>
+                        <li><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战/计时器，并在玩家重新连接后恢复）。</li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="WaitForEvent"></a>Wait for event</h3>
-            <p>An encounter that waits for an event on an entity (or entitites) before triggering its out edges.</p>
+            <h3><a name="WaitForEvent"></a>等待事件</h3>
+            <p>一种在实体上等待事件发生后触发输出边的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "wait_for_event"</strong></p>
@@ -131,30 +131,30 @@
                     <p><strong>"wait_for_event_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"source"</strong> -- object where the event will be listened to. Usually an entity from a previous encounter that has been registered in the shared context. Example: <code>"wolf_pack_raid.wolves"</code>.</p>
-                            <p> This property can also be an array, e.g.:</p>
+                            <p><strong>"source"</strong> -- 将监听事件的对象。通常是来自先前遭遇战并已注册到共享上下文中的实体。例如：<code>"wolf_pack_raid.wolves"</code>。</p>
+                            <p>此属性也可以是数组，例如：</p>
                             <pre><code>   [
       "spawn_enemy_entities.wolf_skeleton",
       "spawn_enemy_entities.skeletons",
       "spawn_enemy_entities.skeleton_giant"
    ]
 </code></pre>
-                            <p> The out edge will trigger once the event has been triggered for all of the sources. Notice that these entries can also refer to more than one entity too (e.g. in a previous encounter we create a random number of skeletons and store a reference to each of them in <code>"spawn_enemy_entities.skeletons"</code>).</p>
+                            <p>当所有来源都触发了事件时，输出边才会触发。请注意，这些条目也可以引用多个实体（例如，在之前的遭遇战中，我们创建了随机数量的骷髅兵，并将对每个骷髅兵的引用存储在 <code>"spawn_enemy_entities.skeletons"</code> 中）。</p>
                         </li>
                         <li>
-                            <p><strong>"event"</strong> -- name of the event to wait for. Example: <code>"stonehearth:kill_event"</code>.</p>
+                            <p><strong>"event"</strong> -- 要等待的事件名称。例如：<code>"stonehearth:kill_event"</code>。</p>
                         </li>
                         <li>
-                            <p><strong>"repeatable"</strong> -- optional field. A boolean, <strong>false</strong> by default. If <strong>true</strong>, continues to listen and trigger out edges until this node is destroyed.</p>
+                            <p><strong>"repeatable"</strong> -- 可选字段。布尔值，默认为 <strong>false</strong>。如果为 <strong>true</strong>，则在此节点被销毁之前持续监听并触发输出边。</p>
                         </li>
                         <li>
-                            <p><strong>"trigger_on_each"</strong> -- optional field. A boolean, <strong>false</strong> by default. If <strong>true</strong>, and "source" refers to multiple entities, triggers the out edge when any entry has the event triggered, instead of when all sources have had the event triggered. Normally used with <code>"repeatable" : true</code>.</p>
+                            <p><strong>"trigger_on_each"</strong> -- 可选字段。布尔值，默认为 <strong>false</strong>。如果为 <strong>true</strong>，且 "source" 引用多个实体，则当任何一个条目触发事件时就会触发输出边，而不是等待所有来源都触发事件。通常与 <code>"repeatable" : true</code> 配合使用。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="WaitForNetWorth"></a>Wait for net worth</h3>
-            <p>An encounter that waits for the player to reach a specified net worth before triggering its out edges.</p>
+            <h3><a name="WaitForNetWorth"></a>等待净资产</h3>
+            <p>一种在玩家达到指定净资产之前等待触发输出边的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "wait_for_net_worth"</strong></p>
@@ -163,25 +163,25 @@
                     <p><strong>"wait_for_net_worth_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"threshold"</strong> -- when net worth is higher than the threshold, the out edge will be triggered. It can be a number (no decimals) or a range, in which case we'll write it like this:</p>
+                            <p><strong>"threshold"</strong> -- 当净资产高于阈值时，将触发输出边。它可以是整数（不含小数）或范围，如果是范围则这样写：</p>
                             <pre><code>"threshold": {
    "min": 3700,
    "max": 4000
 }
 </code></pre>
-                            <p> A random number will be picked in that range, and we'll compare the net worth with it.</p>
+                            <p>将在该范围内随机选择一个数字，并将净资产与之比较。</p>
                         </li>
                         <li>
-                            <p><strong>"interval"</strong> -- optional field (<code>"1h"</code> by default). A <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a> for how often to check the net worth value to attempt to trigger the out edge. Checking less frequently is better for performance.</p>
+                            <p><strong>"interval"</strong> -- 可选字段（默认为 <code>"1h"</code>）。一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>，表示检查净资产值以尝试触发输出边的频率。较低的检查频率对性能更有利。</p>
                         </li>
                         <li>
-                            <p><strong>"continue_on_disconnect"</strong> -- optional field. A boolean for continuing to run this node when a player (client) disconnects from a multiplayer game. It's <strong>false</strong> by default (pauses this encounter / timer and resumes it once the player reconnects).</p>
+                            <p><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战/计时器，并在玩家重新连接后恢复）。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="WaitForRequirementsMet"></a>Wait for requirements met</h3>
-            <p>An encounter that waits until a set of requirements is satisfied before triggering its out edges.</p>
+            <h3><a name="WaitForRequirementsMet"></a>等待条件满足</h3>
+            <p>一种在一组条件满足之前等待触发输出边的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "wait_for_requirements_met"</strong></p>
@@ -190,7 +190,7 @@
                     <p><strong>"wait_for_requirements_met_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"requirements" : {}</strong> -- the list of requirements. For defining them, use the same structure and fields than inside the <code>"can_start"</code> <a href="../index.html#CanStart">tests</a>. E.g.:</p>
+                            <p><strong>"requirements" : {}</strong> -- 条件列表。定义时使用与 <code>"can_start"</code> <a href="../index.html#CanStart">测试</a> 内部相同的结构和字段。例如：</p>
                             <pre><code>"requirements" : {
    "city_tier": {
       "type": "deny_if_less_than",
@@ -206,23 +206,23 @@
 </code></pre>
                         </li>
                         <li>
-                            <p><strong>"recheck_delay"</strong> -- optional field, a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a>. In-game time to wait between attempts to trigger the out egde, <code>"1h"</code> by default.</p>
+                            <p><strong>"recheck_delay"</strong> -- 可选字段，一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>。尝试触发输出边之间等待的游戏内时间，默认为 <code>"1h"</code>。</p>
                         </li>
                         <li>
-                            <p><strong>"max_checks"</strong> -- optional field. Maximum amount of times to check. I.e. if we set this field to <code>5</code>, the sixth time that we try to check the requirements the node will get destroyed.</p>
+                            <p><strong>"max_checks"</strong> -- 可选字段。最大检查次数。例如，如果将此字段设置为 <code>5</code>，则在第六次尝试检查条件时节点将被销毁。</p>
                         </li>
                         <li>
-                            <p><strong>"cancellation_event"</strong> -- optional field. Name of an event that will be listened on the population faction of the player. If the event gets triggered while this node is still active, the node will get destroyed.</p>
+                            <p><strong>"cancellation_event"</strong> -- 可选字段。将在玩家的派系上监听的事件名称。如果在此节点仍处于活动状态时触发了该事件，节点将被销毁。</p>
                         </li>
                         <li>
-                            <p><strong>"continue_on_disconnect"</strong> -- optional field. A boolean for continuing to run this node when a player (client) disconnects from a multiplayer game. It's <strong>false</strong> by default (pauses this encounter / timer and resumes it once the player reconnects).</p>
+                            <p><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战/计时器，并在玩家重新连接后恢复）。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="GateEncounters"></a>Gate encounters</h2>
-            <h3><a name="Generator"></a>Generator</h3>
-            <p>A generator that triggers edges after a delay, optionally repeating in a loop.</p>
+            <h2><a name="GateEncounters"></a>门控类遭遇战</h2>
+            <h3><a name="Generator"></a>生成器</h3>
+            <p>一种在延迟后触发边的生成器，可选择循环重复。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "generator"</strong></p>
@@ -231,34 +231,34 @@
                     <p><strong>"generator_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"delay"</strong> -- a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a>. In-game time to wait before triggering the <code>"spawn_edge"</code>. The delay timer will be restarted each time that the edge is triggered.</p>
+                            <p><strong>"delay"</strong> -- 一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>。触发 <code>"spawn_edge"</code> 之前等待的游戏内时间。每次触发边时，延迟计时器将重新启动。</p>
                         </li>
                         <li>
-                            <p><strong>"spawn_edge"</strong> -- name of the edge to spawn after the delay (for example, <code>"city_raid"</code>). Can also refer to more than one edge (using the same syntax than for the value of <a href="../index.html#Edges">out edges</a>).</p>
+                            <p><strong>"spawn_edge"</strong> -- 延迟后要生成的边的名称（例如，<code>"city_raid"</code>）。也可以引用多条边（使用与<a href="../index.html#Edges">输出边</a>的值相同的语法）。</p>
                         </li>
                         <li>
-                            <p><strong>"source_entity"</strong> -- optional field. Name of an object registered in the context (e.g. <code>"goblin_raiding_camp_1.boss"</code>). If the source entity is destroyed or doesn't exist, this encounter will stop spawning edges.</p>
+                            <p><strong>"source_entity"</strong> -- 可选字段。在上下文中注册的对象的名称（例如，<code>"goblin_raiding_camp_1.boss"</code>）。如果源实体被销毁或不存在，此遭遇战将停止生成边。</p>
                         </li>
                         <li>
-                            <p><strong>"min_spawns"</strong> -- optional field. Minimum number of times that we want the generator to trigger the edges (minimum <code>1</code>).</p>
+                            <p><strong>"min_spawns"</strong> -- 可选字段。我们希望生成器触发边的最小次数（最小值为 <code>1</code>）。</p>
                         </li>
                         <li>
-                            <p><strong>"max_spawns"</strong> -- optional field. Maximum number of times that we want the generator to trigger the edges (minimum <code>1</code>).</p>
-                            <p> If we specify both <strong>"min_spawns"</strong> and <strong>"max_spawns"</strong>, a random number of times will be chosen between them and used as the spawn limit.</p>
-                            <p> If we don't include any of them, the generator will keep spawning edges indefinitely (or until the source entity is destroyed, if we defined that field).</p>
-                            <p> <img src="/modding_guide/images/common/edit_big.png" alt="icon"/>If this generator encounter also has an out edge, it will be triggered when the maximum number of spawns is met (the minimum if we only defined min, or the random number if we included both).</p>
+                            <p><strong>"max_spawns"</strong> -- 可选字段。我们希望生成器触发边的最大次数（最小值为 <code>1</code>）。</p>
+                            <p>如果我们同时指定 <strong>"min_spawns"</strong> 和 <strong>"max_spawns"</strong>，将在它们之间随机选择一个数字作为生成限制。</p>
+                            <p>如果我们不包含其中任何一个，生成器将无限期地继续生成边（或者直到源实体被销毁，如果我们定义了该字段）。</p>
+                            <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>如果此生成器遭遇战也有输出边，它将在达到最大生成次数时触发（如果我们只定义了最小值则为最小值，如果我们同时定义了两者则为随机数）。</p>
                         </li>
                         <li>
-                            <p><strong>"game_mode_tuning"</strong> -- optional field. A boolean for enabling tuning overrides for the <strong>"delay"</strong> parameter of this encounter. You can check an example in the <code>"encounter_tuning_overrides"</code> section from <code>stonehearth/data/game_mode/hard/hard.json</code>. In this case, the modifier would be applied when the player chooses hard mode.</p>
+                            <p><strong>"game_mode_tuning"</strong> -- 可选字段。一个布尔值，用于为此遭遇战的 <strong>"delay"</strong> 参数启用调优覆盖。您可以在 <code>stonehearth/data/game_mode/hard/hard.json</code> 的 <code>"encounter_tuning_overrides"</code> 部分中查看示例。在这种情况下，当玩家选择困难模式时会应用此修改器。</p>
                         </li>
                         <li>
-                            <p><strong>"continue_on_disconnect"</strong> -- optional field. A boolean for continuing to run this node when a player (client) disconnects from a multiplayer game. It's <strong>false</strong> by default (pauses this encounter / timer and resumes it once the player reconnects).</p>
+                            <p><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战/计时器，并在玩家重新连接后恢复）。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="ItemThreshold"></a>Item threshold</h3>
-            <p>An encounter that waits until a threshold is satisfied before triggering its out edges. The threshold will be compared with the item count from the player's storages, as long as those items match certain materials or URIs.</p>
+            <h3><a name="ItemThreshold"></a>物品阈值</h3>
+            <p>一种在阈值满足之前等待触发输出边的遭遇战。只要这些物品符合某些材料或 URI，阈值将与玩家仓库中的物品数量进行比较。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "item_threshold"</strong></p>
@@ -267,31 +267,31 @@
                     <p><strong>"item_threshold_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"threshold"</strong> -- the amount to compare. It can also be a range, like this:</p>
+                            <p><strong>"threshold"</strong> -- 要比较的数量。也可以是范围，如下所示：</p>
                             <pre><code>"threshold" {
    "min": 800,
    "max": 1200
 }
 </code></pre>
-                            <p> In this case a random number between <strong>"min"</strong> and <strong>"max"</strong> will be chosen to compare.</p>
+                            <p>在这种情况下，将在 <strong>"min"</strong> 和 <strong>"max"</strong> 之间随机选择一个数字进行比较。</p>
                         </li>
                         <li>
-                            <p><strong>"check"</strong> -- either <strong>"less_than"</strong> or <strong>"greater_than"</strong>. The condition to compare the threshold with. Internally they're treated as 'less or equal than' and 'greater or equal than'.</p>
+                            <p><strong>"check"</strong> -- <strong>"less_than"</strong> 或 <strong>"greater_than"</strong>。用于比较阈值的条件。在内部，它们被视为"小于或等于"和"大于或等于"。</p>
                         </li>
                         <li>
-                            <p><strong>"materials" : []</strong> -- an array of material tags. If we define this field, the encounter will trigger its out edge when the threshold is met for the items that have all the material tags from this array.</p>
+                            <p><strong>"materials" : []</strong> -- 材料标签数组。如果我们定义此字段，当拥有此数组中所有材料标签的物品达到阈值时，遭遇战将触发其输出边。</p>
                         </li>
                         <li>
-                            <p><strong>"uris" : []</strong> -- an array of URIs. The items will match for the threshold if their URI is in this array.</p>
+                            <p><strong>"uris" : []</strong> -- URI 数组。如果物品的 URI 在此数组中，则它们将匹配阈值。</p>
                         </li>
                     </ul>
-                    <p>  We must define either the <strong>"materials"</strong> array or the <strong>"uris"</strong> array. Defining both will only take the "uris" one into account.</p>
+                    <p>我们必须定义 <strong>"materials"</strong> 数组或 <strong>"uris"</strong> 数组。同时定义两者时只会考虑 "uris"。</p>
                 </li>
             </ul>
-            <h2><a name="FlagEncounters"></a>Flag encounters</h2>
-            <h3><a name="Counter"></a>Counter</h3>
-            <p>An encounter that counts the number of times it runs and saves this information in the user-specified <code>ctx.ctx_registration_variable</code>. </p>
-            <p>If it manages to run X times, it produces its success out edge. Otherwise, it produces its failure out edge. Both are specified in the <code>out_edges</code> field in the <code>"counter_info"</code>.</p>
+            <h2><a name="FlagEncounters"></a>标记类遭遇战</h2>
+            <h3><a name="Counter"></a>计数器</h3>
+            <p>一种计算运行次数并将此信息保存在用户指定的 <code>ctx.ctx_registration_variable</code> 中的遭遇战。</p>
+            <p>如果它能够运行 X 次，则生成成功输出边。否则，生成失败输出边。两者都在 <code>"counter_info"</code> 的 <code>out_edges</code> 字段中指定。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "counter"</strong></p>
@@ -300,28 +300,28 @@
                     <p><strong>"counter_info": {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"out_edges" : {}</strong> -- contains the out edges that will trigger. E.g.:</p>
+                            <p><strong>"out_edges" : {}</strong> -- 包含将触发的输出边。例如：</p>
                             <pre><code>"out_edges": {
    "fail": "wait_for_next_shakedown",
    "success": "unlock_red_token_recipe"
 }
 </code></pre>
-                            <p> Usually the <strong>"fail"</strong> out edge eventually leads back to an ancestor of this node, so that it can run again, but there are also other ways to run the same node again.</p>
+                            <p>通常 <strong>"fail"</strong> 输出边最终会回到此节点的祖先节点，以便它可以再次运行，但也有其他方式可以再次运行同一节点。</p>
                         </li>
                         <li>
-                            <p><strong>"times"</strong> -- count up to this amount before triggering the <strong>"success"</strong> edge. Before then, triggers the <strong>"fail"</strong> edge.</p>
+                            <p><strong>"times"</strong> -- 在触发 <strong>"success"</strong> 边之前计数到此数量。在此之前，触发 <strong>"fail"</strong> 边。</p>
                         </li>
                         <li>
-                            <p><strong>"ctx_registration_variable"</strong> -- a name for the variable to store the current count in. E.g.: <code>"blue_tier_shakedown_success_counter"</code>.</p>
+                            <p><strong>"ctx_registration_variable"</strong> -- 用于存储当前计数的变量名称。例如：<code>"blue_tier_shakedown_success_counter"</code>。</p>
                         </li>
                         <li>
-                            <p><strong>"optional_reference_entity"</strong> -- optional field, a reference to an entity registered previously in the shared context (e.g. <code>"create_blue_tier_camp.entities.loot_chest"</code>). The encounter only increases the count if the reference entity still exists and is the same one as last time. If it doesn't exist, then the encounter does nothing. If it exists, but is a different entity than the one stored in context from last time, the counter starts again.</p>
+                            <p><strong>"optional_reference_entity"</strong> -- 可选字段，对之前在共享上下文中注册的女体的引用（例如，<code>"create_blue_tier_camp.entities.loot_chest"</code>）。仅当引用实体仍然存在且与上次相同时，遭遇战才会增加计数。如果它不存在，则遭遇战不执行任何操作。如果它存在，但与上次存储在上下文中的实体不同，计数器将重新开始。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="SetCounters"></a>Set counters</h3>
-            <p>Updates the values of campaign-wide counters which are used for gating encounters via the <code>"counter"</code> <code>can_start</code> <a href="../index.html#CanStart">check</a>.</p>
+            <h3><a name="SetCounters"></a>设置计数器</h3>
+            <p>更新战役范围内的计数器值，这些计数器用于通过 <code>"counter"</code> <code>can_start</code> <a href="../index.html#CanStart">检查</a> 来限制遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "set_counters"</strong></p>
@@ -330,7 +330,7 @@
                     <p><strong>"set_counters_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"counters" : {}</strong> -- one or more key-value pairs where the key is the name of a counter that we want to create or reuse, and the value is either a number or a formula to evaluate. The formula is a string containing any Lua expression, where 'x' is the counter's current value (defaults to 0). For example:</p>
+                            <p><strong>"counters" : {}</strong> -- 一个或多个键值对，其中键是我们想要创建或重用的计数器名称，值是数字或要计算的公式。公式是包含任何 Lua 表达式的字符串，其中 'x' 是计数器的当前值（默认为 0）。例如：</p>
                             <pre><code>"counters" : {
    "foo": 42,
    "bar": "x / 2 + 1",
@@ -341,10 +341,10 @@
                     </ul>
                 </li>
             </ul>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Don't confuse these counters with the <code>"counter"</code> <a href="#Counter">encounter</a>. They have different purposes.</p>
-            <h2><a name="UtilityEncounters"></a>Utility encounters</h2>
-            <h3><a name="DestroyEntity"></a>Destroy entity</h3>
-            <p>An encounter that destroys specific entities.</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 不要将这些计数器与 <code>"counter"</code> <a href="#Counter">遭遇战</a>混淆。它们有不同的用途。</p>
+            <h2><a name="UtilityEncounters"></a>工具类遭遇战</h2>
+            <h3><a name="DestroyEntity"></a>销毁实体</h3>
+            <p>一种销毁特定实体的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "destroy_entity"</strong></p>
@@ -353,23 +353,23 @@
                     <p><strong>"destroy_entity_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"target_entities" : []</strong> -- an array containing the registration paths (e.g. <code>"golem_raid.golems"</code>) of the entities that should be destroyed.</p>
+                            <p><strong>"target_entities" : []</strong> -- 包含应被销毁的实体的注册路径（例如，<code>"golem_raid.golems"</code>）的数组。</p>
                         </li>
                         <li>
-                            <p><strong>"effect"</strong> -- optional field. URI of an effect that the entities will play when they get destroyed (e.g.: <code>"stonehearth:effects:poof_effect:grey"</code>).</p>
+                            <p><strong>"effect"</strong> -- 可选字段。实体被销毁时将播放的效果的 URI（例如：<code>"stonehearth:effects:poof_effect:grey"</code>）。</p>
                         </li>
                         <li>
-                            <p><strong>"random_delay" : {}</strong> -- optional field. A range (<strong>"min"</strong> and <strong>"max"</strong> values) of milliseconds. A random amount will be chosen between them and the entities will despawn after waiting for it. This is used so that the entities don't disappear all at the same time, and so that they don't start the effect (if specified) all at the same time. Normally we use a tiny value, less than a second.</p>
+                            <p><strong>"random_delay" : {}</strong> -- 可选字段。毫秒范围（<strong>"min"</strong> 和 <strong>"max"</strong> 值）。将在它们之间随机选择一个数量，实体将在等待该时间后消失。这样做的目的是让实体不会同时消失，也不会同时开始效果（如果指定了）。通常我们使用一个很小的值，小于一秒。</p>
                         </li>
                         <li>
-                            <p><strong>"continue_always"</strong> -- optional field (a boolean). When <strong>true</strong>, triggers next encounter even if didn't destroy anything. When <strong>false</strong>, will not continue if didn't destroy anything.</p>
-                            <p> Usually you'll want to set this to <strong>true</strong> if the entities might have been destroyed by other means before this encounter gets to run (for example, mobs from ambient threats that the hearthlings might have already killed).</p>
+                            <p><strong>"continue_always"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，即使没有销毁任何内容也会触发下一个遭遇战。当为 <strong>false</strong> 时，如果没有销毁任何内容则不会继续。</p>
+                            <p>如果实体可能在此遭遇战运行之前通过其他方式被销毁（例如，炉民可能已经杀死的 ambient threats 中的怪物），您通常希望将此设置为 <strong>true</strong>。</p>
                         </li>
                         <li>
-                            <p><strong>"destroy_all_registered_entities"</strong> -- optional field. A boolean, when <strong>true</strong>, the encounter destroys all entities in <code>ctx.entity_registration_paths</code> instead of the ones specified in <strong>"target_entities"</strong> (so you can use this field instead of that one if you want everything destroyed). Useful for cleaning up mobs after a while, to save computer resources as new entities spawn in the map.</p>
+                            <p><strong>"destroy_all_registered_entities"</strong> -- 可选字段。布尔值，当为 <strong>true</strong> 时，遭遇战将销毁 <code>ctx.entity_registration_paths</code> 中的所有实体，而不是 <strong>"target_entities"</strong> 中指定的实体（因此如果您想销毁所有内容，可以使用此字段代替该字段）。这对于一段时间后清理怪物很有用，以节省计算机资源，因为新实体会在地图中生成。</p>
                         </li>
                         <li>
-                            <p><a name="SampleScript"></a><strong>"script"</strong> -- optional field. URI for a script to run right before destroying the entities. The script must have a <code>"start"</code> function at least. For example:</p>
+                            <p><a name="SampleScript"></a><strong>"script"</strong> -- 可选字段。在销毁实体之前立即运行的脚本的 URI。脚本必须至少有一个 <code>"start"</code> 函数。例如：</p>
                             <pre><code>local GoblinCampDepartsScript = class()
 
 -- When the camp departs, no matter how the player interacted with
@@ -381,13 +381,13 @@ end
 
 return GoblinCampDepartsScript
 </code></pre>
-                            <p> We can access the encounter's context using the <code>ctx</code> argument. Remember that if you want to use an alias for your script instead of a path, you must add it under <code>"controllers"</code> in the manifest.</p>
+                            <p>我们可以使用 <code>ctx</code> 参数访问遭遇战的上下文。请记住，如果您想使用别名而不是路径来引用脚本，必须在清单的 <code>"controllers"</code> 下添加它。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="Script"></a>Script</h3>
-            <p>An encounter that does nothing but run the associated script (which is created as a controller).</p>
+            <h3><a name="Script"></a>脚本</h3>
+            <p>一种只运行关联脚本（作为控制器创建）的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "script"</strong></p>
@@ -396,21 +396,21 @@ return GoblinCampDepartsScript
                     <p><strong>"script_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"script"</strong> -- the URI of the script to run. Similar to the example script <a href="#SampleScript">above</a>, it must have a <code>start(ctx, data)</code> function. The <code>ctx</code> argument will have the context of the node, and the <code>data</code> argument will contain the data from the <strong>"data"</strong> field in the encounter's JSON file. Remember that if you want to use an alias for your script instead of a path, you must add it under <code>"controllers"</code> in the manifest.</p>
+                            <p><strong>"script"</strong> -- 要运行的脚本的 URI。类似于<a href="#SampleScript">上面</a>的示例脚本，它必须有一个 <code>start(ctx, data)</code> 函数。<code>ctx</code> 参数将具有节点的上下文，<code>data</code> 参数将包含来自遭遇战 JSON 文件中 <strong>"data"</strong> 字段的数据。请记住，如果您想使用别名而不是路径来引用脚本，必须在清单的 <code>"controllers"</code> 下添加它。</p>
                         </li>
                         <li>
-                            <p><strong>"data" : {}</strong> -- optional field. The data that will be passed to our custom script.</p>
+                            <p><strong>"data" : {}</strong> -- 可选字段。将传递给自定义脚本的数据。</p>
                         </li>
                         <li>
-                            <p><strong>"continue_on_disconnect"</strong> -- optional field. A boolean for continuing to run this node when a player (client) disconnects from a multiplayer game. It's <strong>false</strong> by default (pauses this encounter and resumes it once the player reconnects).</p>
-                            <p> <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> If you don't set <strong>"continue_on_disconnect"</strong> to <strong>true</strong>, you might need to implement <code>suspend()</code> and <code>continue()</code> functions in your custom script, so that the game knows if it has to stop some timer, resume it later, etc. They will be called when the player disconnects / reconnects.</p>
+                            <p><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战并在玩家重新连接后恢复）。</p>
+                            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>如果您不将 <strong>"continue_on_disconnect"</strong> 设置为 <strong>true</strong>，可能需要在自定义脚本中实现 <code>suspend()</code> 和 <code>continue()</code> 函数，以便游戏知道是否必须停止某个计时器、稍后恢复它等。它们将在玩家断开连接/重新连接时被调用。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="DialogEncounters"></a>Dialog encounters</h2>
-            <h3><a name="Bulletin"></a>Bulletin</h3>
-            <p>An encounter that displays a notification bulletin.</p>
+            <h2><a name="DialogEncounters"></a>对话类遭遇战</h2>
+            <h3><a name="Bulletin"></a>公告</h3>
+            <p>一种显示通知公告的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "bulletin"</strong></p>
@@ -418,17 +418,17 @@ return GoblinCampDepartsScript
                 <li>
                     <p><strong>"bulletin_info" : {}</strong></p>
                     <ul>
-                        <li><strong>"type"</strong> -- either <strong>"info"</strong>, <strong>"alert"</strong> or <strong>"quest"</strong>. This changes the appearance of the bulletin in the game. If the type is <strong>"alert"</strong>, it will be shown separately from the normal bulletins and won't be hidden automatically when another bulletin is shown. New alerts will show on top of older ones.</li>
-                        <li><strong>"title"</strong> -- a localized text for the bulletin. The bulletin will disappear when the player clicks on it. If you want some other message to appear in a window after this, take a look at the <a href="#DialogTree">dialog tree</a> encounter.</li>
-                        <li><strong>"sticky"</strong> -- optional field (a boolean, <strong>false</strong> by default). Sticky bulletin notifications stay up in the UI until the user addresses them. Non-sticky ones will fade out after some seconds, but will still be accesible in the bulletin list.</li>
-                        <li><strong>"zoom_to_entity"</strong> -- optional field. Reference to a context registration path. When the user clicks on the bulletin, the camera will focus on this entity if it exists.</li>
-                        <li><strong>"send_to_all_players"</strong> -- optional field (a boolean, <strong>false</strong> by default). Use when you want the bulletin to appear for all the players. This is normally not wanted, since the campaigns run independently for each player, but it can be useful sometimes (for example, this is used in the Titan campaign since it affects a large portion of the map, often messing with other players' towns).</li>
-                        <li><strong>"active_duration"</strong> -- optional field (a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a>. If we specify this field, the bulletin will be automatically removed after this duration even when the player hasn't interacted with it. Useful to prevent cluttering the bulletin list with notifications that might not be relevant anymore after a while.</li>
+                        <li><strong>"type"</strong> -- <strong>"info"</strong>、<strong>"alert"</strong> 或 <strong>"quest"</strong> 之一。这会改变游戏中公告的外观。如果类型为 <strong>"alert"</strong>，它将与普通公告分开显示，并且在显示另一个公告时不会自动隐藏。新的警报将显示在旧警报的顶部。</li>
+                        <li><strong>"title"</strong> -- 公告的本地化文本。当玩家点击公告时，它将消失。如果您希望在此之后在窗口中显示其他消息，请查看<a href="#DialogTree">对话树</a>遭遇战。</li>
+                        <li><strong>"sticky"</strong> -- 可选字段（布尔值，默认为 <strong>false</strong>）。粘性公告通知会保留在 UI 中，直到用户处理它们。非粘性公告会在几秒后淡出，但仍可在公告列表中访问。</li>
+                        <li><strong>"zoom_to_entity"</strong> -- 可选字段。对上下文注册路径的引用。当用户点击公告时，如果该实体存在，摄像机将聚焦于此实体。</li>
+                        <li><strong>"send_to_all_players"</strong> -- 可选字段（布尔值，默认为 <strong>false</strong>）。当您希望公告出现在所有玩家面前时使用。这通常不需要，因为战役为每个玩家独立运行，但有时很有用（例如，这在泰坦战役中使用，因为它影响地图的大部分区域，经常干扰其他玩家的城镇）。</li>
+                        <li><strong>"active_duration"</strong> -- 可选字段（一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>）。如果我们指定此字段，即使玩家未与其交互，公告也将在此持续时间后自动移除。有助于防止公告列表中堆积可能不再相关的通知。</li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="DialogTree"></a>Dialog Tree</h3>
-            <p>An encounter that displays a dialog tree whose choices eventually lead to potentially different out edges.</p>
+            <h3><a name="DialogTree"></a>对话树</h3>
+            <p>一种显示对话树的遭遇战，其选择最终可能导致不同的输出边。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "dialog_tree"</strong></p>
@@ -437,34 +437,34 @@ return GoblinCampDepartsScript
                     <p><strong>"dialog_tree_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"start_node"</strong> -- key of the dialog node with which we want to start (e.g. <code>"msg1"</code>).</p>
+                            <p><strong>"start_node"</strong> -- 我们要开始的对话节点的键（例如，<code>"msg1"</code>）。</p>
                         </li>
                         <li>
-                            <p><strong>"source_entity"</strong> -- optional field. A reference to an object from another node (e.g. <code>"goblin_raiding_camp_1.boss"</code>). The dialog tree will only start if this source entity exists.</p>
+                            <p><strong>"source_entity"</strong> -- 可选字段。对来自另一个节点的对象的引用（例如，<code>"goblin_raiding_camp_1.boss"</code>）。仅当此源实体存在时，对话树才会开始。</p>
                         </li>
                         <li>
-                            <p><strong>"i18n_data" : {}</strong> -- optional field. A dictionary for setting i18n var data for the dialogs. Can be a reference to ctx paths or literal values. E.g.:</p>
+                            <p><strong>"i18n_data" : {}</strong> -- 可选字段。用于设置对话的 i18n 变量数据的字典。可以是对 ctx 路径的引用或字面值。例如：</p>
                             <pre><code>  "i18n_data" : {
      "boss_display_name" : "Emma",
      "town_name" : "town_name"
   }
 </code></pre>
-                            <p> <a name="I18nData"></a>In the <code>en.json</code> file we'd use them like this, for example:</p>
+                            <p><a name="I18nData"></a>在 <code>en.json</code> 文件中，我们会像这样使用它们，例如：</p>
                             <pre><code>  "msg01" : "The enemy called [str(i18n_data.boss_display_name)] appears",
   "msg02" : "They came with a goblin called [name(i18n_data.goblin)]."
 </code></pre>
-                            <p> The difference between <code>[str()]</code> and <code>[name()]</code> is that <code>[name()]</code> is used when we want to reference the name of an entity that's been registered in the context (an entity that has a custom name - such as hearthlings, monsters and NPCs). In that case we don't need to add it to <strong>"i18n_data"</strong>.</p>
-                            <p> There are some encounters that will add variables to the context, we can use those as values in our <strong>"i18n_data"</strong> too (for example, the town's name is already registered in <code>town_name</code> since many dialogs wish to call on it).</p>
+                            <p><code>[str()]</code> 和 <code>[name()]</code> 的区别在于，当我们想要引用已在上下文中注册的实体的名称（具有自定义名称的实体 - 如炉民、怪物和 NPC）时使用 <code>[name()]</code>。在这种情况下，我们不需要将其添加到 <strong>"i18n_data"</strong> 中。</p>
+                            <p>有些遭遇战会将变量添加到上下文中，我们也可以在我们的 <strong>"i18n_data"</strong> 中使用这些值（例如，城镇的名称已在 <code>town_name</code> 中注册，因为许多对话都希望调用它）。</p>
                         </li>
                         <li>
-                            <p><strong>"script"</strong> -- optional field. The URI of a script that will get to run before the dialog starts (remember that if you want to use an alias for your script instead of the path, you must add it under <code>"controllers"</code> in the manifest).</p>
-                            <p> Similar to the example <a href="#SampleScript">above</a>, it must have a <code>start(ctx, info)</code> function (we'll pass it the context and all the info accessible under <strong>"dialog_tree_info"</strong> from the encounter's JSON file). An example would be initializing custom i18n data before the dialog runs, e.g.:</p>
+                            <p><strong>"script"</strong> -- 可选字段。在对话开始之前运行的脚本的 URI（请记住，如果您想使用别名而不是路径来引用脚本，必须在清单的 <code>"controllers"</code> 下添加它）。</p>
+                            <p>类似于<a href="#SampleScript">上面</a>的示例，它必须有一个 <code>start(ctx, info)</code> 函数（我们将传递给它上下文以及可以从遭遇战 JSON 文件的 <strong>"dialog_tree_info"</strong> 下访问的所有信息）。一个例子是在对话运行之前初始化自定义 i18n 数据，例如：</p>
                             <pre><code> "i18n_data" : {
     "town_serial_number": "town_serial_number",
     "english_town_ordinal_suffix": "english_town_ordinal_suffix"
  }
 </code></pre>
-                            <p> We declared the above data in our encounter's JSON file, but their value isn't initialized anywhere. So we create and reference the following script which will register the values for those variables in the context:</p>
+                            <p>我们在遭遇战的 JSON 文件中声明了上述数据，但它们的值尚未在任何地方初始化。因此，我们创建并引用以下脚本，它将在上下文中注册这些变量的值：</p>
                             <pre><code> local TownProgressionI18NDataScript = class()
 
  function TownProgressionI18NDataScript:start(ctx)
@@ -487,31 +487,31 @@ return GoblinCampDepartsScript
 
   return TownProgressionI18NDataScript
 </code></pre>
-                            <p> Then we can use <code>[str(i18n_data.town_serial_number)]</code> in the texts of our dialog tree.</p>
+                            <p>然后我们可以在对话树的文本中使用 <code>[str(i18n_data.town_serial_number)]</code>。</p>
                         </li>
                         <li>
-                            <p><strong>"choose_ctx_portrait" : []</strong> -- optional field. An array with URIs of portraits for the dialog. One of these provided options will be chosen and can be referenced by this and later dialogs that set <strong>"use_ctx_portrait"</strong> and have nodes with a portrait field.</p>
+                            <p><strong>"choose_ctx_portrait" : []</strong> -- 可选字段。包含对话头像 URI 的数组。将从这些提供的选项中选择一个，并且可以被设置了 <strong>"use_ctx_portrait"</strong> 并具有头像字段的此对话及后续对话引用。</p>
                         </li>
                         <li>
-                            <p><strong>"use_ctx_portrait"</strong> -- optional field (a boolean). Whether to use a (currently or previously) <strong>"chosen_ctx_portrait"</strong>. This way we can choose a random portrait on each gameplay for variety, but keeping it for the duration of the quest.</p>
+                            <p><strong>"use_ctx_portrait"</strong> -- 可选字段（布尔值）。是否使用（当前或之前）<strong>"chosen_ctx_portrait"</strong>。这样我们可以为每次游戏选择不同的头像以增加多样性，但在任务期间保持不变。</p>
                         </li>
                         <li>
-                            <p><strong>"nodes" : {}</strong> -- the nodes of the dialog. Each node is an object with a custom identifying key (try to use meaningful names to keep your data organized). Inside each node, we have the <strong>"bulletin" : {}</strong> field with the following properties:</p>
+                            <p><strong>"nodes" : {}</strong> -- 对话的节点。每个节点都是一个具有自定义标识键的对象（尝试使用有意义的名称来保持数据有序）。在每个节点内，我们有 <strong>"bulletin" : {}</strong> 字段，具有以下属性：</p>
                             <ul>
-                                <li><strong>"title"</strong> -- a localized title for the notification. We need it for all the nodes, since each dialog will also be an entry in the bulletin list, even if the notification only pops up for the first one. The bulletin type will always be <code>"quest"</code> for this encounter type.</li>
-                                <li><strong>"dialog_title"</strong> -- a localized title for the dialog. Will appear at the top of the dialog window. It is mandatory, but if you don't want to have it you can define it as an empty string.</li>
-                                <li><strong>"portrait"</strong> -- optional field. URI of a portrait for the dialog. If you registered a portrait in the same encounter or in a previous encounter, and have set <strong>"use_ctx_portrait"</strong> to <strong>true</strong>, then you can set the portrait to an empty string (in some of the existing encounters you'll see <code>"$ctx"</code> for this too).</li>
+                                <li><strong>"title"</strong> -- 通知的本地化标题。我们需要它为所有节点提供，因为每个对话也将是公告列表中的一个条目，即使通知只弹出第一个。此遭遇战类型的公告类型将始终为 <code>"quest"</code>。</li>
+                                <li><strong>"dialog_title"</strong> -- 对话的本地化标题。将出现在对话框窗口的顶部。它是必需的，但如果您不想要它，可以将其定义为空字符串。</li>
+                                <li><strong>"portrait"</strong> -- 可选字段。对话头像的 URI。如果您在同一遭遇战或之前的遭遇战中注册了头像，并将 <strong>"use_ctx_portrait"</strong> 设置为 <strong>true</strong>，则可以将头像设置为空字符串（在一些现有的遭遇战中，您也会看到 <code>"$ctx"</code>）。</li>
                             </ul>
-                            <p> This will ensure that the portrait is shown and that it reuses the one that was saved in the context. Note that using a registered portrait will make it so all dialog nodes from the encounter have the same portrait, as long as the field exists in them. You won't be able to change specific ones to other portraits if you reuse the portrait.</p>
+                            <p>这将确保显示头像并重复使用保存在上下文中的头像。请注意，使用注册的头像将使遭遇战的所有对话节点都具有相同的头像，只要它们中存在该字段。如果您重用头像，将无法将特定的头像更改为其他头像。</p>
                             <ul>
                                 <li>
-                                    <p><strong>"portrait_offset"</strong> -- optional field. Number of pixels to offset the portrait from the top.</p>
+                                    <p><strong>"portrait_offset"</strong> -- 可选字段。头像从顶部偏移的像素数。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"message"</strong> -- a localized text for the message of the current node. It can also be an array of localized texts, that way one will be chosen at random. You can include i18n_data in the localized text, as well as some HTML tags to give it a bit of format.</p>
+                                    <p><strong>"message"</strong> -- 当前节点消息的本地化文本。它也可以是本地化文本的数组，这样将随机选择一个。您可以在本地化文本中包含 i18n_data，以及一些 HTML 标签来为其添加格式。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"choices" : {}</strong> -- one or more choices for the player to advance the dialog to the next node. Their keys are localized texts for the buttons, but WITHOUT the <code>"i18n()"</code> wrapping them. their values are objects and will vary. For example:</p>
+                                    <p><strong>"choices" : {}</strong> -- 玩家推进对话到下一个节点的一个或多个选择。它们的键是按钮的本地化文本，但不包含 <code>"i18n()"</code> 包装。它们的值是对象且会有所不同。例如：</p>
                                     <pre><code> "choices" : {
     "my_mod_namespace:campaigns.abc.encounters.dialog_1.msg1.choice_00": {
        "next_node": "msg2"
@@ -524,16 +524,16 @@ return GoblinCampDepartsScript
     }
  }
 </code></pre>
-                                    <p>We can have either <strong>"next_node"</strong>, pointing to the key of another node of the dialog, or <strong>"out_edge"</strong>, which will finish the dialog and trigger the specified <a href="../index.html#Edges">out egde</a>.</p>
-                                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Notice that for this encounter type we often don't have an out edge defined, because the out edge is specified in the dialog choices, and more than one choice can point to the same out edge.</p>
+                                    <p>我们可以有 <strong>"next_node"</strong>，指向对话的另一个节点的键，或者 <strong>"out_edge"</strong>，它将结束对话并触发指定的<a href="../index.html#Edges">输出边</a>。</p>
+                                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，对于此遭遇战类型，我们通常没有在 JSON 文件中定义输出边，因为输出边是在对话选择中指定的，并且多个选择可以指向同一个输出边。</p>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="Shop"></a>Shop</h3>
-            <p>An encounter that displays a shop menu with a given set of items for sale.</p>
+            <h3><a name="Shop"></a>商店</h3>
+            <p>一种显示带有给定待售物品集的商店菜单的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>encounter_type" : "shop"</strong></p>
@@ -541,14 +541,14 @@ return GoblinCampDepartsScript
                 <li>
                     <p><strong>"shop_info" : {}</strong></p>
                     <ul>
-                        <li><strong>"name"</strong> -- a localized name for the shop. Will appear on top of the shop window.</li>
-                        <li><strong>"title"</strong> -- a localized text for the shop notification.</li>
-                        <li><strong>"inventory" : {}</strong> -- the contents of the shop. They will match the specified set of filters (rarities, materials, URIs...). You can see a longer explanation about how to set them up <a href="../../../basic/misc_json/shops/index.html#Inventory">here</a>.</li>
+                        <li><strong>"name"</strong> -- 商店的本地化名称。将出现在商店窗口顶部。</li>
+                        <li><strong>"title"</strong> -- 商店通知的本地化文本。</li>
+                        <li><strong>"inventory" : {}</strong> -- 商店的内容。它们将匹配指定的过滤器集（稀有度、材料、URI...）。您可以在此处查看有关如何设置它们的更详细说明<a href="../../../basic/misc_json/shops/index.html#Inventory">这里</a>。</li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="DeliveryQuest"></a>Delivery quest</h3>
-            <p>An encounter that represents a persistent quest notification that can be completed or abandoned.</p>
+            <h3><a name="DeliveryQuest"></a>递送任务</h3>
+            <p>一种表示可以完成或放弃的持久任务通知的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "delivery_quest"</strong></p>
@@ -557,75 +557,75 @@ return GoblinCampDepartsScript
                     <p><strong>"delivery_quest_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"title"</strong> -- a localized text for the bulletin notification.</p>
+                            <p><strong>"title"</strong> -- 公告通知的本地化文本。</p>
                         </li>
                         <li>
-                            <p><strong>"dialog_title"</strong> -- a localized text for the quest dialog, will appear at the top of the window.</p>
+                            <p><strong>"dialog_title"</strong> -- 任务对话框的本地化文本，将出现在窗口顶部。</p>
                         </li>
                         <li>
-                            <p><strong>"text"</strong> -- optional field. A localized text to show above the list of requirements.</p>
+                            <p><strong>"text"</strong> -- 可选字段。显示在要求列表上方的本地化文本。</p>
                         </li>
                         <li>
-                            <p><strong>"abandon_out_edge"</strong> -- optional field. Out edge that will be triggered if the player abandons this quest (in the town progression quests, this points to a previous encounter, so that the player can choose this quest again if they want to).</p>
+                            <p><strong>"abandon_out_edge"</strong> -- 可选字段。如果玩家放弃此任务将触发的输出边（在城镇发展任务中，这指向前一个遭遇战，因此玩家可以在需要时再次选择此任务）。</p>
                         </li>
                         <li>
-                            <p><strong>"requirements" : []</strong> -- an array of objects with requirements to fulfill the quest (player can complete the quest whenever they want, as long as these requirements are met. They can also abandon the quest at any given moment if they need to).</p>
-                            <p> Each requirement will have a <strong>"type"</strong> field and one or more additional fields that depend on it (they're indented below for readability). Here are the possible values:</p>
+                            <p><strong>"requirements" : []</strong> -- 包含完成任务的要求的对象数组（只要满足这些要求，玩家可以随时完成任务。如果需要，他们也可以在任何时候放弃任务）。</p>
+                            <p>每个要求将有一个 <strong>"type"</strong> 字段和一个或多个取决于它的附加字段（为了可读性，它们在下面缩进）。以下是可能的值：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"type" : "give_item"</strong> -- deliver N items of the specific URI.</p>
+                                    <p><strong>"type" : "give_item"</strong> -- 递送 N 个特定 URI 的物品。</p>
                                     <ul>
-                                        <li><strong>"uri"</strong> -- URI of the item.</li>
-                                        <li><strong>"count"</strong> -- amount of items to deliver.</li>
-                                        <li><strong>"keep_items"</strong> -- optional field (a boolean). When <strong>true</strong>, the items won't be removed from the player's inventory on quest completion.</li>
+                                        <li><strong>"uri"</strong> -- 物品的 URI。</li>
+                                        <li><strong>"count"</strong> -- 要递送的物品数量。</li>
+                                        <li><strong>"keep_items"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，完成任务时物品不会从玩家的库存中移除。</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <p><strong>"type" : "give_material"</strong> -- deliver N items that are tagged with the given material.</p>
+                                    <p><strong>"type" : "give_material"</strong> -- 递送 N 个标记有给定材料的物品。</p>
                                     <ul>
-                                        <li><strong>"material"</strong> -- material tag that the items must have to fulfill this requirement.</li>
-                                        <li><strong>"count"</strong> -- amount of items to deliver.</li>
-                                        <li><strong>"keep_items"</strong> -- optional field (a boolean). When <strong>true</strong>, the items won't be removed from the player's inventory on quest completion.</li>
+                                        <li><strong>"material"</strong> -- 物品必须具有的材料标签才能满足此要求。</li>
+                                        <li><strong>"count"</strong> -- 要递送的物品数量。</li>
+                                        <li><strong>"keep_items"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，完成任务时物品不会从玩家的库存中移除。</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <p><strong>"type" : "job_level"</strong> -- have a hearthling of the given job at a given minimum level.</p>
+                                    <p><strong>"type" : "job_level"</strong> -- 拥有给定职业的炉民达到给定最低等级。</p>
                                     <ul>
-                                        <li><strong>"uri"</strong> -- alias of the job.</li>
-                                        <li><strong>"level"</strong> -- a citizen must be at least this level in the given job in order to fulfill the requirement.</li>
+                                        <li><strong>"uri"</strong> -- 职业的别名。</li>
+                                        <li><strong>"level"</strong> -- 市民必须在给定职业中至少达到此等级才能满足要求。</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <p><strong>"type" : "happiness"</strong> -- have N citizens at a given minimum happiness level.</p>
+                                    <p><strong>"type" : "happiness"</strong> -- 拥有 N 个市民达到给定最低幸福度等级。</p>
                                     <ul>
-                                        <li><strong>"min_value"</strong> -- a number representing the minimum happiness to fulfill the requirement. Remember that happiness goes from 1 to 100.</li>
-                                        <li><strong>"min_citizens"</strong> -- a number representing how many citizens must be at least that happy to fulfill the requirement. Instead of a number, you can also use <strong>"all"</strong>, to represent all citizens regardless of how many of them there are.</li>
+                                        <li><strong>"min_value"</strong> -- 表示满足要求的最低幸福度的数字。请记住，幸福度范围为 1 到 100。</li>
+                                        <li><strong>"min_citizens"</strong> -- 表示必须至少达到该幸福度的市民数量的数字。除了数字外，您还可以使用 <strong>"all"</strong>，表示所有市民，无论有多少。</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <p><strong>"type" : "gold"</strong> -- have N gold coins (current, spent, or earned).</p>
+                                    <p><strong>"type" : "gold"</strong> -- 拥有 N 枚金币（当前、花费或赚取）。</p>
                                     <ul>
-                                        <li><strong>"subtype"</strong> -- either <strong>"give"</strong>, <strong>"have"</strong>, <strong>"spent"</strong> or <strong>"earned"</strong>. If the subtype is <strong>"give"</strong>, the gold will be subtracted from the player's inventory on quest completion. The <strong>"spent"</strong> and <strong>"earned"</strong> types refer to gold obtained by buying and selling in shops.</li>
-                                        <li><strong>"count"</strong> -- the required amount of gold.</li>
+                                        <li><strong>"subtype"</strong> -- <strong>"give"</strong>、<strong>"have"</strong>、<strong>"spent"</strong> 或 <strong>"earned"</strong> 之一。如果子类型为 <strong>"give"</strong>，完成任务时将从玩家的库存中扣除金币。<strong>"spent"</strong> 和 <strong>"earned"</strong> 类型指的是通过在商店买卖获得的金币。</li>
+                                        <li><strong>"count"</strong> -- 所需的金币数量。</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <p><strong>"type" : "have_item_quality"</strong> -- have N deployed or stored items of a given minimum quality.</p>
+                                    <p><strong>"type" : "have_item_quality"</strong> -- 拥有 N 个已部署或存储的具有给定最低品质的物品。</p>
                                     <ul>
-                                        <li><strong>"quality"</strong> -- a number representing the item quality: <strong>1</strong> for standard quality, <strong>2</strong> for fine quality, <strong>3</strong> for excellent quality and <strong>4</strong> for masterwork quality (mind that this last quality is only unlocked in one branch of the town progression quests).</li>
-                                        <li><strong>"count"</strong> -- the amount of items that must have at least the given quality.</li>
+                                        <li><strong>"quality"</strong> -- 表示物品品质的数字：<strong>1</strong> 表示标准品质，<strong>2</strong> 表示精良品质，<strong>3</strong> 表示卓越品质，<strong>4</strong> 表示杰作品质（请注意，最后一种品质仅在城镇发展任务的一个分支中解锁）。</li>
+                                        <li><strong>"count"</strong> -- 必须至少具有给定品质的物品数量。</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <p><strong>"type" : "net_worth"</strong> -- have a given minimum net worth.</p>
+                                    <p><strong>"type" : "net_worth"</strong> -- 拥有给定的最低净资产。</p>
                                     <ul>
-                                        <li><strong>"value"</strong> -- the minimum net worth to have.</li>
+                                        <li><strong>"value"</strong> -- 要拥有的最低净资产。</li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <p><strong>"type" : "placed_item"</strong> -- have a given item placed in the world.</p>
+                                    <p><strong>"type" : "placed_item"</strong> -- 在世界中放置了给定物品。</p>
                                     <ul>
-                                        <li><strong>"uri"</strong> -- URI of the item.</li>
+                                        <li><strong>"uri"</strong> -- 物品的 URI。</li>
                                     </ul>
                                 </li>
                             </ul>
@@ -633,8 +633,8 @@ return GoblinCampDepartsScript
                     </ul>
                 </li>
             </ul>
-            <h3><a name="CollectionQuest"></a>Collection quest</h3>
-            <p>An encounter that shows a dialog asking for items.</p>
+            <h3><a name="CollectionQuest"></a>收集任务</h3>
+            <p>一种显示请求物品的对话框的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "collection_quest"</strong></p>
@@ -643,50 +643,50 @@ return GoblinCampDepartsScript
                     <p><strong>"collection_quest_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"out_edges" : {}</strong> -- contains 3 fields (<strong>"refuse"</strong>, <strong>"fail"</strong> and <strong>"success"</strong>), each pointing to the out edge to trigger depending on the results of the quest.</p>
-                            <p> <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Note that usually we don't add an out edge to this encounter's JSON file, since it will trigger one of these depending on the player's choice.</p>
+                            <p><strong>"out_edges" : {}</strong> -- 包含 3 个字段（<strong>"refuse"</strong>、<strong>"fail"</strong> 和 <strong>"success"</strong>），每个字段根据任务结果指向要触发的输出边。</p>
+                            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，通常我们不在此遭遇战的 JSON 文件中添加输出边，因为它将根据玩家的选择触发其中之一。</p>
                         </li>
                         <li>
-                            <p><strong>"script"</strong> -- URI of the controller of a script that will determine which items to ask for (e.g.: <code>"stonehearth:game_master:script:collection_quest_shakedown"</code>). If you create your own, make sure to add it under <code>"controllers"</code> in your manifest. We'll pass the data under <strong>"collection_quest_info"</strong> to the script on creation. The script must have a <code>get_tribute_demand</code> function that returns an object (Lua table) containing URIs of items pointing to four fields: uri, count, icon and display_name. Take a look at how it's implemented in <code>collection_quest_shakedown.lua</code>.</p>
+                            <p><strong>"script"</strong> -- 确定请求哪些物品的脚本控制器的 URI（例如：<code>"stonehearth:game_master:script:collection_quest_shakedown"</code>）。如果您创建自己的脚本，请确保在清单的 <code>"controllers"</code> 下添加它。我们将在创建时将 <strong>"collection_quest_info"</strong> 下的数据传递给脚本。脚本必须有一个 <code>get_tribute_demand</code> 函数，返回一个包含物品 URI 指向四个字段（uri、count、icon 和 display_name）的对象（Lua 表）。查看 <code>collection_quest_shakedown.lua</code> 中的实现方式。</p>
                         </li>
                         <li>
-                            <p><strong>"filler_material" : {}</strong> -- optional field. Contains a map of URIs of biomes pointing to URIs of resources. Depending on the biome, a different resource will be chosen as a filler material for the request. This is used in the <code>"stonehearth:game_master:script:collection_quest_shakedown"</code> script, so you may want to add your own custom data if you don't reuse it.</p>
+                            <p><strong>"filler_material" : {}</strong> -- 可选字段。包含生物群落 URI 指向资源 URI 的映射。根据生物群落，将选择不同的资源作为请求的填充材料。这在 <code>"stonehearth:game_master:script:collection_quest_shakedown"</code> 脚本中使用，因此如果您不重用它，可能需要添加自己的自定义数据。</p>
                         </li>
                         <li>
-                            <p><strong>"skip_return_trip"</strong> -- optional field (a boolean). When <strong>true</strong>, the encounter is a simple item request so the "collection_due" dialog will be shown directly.</p>
-                            <p> <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> There's a known issue that when using this option the player can confirm the dialog even when not having all of the items (in which case only the available items will be removed from inventory). This means that the "fail" out edge can't be triggered, only the "success" and "refuse" ones can. If you want to use this option, you may want to use the <a href="#DeliveryQuest">delivery quest</a> encounter instead.</p>
+                            <p><strong>"skip_return_trip"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，遭遇战是一个简单的物品请求，因此将直接显示 "collection_due" 对话框。</p>
+                            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>使用此选项时存在一个已知问题，即即使没有所有物品，玩家也可以确认对话框（在这种情况下，只有可用物品将从库存中移除）。这意味着无法触发 "fail" 输出边，只能触发 "success" 和 "refuse" 输出边。如果您想使用此选项，您可能希望改用<a href="#DeliveryQuest">递送任务</a>遭遇战。</p>
                         </li>
                         <li>
-                            <p><strong>"source_entity"</strong> -- optional field. A reference to a context registration path. The encounter won't start if this entity doesn't exist, and will be halted if the entity dies while the quest is active.</p>
+                            <p><strong>"source_entity"</strong> -- 可选字段。对上下文注册路径的引用。如果此实体不存在，遭遇战将不会开始，如果实体在任务激活期间死亡，遭遇战将停止。</p>
                         </li>
                         <li>
-                            <p><strong>"duration"</strong> -- a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a> for how long to wait before collecting the requested items.</p>
+                            <p><strong>"duration"</strong> -- 在收集请求的物品之前等待多长时间的<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>。</p>
                         </li>
                         <li>
-                            <p><strong>"dialog_view"</strong> -- optional field, if it's <strong>"portrait"</strong> the same view than for showing the demands will be used. Otherwise, you can use the name of a custom UI view. This dialog view will be used only for the introduction dialog.</p>
+                            <p><strong>"dialog_view"</strong> -- 可选字段，如果为 <strong>"portrait"</strong>，将使用与显示需求相同的视图。否则，您可以使用自定义 UI 视图的名称。此对话框视图将仅用于介绍对话框。</p>
                         </li>
                         <li>
-                            <p><strong>"i18n_data"</strong> -- optional field. Same than for the <a href="#DialogTree">dialog tree</a> encounter.</p>
+                            <p><strong>"i18n_data"</strong> -- 可选字段。与<a href="#DialogTree">对话树</a>遭遇战相同。</p>
                         </li>
                         <li>
-                            <p><strong>"nodes" : {}</strong> -- a list of nodes for the dialog. Each node is a key containing several properties. The keys must have the following names: <strong>"introduction"</strong>, <strong>"shakedown"</strong>, <strong>"shakedown_refused"</strong>, <strong>"collection_progress"</strong>, <strong>"collection_due"</strong>, <strong>"collection_failed"</strong>, <strong>"collection_success"</strong>, <strong>"revenge"</strong>.</p>
-                            <p> Only the <strong>"collection_due"</strong>, <strong>"collection_failed"</strong> and <strong>"collection_success"</strong> nodes are mandatory, the rest are optional.</p>
-                            <p> Assuming all are defined, the order in which they'll appear is: "introduction", "shakedown", then "collection_progress" if the player accepts, or "shakedown_refused" if the player declines, in which case the "refuse" out edge will trigger and the "revenge" dialog will appear.</p>
-                            <p> If the player accepted, after waiting for the <strong>"duration"</strong> the "collection_due" dialog will appear, then if they have the requested items and accept to give them, the items will be removed from inventory, the "collection_success" dialog will appear and the "success" out edge will be triggered. If the player didn't have the requested items or refused, the "collection_failed" dialog will appear instead, the "fail" out edge will trigger and the "revenge" dialog will appear. It will also run the <code>revenge(requested_items, info)</code> function from the associated script. The second parameter will contain the revenge bulletin data, inventory tracking data and revenge node data.</p>
-                            <p> Each of these dialog nodes contains a <strong>"bulletin"</strong> field with the following properties:</p>
+                            <p><strong>"nodes" : {}</strong> -- 对话的节点列表。每个节点都是一个包含多个属性的键。键必须具有以下名称：<strong>"introduction"</strong>、<strong>"shakedown"</strong>、<strong>"shakedown_refused"</strong>、<strong>"collection_progress"</strong>、<strong>"collection_due"</strong>、<strong>"collection_failed"</strong>、<strong>"collection_success"</strong>、<strong>"revenge"</strong>。</p>
+                            <p>只有 <strong>"collection_due"</strong>、<strong>"collection_failed"</strong> 和 <strong>"collection_success"</strong> 节点是必需的，其余的是可选的。</p>
+                            <p>假设全部定义，它们出现的顺序是："introduction"、"shakedown"，然后如果玩家接受则为 "collection_progress"，如果玩家拒绝则为 "shakedown_refused"，在这种情况下将触发 "refuse" 输出边并显示 "revenge" 对话框。</p>
+                            <p>如果玩家接受了，在等待 <strong>"duration"</strong> 后将出现 "collection_due" 对话框，然后如果他们有所需物品并接受给予，物品将从库存中移除，显示 "collection_success" 对话框并触发 "success" 输出边。如果玩家没有所需物品或拒绝，将显示 "collection_failed" 对话框，触发 "fail" 输出边并显示 "revenge" 对话框。它还将运行关联脚本的 <code>revenge(requested_items, info)</code> 函数。第二个参数将包含复仇公告数据、库存跟踪数据和复仇节点数据。</p>
+                            <p>这些对话节点中的每一个都包含一个 <strong>"bulletin"</strong> 字段，具有以下属性：</p>
                             <ul>
-                                <li><strong>"title"</strong> -- a localized title for the bulletin notification.</li>
-                                <li><strong>"dialog_title"</strong> -- a localized title for the dialog window (mandatory for this encounter, but leave it as an empty string if you don't want it).</li>
-                                <li><strong>"portrait"</strong> -- path to a portrait image for the dialog (mandatory for this encounter).</li>
-                                <li><strong>"message"</strong> -- a localized text or an array of localized texts (in which case, a random one will be chosen). The message to show in the dialog. They can use variables from the <strong>"i18n_data"</strong> field.</li>
+                                <li><strong>"title"</strong> -- 公告通知的本地化标题。</li>
+                                <li><strong>"dialog_title"</strong> -- 对话框窗口的本地化标题（此遭遇战必需，但如果您不想要它，请将其留为空字符串）。</li>
+                                <li><strong>"portrait"</strong> -- 对话头像图像的路径（此遭遇战必需）。</li>
+                                <li><strong>"message"</strong> -- 本地化文本或本地化文本数组（在这种情况下，将随机选择一个）。要在对话框中显示的消息。它们可以使用来自 <strong>"i18n_data"</strong> 字段的变量。</li>
                             </ul>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="RewardEncounters"></a>Reward encounters</h2>
-            <h3><a name="DonationDialog"></a>Donation dialog</h3>
-            <p>An encounter that generates items and give them to the player via a dialog.</p>
+            <h2><a name="RewardEncounters"></a>奖励类遭遇战</h2>
+            <h3><a name="DonationDialog"></a>捐赠对话</h3>
+            <p>一种生成物品并通过对话框给予玩家的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "donation_dialog"</strong></p>
@@ -695,49 +695,49 @@ return GoblinCampDepartsScript
                     <p><strong>"donation_dialog_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"loot_table"</strong> -- a <a href="../../../basic/misc_json/index.html#LootTables">loot table</a> with entries describing the items to donate to the player. Can be omitted if you only want to donate gold.</p>
+                            <p><strong>"loot_table"</strong> -- 一个<a href="../../../basic/misc_json/index.html#LootTables">战利品表</a>，其中包含描述要捐赠给玩家的物品的条目。如果您只想捐赠金币，可以省略。</p>
                         </li>
                         <li>
-                            <p><strong>"donation_gold"</strong> -- optional field. Amount of gold to donate (no decimals). If we registered <code>donation_gold</code> in the context in a previous encounter, we can omit this field and the registered variable will be used instead.</p>
+                            <p><strong>"donation_gold"</strong> -- 可选字段。要捐赠的金币数量（无小数）。如果我们在之前的遭遇战中在上下文中注册了 <code>donation_gold</code>，则可以省略此字段，而使用注册的变量。</p>
                         </li>
                         <li>
-                            <p><strong>"expiration_timeout"</strong> -- optional field (a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a>). If we specify this field, the dialog will be automatically removed after this duration even when the player hasn't interacted with it. Useful to prevent cluttering the bulletin list with notifications that might not be relevant anymore after a while.</p>
+                            <p><strong>"expiration_timeout"</strong> -- 可选字段（一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>）。如果我们指定此字段，即使玩家未与其交互，对话框也将在此持续时间后自动移除。有助于防止公告列表中堆积可能不再相关的通知。</p>
                         </li>
                         <li>
-                            <p><strong>"choose_ctx_portrait" : []</strong> -- optional field. Same than for the <a href="#DialogTree">dialog tree</a> encounter.</p>
+                            <p><strong>"choose_ctx_portrait" : []</strong> -- 可选字段。与<a href="#DialogTree">对话树</a>遭遇战相同。</p>
                         </li>
                         <li>
-                            <p><strong>"use_ctx_portrait"</strong> -- optional field. Same than for the <a href="#DialogTree">dialog tree</a> encounter.</p>
+                            <p><strong>"use_ctx_portrait"</strong> -- 可选字段。与<a href="#DialogTree">对话树</a>遭遇战相同。</p>
                         </li>
                         <li>
-                            <p><strong>"i18n_data" : {}</strong> -- optional field. Same than for the <a href="#DialogTree">dialog tree</a> encounter.</p>
+                            <p><strong>"i18n_data" : {}</strong> -- 可选字段。与<a href="#DialogTree">对话树</a>遭遇战相同。</p>
                         </li>
                         <li>
-                            <p><strong>"nodes": {}</strong> -- contains the <strong>"simple_message"</strong> field, inside which there's the <strong>"bulletin"</strong> field with the following properties:</p>
+                            <p><strong>"nodes": {}</strong> -- 包含 <strong>"simple_message"</strong> 字段，其中有 <strong>"bulletin"</strong> 字段，具有以下属性：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"title"</strong> -- same than for the <a href="#DialogTree">dialog tree</a> encounter.</p>
+                                    <p><strong>"title"</strong> -- 与<a href="#DialogTree">对话树</a>遭遇战相同。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"dialog_title"</strong> -- same than for the <a href="#DialogTree">dialog tree</a> encounter.</p>
+                                    <p><strong>"dialog_title"</strong> -- 与<a href="#DialogTree">对话树</a>遭遇战相同。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"portrait"</strong> -- optional field. Same than for the <a href="#DialogTree">dialog tree</a> encounter.</p>
+                                    <p><strong>"portrait"</strong> -- 可选字段。与<a href="#DialogTree">对话树</a>遭遇战相同。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"message"</strong> -- same than for the <a href="#DialogTree">dialog tree</a> encounter.</p>
+                                    <p><strong>"message"</strong> -- 与<a href="#DialogTree">对话树</a>遭遇战相同。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"choices" : {}</strong> -- same than for the <a href="#DialogTree">dialog tree</a> encounter, EXCEPT that they can only contain a <strong>"result"</strong> key with a value of either <strong>"accept"</strong> or <strong>"reject"</strong>. If the user clicks on the option that rejects, they won't get the items.</p>
-                                    <p>The out edge is specified at the encounter level, like in most of the other encounter types.</p>
+                                    <p><strong>"choices" : {}</strong> -- 与<a href="#DialogTree">对话树</a>遭遇战相同，除了它们只能包含一个值为 <strong>"accept"</strong> 或 <strong>"reject"</strong> 的 <strong>"result"</strong> 键。如果用户点击拒绝选项，他们将不会获得物品。</p>
+                                    <p>输出边在遭遇战级别指定，就像大多数其他遭遇战类型一样。</p>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="Donation"></a>Donation</h3>
-            <p>An encounter that generates items and drops them by the player's camp standard. If you want to have also some dialog for informing the player, you might want to use the <a href="#DonationDialog">donation dialog</a> encounter instead.</p>
+            <h3><a name="Donation"></a>捐赠</h3>
+            <p>一种生成物品并将其掉落在玩家营地旗帜附近的遭遇战。如果您还希望通过对话框通知玩家，您可能希望改用<a href="#DonationDialog">捐赠对话</a>遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "donation"</strong></p>
@@ -745,14 +745,14 @@ return GoblinCampDepartsScript
                 <li>
                     <p><strong>"donation_info" : {}</strong></p>
                     <ul>
-                        <li><strong>"loot_table"</strong> -- a <a href="../../../basic/misc_json/index.html#LootTables">loot table</a> with entries describing the items to donate to the player.</li>
-                        <li><strong>"container"</strong> -- optional field. URI of an entity to act as a loot box (will spawn and have the loot command on it, spawning the items from the loot table when the player clicks on the command).</li>
-                        <li><strong>"ctx_entity_registration_path"</strong> -- an optional field. Name for a context path in which to reference the spawned items (either the container, or the items if we have no container).</li>
+                        <li><strong>"loot_table"</strong> -- 一个<a href="../../../basic/misc_json/index.html#LootTables">战利品表</a>，其中包含描述要捐赠给玩家的物品的条目。</li>
+                        <li><strong>"container"</strong> -- 可选字段。用作战利品箱的实体的 URI（将生成并在其上具有战利品命令，当玩家点击命令时生成战利品表中的物品）。</li>
+                        <li><strong>"ctx_entity_registration_path"</strong> -- 可选字段。用于引用生成的物品（容器，或者如果我们没有容器则为物品）的上下文路径名称。</li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="UnlockRecipe"></a>Unlock recipe</h3>
-            <p>An encounter that unlocks recipes for the player.</p>
+            <h3><a name="UnlockRecipe"></a>解锁配方</h3>
+            <p>一种为玩家解锁配方的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "unlock_recipe"</strong></p>
@@ -760,15 +760,15 @@ return GoblinCampDepartsScript
                 <li>
                     <p><strong>"unlock_recipe_info" : {}</strong></p>
                     <ul>
-                        <li><strong>"job"</strong> -- URI of the job that contains the recipes to unlock. Remember that they must exist in the recipe index of this crafter and they must have <code>"manual_unlock" : true</code>.</li>
-                        <li><strong>"recipe_key" : []</strong> -- can be just one string or an array of strings if we want to unlock more than one recipe. Each key must correspond to a recipe, in the form of <code>"crafting_category:recipe_key"</code>, as taken from the corresponding recipes index (e.g.: <code>"furniture:amberstone_table"</code> for the mason).</li>
-                        <li><strong>"bulletin_title"</strong> -- a localized text for the bulletin notification.</li>
+                        <li><strong>"job"</strong> -- 包含要解锁配方的职业的 URI。请记住，它们必须存在于此工匠的配方索引中，并且必须具有 <code>"manual_unlock" : true</code>。</li>
+                        <li><strong>"recipe_key" : []</strong> -- 可以只是一个字符串或字符串数组，如果我们想解锁多个配方。每个键必须对应一个配方，形式为 <code>"crafting_category:recipe_key"</code>，取自相应的配方索引（例如：<code>"furniture:amberstone_table"</code> 用于石匠）。</li>
+                        <li><strong>"bulletin_title"</strong> -- 公告通知的本地化文本。</li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="TownProgressionEncounters"></a>Town progression encounters</h2>
-            <h3><a name="TownUpgradeChoice"></a>Town upgrade choice</h3>
-            <p>An encounter that shows a dialog to choose a town upgrade and optionally the town's name.</p>
+            <h2><a name="TownProgressionEncounters"></a>城镇发展遭遇战</h2>
+            <h3><a name="TownUpgradeChoice"></a>城镇升级选择</h3>
+            <p>一种显示选择城镇升级并可选择城镇名称的对话框的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "town_upgrade_choice"</strong></p>
@@ -777,35 +777,35 @@ return GoblinCampDepartsScript
                     <p><strong>"town_upgrade_choice_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"includes_town_naming"</strong> -- optional field. A boolean to determine whether to show a text box to let the player change the name of their town.</p>
+                            <p><strong>"includes_town_naming"</strong> -- 可选字段。一个布尔值，用于确定是否显示文本框让玩家更改城镇名称。</p>
                         </li>
                         <li>
-                            <p><strong>"choices" : {}</strong> -- list of choices to upgrade the town's banner/hearth/etc. Each choice is a custom identifier containing the following properties:</p>
+                            <p><strong>"choices" : {}</strong> -- 升级城镇旗帜/炉心等的选择列表。每个选择都是一个自定义标识符，包含以下属性：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"name"</strong> -- a localized name for the banner/hearth/etc type.</p>
+                                    <p><strong>"name"</strong> -- 旗帜/炉心等类型的本地化名称。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"description"</strong> -- a localized description of the associated town bonus.</p>
+                                    <p><strong>"description"</strong> -- 相关城镇奖励的本地化描述。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"icon"</strong> -- path to an image of the corresponding banner/hearth/etc.</p>
+                                    <p><strong>"icon"</strong> -- 相应旗帜/炉心等的图像路径。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"sort_order"</strong> -- an ordinal to sort the different choices in the UI.</p>
+                                    <p><strong>"sort_order"</strong> -- 用于在 UI 中对不同选择进行排序的序号。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"out_edge"</strong> -- the out edge to trigger when the player chooses this option. It should eventually lead to an encounter of type <a href="#TownUpgrade">town upgrade</a>, which will grant the bonus mentioned in the description to the player's town.</p>
-                                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Notice that usually we don't add an out edge to this encounter's JSON file, since it will trigger different ones depending on the player's choice.</p>
+                                    <p><strong>"out_edge"</strong> -- 当玩家选择此选项时要触发的输出边。它最终应该通向<a href="#TownUpgrade">城镇升级</a>类型的遭遇战，这将向玩家的城镇授予描述中提到的奖励。</p>
+                                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，通常我们不在此遭遇战的 JSON 文件中添加输出边，因为它将根据玩家的选择触发不同的输出边。</p>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="TownUpgrade"></a>Town upgrade</h3>
-            <p>An encounter that grants a town bonus and/or replaces the banner or hearth. The hearthlings (and optionally some NPCs) will gather around the item to upgrade, it will be changed (granting the town bonus), the town tier will increase, and then the hearthlings and NPCs will celebrate for a while (using the <code>"celebration"</code> track from their sound constants). NPCs will depart and despawn once the celebration ends.</p>
-            <p>Most of the fields are optional, so this can also be used to issue a celebration around an item.</p>
+                        <h3><a name="TownUpgrade"></a>城镇升级</h3>
+            <p>一种授予城镇奖励和/或替换旗帜或炉心的遭遇战。炉民（和一些 NPC）将聚集在要升级的物品周围，它将被更改（授予城镇奖励），城镇等级将提升，然后炉民和 NPC 将庆祝一段时间（使用他们声音常量中的 <code>"celebration"</code> 音轨）。NPC 将在庆祝结束后离开并消失。</p>
+            <p>大多数字段都是可选的，因此这也可用于围绕物品发出庆祝活动。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "town_upgrade"</strong></p>
@@ -814,24 +814,24 @@ return GoblinCampDepartsScript
                     <p><strong>"town_upgrade_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"tier_achieved"</strong> -- optional field. A number representing the tier to which we're upgrading the player's town.</p>
+                            <p><strong>"tier_achieved"</strong> -- 可选字段。一个数字，表示我们要将玩家城镇升级到的等级。</p>
                         </li>
                         <li>
-                            <p><strong>"celebration_duration"</strong> -- a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a> to represent the duration of the celebration. Make sure to define this field.</p>
+                            <p><strong>"celebration_duration"</strong> -- 表示庆祝持续时间的<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>。请确保定义此字段。</p>
                         </li>
                         <li>
-                            <p><strong>"old_facility_uri"</strong> -- URI of the item that we're upgrading (banner, hearth, etc). The upgrade and celebration will only start once this item is placed down (e.g. in case this encounter was triggered while the item was being moved). Hearthlings will congregate around it.</p>
-                            <p> If no old facility is defined, the town's hearth will be chosen. If it doesn't exist, the town's banner will be used instead.</p>
-                            <p> If the old facility is not a unique entity, we'll choose a random one from the player's inventory, preferring one that's already placed in the world.</p>
+                            <p><strong>"old_facility_uri"</strong> -- 我们正在升级的物品的 URI（旗帜、炉心等）。一旦放置此物品，升级和庆祝将开始（例如，如果此遭遇战在移动物品时触发）。炉民将聚集在它周围。</p>
+                            <p>如果未定义旧设施，将选择城镇的炉心。如果它不存在，将改用城镇的旗帜。</p>
+                            <p>如果旧设施不是唯一实体，我们将从玩家的库存中随机选择一个，优先选择已经放置在世界的物品。</p>
                         </li>
                         <li>
-                            <p><strong>"new_facility_uri"</strong> -- optional field. URI of the item that will replace the old banner/hearth/etc.</p>
+                            <p><strong>"new_facility_uri"</strong> -- 可选字段。将替换旧旗帜/炉心等的物品的 URI。</p>
                         </li>
                         <li>
-                            <p><strong>"facility_upgrade_effect"</strong> -- URI of a VFX to play when upgrading the old facility. Usually covers it at some point to hide the sudden change from the old one to the new one.</p>
+                            <p><strong>"facility_upgrade_effect"</strong> -- 升级旧设施时播放的 VFX 的 URI。通常会在某个时刻覆盖它以隐藏从旧到新的突然变化。</p>
                         </li>
                         <li>
-                            <p><strong>"town_bonus"</strong> -- optional field. URI of the controller that has the concerning town bonus. Remember to add it under <code>"controllers"</code> in your manifest. An example of town bonus that does nothing:</p>
+                            <p><strong>"town_bonus"</strong> -- 可选字段。具有相关城镇奖励的控制器的 URI。请记住在清单的 <code>"controllers"</code> 下添加它。一个什么都不做的城镇奖励示例：</p>
                             <pre><code>local MyTownBonus = class()
 
 function MyTownBonus:initialize()
@@ -846,11 +846,11 @@ end
 
 return MyTownBonus
 </code></pre>
-                            <p> The functions above will ensure that the bonus appears in the Bonuses tab of the town overview UI. You can see more examples of controllers for bonuses in <code>stonehearth/data/town_bonuses</code>. In some parts of the game we check for specific bonuses like this:</p>
+                            <p>上述函数将确保奖励出现在城镇概览 UI 的奖励选项卡中。您可以在 <code>stonehearth/data/town_bonuses</code> 中查看更多奖励控制器示例。在游戏的某些部分，我们会像这样检查特定奖励：</p>
                             <pre><code>local town = stonehearth.town:get_town(self._sv._entity:get_player_id())
 town:get_town_bonus('stonehearth:town_bonus:strength')
 </code></pre>
-                            <p> This allows to execute some code depending on the current town bonus, and we can also call functions from the town bonus controller, e.g.:</p>
+                            <p>这允许根据当前城镇奖励执行一些代码，我们还可以调用城镇奖励控制器的函数，例如：</p>
                             <pre><code>local town = stonehearth.town:get_town(session.player_id)
 local glory_bonus = town:get_town_bonus('stonehearth:town_bonus:glory')
 if glory_bonus then
@@ -860,62 +860,62 @@ return false
 </code></pre>
                         </li>
                         <li>
-                            <p><strong>"finish_event"</strong> -- optional field. Name of the event that will be triggered on the player's population once the celebration ends.</p>
+                            <p><strong>"finish_event"</strong> -- 可选字段。庆祝结束后将在玩家的派系上触发的事件名称。</p>
                         </li>
                         <li>
-                            <p><strong>"conversation_subjects" : []</strong> -- optional field. An array of URIs of subject matters to inject for the celebration. They will all have a positive sentiment. For instance, we inject the <code>"stonehearth:subjects:town_status"</code>, <code>"stonehearth:food:cake"</code> and <code>"stonehearth:banner:strength"</code> subjects for the upgrade to strength banner in the vanilla game. Hearthlings will have a chance to talk about them during the celebration.</p>
+                            <p><strong>"conversation_subjects" : []</strong> -- 可选字段。要为庆祝注入的主题 URI 数组。它们都将具有积极的情感。例如，我们在原版游戏中为升级到力量旗帜注入 <code>"stonehearth:subjects:town_status"</code>、<code>"stonehearth:food:cake"</code> 和 <code>"stonehearth:banner:strength"</code> 主题。炉民将在庆祝期间有机会谈论它们。</p>
                         </li>
                         <li>
-                            <p><strong>"thought"</strong> -- optional field. URI of the thought to inject to all hearthlings, relevant to the current upgrade (e.g. <code>"stonehearth:thoughts:town:progression:outpost"</code>).</p>
+                            <p><strong>"thought"</strong> -- 可选字段。要注入给所有炉民的与当前升级相关的想法的 URI（例如，<code>"stonehearth:thoughts:town:progression:outpost"</code>）。</p>
                         </li>
                         <li>
-                            <p><strong>"has_fireworks"</strong> -- optional field. A boolean to determine whether to run the <code>"stonehearth:effects:fireworks"</code> effect or not. Mind that this effect will be played from the new facility.</p>
+                            <p><strong>"has_fireworks"</strong> -- 可选字段。一个布尔值，用于确定是否运行 <code>"stonehearth:effects:fireworks"</code> 效果。请注意，此效果将从新设施播放。</p>
                         </li>
                         <li>
-                            <p><strong>"dialog" : {}</strong> -- optional field. Data for a dialog that will pop up right before congregating for the celebration. It contains the following fields:</p>
+                            <p><strong>"dialog" : {}</strong> -- 可选字段。在聚集庆祝之前弹出的对话框的数据。它包含以下字段：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"title"</strong> -- a localized text for the bulletin notification.</p>
+                                    <p><strong>"title"</strong> -- 公告通知的本地化文本。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"dialog_title"</strong> -- a localized text for the title of the dialog, will appear at the top of the window.</p>
+                                    <p><strong>"dialog_title"</strong> -- 对话框标题的本地化文本，将出现在窗口顶部。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"tier_title"</strong> -- a localized text for the tier achieved (outpost, settlement, etc).</p>
+                                    <p><strong>"tier_title"</strong> -- 已达成的等级的本地化文本（前哨站、定居点等）。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"reward_message"</strong> -- a localized text for the first part of the proclamation message (e.g.: "By unanimous agreement of the citizens, we declare:").</p>
+                                    <p><strong>"reward_message"</strong> -- 宣告消息第一部分的本地化文本（例如："经市民一致同意，我们宣布："）。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"reward_message_ctd"</strong> -- a localized text for the second part of the proclamation message (e.g.: "to be an outpost on its way to be a safe haven for all.").</p>
-                                    <p>The reward/proclamation message will appear in the middle of the window. It's divided in two parts because the town's name will appear between them.</p>
+                                    <p><strong>"reward_message_ctd"</strong> -- 宣告消息第二部分的本地化文本（例如："成为所有人安全避风港的前哨站。"）。</p>
+                                    <p>奖励/宣告消息将出现在窗口中间。它分为两部分，因为城镇名称将出现在它们之间。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"achievements" : []</strong> -- an array of objects. It's a list describing the achievements associated with the town tier / bonus, shown at the bottom of the dialog. Each entry contains the following properties:</p>
+                                    <p><strong>"achievements" : []</strong> -- 对象数组。这是一个描述与城镇等级/奖励相关的成就的列表，显示在对话框底部。每个条目包含以下属性：</p>
                                     <ul>
-                                        <li><strong>"id"</strong> -- a unique identifier for this entry (e.g.: <code>"strength_bonus_1"</code>).</li>
-                                        <li><strong>"name"</strong> -- a localized short text describing the achievement ("Random Daily Buffs", "Tier 2 BGM", etc).</li>
-                                        <li><strong>"icon"</strong> -- path to an icon to show in the dialog for this achievement. In the vanilla game it's a ribbon, but you can use different ones for each reward.</li>
-                                        <li><strong>"track"</strong> -- URI of a sound track to play when the achievement appears in the UI (achievements will appear one by one, as if unlocking).</li>
+                                        <li><strong>"id"</strong> -- 此条目的唯一标识符（例如：<code>"strength_bonus_1"</code>）。</li>
+                                        <li><strong>"name"</strong> -- 描述成就的本地化短文本（"随机每日增益"、"2 级背景音乐"等）。</li>
+                                        <li><strong>"icon"</strong> -- 在此成就的对话框中显示的图标路径。在原版游戏中它是丝带，但您可以为每个奖励使用不同的图标。</li>
+                                        <li><strong>"track"</strong> -- 当成就出现在 UI 中时播放的音轨的 URI（成就会逐个出现，就像解锁一样）。</li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <p><strong>"npcs" : []</strong> -- optional field. An array of NPCs to spawn for the celebration. Each entry is an object containing these properties:</p>
+                            <p><strong>"npcs" : []</strong> -- 可选字段。要为庆祝生成的 NPC 数组。每个条目都是一个包含这些属性的对象：</p>
                             <ul>
-                                <li><strong>"faction"</strong> -- name of the population faction of the NPC (e.g.: <code>"human_npcs"</code>).</li>
-                                <li><strong>"role"</strong> -- role of the NPC inside the population data (e.g: <code>"herald_harold"</code>).</li>
-                                <li><strong>"gender"</strong> -- gender of the NPC (e.g.: <code>"male"</code>).</li>
+                                <li><strong>"faction"</strong> -- NPC 的派系名称（例如：<code>"human_npcs"</code>）。</li>
+                                <li><strong>"role"</strong> -- NPC 在派系数据中的角色（例如：<code>"herald_harold"</code>）。</li>
+                                <li><strong>"gender"</strong> -- NPC 的性别（例如：<code>"male"</code>）。</li>
                             </ul>
-                            <p> For more about populations, refer to <a href="../../monsters/index.html">this page</a> and <a href="../../kingdoms/index.html">this other page</a>. Normally NPCs will have <code>"amenity_to_strangers" : "neutral"</code>, so that enemies can't attack them. Their faction can't be hostile towards the player's faction at the moment of the celebration, otherwise they won't spawn.</p>
+                            <p>有关派系的更多信息，请参阅<a href="../../monsters/index.html">此页面</a>和<a href="../../kingdoms/index.html">另一页面</a>。通常 NPC 将具有 <code>"amenity_to_strangers" : "neutral"</code>，以便敌人无法攻击他们。在庆祝时，他们的派系不能对玩家的派系敌对，否则他们将不会生成。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="CityTierAchieved"></a>City tier achieved</h3>
-            <p>An encounter that shows a dialog celebrating the player's ascendance to a new tier of city.</p>
-            <p>This encounter type was used before celebrations were implemented in the game. So in practice, it does more or less the same than the <a href="#TownUpgrade">town upgrade</a> encounter. Here, a notification will open a normal dialog message first, and when the player proceeds, the city tier success dialog will appear.</p>
+            <h3><a name="CityTierAchieved"></a>达成城市等级</h3>
+            <p>一种显示庆祝玩家晋升到新城市等级的对话框的遭遇战。</p>
+            <p>此遭遇战类型在游戏中实现庆祝功能之前使用。因此实际上，它与<a href="#TownUpgrade">城镇升级</a>遭遇战的作用大致相同。在这里，通知将首先打开一个普通对话框消息，当玩家继续时，将出现城市等级成功对话框。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "city_tier_achieved"</strong></p>
@@ -924,48 +924,48 @@ return false
                     <p><strong>"city_tier_achieved_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"tier_achieved"</strong> -- a number representing the town tier achieved.</p>
+                            <p><strong>"tier_achieved"</strong> -- 一个数字，表示达成的城镇等级。</p>
                         </li>
                         <li>
-                            <p><strong>"event_to_broadcast"</strong> -- name of the event that will be triggered on the player's population after increasing the town tier.</p>
+                            <p><strong>"event_to_broadcast"</strong> -- 提升城镇等级后将在玩家的派系上触发的事件名称。</p>
                         </li>
                         <li>
-                            <p><strong>"title"</strong> -- a localized text for the notification bulletin.</p>
+                            <p><strong>"title"</strong> -- 通知公告的本地化文本。</p>
                         </li>
                         <li>
-                            <p><strong>"speaker_name"</strong> -- a localized text for the first dialog.</p>
+                            <p><strong>"speaker_name"</strong> -- 第一个对话框的本地化文本。</p>
                         </li>
                         <li>
-                            <p><strong>"speaker_portrait"</strong> -- path to a portrait for the first dialog.</p>
+                            <p><strong>"speaker_portrait"</strong> -- 第一个对话框的头像路径。</p>
                         </li>
                         <li>
-                            <p><strong>"message"</strong> -- a localized text for the first dialog.</p>
+                            <p><strong>"message"</strong> -- 第一个对话框的本地化文本。</p>
                         </li>
                         <li>
-                            <p><strong>"accept"</strong> -- a localized text for the button of the first dialog.</p>
+                            <p><strong>"accept"</strong> -- 第一个对话框按钮的本地化文本。</p>
                         </li>
                         <li>
-                            <p><strong>"dialog_title"</strong> -- a localized text for the title of the dialog, will appear at the top of the window.</p>
+                            <p><strong>"dialog_title"</strong> -- 对话框标题的本地化文本，将出现在窗口顶部。</p>
                         </li>
                         <li>
-                            <p><strong>"tier_title"</strong> -- a localized text for the tier achieved (outpost, settlement, etc).</p>
+                            <p><strong>"tier_title"</strong> -- 已达成的等级的本地化文本（前哨站、定居点等）。</p>
                         </li>
                         <li>
-                            <p><strong>"reward_message"</strong> -- a localized text for the first part of the proclamation message (e.g.: "By decree of Princess Dania of the Ascendancy, we recognize:").</p>
+                            <p><strong>"reward_message"</strong> -- 宣告消息第一部分的本地化文本（例如："根据 Ascendancy 的 Dania 公主的法令，我们承认："）。</p>
                         </li>
                         <li>
-                            <p><strong>"reward_message_ctd"</strong> -- a localized text for the second part of the proclamation message (e.g.: "For acts of incredible valor in combat. The town is hereby eligible for:").</p>
-                            <p> The reward/proclamation message will appear in the middle of the window. It's divided in two parts because the town's name will appear between them.</p>
+                            <p><strong>"reward_message_ctd"</strong> -- 宣告消息第二部分的本地化文本（例如："因在战斗中表现出令人难以置信的英勇行为。该城镇现在有资格获得："）。</p>
+                            <p>奖励/宣告消息将出现在窗口中间。它分为两部分，因为城镇名称将出现在它们之间。</p>
                         </li>
                         <li>
-                            <p><strong>"achievements" : []</strong> -- same than for the <a href="#TownUpgrade">town upgrade</a> encounter type.</p>
+                            <p><strong>"achievements" : []</strong> -- 与<a href="#TownUpgrade">城镇升级</a>遭遇战类型相同。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="CityTierQuest"></a>City tier quest</h3>
-            <p>An encounter that shows the requirements needed to get to the next level of city tier. The notification persists in the bulletin list until one of the sets is satisfied. Button to check requirements, if met, will call the herald back immediately and triggers new out edge. If the herald automatically detects that the set is satisfied, the notification goes away.</p>
-            <p>This is the old implementation of the tier upgrade quest, where 3 possible paths/requirement sets are presented in the same window, so that the player can try to fulfill any of them at any given moment.</p>
+            <h3><a name="CityTierQuest"></a>城市等级任务</h3>
+            <p>一种显示升级到下一个城市等级所需要求的遭遇战。通知将持续存在于公告列表中，直到满足其中一组要求。检查要求的按钮，如果满足，将立即召唤使者并触发新的输出边。如果使者自动检测到要求已满足，通知将消失。</p>
+            <p>这是等级升级任务的旧实现，其中在同一窗口中呈现 3 个可能的路径/要求集，以便玩家可以随时尝试完成其中任何一个。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "city_tier_quest"</strong></p>
@@ -974,47 +974,47 @@ return false
                     <p><strong>"city_tier_quest_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"target_tier"</strong> -- a number representing the tier to upgrade to. It's just informative, the tier is granted in a <a href="#CityTierAchieved">city tier achieved</a> or <a href="#TownUpgrade">town upgrade</a> encounter.</p>
+                            <p><strong>"target_tier"</strong> -- 一个数字，表示要升级到的等级。这仅供参考，等级在<a href="#CityTierAchieved">达成城市等级</a>或<a href="#TownUpgrade">城镇升级</a>遭遇战中授予。</p>
                         </li>
                         <li>
-                            <p><strong>"finish_event"</strong> -- optional field. Name of the event that we'll listen to in order to remove the bulletin (will be triggered on the player's population). The bulletin will also be removed and the encounter node destroyed once the quest is completed.</p>
+                            <p><strong>"finish_event"</strong> -- 可选字段。我们将监听以移除公告的事件名称（将在玩家的派系上触发）。一旦任务完成，公告也将被移除并且遭遇战节点将被销毁。</p>
                         </li>
                         <li>
-                            <p><strong>"title"</strong> -- a localized text for the bulletin notification.</p>
+                            <p><strong>"title"</strong> -- 公告通知的本地化文本。</p>
                         </li>
                         <li>
-                            <p><strong>"dialog_title"</strong> -- a localized title for the dialog. Will appear at the top of the window.</p>
+                            <p><strong>"dialog_title"</strong> -- 对话框的本地化标题。将出现在窗口顶部。</p>
                         </li>
                         <li>
-                            <p><strong>"text"</strong> -- a localized text for the dialog. Will appear at the top of the dialog.</p>
+                            <p><strong>"text"</strong> -- 对话框的本地化文本。将出现在对话框顶部。</p>
                         </li>
                         <li>
-                            <p><strong>"summon_text"</strong> -- a localized text for the button to complete the quest (e.g.: "Summon Herald"). It will be enabled once one or more of the requirement sets are fulfilled.</p>
+                            <p><strong>"summon_text"</strong> -- 完成任务的按钮的本地化文本（例如："召唤使者"）。一旦满足一个或多个要求集，它将启用。</p>
                         </li>
                         <li>
-                            <p><strong>"satisfaction_requirements" : {}</strong> -- a list of requirement sets to fulfill. Each one is a custom key referencing a set of requirements. Each entry contains the following properties:</p>
+                            <p><strong>"satisfaction_requirements" : {}</strong> -- 要完成的要求集列表。每个都是一个引用要求集的自定义键。每个条目包含以下属性：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"id"</strong> -- an identifier for this quest path (e.g.: <code>"town_military_req"</code>).</p>
+                                    <p><strong>"id"</strong> -- 此任务路径的标识符（例如：<code>"town_military_req"</code>）。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"title"</strong> -- a localized text for this requirement set to display in the UI.</p>
+                                    <p><strong>"title"</strong> -- 要在 UI 中显示的此要求集的本地化文本。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"out_edge"</strong> -- out edge to trigger if this requirement set is fulfilled.</p>
+                                    <p><strong>"out_edge"</strong> -- 如果满足此要求集将触发的输出边。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"requirements" : {}</strong> -- a list of requirements. Each entry in the list will be a custom key containing the following properties:</p>
+                                    <p><strong>"requirements" : {}</strong> -- 要求列表。列表中的每个条目都将是一个包含以下属性的自定义键：</p>
                                     <ul>
                                         <li>
-                                            <p><strong>"id"</strong> -- a custom identifier for this requirement (e.g.: <code>"military_statue"</code>).</p>
+                                            <p><strong>"id"</strong> -- 此要求的自定义标识符（例如：<code>"military_statue"</code>）。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"type"</strong> -- for this encounter type, there are only 2 possible types of requirements: either <strong>"placed_item"</strong> or <strong>"net_worth"</strong>.</p>
+                                            <p><strong>"type"</strong> -- 对于此遭遇战类型，只有 2 种可能的要求类型：<strong>"placed_item"</strong> 或 <strong>"net_worth"</strong>。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"uri"</strong> / <strong>"value"</strong> -- if the type was <strong>"placed_item"</strong>, we'll have an <strong>"uri"</strong> field pointing to the URI of the item that must be placed; if it was <strong>"net_worth"</strong>, a <strong>"value"</strong> field for the amount of net worth to have.</p>
-                                            <p>  Mind that if you use the <strong>"placed_item"</strong> type, you should name the entry <code>"place_statue"</code>. This will ensure that the icon in the UI corresponds to the required item.</p>
+                                            <p><strong>"uri"</strong> / <strong>"value"</strong> -- 如果类型为 <strong>"placed_item"</strong>，我们将有一个 <strong>"uri"</strong> 字段指向必须放置的物品的 URI；如果类型为 <strong>"net_worth"</strong>，则有一个 <strong>"value"</strong> 字段表示要拥有的净资产数量。</p>
+                                            <p>请注意，如果您使用 <strong>"placed_item"</strong> 类型，应将条目命名为 <code>"place_statue"</code>。这将确保 UI 中的图标与所需物品对应。</p>
                                         </li>
                                     </ul>
                                 </li>
@@ -1023,10 +1023,10 @@ return false
                     </ul>
                 </li>
             </ul>
-            <h2><a name="CitizenEncounters"></a>Citizen encounters</h2>
-            <h3><a name="AddCitizen"></a>Add citizen</h3>
-            <p>Adds a new citizen to the town, either of the player's population or of another race/faction. They will spawn close to the town and will walk to the banner first.</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Mind that once added to the player's town, you won't be able to retrieve the original population of the citizen by code. They will be considered to have the same population/faction than the player's town, even if their appearance is different (e.g. rabbits, orcs).</p>
+            <h2><a name="CitizenEncounters"></a>市民遭遇战</h2>
+            <h3><a name="AddCitizen"></a>添加市民</h3>
+            <p>向城镇添加一个新市民，可以是玩家派系的或其他种族/派系的。他们将在城镇附近生成并首先走向旗帜。</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，一旦添加到玩家的城镇，您将无法通过代码检索市民的原始派系。他们将被视为与玩家的城镇具有相同的派系/阵营，即使他们的外观不同（例如，兔子、兽人）。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "add_citizen"</strong></p>
@@ -1035,44 +1035,44 @@ return false
                     <p><strong>"add_citizen_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"population"</strong> -- optional field. URI of the kingdom of the new citizen (e.g.: <code>"stonehearth:kingdoms:amberstone"</code>). If it's omitted, the same kingdom than the player's town will be used.</p>
+                            <p><strong>"population"</strong> -- 可选字段。新市民的王国 URI（例如：<code>"stonehearth:kingdoms:amberstone"</code>）。如果省略，将使用与玩家城镇相同的王国。</p>
                         </li>
                         <li>
-                            <p><strong>"role"</strong> -- optional field. Role from the <a href="../../kingdoms/index.html">population data</a> to use. If omitted, the <code>"default"</code> role will be used.</p>
+                            <p><strong>"role"</strong> -- 可选字段。要从<a href="../../kingdoms/index.html">派系数据</a>中使用的角色。如果省略，将使用 <code>"default"</code> 角色。</p>
                         </li>
                         <li>
-                            <p><strong>"gender"</strong> -- optional field. A gender for the new citizen. If omitted, a random gender will be used. Genders are specified in <code>stonehearth/data/constants.json</code>, and match entries inside the different roles.</p>
+                            <p><strong>"gender"</strong> -- 可选字段。新市民的性别。如果省略，将使用随机性别。性别在 <code>stonehearth/data/constants.json</code> 中指定，并与不同角色内的条目匹配。</p>
                         </li>
                         <li>
-                            <p><strong>"job"</strong> -- URI of the job that the new citizen will have by default. Although this is considered an optional field, make sure to set it up so that the new citizen has a proper outfit and can be promoted to other jobs. It's not guaranteed that a default job will be used.</p>
+                            <p><strong>"job"</strong> -- 新市民默认将拥有的职业的 URI。虽然这被视为可选字段，但请确保设置它，以便新市民拥有适当的服装并可以晋升到其他职业。不保证会使用默认职业。</p>
                         </li>
                         <li>
-                            <p><strong>"level"</strong> -- optional field. Default level for the new citizen on the specified job.</p>
+                            <p><strong>"level"</strong> -- 可选字段。新市民在指定职业上的默认等级。</p>
                         </li>
                         <li>
-                            <p><strong>"allowed_jobs" : []</strong> -- optional field. An array containing URIs of jobs. This restricts the jobs that the new citizen can be promoted to. Useful when the citizen is from another faction that doesn't have outfits or animations for some of the jobs from the player's population job index.</p>
+                            <p><strong>"allowed_jobs" : []</strong> -- 可选字段。包含职业 URI 的数组。这限制了新市民可以晋升的职业。当市民来自另一个派系且没有玩家派系职业索引中某些职业的服装或动画时很有用。</p>
                         </li>
                         <li>
-                            <p><strong>"equipment" : []</strong> -- optional field. An array of URIs of <a href="../../../basic/wearables/index.html">equipment pieces</a> that will be automatically equipped to the new citizen (mind the equipment roles regarding the job).</p>
+                            <p><strong>"equipment" : []</strong> -- 可选字段。<a href="../../../basic/wearables/index.html">装备部件</a>的 URI 数组，将自动装备给新市民（注意关于职业的装备角色）。</p>
                         </li>
                         <li>
-                            <p><strong>"notification_title"</strong> -- optional field (no notification will be shown if this field is omitted). A localized text for the notification bulletin. When the player clicks on the bulletin, the camera will focus on the new citizen. You can use <code>i18n_data.citizen_custom_name</code>, <code>i18n_data.citizen_display_name</code> and <code>i18n_data.town_name</code> in the localized text if you want to.</p>
+                            <p><strong>"notification_title"</strong> -- 可选字段（如果省略此字段，将不显示通知）。公告通知的本地化文本。当玩家点击公告时，摄像机将聚焦于新市民。如果愿意，您可以在本地化文本中使用 <code>i18n_data.citizen_custom_name</code>、<code>i18n_data.citizen_display_name</code> 和 <code>i18n_data.town_name</code>。</p>
                         </li>
                         <li>
-                            <p><strong>"attribute_distribution_override" : {}</strong> -- optional field. If included, it will override the default stats from the population for this citizen.</p>
+                            <p><strong>"attribute_distribution_override" : {}</strong> -- 可选字段。如果包含，它将覆盖此市民的派系默认属性。</p>
                             <ul>
-                                <li><strong>"allocated_points" : {}</strong> -- contains <strong>"min"</strong> and <strong>"max"</strong> properties. A random number of points will be chosen between them.</li>
-                                <li><strong>"point_limits" : {}</strong> -- contains entries whose key is the name of a main stat (<strong>"mind"</strong>, <strong>"body"</strong>, <strong>"spirit"</strong>) and whose values are also <strong>"min"</strong> and <strong>"max"</strong>, to establish how much points can be given to a certain stat. Stats influence the rest of attributes.</li>
+                                <li><strong>"allocated_points" : {}</strong> -- 包含 <strong>"min"</strong> 和 <strong>"max"</strong> 属性。将在它们之间随机选择点数。</li>
+                                <li><strong>"point_limits" : {}</strong> -- 包含条目，其键是主要属性的名称（<strong>"mind"</strong>、<strong>"body"</strong>、<strong>"spirit"</strong>），其值也是 <strong>"min"</strong> 和 <strong>"max"</strong>，用于确定可以给某个属性多少点数。属性影响其余的属性。</li>
                             </ul>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="Reembarkation"></a>Reembarkation</h3>
-            <p>An encounter to generate an embarkation crew composed of up to 3 citizens and up to 10 items to reuse in a new game (if the player chooses a town progression item, it will carry the town bonus with it).</p>
-            <p>It will also include unlocked crops (for the <code>"stonehearth:jobs:farmer"</code> job) and unlocked crafting recipes from any crafting job, but these have conditions to be unlocked in new games (if you choose a reembarkation crew from a different kingdom, the recipes must already exist in the current kingdom's recipe indexes and the job URI of the crafter must also match, otherwise they can't be unlocked).</p>
-            <p>The citizens will keep their job, level and equipment, but beware that embarking with high level combat units might increase the combat difficulty on early game.</p>
-            <p>The reembarkation can be postponed (kept in the bulletin list or not), but once the player has clicked on "Depart", the crew will be saved to a file and a celebration around the banner will begin. When the celebration ends the selected citizens will depart the town forever and the selected items will also disappear from inventory. Players can always go back to a previous savefile if they don't want those citizens to depart.</p>
+                        <h3><a name="Reembarkation"></a>重新登船</h3>
+            <p>一种生成由最多 3 名市民和最多 10 件物品组成的登船队伍的遭遇战，可在新游戏中重用（如果玩家选择城镇发展物品，它将携带城镇奖励）。</p>
+            <p>它还将包括已解锁的作物（用于 <code>"stonehearth:jobs:farmer"</code> 职业）和来自任何制作职业的已解锁制作配方，但这些在新游戏中解锁有条件（如果您选择来自不同王国的重新登船队伍，配方必须已存在于当前王国的配方索引中，并且工匠的职业 URI 也必须匹配，否则无法解锁）。</p>
+            <p>市民将保留他们的职业、等级和装备，但请注意，带着高等级战斗单位登船可能会增加早期游戏的战斗难度。</p>
+            <p>重新登船可以推迟（保留在公告列表中或不保留），但一旦玩家点击"出发"，队伍将被保存到文件中，并围绕旗帜开始庆祝。当庆祝结束时，所选市民将永远离开城镇，所选物品也将从库存中消失。如果玩家不希望这些市民离开，可以随时返回到之前的存档文件。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "reembarkation"</strong></p>
@@ -1080,12 +1080,12 @@ return false
                 <li>
                     <p><strong>"reembarkation_info" : {}</strong></p>
                     <ul>
-                        <li><strong>"reject_out_edge"</strong> -- out edge that will be triggered if the player postpones the dialog ("Maybe Next Month" option). In the vanilla game this is set up so that the current encounter node is destroyed, and the reembarkation <a href="#Generator">generator</a> keeps running in the background with a delay of 30 in-game days.</li>
+                        <li><strong>"reject_out_edge"</strong> -- 如果玩家推迟对话框（"也许下个月"选项）将触发的输出边。在原版游戏中，这被设置为销毁当前遭遇战节点，并且重新登船<a href="#Generator">生成器</a>在后台以 30 个游戏日的延迟继续运行。</li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="DispatchQuest"></a>Dispatch quest</h3>
-            <p>An encounter that represents a quest to dispatch a citizen out of the town for some duration.</p>
+            <h3><a name="DispatchQuest"></a>派遣任务</h3>
+            <p>一种表示将市民从城镇派遣出去一段时间的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "dispatch_quest"</strong></p>
@@ -1094,51 +1094,51 @@ return false
                     <p><strong>"dispatch_quest_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"title"</strong> -- a localized text for the bulletin notification.</p>
+                            <p><strong>"title"</strong> -- 公告通知的本地化文本。</p>
                         </li>
                         <li>
-                            <p><strong>"dialog_title"</strong> -- a localized text for the dialog. Will appear at the top of the window.</p>
+                            <p><strong>"dialog_title"</strong> -- 对话框的本地化文本。将出现在窗口顶部。</p>
                         </li>
                         <li>
-                            <p><strong>"text"</strong> -- a localized text for the dialog, describing which type of citizen to select for dispatching. Will appear above the list of citizens.</p>
+                            <p><strong>"text"</strong> -- 对话框的本地化文本，描述要选择哪种类型的市民进行派遣。将出现在市民列表上方。</p>
                         </li>
                         <li>
-                            <p><strong>"return_delay"</strong> -- a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a> to represent how much time it will pass before the citizen returns.</p>
+                            <p><strong>"return_delay"</strong> -- 一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>，表示市民返回之前将经过多长时间。</p>
                         </li>
                         <li>
-                            <p><strong>"buff_on_return"</strong> -- optional field. URI of a buff to grant the dispatched citizen once they return.</p>
+                            <p><strong>"buff_on_return"</strong> -- 可选字段。市民返回时授予的增益效果的 URI。</p>
                         </li>
                         <li>
-                            <p><strong>"thought_on_return"</strong> -- optional field. URI of a thought to grant the dispatched citizen once they return.</p>
+                            <p><strong>"thought_on_return"</strong> -- 可选字段。市民返回时授予的想法的 URI。</p>
                         </li>
                         <li>
-                            <p><strong>"xp_gained"</strong> -- optional field. Amount of experience to grant the dispatched citizen once they return.</p>
+                            <p><strong>"xp_gained"</strong> -- 可选字段。市民返回时授予的经验值数量。</p>
                         </li>
                         <li>
-                            <p><strong>"abandon_out_edge"</strong> -- out edge to trigger when the player explicitely abandons this quest.</p>
+                            <p><strong>"abandon_out_edge"</strong> -- 当玩家明确放弃此任务时将触发的输出边。</p>
                         </li>
                         <li>
-                            <p><strong>"ctx_registration_variable"</strong> -- optional field. Name of a context registration path to store the dispatched citizens.</p>
+                            <p><strong>"ctx_registration_variable"</strong> -- 可选字段。用于存储被派遣市民的上下文注册路径名称。</p>
                         </li>
                         <li>
-                            <p><strong>"requirements" : []</strong> -- an array of citizen requirements, one entry per citizen you want to dispatch. Each entry is an object with the following properties:</p>
+                            <p><strong>"requirements" : []</strong> -- 市民要求数组，每个您要派遣的市民一个条目。每个条目都是一个具有以下属性的对象：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"job"</strong> -- URI of the required job. The hearthling must have this as their current job in order to be eligible.</p>
+                                    <p><strong>"job"</strong> -- 所需职业的 URI。炉民必须将此作为其当前职业才有资格。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"job_level"</strong> -- optional field. The minimum job level for the hearthling to be eligible.</p>
-                                    <p>In some existing encounters of this type, you might see that instead of a requirements array there's a <code>"required_job"</code> and a <code>"required_job_level"</code> fields. These are deprecated because they only allow to choose one hearthling, so the <strong>"requirements"</strong> array is preferred.</p>
-                                    <p>If no requirements are defined, the player will be able to choose one citizen of whatever job.</p>
+                                    <p><strong>"job_level"</strong> -- 可选字段。炉民有资格的最低职业等级。</p>
+                                    <p>在一些现有的此类遭遇战中，您可能会看到不是 requirements 数组，而是 <code>"required_job"</code> 和 <code>"required_job_level"</code> 字段。这些已被弃用，因为它们只允许选择一个炉民，因此首选 <strong>"requirements"</strong> 数组。</p>
+                                    <p>如果未定义要求，玩家将能够选择任何职业的一名市民。</p>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="RaidEncounters"></a>Raid encounters</h2>
-            <h3><a name="CreateCamp"></a>Create camp</h3>
-            <p>An encounter that creates an NPC camp made up of mobs and / or items.</p>
+            <h2><a name="RaidEncounters"></a>袭击类遭遇战</h2>
+            <h3><a name="CreateCamp"></a>创建营地</h3>
+            <p>一种创建由怪物和/或物品组成的 NPC 营地的遭遇战。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "create_camp"</strong></p>
@@ -1147,139 +1147,139 @@ return false
                     <p><strong>"create_camp_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"npc_player_id"</strong> -- (required field) a player or NPC faction name (the "kingdom_id" of a <a href="../../kingdoms/index.html">population</a> file). Can be an empty string (will be considered unspecified).</p>
+                            <p><strong>"npc_player_id"</strong> -- （必需字段）玩家或 NPC 派系名称（<a href="../../kingdoms/index.html">派系</a>文件的 "kingdom_id"）。可以是空字符串（将被视为未指定）。</p>
                         </li>
                         <li>
-                            <p><strong>"amenity_with_player"</strong> -- optional field (either <strong>"hostile"</strong> or <strong>"neutral"</strong>). We'll set the amenity of the mobs from this camp towards the player. Don't use at the same time than the <strong>"neutral_to_everyone"</strong> field.</p>
+                            <p><strong>"amenity_with_player"</strong> -- 可选字段（<strong>"hostile"</strong> 或 <strong>"neutral"</strong>）。我们将设置此营地的怪物对玩家的友好度。不要与 <strong>"neutral_to_everyone"</strong> 字段同时使用。</p>
                         </li>
                         <li>
-                            <p><strong>"neutral_to_everyone"</strong> -- optional field (a boolean). When <strong>true</strong>, nobody will be able to attack the mobs from this camp, they'll be neutral to every other faction. Remember to unset this later otherwise mobs from the specified faction will still be neutral in future encounters.</p>
+                            <p><strong>"neutral_to_everyone"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，任何人都无法攻击此营地的怪物，他们对所有其他派系都是中立的。请记住稍后取消设置，否则指定派系的怪物在未来的遭遇战中仍将保持中立。</p>
                         </li>
                         <li>
-                            <p><strong>"ctx_entity_registration_path"</strong> -- optional field (e.g.: <code>"goblin_raiding_camp_1"</code>). A name for a context registration path. We'll store references to the entities from <strong>"citizens"</strong> in it (actually inside <code>&lt;your_custom_ctx_path&gt;.citizens</code>).</p>
+                            <p><strong>"ctx_entity_registration_path"</strong> -- 可选字段（例如：<code>"goblin_raiding_camp_1"</code>）。上下文注册路径的名称。我们将在此路径中存储来自 <strong>"citizens"</strong> 的实体引用（实际上在 <code>&lt;your_custom_ctx_path&gt;.citizens</code> 内）。</p>
                         </li>
                         <li>
-                            <p><strong>"use_previous_enemy_location"</strong> -- optional field. A boolean to spawn the camp on the previously registered enemy location (<code>ctx.enemy_location</code>).</p>
+                            <p><strong>"use_previous_enemy_location"</strong> -- 可选字段。一个布尔值，用于在之前注册的敌人位置（<code>ctx.enemy_location</code>）生成营地。</p>
                         </li>
                         <li>
-                            <p><strong>"use_entity_location"</strong> -- optional field. A context registration path referencing a placed entity. The camp will spawn where the entity is.</p>
+                            <p><strong>"use_entity_location"</strong> -- 可选字段。引用已放置实体的上下文注册路径。营地将在实体所在的位置生成。</p>
                         </li>
                         <li>
-                            <p><strong>"belongs_to_player"</strong> -- optional field. A boolean for the camp pieces to belong to the player (by default they'll belong to the faction from <strong>"npc_player_id"</strong>).</p>
+                            <p><strong>"belongs_to_player"</strong> -- 可选字段。一个布尔值，使营地块属于玩家（默认情况下它们将属于 <strong>"npc_player_id"</strong> 的派系）。</p>
                         </li>
                         <li>
-                            <p><strong>"radius"</strong> -- (required field) radius of the camp in number of blocks.</p>
+                            <p><strong>"radius"</strong> -- （必需字段）营地的半径，以方块数为单位。</p>
                         </li>
                         <li>
-                            <p><strong>"keep_grass"</strong> -- optional field (a boolean). By default the layer of grass will be removed if the camp spawns on top of grass, creating a depression in the terrain. Use this field to keep the grass. In any case, the camp will destroy any entities where it spawns (like trees or anything that doesn't belong to the player).</p>
+                            <p><strong>"keep_grass"</strong> -- 可选字段（布尔值）。默认情况下，如果营地在草地上生成，草层将被移除，在地形中形成凹陷。使用此字段保留草地。无论如何，营地将在其生成的位置摧毁任何实体（如树木或不属于玩家的任何东西）。</p>
                         </li>
                         <li>
-                            <p><strong>"spawn_range" : {}</strong> -- (required field). Contains <strong>"min"</strong> and <strong>"max"</strong> properties to determine the range around the town's perimeter (in number of blocks) where to spawn the camp.</p>
+                            <p><strong>"spawn_range" : {}</strong> -- （必需字段）。包含 <strong>"min"</strong> 和 <strong>"max"</strong> 属性，用于确定在城镇周围（以方块数为单位）生成营地的范围。</p>
                         </li>
                         <li>
-                            <p><strong>"script"</strong> -- optional field. URI of a script to run after spawning the camp and registering all its entities, for further customization. Must have a <code>start(ctx, info)</code> function, it will receive the context and the info inside <strong>"create_camp_info"</strong>. If you make a custom one, remember to add it under <code>"controllers"</code> in your manifest.</p>
+                            <p><strong>"script"</strong> -- 可选字段。在生成营地并注册其所有实体后运行的脚本的 URI，用于进一步定制。必须有一个 <code>start(ctx, info)</code> 函数，它将接收上下文和 <strong>"create_camp_info"</strong> 内的信息。如果您制作自定义脚本，请记住在清单的 <code>"controllers"</code> 下添加它。</p>
                         </li>
                         <li>
-                            <p><strong>"combat_bulletin" : {}</strong> -- optional field. Contains a <strong>"title"</strong> field with a localized text, to show it as a notification bulletin when the players citizens run into an enemy from this camp.</p>
+                            <p><strong>"combat_bulletin" : {}</strong> -- 可选字段。包含具有本地化文本的 <strong>"title"</strong> 字段，当玩家的市民遇到来自此营地的敌人时将其显示为通知公告。</p>
                         </li>
                         <li>
-                            <p><strong>"searcher_delay"</strong> -- optional field. A <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a>. If the camp couldn't find a suitable place to spawn (enough space in the given range around the town), we'll wait for this duration and try to search for a place to spawn again (<code>"3d"</code> by default). This is a safety measure so that the encounter doesn't stall.</p>
+                            <p><strong>"searcher_delay"</strong> -- 可选字段。一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>。如果营地找不到合适的生成位置（给定城镇周围范围内的足够空间），我们将等待此持续时间并再次尝试搜索生成位置（默认为 <code>"3d"</code>）。这是一种安全措施，以防止遭遇战停滞。</p>
                         </li>
                         <li>
-                            <p><strong>"on_searcher_failure" : {}</strong> -- optionald field. Contains <strong>"retry"</strong> (a boolean for retrying or a number for a maximum number of retries) or a <strong>"destroy_root_node"</strong> (pointing to the in edge of the node from which we want to destroy). Used if the searcher failed to find a place to spawn the camp.</p>
+                            <p><strong>"on_searcher_failure" : {}</strong> -- 可选字段。包含 <strong>"retry"</strong>（用于重试的布尔值或最大重试次数的数字）或 <strong>"destroy_root_node"</strong>（指向我们要销毁的节点的输入边）。用于搜索器未能找到生成营地的位置的情况。</p>
                         </li>
                         <li>
-                            <p><strong>"continue_on_disconnect"</strong> -- optional field. A boolean for continuing to run this node when a player (client) disconnects from a multiplayer game. It's <strong>false</strong> by default (pauses this encounter / timer and resumes it once the player reconnects).</p>
-                            <p> For this encounter type, if the camp has already spawned it will continue to exist regardless of this option. But if the timer to find a place was running when the player disconnected, it will stop trying and resume once the player comes back (so that the camp is only allowed to spawn when the player is connected).</p>
+                            <p><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战/计时器，并在玩家重新连接后恢复）。</p>
+                            <p>对于此遭遇战类型，如果营地已经生成，无论此选项如何，它将继续存在。但是，如果在玩家断开连接时正在运行寻找位置的计时器，它将停止尝试并在玩家回来后恢复（因此只有在玩家连接时才允许营地生成）。</p>
                         </li>
                         <li>
-                            <p><strong>"landmark_data" : {}</strong> -- optional field. Contains properties like <strong>"brush"</strong> and <strong>"landmark_block_types"</strong> to generate a landmark for the camp. Check <code>stonehearth/lib/landmark/landmark_lib.lua</code> for the possible fields (options for the <code>create_cube_as_terrain</code> and <code>create_qb_as_terrain</code> functions).</p>
+                            <p><strong>"landmark_data" : {}</strong> -- 可选字段。包含 <strong>"brush"</strong> 和 <strong>"landmark_block_types"</strong> 等属性，用于为营地生成地标。检查 <code>stonehearth/lib/landmark/landmark_lib.lua</code> 以获取可能的字段（<code>create_cube_as_terrain</code> 和 <code>create_qb_as_terrain</code> 函数的选项）。</p>
                         </li>
                         <li>
-                            <p><strong>"pieces" : {}</strong> -- the pieces for the camp (required field). Each entry is a custom identifier with the following properties:</p>
+                            <p><strong>"pieces" : {}</strong> -- 营地的组成部分（必需字段）。每个条目都是一个自定义标识符，具有以下属性：</p>
                             <ul>
-                                <li><strong>"entity_uri"</strong> -- URI of an item. Instead of this field, we can use an <strong>"info"</strong> field pointing to a JSON file describing the camp piece (allows for using more properties). Check the <code>stonehearth/data/gm/campaigns/goblin_war/arcs/trigger/raidcamp/encounters/create_camp</code> folder for examples.</li>
-                                <li><strong>"position" : {}</strong> -- contains <strong>"x"</strong> and <strong>"y"</strong> coordinates relative to the camp's center seen from above (the camp's center would be at (0,0)).</li>
-                                <li><strong>"npc_player_id"</strong> -- optional field. Name of the faction that will own the camp piece.</li>
-                                <li><strong>"rotation"</strong> -- optional field. Rotation for the camp piece in degrees.</li>
-                                <li><strong>"movable"</strong> -- optional field (a boolean). Whether this item should have the move / undeploy commands to allow the player to move it.</li>
+                                <li><strong>"entity_uri"</strong> -- 物品的 URI。代替此字段，我们可以使用指向描述营地块的 JSON 文件的 <strong>"info"</strong> 字段（允许使用更多属性）。查看 <code>stonehearth/data/gm/campaigns/goblin_war/arcs/trigger/raidcamp/encounters/create_camp</code> 文件夹以获取示例。</li>
+                                <li><strong>"position" : {}</strong> -- 包含从上方看到的相对于营地中心的 <strong>"x"</strong> 和 <strong>"y"</strong> 坐标（营地中心位于 (0,0)）。</li>
+                                <li><strong>"npc_player_id"</strong> -- 可选字段。将拥有营地块的派系名称。</li>
+                                <li><strong>"rotation"</strong> -- 可选字段。营地块的旋转角度（以度为单位）。</li>
+                                <li><strong>"movable"</strong> -- 可选字段（布尔值）。此物品是否应具有移动/取消部署命令以允许玩家移动它。</li>
                             </ul>
                         </li>
                         <li>
-                            <p><strong>"citizens" : {}</strong> -- optional field. List of living entities such as monsters or NPCs to spawn in the camp. Each entry is a custom identifier containing the following properties:</p>
+                            <p><strong>"citizens" : {}</strong> -- 可选字段。要在营地中生成的生物实体（如怪物或 NPC）列表。每个条目都是一个自定义标识符，包含以下属性：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"from_population" : {}</strong> -- using this field means that we want to spawn entities defined in the <strong>"npc_player_id"</strong> population file. These are the properties inside <strong>"from_population"</strong>:</p>
+                                    <p><strong>"from_population" : {}</strong> -- 使用此字段意味着我们想要生成在 <strong>"npc_player_id"</strong> 派系文件中定义的实体。以下是 <strong>"from_population"</strong> 内的属性：</p>
                                     <ul>
                                         <li>
-                                            <p><strong>"role"</strong> -- the role within the population that we want this entity to be.</p>
+                                            <p><strong>"role"</strong> -- 我们希望此实体在派系中担任的角色。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"gender"</strong> -- optional field. The gender for the entities in this entry. If we don't have this field, a random gender will be chosen based on the ones in the <code>population.base_genders</code> array from <code>stonehearth/data/constants.json</code>.</p>
+                                            <p><strong>"gender"</strong> -- 可选字段。此条目中实体的性别。如果我们没有此字段，将根据 <code>stonehearth/data/constants.json</code> 中 <code>population.base_genders</code> 数组中的性别随机选择性别。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"location" : {}</strong> -- optional field. Contains <strong>"x"</strong> / <strong>"y"</strong> / <strong>"z"</strong> properties to place this entity inside the camp.</p>
+                                            <p><strong>"location" : {}</strong> -- 可选字段。包含 <strong>"x"</strong> / <strong>"y"</strong> / <strong>"z"</strong> 属性，用于将此实体放置在营地内。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"range"</strong> -- optional field. A number representing blocks / world units, to randomize the spawn location of the entity in a range around <strong>"location"</strong>.</p>
+                                            <p><strong>"range"</strong> -- 可选字段。一个表示方块/世界单位的数字，用于在 <strong>"location"</strong> 周围的范围内随机化实体的生成位置。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"min"</strong> -- optional field. Minimum amount of entities to spawn for this entry.</p>
+                                            <p><strong>"min"</strong> -- 可选字段。为此条目生成的实体的最小数量。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"max"</strong> -- optional field. Maximum amount of entities to spawn for this entry. A random number of entities between <strong>"min"</strong> and <strong>"max"</strong> will spawn. If they're not specified, they'll default to <strong>1</strong>.</p>
+                                            <p><strong>"max"</strong> -- 可选字段。为此条目生成的实体的最大数量。将在 <strong>"min"</strong> 和 <strong>"max"</strong> 之间随机选择实体数量。如果未指定，它们将默认为 <strong>1</strong>。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"scale_with_run" : {}</strong> -- optional field. Used to increase the number of entities that we spawn based on the number of times that this encounter has been triggered. Contains these properties (when defined, <strong>"min"</strong> and <strong>"max"</strong> will be modified by them, or just by the number of runs if you leave the field empty):</p>
+                                            <p><strong>"scale_with_run" : {}</strong> -- 可选字段。用于根据此遭遇战触发的次数增加我们生成的实体数量。包含这些属性（定义时，<strong>"min"</strong> 和 <strong>"max"</strong> 将被它们修改，或者如果留空则仅由运行次数修改）：</p>
                                             <ul>
-                                                <li><strong>"encounter_cap"</strong> -- optional field. When scaling by the number of runs, this will serve as a cap so that the number doesn't get too high.</li>
-                                                <li><strong>"scale_factor"</strong> -- optional field. When included, <strong>"min"</strong> and <strong>"max"</strong> be multiplied (and rounded) by this value to the power of the number of times the encounter has run minus one.</li>
+                                                <li><strong>"encounter_cap"</strong> -- 可选字段。当按运行次数缩放时，这将作为上限，以防止数字变得太高。</li>
+                                                <li><strong>"scale_factor"</strong> -- 可选字段。包含时，<strong>"min"</strong> 和 <strong>"max"</strong> 将乘以（并四舍五入）此值的（遭遇战运行次数减一）次方。</li>
                                             </ul>
                                         </li>
                                     </ul>
-                                    <p>Instead of the <strong>"from_population"</strong> field, we can also use <strong>"from_ctx"</strong>, pointing to an entity previously registered in the context. The properties below are outside of <strong>"from_population"</strong>:</p>
+                                    <p>代替 <strong>"from_population"</strong> 字段，我们也可以使用 <strong>"from_ctx"</strong>，指向之前在上下文中注册的实体。以下属性在 <strong>"from_population"</strong> 之外：</p>
                                 </li>
                                 <li>
-                                    <p><strong>"attributes" : {}</strong> -- optional field. Contains pairs of attribute name/value to apply to the entity.</p>
+                                    <p><strong>"attributes" : {}</strong> -- 可选字段。包含要应用于实体的属性名称/值对。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"combat_leash_range"</strong> -- optional field. A number higher than 0 for the leash range. This is how many blocks are the entities allowed to walk away from their spawn area (prevents them from being kited too far from their home location).</p>
+                                    <p><strong>"combat_leash_range"</strong> -- 可选字段。一个大于 0 的数字，表示拴绳范围。这是实体允许远离其生成区域的方块数（防止它们被风筝离家园位置太远）。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"equipment" : {}</strong> -- optional field. Contains custom identifiers pointing to either URIs or arrays of URIs of equipment pieces. They will be equipped to all the entities of this entry. If an array is used, a random equipment piece will be chosen from it, so if you want multiple pieces to be equipped you have to add them as separate entries with URIs.</p>
+                                    <p><strong>"equipment" : {}</strong> -- 可选字段。包含指向装备部件 URI 或 URI 数组的自定义标识符。它们将装备给此条目的所有实体。如果使用数组，将从中随机选择一个装备部件，因此如果您想装备多个部件，必须将它们作为单独的 URI 条目添加。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"equipment_scale"</strong> -- optional field. A number representing the scale for the equipment pieces (so that big monsters don't use tiny weapons).</p>
+                                    <p><strong>"equipment_scale"</strong> -- 可选字段。一个表示装备部件缩放的数字（以便大怪物不使用小武器）。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"job"</strong> -- optional field. URI of the job to promote this entry's entities to.</p>
+                                    <p><strong>"job"</strong> -- 可选字段。要将此条目的实体晋升到的职业的 URI。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"loot_drops" : {}</strong> -- optional field. A <a href="../../../basic/misc_json/index.html#LootTables">loot table</a> with loot to apply to this entry's entities.</p>
+                                    <p><strong>"loot_drops" : {}</strong> -- 可选字段。一个<a href="../../../basic/misc_json/index.html#LootTables">战利品表</a>，包含要应用到此条目实体的战利品。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"render_info" : {}</strong> -- optional field. Contains a <strong>"color_map"</strong> and / or a <strong>"material_maps"</strong> field pointing to URIs of a color / material map, to apply to this entry's entities.</p>
+                                    <p><strong>"render_info" : {}</strong> -- 可选字段。包含指向颜色/材质映射 URI 的 <strong>"color_map"</strong> 和/或 <strong>"material_maps"</strong> 字段，以应用到此条目的实体。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"scale"</strong> -- optional field. <a href="../../../basic/adding_items/item_scale/index.html">Scale</a> to apply to this entry's entities.</p>
+                                    <p><strong>"scale"</strong> -- 可选字段。要应用到此条目实体的<a href="../../../basic/adding_items/item_scale/index.html">缩放</a>。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"tuning"</strong> -- optional field. URI of a monster tuning file (e.g.: <code>"stonehearth:monster_tuning:goblins:default"</code>) to apply to the entities (can have more additional properties and it's a good way to reuse the info between encounters). You can find the existing tuning files in <code>stonehearth/data/monster_tuning</code>. They're JSON files, so if you create a new one you might want to add an alias for it in your manifest.</p>
+                                    <p><strong>"tuning"</strong> -- 可选字段。要应用于实体的怪物调优文件的 URI（例如：<code>"stonehearth:monster_tuning:goblins:default"</code>）（可以有更多附加属性，这是在遭遇战之间重用信息的好方法）。您可以在 <code>stonehearth/data/monster_tuning</code> 中找到现有的调优文件。它们是 JSON 文件，因此如果您创建新文件，可能希望在清单中为其添加别名。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"unit_info" : {}</strong> -- optional field. Contains properties from the unit_info component to apply to the entities (<strong>"display_name"</strong>, <strong>"custom_name"</strong> and <strong>"description"</strong>).</p>
+                                    <p><strong>"unit_info" : {}</strong> -- 可选字段。包含要应用于实体的 unit_info 组件的属性（<strong>"display_name"</strong>、<strong>"custom_name"</strong> 和 <strong>"description"</strong>）。</p>
                                 </li>
                             </ul>
-                            <p> The <strong>"citizens"</strong> will be stored as an array in the context, so we can reference them later individually by index, for example <code>"create_scout_camp.citizens.wolf_cage.tame_wolf[1]"</code> (remember that Lua indexes start at 1).</p>
+                            <p><strong>"citizens"</strong> 将作为数组存储在上下文中，因此我们可以通过索引单独引用它们，例如 <code>"create_scout_camp.citizens.wolf_cage.tame_wolf[1]"</code>（请记住 Lua 索引从 1 开始）。</p>
                         </li>
                         <li>
-                            <p><strong>"boss" : {}</strong> -- optional field. Same properties than for the <strong>"from_population"</strong> / <strong>"from_ctx"</strong> fields from the <strong>"citizens"</strong> list. Represents the boss of this camp. If you specified a <strong>"ctx_entity_registration_path"</strong>, it will get registered under it as <code>boss</code> and its custom name and display name will get registered in the context as <code>boss_custom_name</code> and <code>boss_display_name</code> (so that you can use them in dialogs). If it refers to several entities, only one of them will be registered as the boss.</p>
+                            <p><strong>"boss" : {}</strong> -- 可选字段。与 <strong>"citizens"</strong> 列表中的 <strong>"from_population"</strong> / <strong>"from_ctx"</strong> 字段相同的属性。代表此营地的首领。如果您指定了 <strong>"ctx_entity_registration_path"</strong>，它将作为 <code>boss</code> 注册在其下，其自定义名称和显示名称将作为 <code>boss_custom_name</code> 和 <code>boss_display_name</code> 注册在上下文中（以便您可以在对话中使用它们）。如果它引用多个实体，只有一个将被注册为首领。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="CreateMission"></a>Create mission</h3>
-            <p>An encounter that starts a mission undertaken by NPCs. E.g. wandering around or pillaging.</p>
+            <h3><a name="CreateMission"></a>创建任务</h3>
+            <p>一种启动由 NPC 执行的任务的遭遇战。例如，四处游荡或掠夺。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "create_mission"</strong></p>
@@ -1288,64 +1288,64 @@ return false
                     <p><strong>"create_mission_info" : {}</strong></p>
                     <ul>
                         <li>
-                            <p><strong>"spawn_range" : {}</strong> -- optional field. Has <strong>"min"</strong> and <strong>"max"</strong> properties to determine the range around the town's perimeter (in number of blocks) where we want to spawn the mobs.</p>
+                            <p><strong>"spawn_range" : {}</strong> -- 可选字段。具有 <strong>"min"</strong> 和 <strong>"max"</strong> 属性，用于确定我们想要生成怪物的城镇周围范围（以方块数为单位）。</p>
                         </li>
                         <li>
-                            <p><strong>"continue_on_disconnect"</strong> -- optional field. A boolean for continuing to run this node when a player (client) disconnects from a multiplayer game. It's <strong>false</strong> by default (pauses this encounter / timer and resumes it once the player reconnects).</p>
-                            <p> For this encounter type, if the mobs have already spawned they will continue to exist regardless of this option. But if the timer to find a spawn location was running when the player disconnected, it will stop trying and resume once the player comes back.</p>
+                            <p><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战/计时器，并在玩家重新连接后恢复）。</p>
+                            <p>对于此遭遇战类型，如果怪物已经生成，无论此选项如何，它们将继续存在。但是，如果在玩家断开连接时正在运行寻找生成位置的计时器，它将停止尝试并在玩家回来后恢复。</p>
                         </li>
                         <li>
-                            <p><strong>"use_previous_enemy_location"</strong> -- optional field (a boolean). When <strong>true</strong>, the mobs will spawn at the previous enemy location (a camp, etc).</p>
+                            <p><strong>"use_previous_enemy_location"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，怪物将在之前的敌人位置（营地等）生成。</p>
                         </li>
                         <li>
-                            <p><strong>"on_searcher_failure" : {}</strong> -- optional field. Contains <strong>"retry"</strong> (a boolean for retrying) or <strong>"destroy_tree" : {}</strong> ( with <strong>"destroy_root" : true</strong> and <strong>"root" : "in_edge_of_encounter_node_to_destroy"</strong> properties). Used if the searcher failed to find a place to spawn the mobs.</p>
+                            <p><strong>"on_searcher_failure" : {}</strong> -- 可选字段。包含 <strong>"retry"</strong>（用于重试的布尔值）或 <strong>"destroy_tree" : {}</strong>（带有 <strong>"destroy_root" : true</strong> 和 <strong>"root" : "in_edge_of_encounter_node_to_destroy"</strong> 属性）。用于搜索器未能找到生成怪物的位置的情况。</p>
                         </li>
                         <li>
-                            <p><strong>"mission" : {}</strong> -- required field. The fields inside will vary depending on the type of mission, we'll start with the common ones:</p>
+                            <p><strong>"mission" : {}</strong> -- 必需字段。内部的字段将根据任务类型而变化，我们从常见的开始：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"ctx_entity_registration_path"</strong> -- optional field (e.g.: <code>"goblin_raiding_camp_1"</code>). A name for a context registration path. We'll store references to the entities from <strong>"members"</strong> in it.</p>
+                                    <p><strong>"ctx_entity_registration_path"</strong> -- 可选字段（例如：<code>"goblin_raiding_camp_1"</code>）。上下文注册路径的名称。我们将在此存储来自 <strong>"members"</strong> 的实体引用。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"combat_bulletin" : {}</strong> -- optional field. Contains a <strong>"title"</strong> property for a localized text to show a notification bulletin when a hearthling runs into an enemy from this mission. This field can also be called <strong>"sighted_bulletin" : {}</strong>.</p>
+                                    <p><strong>"combat_bulletin" : {}</strong> -- 可选字段。包含 <strong>"title"</strong> 属性的本地化文本，当炉民遇到来自此任务的敌人时显示通知公告。此字段也可以称为 <strong>"sighted_bulletin" : {}</strong>。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"npc_player_id"</strong> -- the faction name for the NPCs of this mission. If it was defined in a previous encounter, this field might be omitted.</p>
+                                    <p><strong>"npc_player_id"</strong> -- 此任务 NPC 的派系名称。如果在之前的遭遇战中已定义，则可以省略此字段。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"members" : {}</strong> -- required field. Same properties than in the <a href="#CreateCamp">create camp</a> encounter.</p>
+                                    <p><strong>"members" : {}</strong> -- 必需字段。与<a href="#CreateCamp">创建营地</a>遭遇战中的属性相同。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"offset" : {}</strong> -- required field. Contains <strong>"x"</strong>, <strong>"y"</strong>, <strong>"z"</strong> properties, to spawn the mobs at an offset from the spawn location.</p>
+                                    <p><strong>"offset" : {}</strong> -- 必需字段。包含 <strong>"x"</strong>、<strong>"y"</strong>、<strong>"z"</strong> 属性，用于在生成位置的偏移处生成怪物。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"use_wait_entity_location"</strong> -- optional field (a boolean). When <strong>true</strong>, the mobs will spawn at the previous registered enemy location.</p>
+                                    <p><strong>"use_wait_entity_location"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，怪物将在之前注册的敌人位置生成。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"raid_timeout_minutes"</strong> -- optional field (<strong>4300</strong> by default, which is around 3 days). The mobs will depart/despawn (if they have the raid timeout observer) after this amount of in-game minutes.</p>
+                                    <p><strong>"raid_timeout_minutes"</strong> -- 可选字段（默认为 <strong>4300</strong>，约 3 天）。在此数量的游戏分钟后，怪物将离开/消失（如果它们具有袭击超时观察器）。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"raid_timeout_variance_minutes"</strong> -- optional field (<strong>0</strong> by default). The mobs will despawn sometime between <strong>"raid_timeout_minutes"</strong> and <strong>"raid_timeout_minutes"</strong> plus <strong>"raid_timeout_variance_minutes"</strong> (creates a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a> internally using the numerical values from those fields as minutes).</p>
+                                    <p><strong>"raid_timeout_variance_minutes"</strong> -- 可选字段（默认为 <strong>0</strong>）。怪物将在 <strong>"raid_timeout_minutes"</strong> 和 <strong>"raid_timeout_minutes"</strong> 加上 <strong>"raid_timeout_variance_minutes"</strong> 之间的某个时间消失（内部使用这些字段的数值作为分钟创建一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>）。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"role"</strong> -- the mission type, must be one of the following:</p>
+                                    <p><strong>"role"</strong> -- 任务类型，必须是以下之一：</p>
                                     <ul>
                                         <li>
-                                            <p><strong>"raid_stockpiles"</strong> -- the mobs will steal items from player's stockpiles and/or destroy them (it depends on their AI actions, e.g.: goblin workers and thieves know how to steal but marauders will only destroy stuff).</p>
-                                            <p>  For this mission type we can have an additional field: <strong>"require_free_stockpile_space"</strong>. It's an optional boolean. When <strong>true</strong>, the mobs won't raid the stockpiles if they don't have enough space in their own stockpiles. If the player doesn't have stockpiles, mobs will just run to the town and hopefully find something to attack in their way, although they might end up just wandering aimlessly.</p>
+                                            <p><strong>"raid_stockpiles"</strong> -- 怪物将从玩家的仓库中偷窃物品和/或摧毁它们（这取决于它们的 AI 行为，例如：哥布林工人和小偷知道如何偷窃，但掠夺者只会摧毁东西）。</p>
+                                            <p>对于此任务类型，我们可以有一个附加字段：<strong>"require_free_stockpile_space"</strong>。它是一个可选的布尔值。当为 <strong>true</strong> 时，如果怪物自己的仓库中没有足够的空间，他们将不会袭击仓库。如果玩家没有仓库，怪物将只是跑到城镇，希望在路上找到可以攻击的东西，尽管他们最终可能只是漫无目的地游荡。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"spawn_enemies"</strong> -- simply spawn some enemies. For this mission type, we can have an additional field: <strong>"spawn_effect"</strong>. It's optional (URI of an effect to play when the enemies spawn).</p>
+                                            <p><strong>"spawn_enemies"</strong> -- 简单地生成一些敌人。对于此任务类型，我们可以有一个附加字段：<strong>"spawn_effect"</strong>。它是可选的（敌人生成时播放的效果的 URI）。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"raid_crops"</strong> -- this mission won't start if the player doesn't have farms. This is used for critters to come and destroy the player's crops. For this mission type there are no additional properties.</p>
+                                            <p><strong>"raid_crops"</strong> -- 如果玩家没有农场，此任务将不会开始。这用于小动物来摧毁玩家的作物。对于此任务类型没有附加属性。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"pillage"</strong> -- enemies will spawn and go to some place to attack. If they couldn't reach the destination after 3 in game hours, we'll try finding a new one.</p>
-                                            <p>  For this mission type we have two additional properties: <strong>"pillage_radius" : {}</strong>, which is required and contains <strong>"min"</strong> and <strong>"max"</strong> fields to find an attack location in that range around the town's banner; and <strong>"target"</strong>, which is optional and points to a context registration path to use for the attack location (instead of the banner).</p>
+                                            <p><strong>"pillage"</strong> -- 敌人将生成并前往某个地方进行攻击。如果他们在 3 个游戏小时后无法到达目的地，我们将尝试寻找新的目的地。</p>
+                                            <p>对于此任务类型，我们有两个附加属性：<strong>"pillage_radius" : {}</strong>，这是必需的，包含 <strong>"min"</strong> 和 <strong>"max"</strong> 字段，用于在城镇旗帜周围的该范围内找到攻击位置；以及 <strong>"target"</strong>，它是可选的，指向用于攻击位置的上下文注册路径（而不是旗帜）。</p>
                                         </li>
                                         <li>
-                                            <p><strong>"wander"</strong> -- the mobs will spawn and start wandering in a square pattern. For this encounter type we have two additional fields: <strong>"wander_radius" : {}</strong>, which is required and contains <strong>"min"</strong> and <strong>"max"</strong> properties for a range to randomize the size of the square (so that they don't walk always in the same place); and <strong>"walk_interval"</strong>, which is optional and it's a <a href="../../../basic/misc_json/index.html#TimeExpressions">time expression</a> for how often to walk to the next location (<code>"30m"</code> by default).</p>
+                                            <p><strong>"wander"</strong> -- 怪物将生成并以方形模式开始游荡。对于此遭遇战类型，我们有两个附加字段：<strong>"wander_radius" : {}</strong>，这是必需的，包含 <strong>"min"</strong> 和 <strong>"max"</strong> 属性，用于随机化方形的大小范围（以便他们不总是在同一个地方行走）；以及 <strong>"walk_interval"</strong>，它是可选的，是一个<a href="../../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>，表示多久走到下一个位置（默认为 <code>"30m"</code>）。</p>
                                         </li>
                                     </ul>
                                 </li>
@@ -1354,8 +1354,8 @@ return false
                     </ul>
                 </li>
             </ul>
-            <h3><a name="CityRaid"></a>City raid</h3>
-            <p>A raid, which is just a group of missions started at the same time at the previous enemy location (set by a <a href="#CreateCamp">create camp</a> encounter or a <a href="#CreateMission">create mission</a> encounter). Unlike the create mission encounter, this encounter does not do a search for a place to spawn the encounter.</p>
+            <h3><a name="CityRaid"></a>城市袭击</h3>
+            <p>一种袭击，只是在之前的敌人位置（由<a href="#CreateCamp">创建营地</a>遭遇战或<a href="#CreateMission">创建任务</a>遭遇战设置）同时启动的一组任务。与创建任务遭遇战不同，此遭遇战不搜索生成位置。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "city_raid"</strong></p>
@@ -1363,8 +1363,8 @@ return false
                 <li>
                     <p><strong>"city_raid_info" : {}</strong></p>
                     <ul>
-                        <li><strong>"continue_on_disconnect"</strong> -- optional field. For this encounter it doesn't seem to run code since we don't search for a place to spawn the raids.</li>
-                        <li><strong>"missions" : {}</strong> -- contains entries with custom identifiers, each of which holds the same properties than for the <strong>"mission: {}"</strong> field from the <a href="#CreateMission">create mission</a> encounter.</li>
+                        <li><strong>"continue_on_disconnect"</strong> -- 可选字段。对于此遭遇战，它似乎不运行代码，因为我们不搜索生成袭击的位置。</li>
+                        <li><strong>"missions" : {}</strong> -- 包含具有自定义标识符的条目，每个条目都具有与<a href="#CreateMission">创建任务</a>遭遇战中的 <strong>"mission: {}"</strong> 字段相同的属性。</li>
                     </ul>
                 </li>
             </ul>

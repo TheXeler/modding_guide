@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,43 +7,43 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Managing mods</title>
+        <title>模组管理</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Managing mods</h1>
+            <h1>模组管理</h1>
             <ul>
-                <li><a href="#WhereToGetMods">Where to get mods</a></li>
-                <li><a href="#SetupMods">How to install, uninstall, upload and update mods</a></li>
-                <li><a href="#EnableDisable">How to enable / disable mods</a></li>
-                <li><a href="#RequiredMods">Required mods</a></li>
+                <li><a href="#WhereToGetMods">从哪里获取模组</a></li>
+                <li><a href="#SetupMods">如何安装、卸载、上传和更新模组</a></li>
+                <li><a href="#EnableDisable">如何启用/禁用模组</a></li>
+                <li><a href="#RequiredMods">必需模组</a></li>
             </ul>
-            <h2><a name="WhereToGetMods"></a>Where to get mods</h2>
-            <p>Mods can be downloaded from the official Stonehearth Discourse, a list of the current mods can be found here: <a href="https://discourse.stonehearth.net/c/modding/current-mods">https://discourse.stonehearth.net/c/modding/current-mods</a>. This list may not always be completely up to date, however.</p>
-            <p>For Steam users, we've enabled <a href="https://steamcommunity.com/workshop/browse/?appid=253250&amp;browsesort=trend&amp;section=readytouseitems">Steam Workshop</a>, so you can also download mods from there.</p>
-            <p>Modders can upload their mods to whichever site they find more convenient for sharing. Most of the mods at the Discourse forums are actually hosted in free storage sites, and their download link is shared at the forums. There might be other external fan sites where people have uploaded their mods, so there's no unique place where all mods are listed, sadly.</p>
-            <h2><a name="SetupMods"></a>How to install, uninstall, upload and update mods</h2>
-            <p>Instructions for <strong><a href="workshop/index.html">Steam Workshop mods</a></strong>.</p>
-            <p>Instructions for <strong><a href="unmanaged/index.html">local mods</a></strong>.</p>
-            <h2><a name="EnableDisable"></a>How to enable / disable mods</h2>
-            <p>Inside the game, you can enable / disable mods from the Mods Menu.</p>
-            <p>Click on the "Mods" button while in the Main Menu, and there will be a list with all the mods you have installed. If you're logged to Steam, there will be separate lists for Local mods, Subscribed Workshop mods, and mods that you uploaded to the Steam Workshop.</p>
-            <p>Check / uncheck them to enable / disable them. 
+            <h2><a name="WhereToGetMods"></a>从哪里获取模组</h2>
+            <p>可以从官方的 Stonehearth Discourse 论坛下载模组，当前模组列表可以在这里找到：<a href="https://discourse.stonehearth.net/c/modding/current-mods">https://discourse.stonehearth.net/c/modding/current-mods</a>。不过，此列表可能并不总是完全最新的。</p>
+            <p>对于 Steam 用户，我们已启用 <a href="https://steamcommunity.com/workshop/browse/?appid=253250&amp;browsesort=trend&amp;section=readytouseitems">Steam 创意工坊</a>，因此你也可以从那里下载模组。</p>
+            <p>模组制作者可以将他们的模组上传到任何他们认为方便的分享网站。Discourse 论坛上的大多数模组实际上托管在免费存储网站上，并在论坛上分享下载链接。可能还有其他外部粉丝网站，人们在那里上传了他们的模组，所以遗憾的是，没有一个统一的地方列出所有模组。</p>
+            <h2><a name="SetupMods"></a>如何安装、卸载、上传和更新模组</h2>
+            <p><strong><a href="workshop/index.html">Steam 创意工坊模组</a></strong>的说明。</p>
+            <p><strong><a href="unmanaged/index.html">本地模组</a></strong>的说明。</p>
+            <h2><a name="EnableDisable"></a>如何启用/禁用模组</h2>
+            <p>在游戏内，你可以从模组菜单启用/禁用模组。</p>
+            <p>在主菜单中点击"模组"按钮，将显示你已安装的所有模组的列表。如果你已登录 Steam，将分别显示本地模组、已订阅的创意工坊模组以及你上传到 Steam 创意工坊的模组的列表。</p>
+            <p>勾选/取消勾选以启用/禁用它们。
                 <img src="/modding_guide/images/essentials/managing/disabled_mod.png" alt="disabled_mod"/>
             </p>
-            <p>You will get a message next to the mod's name if there are problems with it:
+            <p>如果模组有问题，你会在模组名称旁边看到提示信息：
                 <img src="/modding_guide/images/essentials/managing/invalid_manifest_warning.png" alt="invalid_manifest_warning"/>
                 <img src="/modding_guide/images/essentials/managing/out_of_date_warning.png" alt="out_of_date_warning"/>
                 <img src="/modding_guide/images/essentials/managing/invalid_fileid_warning.png" alt="invalid_fileid_warning"/>
             </p>
-            <p>If you have a mod <a href="unmanaged/index.html#ModConflicts">conflict</a>, a popup will tell you once you start the game or the mods are reloaded.</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>When you load savefiles, make sure that all the mods that were active when you saved it are enabled, otherwise you can get errors (some savefiles might not even be able to load without the corresponding mods). The game now warns you and allows you to apply the savefile's mods or to load with the current changes to the mod configuration.</p>
-            <h2><a name="RequiredMods"></a>Required mods</h2>
-            <p>The default mods that come with the game are <code>stonehearth</code>, <code>rayyas_children</code>, <code>northern_alliance</code> and <code>radiant</code>. They are highlighted in gray in the Mods menu.</p>
-            <p>The <code>radiant</code> and <code>stonehearth</code> mods are required, so you won't be able to disable them in the Mods menu.</p>
-            <p>If you accidentally delete any of the required mods, you'll have to redownload them for the game to work correctly.</p>
-            <p>There are other mods that come bundled with the game but are disabled by default: <code>debugtools</code>, <code>autotest_framework</code>, <code>stonehearth_autotest</code>, <code>microworld</code> and <code>stonehearth_tests</code>. They are tagged as Debug mods in the menu. Modders can enable them to help debugging their mods.</p>
+            <p>如果你有模组<a href="unmanaged/index.html#ModConflicts">冲突</a>，当你启动游戏或重新加载模组时，会弹出提示告知你。</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>加载存档时，请确保保存时激活的所有模组都已启用，否则可能会出现错误（某些存档甚至可能在没有相应模组的情况下无法加载）。现在游戏会警告你，并允许你应用存档的模组配置或使用当前的模组配置更改进行加载。</p>
+            <h2><a name="RequiredMods"></a>必需模组</h2>
+            <p>游戏自带的默认模组包括 <code>stonehearth</code>、<code>rayyas_children</code>、<code>northern_alliance</code> 和 <code>radiant</code>。它们在模组菜单中以灰色高亮显示。</p>
+            <p><code>radiant</code> 和 <code>stonehearth</code> 模组是必需的，因此你无法在模组菜单中禁用它们。</p>
+            <p>如果你意外删除了任何必需模组，你必须重新下载它们才能使游戏正常运行。</p>
+            <p>还有其他随游戏捆绑但默认禁用的模组：<code>debugtools</code>、<code>autotest_framework</code>、<code>stonehearth_autotest</code>、<code>microworld</code> 和 <code>stonehearth_tests</code>。它们在菜单中被标记为调试模组。模组制作者可以启用它们来帮助调试自己的模组。</p>
         </main>
     </body>
 </html>

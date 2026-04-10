@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,27 +7,27 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Building parts</title>
+      <title>建筑部件</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Building parts</h1>
+         <h1>建筑部件</h1>
          <ul>
-            <li><a href="#BuildingResources">Adding custom building resources</a></li>
-            <li><a href="#BuildingColors">Adding building colors</a></li>
-            <li><a href="#FloorPatterns">Adding floor patterns</a></li>
-            <li><a href="#WallPatterns">Adding wall patterns</a></li>
-            <li><a href="#RoofPatterns">Adding roof patterns</a></li>
-            <li><a href="#Windows">Adding windows</a></li>
-            <li><a href="#Doors">Adding doors</a></li>
-            <li><a href="#Fixtures">Decorations and furniture</a></li>
+            <li><a href="#BuildingResources">添加自定义建筑资源</a></li>
+            <li><a href="#BuildingColors">添加建筑颜色</a></li>
+            <li><a href="#FloorPatterns">添加地板图案</a></li>
+            <li><a href="#WallPatterns">添加墙壁图案</a></li>
+            <li><a href="#RoofPatterns">添加屋顶图案</a></li>
+            <li><a href="#Windows">添加窗户</a></li>
+            <li><a href="#Doors">添加门</a></li>
+            <li><a href="#Fixtures">装饰和家具</a></li>
          </ul>
-         <h2><a name="BuildingResources"></a>Adding custom building resources</h2>
-         <p>We can add custom building resources to the building editor, so that our hearthlings can build with them.</p>
+         <h2><a name="BuildingResources"></a>添加自定义建筑资源</h2>
+         <p>我们可以向建筑编辑器添加自定义建筑资源，以便炉民可以使用它们进行建造。</p>
          <ol>
             <li>
-               <p>First we'll need to create a <a href="../../basic/generic_resources/index.html">generic resource</a> to add it to <code>stonehearth/data/resource_constants.json</code>. We explain the fields related to the building editor <a href="../../basic/generic_resources/index.html#BuildingResources">here</a>. Our example looks like this:</p>
+               <p>首先，我们需要创建一个<a href="../../basic/generic_resources/index.html">通用资源</a>并将其添加到 <code>stonehearth/data/resource_constants.json</code>。我们在<a href="../../basic/generic_resources/index.html#BuildingResources">这里</a>解释了与建筑编辑器相关的字段。我们的示例如下所示：</p>
                <pre><code>{
    "resources": {
       "sugar resource": {
@@ -46,7 +46,7 @@
 </code></pre>
             </li>
             <li>
-               <p>We need to associate <a href="../../basic/customization/index.html#BuildingColors">building colors</a> with our building resource. These colors can't be already defined for other building resources. Our <code>building_brushes.json</code> file looks like this:</p>
+               <p>我们需要将<a href="../../basic/customization/index.html#BuildingColors">建筑颜色</a>与我们的建筑资源关联。这些颜色不能已经为其他建筑资源定义。我们的 <code>building_brushes.json</code> 文件如下所示：</p>
                <pre><code>{
    "always_available": {
       "sugar resource": {
@@ -76,10 +76,10 @@
    }
 }
 </code></pre>
-               <p>  All these colors will be available for rooms/walls, columns, floor, roads and stairs for our sugar resource.</p>
+               <p>所有这些颜色将可用于我们的糖资源的房间/墙壁、柱子、地板、道路和楼梯。</p>
             </li>
             <li>
-               <p>Now we add our generic resource and building colors to the corresponding indexes from the stonehearth mod via a mixinto in our manifest:</p>
+               <p>现在，我们通过清单中的 mixinto 将我们的通用资源和建筑颜色添加到 stonehearth mod 的相应索引中：</p>
                <pre><code>"mixintos": {
    "stonehearth:data:resource_constants" : "file(data/resource_constants.json)",
    "stonehearth:build:brushes" : "file(data/build/building_brushes.json)"
@@ -87,23 +87,23 @@
 </code></pre>
             </li>
             <li>
-               <p>We need to make items with "sugar" and "resource" in their material tags be obtainable in the game, by <a href="../../basic/static_scenarios/ore_veins/index.html">mining</a>, <a href="../../basic/renewable_resources/index.html">harvesting</a>, <a href="../../basic/craftables/index.html">crafting</a>, etc.</p>
+               <p>我们需要使材料标签中包含"sugar"和"resource"的物品在游戏中可获得，可以通过<a href="../../basic/static_scenarios/ore_veins/index.html">采矿</a>、<a href="../../basic/renewable_resources/index.html">采集</a>、<a href="../../basic/craftables/index.html">制作</a>等方式。</p>
             </li>
             <li>
-               <p>We can test that our new building resource appears in the game and that hearthlings can use it to build:
+               <p>我们可以测试新的建筑资源是否出现在游戏中，以及炉民是否可以使用它进行建造：
                   <img src="/modding_guide/images/intermediate/building_parts/building_resources.png" alt="building_resources"/>
                </p>
             </li>
          </ol>
-         <h2><a name="BuildingColors"></a>Adding building colors</h2>
-         <p>How to add custom colors to existing building resources was already explained in the <a href="../../basic/customization/index.html#BuildingColors">customization guide</a>. You can also see an example for a custom resource above.</p>
-         <h2><a name="FloorPatterns"></a>Adding floor patterns</h2>
-         <p>Floor, wall and roof patterns are added via mixintos to <code>stonehearth/data/build/building_brushes.json</code>. Patterns for floor will also be available for roads automatically.</p>
+         <h2><a name="BuildingColors"></a>添加建筑颜色</h2>
+         <p>如何为现有建筑资源添加自定义颜色已在<a href="../../basic/customization/index.html#BuildingColors">自定义指南</a>中解释。您也可以在上文中查看自定义资源的示例。</p>
+         <h2><a name="FloorPatterns"></a>添加地板图案</h2>
+         <p>地板、墙壁和屋顶图案通过 mixinto 添加到 <code>stonehearth/data/build/building_brushes.json</code>。地板图案也将自动适用于道路。</p>
          <pre><code>    "mixintos" : {
        "stonehearth:build:building_brushes" : "file(data/build/building_brushes.json)"
     }
 </code></pre>
-         <p>For example, our mixinto looks like this:</p>
+         <p>例如，我们的 mixinto 如下所示：</p>
          <pre><code>    {
        "pattern": {
           "sugar resource": {
@@ -117,18 +117,18 @@
        }
     }
 </code></pre>
-         <p>Floor patterns are listed inside the <strong>"pattern"</strong> entry, grouped by building resource. Inside the <strong>"patterns"</strong> key we have a list of URIs of our patterns (the URIs link to the QB model), and we define an <strong>"icon"</strong> for the UI and a <strong>"display_name"</strong> for the tooltip.</p>
-         <p>Like for the colors, patterns can't be repeated for different resources, so make sure there are no duplicate URIs of patterns for the same building resource or among different resources.</p>
-         <p>Import a QB model of an existing pattern to see how they are setup. You can find them inside <code>stonehearth/data/build/brushes/pattern</code>. Floor patterns don't need to be perfectly square, you can make rectangular shapes, or even shapes with holes. They do have to be 1 voxel high though since floors and roads are only that tall.</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> It's also recommended to add the colors that you've used in your pattern to the list of available colors for the corresponding resource (if they aren't there already). Otherwise, they will be treated as wood by default in the building cost list.</p>
-         <p>Don't forget to add the URI of the pattern to your manifest!</p>
+         <p>地板图案列在 <strong>"pattern"</strong> 条目内，按建筑资源分组。在 <strong>"patterns"</strong> 键下，我们有图案的 URI 列表（URI 链接到 QB 模型），我们为 UI 定义 <strong>"icon"</strong>，为工具提示定义 <strong>"display_name"</strong>。</p>
+         <p>与颜色一样，图案不能在不同资源之间重复，因此请确保没有为同一建筑资源或在不同资源之间重复的图案 URI。</p>
+         <p>导入现有图案的 QB 模型以查看它们的设置方式。您可以在 <code>stonehearth/data/build/brushes/pattern</code> 中找到它们。地板图案不需要完全正方形，您可以制作矩形形状，甚至带有孔洞的形状。但它们必须只有 1 个体素高，因为地板和道路只有那么高。</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>还建议将您在图案中使用的颜色添加到相应资源的可用颜色列表中（如果尚未存在）。否则，它们在建筑成本列表中将被默认为木材。</p>
+         <p>不要忘记将图案的 URI 添加到您的清单中！</p>
          <pre><code>    "aliases" : {
        "build:brushes:pattern:green_cane_diagonal" : "file(data/build/brushes/pattern/green_cane_diagonal/green_cane_diagonal.qb)"
     }
 </code></pre>
          <p><img src="/modding_guide/images/intermediate/building_parts/floor_pattern.png" alt="floor_pattern"/></p>
-         <h2><a name= "WallPatterns"></a>Adding wall patterns</h2>
-         <p>Same than for adding floor patterns, but the mixinto will include them inside the <strong>"wall"</strong> entry:</p>
+         <h2><a name= "WallPatterns"></a>添加墙壁图案</h2>
+         <p>与添加地板图案相同，但 mixinto 将它们包含在 <strong>"wall"</strong> 条目内：</p>
          <pre><code>    {
        "wall": {
           "sugar resource": {
@@ -142,18 +142,18 @@
        }
     }
 </code></pre>
-         <p>Don't forget to add the alias for your .qb model:</p>
+         <p>不要忘记为您的 .qb 模型添加别名：</p>
          <pre><code>    "aliases" : {
        "build:brushes:wall:cookie_wall" : "file(data/build/brushes/wall/cookie_wall/cookie_wall.qb)"
     }
 </code></pre>
-         <p>Much like floor patterns, you can make different shapes for the patterns but the wall should be only 1 voxel thick, otherwise you will get unexpected results when using the room / wall tools in the builder.</p>
-         <p>The .qb model for walls is usually centered over (0,0,0) but you can make it in the positive quadrant too. If you import an existing wall pattern (they're inside <code>stonehearth/data/build/brushes/wall</code>), you'll see that you can make them shorter or taller, they don't need to have the default wall height from the game (6 blocks), the builder will know how to stretch the pattern. They can also have different lengths.</p>
-         <p>Make sure that the colors of your pattern are also in the list of available colors for the corresponding resource (be careful not to add duplicates).
+         <p>与地板图案非常相似，您可以为图案制作不同的形状，但墙壁应该只有 1 个体素厚，否则在使用建造者中的房间/墙壁工具时会出现意外结果。</p>
+         <p>墙壁的 .qb 模型通常以 (0,0,0) 为中心，但您也可以将其制作在第一象限。如果您导入现有的墙壁图案（它们在 <code>stonehearth/data/build/brushes/wall</code> 内），您将看到可以使它们更短或更高，它们不需要具有游戏中的默认墙壁高度（6 个方块），建造者知道如何拉伸图案。它们也可以有不同的长度。</p>
+         <p>确保您的图案的颜色也在相应资源的可用颜色列表中（注意不要添加重复项）。
             <img src="/modding_guide/images/intermediate/building_parts/wall_pattern.png" alt="wall_pattern"/>
          </p>
-         <h2><a name="RoofPatterns"></a>Adding roof patterns</h2>
-         <p>Roof patterns are added to the <code>building_brushes.json</code> file like the floor/wall patterns:</p>
+         <h2><a name="RoofPatterns"></a>添加屋顶图案</h2>
+         <p>屋顶图案像地板/墙壁图案一样添加到 <code>building_brushes.json</code> 文件中：</p>
          <pre><code>    {
        "roof": {
           "sugar resource": {
@@ -173,39 +173,39 @@
        }
     }
 </code></pre>
-         <p>Notice that we have an extra field here for the type of roof. If it's <strong>"peaked"</strong>, the roof model will be treated like the peaked roofs from the stonehearth mod: we can make them taller or shorter, and decide which sides are slanted and which ones should drop a wall to fill the gap.</p>
-         <p>If it's <strong>"flat"</strong>, the roof model will be treated like the rayyas_children roofs (or the castle roof): they will remain flat and we can only change the direction that they're facing.</p>
-         <p>Roofs can only be added as patterns, since their .qb model has to be setup in a special way, to represent its different parts, such as inner/outer corners, sides, and the middle. But players are free to use the blocks tool in the building editor to create more detailed roofs or roofs with different slants (roofs from the northern_alliance mod were made using the blocks tool, for example).</p>
-         <p>Let's take a look at the QB models for the roofs (you can find more examples inside <code>stonehearth/data/build/brushes/roof</code>). The ones for peaked roofs are setup in a 9-grid:
+         <p>请注意，我们在这里有一个额外的字段用于屋顶类型。如果是 <strong>"peaked"</strong>，屋顶模型将被视为 stonehearth mod 中的尖顶屋顶：我们可以使它们更高或更矮，并决定哪些侧面倾斜，哪些侧面应该放下墙壁来填补空隙。</p>
+         <p>如果是 <strong>"flat"</strong>，屋顶模型将被视为 rayyas_children 屋顶（或城堡屋顶）：它们将保持平坦，我们只能改变它们面向的方向。</p>
+         <p>屋顶只能作为图案添加，因为它们的 .qb 模型必须以特殊方式设置，以表示其不同部分，如内角/外角、侧面和中间。但玩家可以自由使用建筑编辑器中的方块工具创建更详细的屋顶或具有不同倾斜度的屋顶（例如，northern_alliance mod 中的屋顶就是使用方块工具制作的）。</p>
+         <p>让我们看看屋顶的 QB 模型（您可以在 <code>stonehearth/data/build/brushes/roof</code> 中找到更多示例）。尖顶屋顶的设置为 9 网格：
             <img src="/modding_guide/images/intermediate/building_parts/9_grid.png" alt="9_grid"/>
          </p>
-         <p>Each part is in a different matrix/layer. The names for these matrices/layers are numbers, and must be the same than in the picture above. Due to how the parts are placed and rotated in the game, the pattern will look different depending on the slants, size, etc. so this is the usual size used for peaked roofs models in the game.</p>
-         <p>The ones for the flat roofs are in a 13-grid (to account for inner corners too):
+         <p>每个部分在不同的矩阵/层中。这些矩阵/层的名称是数字，必须与上图中的相同。由于部分在游戏中的放置和旋转方式，图案将根据倾斜度、大小等看起来不同，因此这是游戏中尖顶屋顶模型常用的大小。</p>
+         <p>平顶屋顶的设置为 13 网格（也考虑内角）：
             <img src="/modding_guide/images/intermediate/building_parts/13_grid.png" alt="13_grid"/>
          </p>
-         <p>Notice that the names for the matrices/layers for the inner corners end by <strong>c</strong>, and are based on the other corners. We need to use these exact names in our layers.</p>
-         <p>For flat roofs we can make them a bit taller if we want to (for example, for the crenellations of the castle roof), and increase the size of the middle section if we want it to have a pattern. Also notice how the clay slat roof is set up. The border of the roof is aligned with the X/Z axes, while the wooden parts protude outwards.</p>
-         <p>Make sure to add the colors you've used to the list of building colors for the corresponding resource (if they aren't there already). And don't forget to add the aliases for your .qb models to the manifest:</p>
+         <p>请注意，内角的矩阵/层名称以 <strong>c</strong> 结尾，并基于其他角。我们需要在层中使用这些确切的名称。</p>
+         <p>对于平顶屋顶，如果我们愿意，可以使它们更高一些（例如，用于城堡屋顶的城垛），并增加中间部分的大小以使其具有图案。还要注意粘土板条屋顶的设置方式。屋顶的边缘与 X/Z 轴对齐，而木制部分向外突出。</p>
+         <p>确保将您使用的颜色添加到相应资源的建筑颜色列表中（如果尚未存在）。并且不要忘记将 .qb 模型的别名添加到清单中：</p>
          <pre><code>    "aliases" : {
        "build:brushes:roof:cotton_candy_roof" : "file(data/build/brushes/roof/cotton_candy/cotton_candy_roof.qb)",
        "build:brushes:roof:cookie_castle_roof" : "file(data/build/brushes/roof/cookie_castle/cookie_castle_roof.qb)"
     }
 </code></pre>
-         <p>Finally, test your roof patterns in the game:
+         <p>最后，在游戏中测试您的屋顶图案：
             <img src="/modding_guide/images/intermediate/building_parts/roof_pattern.png" alt="roof_pattern"/>
          </p>
-         <h2><a name="Windows"></a>Adding windows</h2>
-         <p>Windows and doors have a 'cutter' which automatically creates a hole for them when you place them in a wall when designing a building.</p>
-         <p>We can find the windows in <code>stonehearth/entities/construction</code>. They're created like any other entity, and we can make them available through recipes, loot, etc. Copying an existing one will ensure that we're using existing categories and material tags, as well as any mixin that we might need (like "stonehearth:mixins:placed_object", for example).</p>
-         <p>The .qb model for windows is centered over 0,0,0 (and aligned to the floor) in Qubicle.</p>
-         <p>These are the components that are different from the usual. From wooden_window_frame_ghost.json:</p>
+         <h2><a name="Windows"></a>添加窗户</h2>
+         <p>窗户和门有一个"切割器"，当您在设计建筑时将它们放置在墙壁中时，会自动为它们创建一个孔洞。</p>
+         <p>我们可以在 <code>stonehearth/entities/construction</code> 中找到窗户。它们像任何其他实体一样创建，我们可以通过配方、战利品等使它们可用。复制现有的窗户将确保我们使用现有的类别和材料标签，以及任何可能需要的 mixin（例如"stonehearth:mixins:placed_object"）。</p>
+         <p>窗户的 .qb 模型在 Qubicle 中以 0,0,0 为中心（并与地板对齐）。</p>
+         <p>以下是与通常不同的组件。来自 wooden_window_frame_ghost.json：</p>
          <pre><code>    "mob": {
        "align_to_grid": [
           "x"
         ]
     }
 </code></pre>
-         <p>This is the mob component. The <strong>"align_to_grid"</strong> array can contain <strong>"x"</strong>, <strong>"z"</strong> or both. In this case we want to ensure that the center of the qb model of the window is aligned to the nearest round value on the X axis, so that it's correctly aligned within walls. The alignment might not be obvious at first (since the position will vary depending on the model/region origins and the original position in Qubicle) but if this is not properly set up, the window will be displaced when we try to place it in a building design.</p>
+         <p>这是 mob 组件。<strong>"align_to_grid"</strong> 数组可以包含 <strong>"x"</strong>、<strong>"z"</strong> 或两者。在这种情况下，我们希望确保窗户 qb 模型的中心与 X 轴上最近的整数值对齐，以便它在墙壁中正确对齐。对齐一开始可能不明显（因为位置会根据模型/区域原点和 Qubicle 中的原始位置而变化），但如果未正确设置，当我们尝试将窗户放置在建筑设计中时，窗户将会偏移。</p>
          <pre><code>    "stonehearth:fixture": {
        "cursor": "stonehearth:cursors:create_window",
        "margin": {
@@ -220,9 +220,9 @@
        }
     }
 </code></pre>
-         <p>This is the fixture component. The "cursor" field is no longer used. We have a different cursor for each of the fixture categories in the building editor now. The "margin" section is also not used anymore, it can be omitted. Nowadays we allow to place windows adjacent to each other in the walls.</p>
-         <p>The <strong>"bounds"</strong> region, however, is mandatory. Windows and doors need this region (notice that it is defined with only X and Y points, since windows and doors are meant to cut 1 block wide walls). It's the area (including holes) that we can touch in the builder to drag the window/door around.</p>
-         <p>For the rest of placeable entities that we can use in the builder, we need to make sure they have at least 1 collision region defined (no matter their collision type), otherwise the builder won't know how to use them properly for its calculations.</p>
+         <p>这是 fixture 组件。"cursor" 字段不再使用。我们现在为建筑编辑器中的每个夹具类别都有不同的光标。"margin" 部分也不再使用，可以省略。现在我们允许在墙壁中彼此相邻地放置窗户。</p>
+         <p>然而，<strong>"bounds"</strong> 区域是必需的。窗户和门需要此区域（请注意，它仅用 X 和 Y 点定义，因为窗户和门旨在切割 1 个方块宽的墙壁）。它是我们在建造者中可以触摸以拖动窗户/门的区域（包括孔洞）。</p>
+         <p>对于我们可以在建造者中使用的其余可放置实体，我们需要确保它们至少定义了 1 个碰撞区域（无论其碰撞类型如何），否则建造者将不知道如何在其计算中正确使用它们。</p>
          <pre><code>    "stonehearth:portal": {
        "cutter": [
           {
@@ -232,9 +232,9 @@
        ]
     }
 </code></pre>
-         <p>This is the portal component. Here we specify the cutter region for the window, also defined with only X and Y points. When we're designing a building, this region will be automatically cut from walls when we place the window on them. The region is based on whole units. We can't cut fractions of building blocks. Usually it's the same size than the bounds from the fixture component, but it can be a different size.</p>
-         <p>Windows normally have a <strong>"mob_collision_type"</strong> of <strong>"clutter"</strong>, so that hearthlings can stand very close to them, but bigger windows may also define a collision region.</p>
-         <p><a name="MovementModifierShape"></a>The bigger ones also have a <strong>"movement_modifier_shape"</strong>. This is used so that if you place them near the ground or at the ground, hearthlings avoid walking through them. Since hearthlings prefer shorter paths, sometimes they walked through tall windows instead of using the doors. This helps with that problem. Example:</p>
+         <p>这是 portal 组件。在这里我们指定窗户的切割器区域，也仅用 X 和 Y 点定义。当我们设计建筑时，当我们将窗户放置在墙壁上时，此区域将自动从墙壁中切割出来。该区域基于整个单位。我们不能切割建筑方块的分数。通常它与 fixture 组件的边界大小相同，但也可以是不同的大小。</p>
+         <p>窗户通常具有 <strong>"mob_collision_type"</strong> 为 <strong>"clutter"</strong>，以便炉民可以站在离它们很近的地方，但较大的窗户也可以定义碰撞区域。</p>
+         <p><a name="MovementModifierShape"></a>较大的窗户还具有 <strong>"movement_modifier_shape"</strong>。这样做的目的是，如果您将它们放置在靠近地面或地面上，炉民会避免穿过它们。由于炉民喜欢较短的路径，有时他们会穿过高大的窗户而不是使用门。这有助于解决这个问题。示例：</p>
          <pre><code>  "movement_modifier_shape": {
      "modifier": -0.5,
      "nav_preference_modifier": -0.5,
@@ -246,13 +246,13 @@
      ]
   }
 </code></pre>
-         <p>The <strong>"modifier"</strong> controls the speed at which an entity will move when within the region. The <strong>"nav_preference_modifier"</strong> affects how entities will perceive speed in that shape when conducting pathfinding. The <strong>"region"</strong> is where the modifiers will be applied, and it normally corresponds to the cutter of the window (notice that it has 3 dimensions).</p>
-         <p>These properties are also used for roads, for example, so that hearthlings walk faster on them.</p>
-         <h2><a name="Doors"></a>Adding doors</h2>
-         <p>Doors are similar to windows, they are located under <code>stonehearth/entities/construction</code> as well. Most doors have the same mixins (from <code>stonehearth/mixins/doors</code>) to reuse the same animation table and other common properties.</p>
-         <p>In their ghost JSON file, they have an extra property in the fixture component, called "valign", but this property is also no longer in use, like the cursor and margins. Nowadays we can place a door wherever we want in a wall.</p>
-         <p>The portal component has the same functionality than for windows, as explained above. We also use <strong>"align_to_grid" : [ "x" ]</strong> so that they can fit inside walls.</p>
-         <p>Normally, in the components of their ghost file (via a mixin or directly in the JSON) we indicate an animation table and a default effect, for instance:</p>
+         <p><strong>"modifier"</strong> 控制实体在区域内移动时的速度。<strong>"nav_preference_modifier"</strong> 影响实体在进行寻路时如何感知该形状中的速度。<strong>"region"</strong> 是应用修饰符的区域，它通常对应于窗户的切割器（请注意它具有 3 个维度）。</p>
+         <p>这些属性也用于道路等，以便炉民在上面走得更快。</p>
+         <h2><a name="Doors"></a>添加门</h2>
+         <p>门与窗户类似，它们也位于 <code>stonehearth/entities/construction</code> 下。大多数门具有相同的 mixins（来自 <code>stonehearth/mixins/doors</code>）以重用相同的动画表和其他常见属性。</p>
+         <p>在它们的 ghost JSON 文件中，fixture 组件中有一个名为"valign"的额外属性，但此属性也不再使用，就像 cursor 和 margins 一样。现在我们可以在墙壁中的任何位置放置门。</p>
+         <p>portal 组件的功能与窗户相同，如上所述。我们还使用 <strong>"align_to_grid" : [ "x" ]</strong> 以便它们可以适应墙壁内部。</p>
+         <p>通常，在它们的 ghost 文件的组件中（通过 mixin 或直接在 JSON 中），我们指示动画表和默认效果，例如：</p>
          <pre><code>  "render_info": {
      "animation_table": "file(/data/rigs/entities/construction/double_door/double_door.json)"
   },
@@ -261,31 +261,31 @@
      "initial_pose_animation": "closed.json"
   }
 </code></pre>
-         <p>The <strong>"animation_table"</strong> points to the rig (the skeleton) of the door. The <strong>"default"</strong> effect in the effect list will be the default animation that the door will play after we place it down, and <strong>"initial_pose_animation"</strong> is the name of an animation effect to pose the door when it is in ghost form.</p>
-         <p>Normally doors are not centered over (0,0,0) in Qubicle. They are aligned to the ground on the positive quadrant. Their matrices have names so that they can reuse existing rigs for animations. Make sure to check examples from the stonehearth mod.</p>
-         <p>In the entity's JSON file (not the ghost), we can also find these other components:</p>
+         <p><strong>"animation_table"</strong> 指向门的 rig（骨架）。效果列表中的 <strong>"default"</strong> 效果将是我们在放置门后门播放的默认动画，<strong>"initial_pose_animation"</strong> 是门处于 ghost 形式时定位门的动画效果的名称。</p>
+         <p>通常门在 Qubicle 中不以 (0,0,0) 为中心。它们在第一象限与地面对齐。它们的矩阵有名称，以便它们可以重用现有的 rig 进行动画。请务必检查 stonehearth mod 中的示例。</p>
+         <p>在实体的 JSON 文件（不是 ghost）中，我们还可以找到以下其他组件：</p>
          <ul>
             <li>
-               <p>Inside the "stonehearth:entity_forms" component we can see the <strong>"placeable_on_walls"</strong> and <strong>"placeable_on_ground"</strong> flags. These make placement possible. For items that should only be placeable on walls we use the first one, and for items that should only be placeable on ground we use the second one.</p>
-               <p>  For doors, we use both since we can also put doors for tunnel entrances.</p>
+               <p>在"stonehearth:entity_forms"组件内，我们可以看到 <strong>"placeable_on_walls"</strong> 和 <strong>"placeable_on_ground"</strong> 标志。这些使放置成为可能。对于只应放置在墙壁上的物品，我们使用第一个，对于只应放置在地面上的物品，我们使用第二个。</p>
+               <p>对于门，我们同时使用两者，因为我们也可以为隧道入口放置门。</p>
             </li>
             <li>
-               <p>As with windows, the <a href="../regions/collision_destination/index.html#RegionCollisionTypes">"region_collision_type"</a> is "none".</p>
+               <p>与窗户一样，<a href="../regions/collision_destination/index.html#RegionCollisionTypes">"region_collision_type"</a> 为"none"。</p>
             </li>
             <li>
-               <p>It has the <strong>"sensor_list"</strong> component, which contains a list of sensors. These are entries with a custom identifier that define a radius in world units (ignore the "type" field, it's not used).</p>
+               <p>它具有 <strong>"sensor_list"</strong> 组件，其中包含传感器列表。这些是具有自定义标识符的条目，定义世界单位中的半径（忽略"type"字段，它未被使用）。</p>
             </li>
             <li>
-               <p>The <strong>"stonehearth:door"</strong> component only has one field, pointing to the identifier of the sensor we declared in the sensor list. Then, in the door component code we retrieve the sensor and trace it. When an entity gets inside/outside of the sensor radius, the sensor triggers some code that we can customize. In the case of doors it will play the open/close animation (and stay open if a hearthling stands close to the door).</p>
+               <p><strong>"stonehearth:door"</strong> 组件只有一个字段，指向我们在传感器列表中声明的传感器的标识符。然后，在门组件代码中，我们检索传感器并跟踪它。当实体进入/离开传感器半径时，传感器触发一些我们可以自定义的代码。在门的情况下，它将播放打开/关闭动画（如果炉民站在门附近则保持打开）。</p>
             </li>
             <li>
-               <p>In the entity_data we have <strong>"stonehearth:entity_radius"</strong>. This is defined in world units too. It's used to determine the distance (range) needed for combat and the like (it's static <a href="../../essentials/entities_components/index.html#EntityData">read-only data</a> so we can consult it anywhere in our code if we need to).</p>
+               <p>在 entity_data 中，我们有 <strong>"stonehearth:entity_radius"</strong>。这也以世界单位定义。它用于确定战斗等所需的距离（范围）（它是静态的<a href="../../essentials/entities_components/index.html#EntityData">只读数据</a>，因此如果需要，我们可以在代码中的任何地方查询它）。</p>
             </li>
          </ul>
-         <h2><a name="Fixtures"></a>Decorations and furniture</h2>
-         <p>These are created like any other placeable <a href="../../basic/adding_items/index.html">item</a>. In order for them to appear in the building editor tabs, they need to belong to one of these categories in their catalog data: decoration, construction, door, furniture, workshops, storage, window; and either you have them already in your inventory, or the crafter that can craft them has already unlocked those recipes.</p>
-         <p>Make sure that the items that are <a href="../regions/origins/index.html#HangableItems">hangable</a> have all their properties correctly set up. The rugs / floor tiles have <strong>"stonehearth:floor_deco" : {}</strong> in the entity_data of the ghost file, which is used to allow players to place the banners of the combat commands on top of them.</p>
-         <p>Decorations, furniture, etc. don't need the fixture component, instead they define their own collision regions. For those that can be used in the building editor, make sure that they have at least one region defined even if their <a href="../regions/collision_destination/index.html#CollisionTypes">collision type</a> is "clutter"/"tiny"/"none", so that we can drag them around in the blueprints and the builder knows how to use them in its calculations.</p>
+         <h2><a name="Fixtures"></a>装饰和家具</h2>
+         <p>这些像任何其他可放置的<a href="../../basic/adding_items/index.html">物品</a>一样创建。为了使它们出现在建筑编辑器选项卡中，它们需要在目录数据中属于以下类别之一：decoration、construction、door、furniture、workshops、storage、window；并且要么您已经在库存中有它们，要么可以制作它们的工匠已经解锁了这些配方。</p>
+         <p>确保<a href="../regions/origins/index.html#HangableItems">可悬挂</a>的物品已正确设置所有属性。地毯/地板砖在 ghost 文件的 entity_data 中具有 <strong>"stonehearth:floor_deco" : {}</strong>，用于允许玩家在其上放置战斗命令的旗帜。</p>
+         <p>装饰、家具等不需要 fixture 组件，而是定义它们自己的碰撞区域。对于那些可以在建筑编辑器中使用的物品，请确保它们至少定义了一个区域，即使它们的<a href="../regions/collision_destination/index.html#CollisionTypes">碰撞类型</a>是"clutter"/"tiny"/"none"，以便我们可以在蓝图中拖动它们，并且建造者知道如何在其计算中使用它们。</p>
       </main>
    </body>
 </html>

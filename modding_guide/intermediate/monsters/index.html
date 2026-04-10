@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,36 +7,36 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Critters and monsters</title>
+      <title>生物和怪物</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Critters and monsters</h1>
-         <p>Monsters are created like any other living entity (critters, hearthlings...) but there are some extra files we'll want to create if we want to use them for encounters (raids, etc). We can find the existing populations under <code>stonehearth/services/server/population/data</code>.</p>
+         <h1>生物和怪物</h1>
+         <p>怪物的创建方式与任何其他生物实体（生物、Hearthlings...）相同，但如果我们想将它们用于遭遇战（突袭等），我们需要创建一些额外的文件。我们可以在 <code>stonehearth/services/server/population/data</code> 下找到现有的人口。</p>
          <ul>
             <li>
-               <a href="#CreatingMobs">How to create a mob</a>
+               <a href="#CreatingMobs">如何创建 mob</a>
                <ul>
-                  <li><a href="#AI">AI and animations</a></li>
+                  <li><a href="#AI">AI 和动画</a></li>
                </ul>
             </li>
-            <li><a href="#Population">Setting up the population file</a></li>
-            <li><a href="#MonsterTuning">About monster tuning files</a></li>
+            <li><a href="#Population">设置人口文件</a></li>
+            <li><a href="#MonsterTuning">关于怪物调整文件</a></li>
          </ul>
-         <h2><a name="CreatingMobs"></a>How to create a mob</h2>
-         <p>All the living entities in stonehearth have the <code>stonehearth/mixins/mob.json</code> mixin, either directly or via other mixins. This mixin adds some basic properties like mob/render flags, the AI component, a basic attribute/expendable resource (health), and some essential entity_data that they're going to need.</p>
-         <p>Their JSON file is of <strong>"type" : "entity"</strong>. Monsters have the <code>monster.json</code> mixin, which has way less components and data than the <code>base_human.json</code> mixin used by hearthlings. Animals use the <code>critter.json</code> mixin instead. You can reuse these mixins for your custom entities. The monster mixin has some basic components like postures, a sight sensor, the job component, and some extra attributes and AI packs so that they can fight.</p>
-         <p>You can add whatever else you need your entities to have, just like when creating placeable objects and the like, such as the model_variants component, etc. Mind that copying an existing enemy might involve many files and take a while to fix the things that don't work, so take it easy.</p>
-         <p>Finally, make sure to add an alias for your entities in your manifest. For instance:</p>
+         <h2><a name="CreatingMobs"></a>如何创建 mob</h2>
+         <p>Stonehearth 中的所有生物实体都有 <code>stonehearth/mixins/mob.json</code> mixin，要么直接有，要么通过其他 mixins 有。此 mixin 添加了一些基本属性，如 mob/渲染标志、AI 组件、基本属性/可消耗资源（生命值），以及它们需要的一些基本 entity_data。</p>
+         <p>它们的 JSON 文件类型为 <strong>"type" : "entity"</strong>。怪物有 <code>monster.json</code> mixin，它比 Hearthlings 使用的 <code>base_human.json</code> mixin 具有更少的组件和数据。动物使用 <code>critter.json</code> mixin。你可以为自定义实体重用这些 mixins。怪物 mixin 有一些基本组件，如姿势、视觉传感器、job 组件，以及一些额外的属性和 AI 包，使它们能够战斗。</p>
+         <p>你可以添加你的实体需要的任何其他内容，就像创建可放置对象等时一样，例如 model_variants 组件等。请注意，复制现有敌人可能涉及许多文件，并且需要一段时间来修复不起作用的内容，所以要慢慢来。</p>
+         <p>最后，确保在清单中为你的实体添加别名。例如：</p>
          <pre><code>  "aliases" : {
      "monsters:vampires:vampire": "file(entities/monsters/vampires/vampire)",
      "monsters:vampires:vampire_female": "file(entities/monsters/vampires/vampire_female)"
   }
 </code></pre>
-         <h3><a name="AI"></a>AI and animations</h3>
-         <p>You can see how to set up the rig of your entities in the art guide. Depending on the AI actions that your critter / monster can do, you'll need different animations. If the game tries to run an AI action but can't find its related effect or animation files, an error will pop up, so that you know where is the problem.</p>
-         <p>For starters, your entities will need to have at least an <code>idle_breath.json</code> effect, and a <code>run.json</code> effect, so that they can look alive when standing and running. In the entity data you might see this section for some mobs, listing effects:</p>
+         <h3><a name="AI"></a>AI 和动画</h3>
+         <p>你可以在美术指南中查看如何设置实体的 rig。根据你的生物/怪物可以执行的 AI 行为，你将需要不同的动画。如果游戏尝试运行 AI 行为但找不到其相关的效果或动画文件，将会弹出错误，这样你就知道问题在哪里。</p>
+         <p>首先，你的实体至少需要一个 <code>idle_breath.json</code> 效果和一个 <code>run.json</code> 效果，以便它们在站立和奔跑时看起来有生气。在实体数据中，你可能会看到某些 mobs 的这一部分，列出了效果：</p>
          <pre><code>  "stonehearth:idle_effects": {
      "effects": [
         {
@@ -58,29 +58,29 @@
      ]
   }
 </code></pre>
-         <p>These are effects that will be played based on a weight when the entity is idle.</p>
-         <p>If you reuse an existing rig, you will have all of its existing animations available right away. For custom rigs, it may take a while to figure out which animations do you need based on the AI actions that they can do. You can check the Lua files of the AI actions (under <code>stonehearth/ai</code>) from the AI packs that your entity uses and search for <code>execute('stonehearth:run_effect'</code>. Alternatively, copy the effects and animations of an existing monster/critter, and update them little by little.</p>
-         <h2><a name="Population"></a>Setting up the population file</h2>
-         <p>We have to create a population file like we did to implement a new kingdom. However, we won't need as many fields since we won't be showing information about the population in the UI.</p>
-         <p>These are the fields that we'll usually have for monster populations:</p>
+         <p>这些是当实体空闲时将基于权重播放的效果。</p>
+         <p>如果你重用现有的 rig，你将立即拥有其所有现有动画。对于自定义 rigs，根据它们可以执行的 AI 行为来确定你需要哪些动画可能需要一段时间。你可以检查你的实体使用的 AI 包中的 AI 行为的 Lua 文件（在 <code>stonehearth/ai</code> 下）并搜索 <code>execute('stonehearth:run_effect'</code>。或者，复制现有怪物/生物的效果和动画，并逐步更新它们。</p>
+         <h2><a name="Population"></a>设置人口文件</h2>
+         <p>我们必须像实现新王国一样创建人口文件。但是，我们不需要那么多字段，因为我们不会在 UI 中显示有关人口的信息。</p>
+         <p>这些是我们通常为怪物人口拥有的字段：</p>
          <ul>
             <li>
-               <p><strong>"type" : "kingdom"</strong> -- this file represents a kingdom.</p>
+               <p><strong>"type" : "kingdom"</strong> -- 此文件表示一个王国。</p>
             </li>
             <li>
-               <p><strong>"kingdom_name"</strong> -- a descriptive name for our kingdom, for example "Animals", "The undead", etc.</p>
+               <p><strong>"kingdom_name"</strong> -- 王国的描述性名称，例如 "Animals"、"The undead" 等。</p>
             </li>
             <li>
-               <p><strong>"kingdom_id"</strong> -- an identifier for the kingdom. Try to keep it unique, and only use lowercase and underscores by convention.</p>
+               <p><strong>"kingdom_id"</strong> -- 王国的标识符。按照惯例，尽量保持唯一，并仅使用小写字母和下划线。</p>
             </li>
             <li>
-               <p><strong>"amenity_to_strangers"</strong> -- the amenity towards other kingdoms. Normally will be either <strong>"hostile"</strong> or <strong>"neutral"</strong>. We'll only be able to attack mobs if their amenity to us is hostile. The amenity can be changed by code, for example in the goblin campaign the goblins become neutral to us under certain conditions.</p>
-               <p>  When we hover over hostile mobs they will appear with a red outline (or red color in all the model, depending on your graphic settings). Neutral mobs (e.g. the wild animals) will appear in orange/brown, and friendly mobs in white.</p>
-               <p>  The same can be applied for entities (neutral color for wild trees and plants, white color for entities that belong to us, and red color for entities that belong to hostile factions and that we can loot).</p>
-               <p>  When playing multiplayer each player will get a color assigned so the color for friendly entities will vary.</p>
+               <p><strong>"amenity_to_strangers"</strong> -- 对其他王国的友好度。通常将是 <strong>"hostile"</strong> 或 <strong>"neutral"</strong>。只有当他们对我们的友好度是 hostile 时，我们才能攻击 mobs。友好度可以通过代码更改，例如在 goblin 战役中，goblins 在某些条件下对我们变得 neutral。</p>
+               <p>  当我们将鼠标悬停在 hostile mobs 上时，它们将显示红色轮廓（或在整个模型中显示红色，取决于你的图形设置）。Neutral mobs（例如野生动物）将显示橙色/棕色，friendly mobs 显示白色。</p>
+               <p>  同样的规则也适用于实体（野生树木和植物的 neutral 颜色，属于我们的实体的白色颜色，以及属于敌对派系且我们可以掠夺的实体的红色颜色）。</p>
+               <p>  在多人游戏中，每个玩家将被分配一种颜色，因此 friendly 实体的颜色会有所不同。</p>
             </li>
             <li>
-               <p><strong>"amenity_to" : {}</strong> -- if we need to define a different amenity towards certain other factions, we can include this field. Example from <code>goblin_population.json</code>:</p>
+               <p><strong>"amenity_to" : {}</strong> -- 如果我们需要定义对某些其他派系的不同友好度，我们可以包含此字段。<code>goblin_population.json</code> 的示例：</p>
                <pre><code>"amenity_to": {
    "orcs": "neutral",
    "human_npcs": "neutral",
@@ -88,23 +88,23 @@
    "rabbit_biped_npcs": "neutral"
 }
 </code></pre>
-               <p>  Here we're determining that goblins should be neutral to orcs, and that they shouldn't attack human/orc/rabbit NPCs (for example, NPCs that visit your town during town tier celebrations, travellers, etc., since the campaigns may require them to exist).</p>
-               <p>  The northern_alliance population has this field too, in order to make wild animals hostile so that they can hunt them:</p>
+               <p>  这里我们确定 goblins 应该对 orcs 保持 neutral，并且他们不应该攻击 human/orc/rabbit NPCs（例如，在城镇等级庆祝活动期间访问你城镇的 NPCs、旅行者等，因为战役可能需要它们存在）。</p>
+               <p>  northern_alliance 人口也有此字段，以使野生动物变得 hostile，以便他们可以狩猎它们：</p>
                <pre><code>"amenity_to": {
    "animals": "hostile"
 }
 </code></pre>
             </li>
             <li>
-               <p><strong>"roles" : {}</strong> -- here's where we define how do the citizens of this population look like. Usually we'll have several roles.</p>
-               <p>  For example, in <code>animal_population.json</code> we have an entry for each animal type:</p>
+               <p><strong>"roles" : {}</strong> -- 这里我们定义此人口的市民看起来如何。通常我们会有几个角色。</p>
+               <p>  例如，在 <code>animal_population.json</code> 中，我们为每种动物类型都有一个条目：</p>
                <pre><code>"rabbit" : {
    "male" : {
       "uri": [
          "stonehearth:rabbit"
       ]
    }
-}, 
+},
 "deer" : {
    "male" : {
       "uri": [
@@ -114,12 +114,12 @@
 },
 ...
 </code></pre>
-               <p>  We only include a <strong>"male"</strong> gender (which is considered the default in the constants) since all animals of each role will look the same, and add the URI of the animal in question inside the <strong>"uri"</strong> array.</p>
-               <p>  If they're going to have a female variant we can add a <strong>"female"</strong> entry, and if they're going to have custom names we can also add a <strong>"given_names"</strong> array inside the entry too, etc., like with the population files for playable kingdoms.</p>
+               <p>  我们只包含 <strong>"male"</strong> 性别（这在常量中被视为默认值），因为每个角色的所有动物看起来都一样，并在 <strong>"uri"</strong> 数组中添加相关动物的 URI。</p>
+               <p>  如果它们将有女性变体，我们可以添加 <strong>"female"</strong> 条目，如果它们将有自定义名称，我们还可以在条目内添加 <strong>"given_names"</strong> 数组等，就像可玩王国的人口文件一样。</p>
             </li>
             <li>
-               <p><strong>"task_groups"</strong> -- for monsters that are humanoid-like, (goblins, orcs...) here we can use <strong>"stonehearth:data:humanoid_task_groups"</strong>. The animal population doesn't have this field, since they only have a few basic AI actions in their entity files in order to make them look alive without eating many resources from your computer.</p>
-               <p>  You can create your own reusable JSON file with the task groups that you want all of the members of this population to have (remember to add an alias for it in your manifest so that you can use it in your population file):</p>
+               <p><strong>"task_groups"</strong> -- 对于类似人形的怪物（goblins、orcs...），这里我们可以使用 <strong>"stonehearth:data:humanoid_task_groups"</strong>。动物人口没有此字段，因为它们在其实体文件中只有一些基本的 AI 行为，以使它们看起来有生气而不消耗太多计算机资源。</p>
+               <p>  你可以创建自己的可重用 JSON 文件，其中包含你希望此人口的所有成员拥有的任务组（记住在清单中为其添加别名，以便你可以在人口文件中使用它）：</p>
                <pre><code>{
    "task_groups": [
       "stonehearth:task_groups:placement",
@@ -129,15 +129,15 @@
 </code></pre>
             </li>
          </ul>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Don't forget to add an alias for your population in your manifest! For instance:</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 不要忘记在清单中为你的种群添加别名！例如：</p>
          <pre><code>  "aliases" : {
      "kingdoms:vampires": "file(services/server/population/data/vampire_population.json)"
   }
 </code></pre>
-         <h2><a name="MonsterTuning"></a>About monster tuning files</h2>
-         <p>We can tune the attributes and other properties of a monster depending on the game difficulty and the net worth of the player's town.</p>
-         <p>This is done via monster_tuning files. You can find them under <code>stonehearth/data/monster_tuning</code>. These files are then used in campaigns to scale raid encounters depending on different factors.</p>
-         <p>You can compare the monster_tuning files in SHED, either look at them individually in the Manifest tab, or go to the Entity Stats Browser and select the Killable Entities tab.</p>
+         <h2><a name="MonsterTuning"></a>关于怪物调整文件</h2>
+         <p>我们可以根据游戏难度和玩家城镇的净资产调整怪物的属性和其他属性。</p>
+         <p>这是通过 monster_tuning 文件完成的。你可以在 <code>stonehearth/data/monster_tuning</code> 下找到它们。这些文件然后在战役中用于根据不同的因素缩放突袭遭遇战。</p>
+         <p>你可以在 SHED 中比较 monster_tuning 文件，要么在 Manifest 选项卡中单独查看它们，要么转到 Entity Stats Browser 并选择 Killable Entities 选项卡。</p>
       </main>
    </body>
 </html>

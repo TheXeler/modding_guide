@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,53 +7,53 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Intermediate Modding</title>
+        <title>中级模组制作</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Intermediate Modding</h1>
-            <p>Intermediate guide.</p>
-            <p>In this section we'll provide and explain intermediate modding examples, for those who want to customize more complex parts of the game.
-                From here on, we'll start delving into the Lua files, although a big part of this guide can still be done purely in JSON.
+            <h1>中级模组制作</h1>
+            <p>中级指南。</p>
+            <p>在本节中，我们将提供并解释中级模组制作示例，适合那些想要自定义游戏更复杂部分的玩家。
+                从这里开始，我们将开始深入探讨 Lua 文件，尽管本指南的很大一部分仍然可以仅使用 JSON 完成。
             </p>
-            <p>Table of Contents</p>
+            <p>目录</p>
             <ol>
                 <li>
-                    <a href="regions/index.html">Collision regions</a> : how to set up properly the collision, destination and adjacency regions for items.
+                    <a href="regions/index.html">碰撞区域</a>：如何为物品正确设置碰撞、目标和相邻区域。
                     <ol>
-                        <li><a href="regions/origins/index.html">Origins</a> : how to set up the model origin and region origin for items. Hangable items.</li>
-                        <li><a href="regions/collision_destination/index.html">Collision and destination</a> : collision types and destination regions.</li>
+                        <li><a href="regions/origins/index.html">原点</a>：如何为物品设置模型原点和区域原点。可悬挂物品。</li>
+                        <li><a href="regions/collision_destination/index.html">碰撞和目标</a>：碰撞类型和目标区域。</li>
                     </ol>
                 </li>
-                <li><a href="building_parts/index.html">Building parts</a> : how to add new building resources, patterns for floors, walls and roofs, new doors and windows.</li>
-                <li><a href="commands/index.html">Commands</a> : how to create new commands for the unit frame.</li>
-                <li><a href="buffs/index.html">Buffs</a> : how to create buffs, how to add them and remove them.</li>
-                <li><a href="thoughts/index.html">Thoughts</a> : how to create thoughts for the morale UI to use in different systems.</li>
-                <li><a href="traits/index.html">Traits</a> : how to create new traits for hearthlings.</li>
+                <li><a href="building_parts/index.html">建筑部件</a>：如何添加新的建筑资源、地板、墙壁和屋顶的图案、新门和窗户。</li>
+                <li><a href="commands/index.html">命令</a>：如何为单位框架创建新命令。</li>
+                <li><a href="buffs/index.html">增益效果（Buffs）</a>：如何创建增益效果，如何添加和移除它们。</li>
+                <li><a href="thoughts/index.html">想法（Thoughts）</a>：如何创建供士气 UI 在不同系统中使用的想法。</li>
+                <li><a href="traits/index.html">特性（Traits）</a>：如何为 Hearthlings 创建新特性。</li>
                 <li>
-                    <a href="biomes/index.html">Biomes</a> : how to create custom biomes.
+                    <a href="biomes/index.html">生物群系</a>：如何创建自定义生物群系。
                     <ol>
-                        <li><a href="biomes/seasons_weather/index.html">Seasons and weather</a> : how to set up seasons and creating custom weather.</li>
+                        <li><a href="biomes/seasons_weather/index.html">季节和天气</a>：如何设置季节和创建自定义天气。</li>
                     </ol>
                 </li>
                 <li>
-                    <a href="jobs/index.html">Adding jobs</a> : how to add new jobs to the game. Common steps.
+                    <a href="jobs/index.html">添加职业</a>：如何向游戏添加新职业。通用步骤。
                     <ol>
-                        <li><a href="jobs/crafting_jobs/index.html">Crafting jobs</a> : how to create a new crafting job.</li>
-                        <li><a href="jobs/combat_jobs/index.html">Combat jobs</a> : how to create a new combat job.</li>
+                        <li><a href="jobs/crafting_jobs/index.html">制作类职业</a>：如何创建新的制作类职业。</li>
+                        <li><a href="jobs/combat_jobs/index.html">战斗类职业</a>：如何创建新的战斗类职业。</li>
                     </ol>
                 </li>
-                <li><a href="kingdoms/index.html">Kingdoms</a> : how to add your own playable kingdoms to the game.</li>
-                <li><a href="monsters/index.html">Critters and monsters</a> : how to create your own creatures.</li>
+                <li><a href="kingdoms/index.html">王国</a>：如何向游戏添加你自己的可玩王国。</li>
+                <li><a href="monsters/index.html">生物和怪物</a>：如何创建你自己的生物。</li>
                 <li>
-                    <a href="campaigns/index.html">Campaigns</a> : how to add your own game master campaigns and encounters to the game.
+                    <a href="campaigns/index.html">战役</a>：如何向游戏添加你自己的游戏主大师战役和遭遇战。
                     <ol>
-                        <li><a href="campaigns/encounters/index.html">Generic encounters</a> : list of the existing encounter types and their fields.</li>
+                        <li><a href="campaigns/encounters/index.html">通用遭遇战</a>：现有遭遇战类型及其字段的列表。</li>
                     </ol>
                 </li>
-                <li><a href="hotloading/index.html">Hotloading manifests</a> : how to apply manifests only under certain conditions.</li>
-                <li><a href="testing/index.html">Testing your mod</a> : how to use the Microworld, Stonehearth Tests and Stonehearth Autotests mods. Lua profiler scripts.</li>
+                <li><a href="hotloading/index.html">热加载清单</a>：如何仅在特定条件下应用清单。</li>
+                <li><a href="testing/index.html">测试你的模组</a>：如何使用 Microworld、Stonehearth Tests 和 Stonehearth Autotests 模组。Lua 分析器脚本。</li>
             </ol>
         </main>
     </body>

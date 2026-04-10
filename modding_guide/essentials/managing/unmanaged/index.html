@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,70 +7,70 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Local mods</title>
+        <title>本地模组</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Local mods</h1>
-            <p>We call "local" mods to any mods that have to be installed and updated manually by the players.
-                Steam Workshop mods are automatically updated, and require extra steps for uploading, so they have their own <a href="../workshop/index.html">page</a> in this guide.
+            <h1>本地模组</h1>
+            <p>我们将必须由玩家手动安装和更新的模组称为"本地"模组。
+                Steam 创意工坊模组会自动更新，并且上传需要额外步骤，因此它们在本指南中有自己的<a href="../workshop/index.html">页面</a>。
             </p>
             <ul>
-                <li><a href="#InstallManual">Installing</a></li>
-                <li><a href="#UninstallManual">Uninstalling</a></li>
-                <li><a href="#UploadManual">Uploading your own mods</a></li>
-                <li><a href="#UploadTemplates">Uploading building templates</a></li>
+                <li><a href="#InstallManual">安装</a></li>
+                <li><a href="#UninstallManual">卸载</a></li>
+                <li><a href="#UploadManual">上传你自己的模组</a></li>
+                <li><a href="#UploadTemplates">上传建筑模板</a></li>
             </ul>
-            <h2><a name="InstallManual"></a>Instructions for installing mods manually:</h2>
-            <p>When you manually download a new mod, it is usually in the form of a ".smod" file. This is a compressed file that contains everything the mod needs to function. Download this file and place it into the "mods" folder of your Stonehearth installation:</p>
+            <h2><a name="InstallManual"></a>手动安装模组的说明：</h2>
+            <p>当你手动下载新模组时，它通常是 ".smod" 文件格式。这是一个包含模组运行所需所有内容的压缩文件。下载此文件并将其放入 Stonehearth 安装目录的 "mods" 文件夹中：</p>
             <ul>
-                <li>If you installed the game with the Humble Bundle installer, this will normally be at <code>C:\Program Files (x86)\Stonehearth\mods</code>. </li>
-                <li>If you have installed it via Steam, then the mods folder will be at <code>C:\Program Files (x86)\Steam\steamapps\common\Stonehearth\mods</code>. </li>
+                <li>如果使用 Humble Bundle 安装程序安装游戏，通常位于 <code>C:\Program Files (x86)\Stonehearth\mods</code>。</li>
+                <li>如果通过 Steam 安装，则 mods 文件夹位于 <code>C:\Program Files (x86)\Steam\steamapps\common\Stonehearth\mods</code>。</li>
             </ul>
             <p><img src="/modding_guide/images/essentials/managing/mods_folder.png" alt="mods_folder"/></p>
-            <p>Once you have placed the mod inside this folder, then all you need to do is start the game, and the mod should be active.
-                If it isn't, go to the Mods menu from the main menu, and make sure the mod is checked in the "Local Mods" list.
+            <p>将模组放入此文件夹后，你只需启动游戏，模组就应该处于激活状态。
+                如果没有，请从主菜单进入模组菜单，并确保在"本地模组"列表中勾选了该模组。
                 <img src="/modding_guide/images/essentials/managing/unmanaged_mods.png" alt="unmanaged_mods"/>
                 <img src="/modding_guide/images/essentials/managing/disabled_mod.png" alt="disabled_mod"/>
             </p>
-            <h3><a name="ModConflicts"></a>Other formats</h3>
-            <p>If the mod was provided with an extension other than ".smod" (such as ".zip, or ".rar") you will need to uncompress it.</p>
-            <p>The game can read mods in ".smod" format or in plain folders. If you have both for the same mod, it will prefer reading the plain folder.</p>
-            <p>If later you updated the .smod, but still having the plain folder, you will get a conflict, since the game will load the plain folder, which doesn't contain the latest version of the mod. This is especially important for the <code>stonehearth</code> mod, if you have it both as plain folder and as .smod, and Steam updates the game, you might get errors, and you will not see the new content. Delete the plain folder to solve this problem.</p>
+            <h3><a name="ModConflicts"></a>其他格式</h3>
+            <p>如果模组提供的扩展名不是 ".smod"（如 ".zip" 或 ".rar"），你需要解压它。</p>
+            <p>游戏可以读取 ".smod" 格式或普通文件夹格式的模组。如果你同时拥有同一模组的这两种格式，它将优先读取普通文件夹。</p>
+            <p>如果之后你更新了 .smod 文件，但仍保留普通文件夹，你将遇到冲突，因为游戏将加载不包含最新版本模组的普通文件夹。这对于 <code>stonehearth</code> 模组尤其重要，如果你同时拥有普通文件夹和 .smod 格式，并且 Steam 更新了游戏，你可能会遇到错误，并且看不到新内容。删除普通文件夹以解决此问题。</p>
             <p><img src="/modding_guide/images/essentials/managing/mod_conflicts.png" alt="mod_conflicts"/></p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Make sure that if you uncompress a mod, it doesn't create an inner folder with the same name, otherwise the game won't be able to load the mod properly. Copy and paste the files on the outer directory to solve this problem.</p>
-            <p>Bad unzipping:
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>确保如果解压模组，它不会创建同名的内部文件夹，否则游戏将无法正确加载模组。将文件复制并粘贴到外部目录以解决此问题。</p>
+            <p>错误的解压方式：
                 <img src="/modding_guide/images/essentials/managing/bad_unzipping.png" alt="bad_unzipping"/>
-                Good unzipping:
+                正确的解压方式：
                 <img src="/modding_guide/images/essentials/managing/good_unzipping.png" alt="good_unzipping"/>
             </p>
-            <h2><a name="UninstallManual"></a>Instructions for uninstalling mods manually:</h2>
-            <p>If you manually downloaded a mod from an external site, you'll have it placed inside your mods folder.
-                With the game closed, navigate to that directory and delete the corresponding mod's folder or .smod file. Then restart the game.
+            <h2><a name="UninstallManual"></a>手动卸载模组的说明：</h2>
+            <p>如果你从外部网站手动下载了模组，它将位于你的 mods 文件夹中。
+                关闭游戏后，导航到该目录并删除相应的模组文件夹或 .smod 文件。然后重新启动游戏。
             </p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Bear in mind that savefiles that were made with that mod active will throw errors if you try to load them after uninstalling it (same if you disable the mod instead of deleting it).</p>
-            <h2><a name="UploadManual"></a>Instructions for uploading mods manually:</h2>
-            <p>After you finish making your mod, it's time to package it for easier sharing. While being in the mods folder, select your mod folder, right-click it and zip it. </p>
-            <p>Then rename it so that the extension is .smod instead of .zip (you will get a warning from Windows when changing the extension, just click Yes). That way it'll be faster to install for players. </p>
-            <p>Test it again with the smod file only, to check that it is being loaded fine.</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>请记住，如果你尝试在卸载后加载使用该模组创建的存档，将会出现错误（禁用模组而不是删除它也会出现同样的情况）。</p>
+            <h2><a name="UploadManual"></a>手动上传模组的说明：</h2>
+            <p>完成模组制作后，是时候打包它以方便分享了。在 mods 文件夹中，选择你的模组文件夹，右键单击并压缩它。</p>
+            <p>然后重命名它，将扩展名从 .zip 改为 .smod（更改扩展名时 Windows 会发出警告，只需点击"是"）。这样玩家可以更快地安装。</p>
+            <p>再次仅使用 smod 文件进行测试，以检查它是否能正常加载。</p>
             <p><img src="/modding_guide/images/essentials/managing/zipping_mods.png" alt="zipping_mods"/>
                 <img src="/modding_guide/images/essentials/managing/renaming_to_smod.png" alt="renaming_to_smod"/>
             </p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/><strong>Don't rename the zip/smod file after compressing your mod folder</strong>. The manifest might become invalid because the inner path doesn't match.</p>
-            <p>Then, upload it to the place of your choice.</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/><strong>压缩模组文件夹后不要重命名 zip/smod 文件</strong>。清单文件可能会因为内部路径不匹配而变得无效。</p>
+            <p>然后，将其上传到你选择的地方。</p>
             <blockquote>
-                <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> If you plan to upload your mod to the Steam workshop, you shouldn't package it, the upload button will take care of that (also you'll need to generate a Steam file ID for your mod first). Refer to this <a href="../workshop/index.html#UploadWorkshop">section</a> of the guide for more information.</p>
+                <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你计划将模组上传到 Steam 创意工坊，你不应该打包它，上传按钮会处理这个问题（此外你需要先为你的模组生成 Steam 文件 ID）。请参阅指南的此<a href="../workshop/index.html#UploadWorkshop">部分</a>以获取更多信息。</p>
             </blockquote>
-            <p>For updating local mods, you need to replace the entire .smod file / plain folder by hand with the new version for that mod.</p>
-            <h2><a name="UploadTemplates"></a>Instructions for uploading building templates as a mod:</h2>
-            <p>The Mods menu includes an easy way to redistribute a pack of building templates as a mod. <br/>
-                <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> If you download building templates mods as .smod, you will need to uncompress them in order for the game to be able to read the templates. The current version does not support reading templates from compressed mods. Make sure that they have the correct <a href="#ModConflicts">structure</a> after uncompressing them.
+            <p>要更新本地模组，你需要手动用新版本替换整个 .smod 文件/普通文件夹。</p>
+            <h2><a name="UploadTemplates"></a>将建筑模板作为模组上传的说明：</h2>
+            <p>模组菜单提供了一种简单的方法来将建筑模板包作为模组重新分发。<br/>
+                <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你以 .smod 格式下载建筑模板模组，你需要解压它们以便游戏能够读取模板。当前版本不支持从压缩模组中读取模板。确保解压后它们具有正确的<a href="#ModConflicts">结构</a>。
             </p>
-            <p>First create a mod with a basic <a href="../../manifest/index.html">manifest</a>. Then, create a folder inside your mod's folder and name it "building_templates":
+            <p>首先创建一个带有基本<a href="../../manifest/index.html">清单文件</a>的模组。然后，在你的模组文件夹中创建一个名为 "building_templates" 的文件夹：
                 <img src="/modding_guide/images/essentials/managing/template_mod_folder.png" alt="template_mod_folder"/>
             </p>
-            <p>In your manifest, add <strong>"is_building_template_mod" : true</strong> inside your manifest's "info" section and save the changes (remember to add commas where needed):</p>
+            <p>在你的清单文件中，在 "info" 部分添加 <strong>"is_building_template_mod" : true</strong> 并保存更改（记得在需要的地方添加逗号）：</p>
             <pre><code>  {
      "info": {
         "name": "My Templates Mod",
@@ -80,21 +80,21 @@
      }
   }
 </code></pre>
-            <p>Now in the Mods menu, hover over your mod and click on the <strong>"Edit this mod's list of templates"</strong> button, which has an icon for editing templates.
-                A new window will appear and let you choose from your existing building templates:
+            <p>现在在模组菜单中，将鼠标悬停在你的模组上并点击<strong>"编辑此模组的模板列表"</strong>按钮，该按钮带有编辑模板的图标。
+                将出现一个新窗口，让你从现有的建筑模板中选择：
                 <img src="/modding_guide/images/essentials/managing/choosing_templates.png" alt="choosing_templates"/>
-                <img src="/modding_guide/images/common/gold.png" alt="icon"/> The templates will be copied to your mod, but they won't be deleted from the main game. If you later decide to add other templates, or remove some of them your mod, you can do so through this menu too (only the templates from your mod will be affected by the deletion).
+                <img src="/modding_guide/images/common/gold.png" alt="图标"/> 模板将被复制到你的模组中，但不会从主游戏中删除。如果你以后决定添加其他模板，或从模组中删除某些模板，你也可以通过此菜单进行操作（只有你模组中的模板会受到删除的影响）。
             </p>
-            <p>Once you click 'OK', a confirmation dialog will appear:
+            <p>点击"确定"后，将出现确认对话框：
                 <img src="/modding_guide/images/essentials/managing/confirm_templates.png" alt="confirm_templates"/>
-                In the mods list, there will be an arrow button at the right for the mods that have building templates. Clicking on it will expand / collapse the list of templates that the mod has (which is convenient if you need to see which templates are in which mod):
+                在模组列表中，具有建筑模板的模组右侧将有一个箭头按钮。点击它将展开/折叠模组拥有的模板列表（如果你需要查看哪些模板在哪个模组中，这很方便）：
                 <img src="/modding_guide/images/essentials/managing/viewing_templates.png" alt="viewing_templates"/>
                 <img src="/modding_guide/images/essentials/managing/viewing_sh_templates.png" alt="viewing_sh_templates"/>
             </p>
-            <p>Lastly, remember to zip your mod and upload it like explained in the <a href="#UploadManual">above section</a>. Players who download your templates mod will need to uncompress it first. <br/>
-                <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> If you compress your mod, you won't be able to view / edit its templates from the Mods menu. First you'll need to uncompress it.
+            <p>最后，记得按照<a href="#UploadManual">上述部分</a>的说明压缩你的模组并上传。下载你的模板模组的玩家需要先解压它。<br/>
+                <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你压缩了你的模组，你将无法从模组菜单中查看/编辑其模板。首先你需要解压它。
             </p>
-            <p>The game will collect the templates from all the uncompressed mods and will show them in the building editor's template list.</p>
+            <p>游戏将从所有未压缩的模组中收集模板，并在建筑编辑器的模板列表中显示它们。</p>
         </main>
     </body>
 </html>

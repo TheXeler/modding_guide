@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,15 +13,15 @@
       <script src="/modding_guide/menus.js"></script>
       <main>
          <h1>Thoughts</h1>
-         <p>Hearthlings get the happiness component and the thoughts component from the <code>base_human.json</code> mixin. These components allow them to be able to get happy or sad, based on their current thoughts, which we can see in the Morale tab of the character sheet.</p>
-         <p>The thoughts will be added from different Lua scripts, such as AI actions, components, or trait controllers, and will be removed automatically if they have a finite duration.</p>
-         <h2><a name="AddingThoughts"></a>Adding thoughts</h2>
-         <p>To add a new thought to the list of available thoughts, we need to mixinto <code>stonehearth/data/happiness/thoughts.json</code> in our manifest:</p>
+         <p>Hearthlings 从 <code>base_human.json</code> mixin 获得 happiness 组件和 thoughts 组件。这些组件使他们能够根据当前的 thoughts 变得高兴或悲伤，我们可以在角色表的 Morale 选项卡中看到这些 thoughts。</p>
+         <p>Thoughts 将从不同的 Lua 脚本中添加，如 AI 行为、组件或 trait 控制器，并且如果它们有有限的持续时间，将自动移除。</p>
+         <h2><a name="AddingThoughts"></a>添加 Thoughts</h2>
+         <p>要向可用 thoughts 列表中添加新 thought，我们需要在清单中 mixinto <code>stonehearth/data/happiness/thoughts.json</code>：</p>
          <pre><code>  "mixintos" : {
      "stonehearth:data:thoughts" : "file(data/happiness/thoughts.json)"
   }
 </code></pre>
-         <p>Our mixinto will look like this:</p>
+         <p>我们的 mixinto 看起来像这样：</p>
          <pre><code>  {
      "thoughts": {
         "traits": {
@@ -39,41 +39,41 @@
      }
   }
 </code></pre>
-         <p>First there's a <strong>"thoughts"</strong> key. Inside it there are identifiers to group the thoughts. Inside those identifiers there can be some properties, and then there's a <strong>"values"</strong> field, which contains more custom identifiers that correspond to the thoughts, or to other groups.</p>
-         <p>One common property that we can find inside the group identifiers is <strong>"mutually_exclusive" : true</strong>. This means that only one thought inside this group can be active at a time. Check the sleepiness thoughts, for example: the "fatigued" thought will replace the "tired" thought when it is added, because they are mutually exclusive. If this property is <strong>false</strong>, then more than one thought from this group can be active at the same time.</p>
-         <p>Some thoughts are based on "thresholds" rather than "values". But those are still consulted from some Lua script. For instance, the thoughts about space (crampedness) have (besides the "mutually_exclusive" property): <strong>"time_average": true</strong>, <strong>"averaging_period": "1m"</strong>, and then instead of "values" they have a <strong>"thresholds"</strong> map of thoughts. Then the <code>open_space_observer.lua</code> consults these properties and automatically adjusts the thoughts based on the fields inside the thresholds map.</p>
-         <p>For the traits, there's a <strong>"values"</strong> entry with some non-exclusive thoughts, but there's also other identifiers at the same level than "values", defining groups of exclusive thoughts. That way, we can nest groups and define different exclusions for them.</p>
-         <p>There are different properties that we can include in a thought:</p>
+         <p>首先有一个 <strong>"thoughts"</strong> 键。在其中有用于分组 thoughts 的标识符。在这些标识符内部可以有一些属性，然后有一个 <strong>"values"</strong> 字段，其中包含更多对应于 thoughts 或其他组的自定义标识符。</p>
+         <p>我们可以在组标识符内找到的一个常见属性是 <strong>"mutually_exclusive" : true</strong>。这意味着此组中一次只能激活一个 thought。例如，检查 sleepiness thoughts："fatigued" thought 将在添加时替换 "tired" thought，因为它们是互斥的。如果此属性为 <strong>false</strong>，则此组中的多个 thoughts 可以同时激活。</p>
+         <p>一些 thoughts 基于"阈值"而不是"值"。但这些仍然从某些 Lua 脚本中查询。例如，关于空间（拥挤度）的 thoughts 除了 "mutually_exclusive" 属性外，还有：<strong>"time_average": true</strong>、<strong>"averaging_period": "1m"</strong>，然后它们不是 "values" 而是有一个 thoughts 的 <strong>"thresholds"</strong> 映射。然后 <code>open_space_observer.lua</code> 查询这些属性并根据 thresholds 映射内的字段自动调整 thoughts。</p>
+         <p>对于 traits，有一个包含一些非互斥 thoughts 的 <strong>"values"</strong> 条目，但也有与 "values" 同级别的其他标识符，定义互斥 thoughts 的组。这样，我们可以嵌套组并为它们定义不同的排除。</p>
+         <p>我们可以在 thought 中包含不同的属性：</p>
          <ul>
-            <li><strong>"display_name"</strong> -- the localized text that will be shown in the Morale tab of the character sheet.</li>
-            <li><strong>"tooltip"</strong> -- the localized text that will be displayed for the tooltip when we hover over the thought.</li>
-            <li><strong>"happiness_delta"</strong> -- this is the value that will be added to the current happiness value over time (use a negative value if you want the thought to be negative / decrease happiness). Don't use decimal values for this field. Happiness ranges from 0 to 100 (starts at 50).</li>
-            <li><strong>"duration"</strong> -- a <a href="../../basic/misc_json/index.html#TimeExpressions">time expression</a>. If we include this field, the thought will be automatically removed after the duration expires. The duration will be shown in the UI too, decreasing over time. Other thoughts might override this one, depending on the "mutually_exclusive" property, so it might last less time.</li>
-            <li><strong>"stackable"</strong> -- whether this thought can be stacked or not.</li>
-            <li><strong>"max_stacks"</strong> -- if "stackable" is <strong>true</strong>, this field defines the maximum number of times that we can stack the thought (an indicator of the stacks appears in the UI). This means that if the thought is added again while it's already active, it will stack the happiness delta for this thought, instead of overwriting it.</li>
-            <li><strong>"max_threshold"</strong> -- a value for thoughts that are managed by thresholds.</li>
-            <li><strong>"hide"</strong> -- a boolean. We use this field for some neutral thoughts (happiness_delta 0) that we don't want to be displayed in the UI (since thoughts are divided in positive or negative in the character sheet).</li>
+            <li><strong>"display_name"</strong> -- 将在角色表的 Morale 选项卡中显示的本地化文本。</li>
+            <li><strong>"tooltip"</strong> -- 当我们将鼠标悬停在 thought 上时显示的工具提示的本地化文本。</li>
+            <li><strong>"happiness_delta"</strong> -- 这是随时间添加到当前幸福感值的值（如果你希望 thought 为负面/降低幸福感，请使用负值）。不要为此字段使用小数值。幸福感范围为 0 到 100（从 50 开始）。</li>
+            <li><strong>"duration"</strong> -- 一个<a href="../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>。如果我们包含此字段，thought 将在持续时间结束后自动移除。持续时间也将在 UI 中显示，随时间减少。其他 thoughts 可能会覆盖此 thought，具体取决于 "mutually_exclusive" 属性，因此它可能持续的时间更短。</li>
+            <li><strong>"stackable"</strong> -- 此 thought 是否可以堆叠。</li>
+            <li><strong>"max_stacks"</strong> -- 如果 "stackable" 为 <strong>true</strong>，此字段定义我们可以堆叠 thought 的最大次数（UI 中会出现堆叠指示器）。这意味着如果 thought 在已经激活时再次添加，它将堆叠此 thought 的幸福感增量，而不是覆盖它。</li>
+            <li><strong>"max_threshold"</strong> -- 由阈值管理的 thoughts 的值。</li>
+            <li><strong>"hide"</strong> -- 一个布尔值。我们对此字段用于一些我们不希望在 UI 中显示的中性 thoughts（happiness_delta 为 0），因为 thoughts 在角色表中分为正面或负面。</li>
          </ul>
-         <p>To add a thought from a trait controller (or from any other Lua script) we'd call the <code>add_thought</code> function from <code>radiant/modules/entities.lua</code> and pass the entity to which we want to add the thought, the URI of the thought, and some parameters for the tooltip of the thought if we need to:</p>
+         <p>要从 trait 控制器（或任何其他 Lua 脚本）添加 thought，我们将调用 <code>radiant/modules/entities.lua</code> 中的 <code>add_thought</code> 函数，并传递我们要添加 thought 的实体、thought 的 URI，以及如果需要的话，thought 工具提示的一些参数：</p>
          <pre><code>  radiant.entities.add_thought(self._sv._entity, 'stonehearth:thoughts:traits:impatient', {
               tooltip_args = {
                  target_name = radiant.entities.get_custom_name(target)
               }
            })
 </code></pre>
-         <p>To reference the thoughts, we have to build the URI like this: 'mod_namespace:thoughts:thought_category:thought'. For example: </p>
+         <p>要引用 thoughts，我们必须像这样构建 URI：'mod_namespace:thoughts:thought_category:thought'。例如：</p>
          <pre><code>  "stonehearth:thoughts:traits:charismatic:inspired",
   "stonehearth:thoughts:traits:plant_lover",
   "stonehearth:thoughts:job:gained_a_level"
 </code></pre>
-         <p>Notice that we separate the keys with colons, like URIs.</p>
-         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> The happiness component reads the thoughts from <code>stonehearth/data/happiness/thoughts.json</code>, so we must make a mixinto to it in order to add our custom thoughts to the list (we can reuse existing categories/groups or add new ones). But we can also use the namespace of our mod to reference our custom thoughts. For instance, the example above would also have worked if we had referenced the thought like this: <code>'my_mod:thoughts:traits:impatient'</code>.</p>
-         <p>To test in game, we can manually add and remove thoughts with the default console (if the command doesn't appear, enable the debugtools mod):</p>
+         <p>注意我们用冒号分隔键，就像 URIs 一样。</p>
+         <p><img src="/modding_guide/images/common/gold.png" alt="图标"/> Happiness 组件从 <code>stonehearth/data/happiness/thoughts.json</code> 读取 thoughts，因此我们必须对其进行 mixinto 以便将我们的自定义 thoughts 添加到列表中（我们可以重用现有的类别/组或添加新的）。但我们也可以使用我们模组的命名空间来引用我们的自定义 thoughts。例如，上面的示例如果我们像这样引用 thought 也会起作用：<code>'my_mod:thoughts:traits:impatient'</code>。</p>
+         <p>要在游戏中测试，我们可以使用默认控制台手动添加和移除 thoughts（如果命令未出现，请启用 debugtools 模组）：</p>
          <pre><code>  add_thought stonehearth:thoughts:traits:charismatic:inspired
   remove_thought stonehearth:thoughts:traits:charismatic:inspired
 </code></pre>
-         <p>Select the hearthling, open the default console and type the <code>add_thought</code> command. Notice that we pass the thought URI as argument without quotes.</p>
-         <p>We can see the internal values of happiness and thoughts by inspecting the happiness component of a selected hearthling with debugtools. Select a hearthling, open the <a href="../../essentials/debugtools/debugtools_mod/index.html#ObjectBrowser">Object Browser</a>, and click on the value for "stonehearth:happiness":
+         <p>选择 Hearthling，打开默认控制台并输入 <code>add_thought</code> 命令。注意我们将 thought URI 作为参数传递时不带引号。</p>
+         <p>我们可以通过使用 debugtools 检查所选 Hearthling 的 happiness 组件来查看幸福感和 thoughts 的内部值。选择一个 Hearthling，打开<a href="../../essentials/debugtools/debugtools_mod/index.html#ObjectBrowser">对象浏览器</a>，然后点击 "stonehearth:happiness" 的值：
             <img src="/modding_guide/images/intermediate/thoughts/happiness_component.png" alt="happiness_component"/>
          </p>
       </main>

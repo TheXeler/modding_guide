@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,180 +7,180 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Adding jobs</title>
+        <title>添加职业</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Adding jobs</h1>
-            <p>We can create our own jobs / classes and alter the existing promotion tree to suit our preferences.</p>
+            <h1>添加职业</h1>
+            <p>我们可以创建自己的职业/类别，并更改现有的晋升树以适应我们的偏好。</p>
             <ul>
                 <li>
-                    <a href="#CreatingAJob">Creating a new job</a>
+                    <a href="#CreatingAJob">创建新职业</a>
                     <ul>
-                        <li><a href="#TheTalisman">The talisman</a></li>
-                        <li><a href="#JobDescription">Job description</a></li>
-                        <li><a href="#JobPerks">About job perks</a></li>
-                        <li><a href="#JobProgression">About job progression</a></li>
+                        <li><a href="#TheTalisman">护身符（Talisman）</a></li>
+                        <li><a href="#JobDescription">职业描述</a></li>
+                        <li><a href="#JobPerks">关于职业特权</a></li>
+                        <li><a href="#JobProgression">关于职业 progression</a></li>
                     </ul>
                 </li>
-                <li><a href="crafting_jobs/index.html">Creating a crafting job</a></li>
-                <li><a href="combat_jobs/index.html">Creating a combat job</a></li>
-                <li><a href="#OtherJobs">Creating other types of jobs</a></li>
+                <li><a href="crafting_jobs/index.html">创建制作类职业</a></li>
+                <li><a href="combat_jobs/index.html">创建战斗类职业</a></li>
+                <li><a href="#OtherJobs">创建其他类型的职业</a></li>
             </ul>
-            <h2><a name="CreatingAJob"></a> Creating a new job</h2>
-            <p>These are generic steps for creating a new job:</p>
+            <h2><a name="CreatingAJob"></a> 创建新职业</h2>
+            <p>这些是创建新职业的通用步骤：</p>
             <ol>
                 <li>
-                    <p>Copy an existing job from the stonehearth mod. Preferably one that is most close in functionality to what you're creating. The existing jobs are inside the <code>stonehearth/jobs</code> directory.</p>
+                    <p>从 stonehearth 模组复制现有职业。最好选择一个在功能上与你正在创建的最接近的职业。现有职业位于 <code>stonehearth/jobs</code> 目录内。</p>
                 </li>
                 <li>
-                    <p>Rename the files as usual.</p>
+                    <p>照常重命名文件。</p>
                 </li>
                 <li>
-                    <p>Add an alias for your custom job in your manifest, pointing to the JSON file that contains the description of the job.</p>
+                    <p>在清单中为你的自定义职业添加别名，指向包含职业描述的 JSON 文件。</p>
                 </li>
                 <li>
-                    <p>Add an alias in the <strong>"controllers"</strong> section of your manifest, pointing to the Lua file of your job.  E.g.:</p>
+                    <p>在清单的 <strong>"controllers"</strong> 部分添加别名，指向你的职业的 Lua 文件。例如：</p>
                     <pre><code>"controllers": {
    "class:lamplighter": "file(jobs/lamplighter/lamplighter.lua)"
 }
 </code></pre>
                 </li>
                 <li>
-                    <p>Add a mixinto to <code>"stonehearth:jobs:index"</code> to add your custom job to the list of available jobs.</p>
+                    <p>向 <code>"stonehearth:jobs:index"</code> 添加 mixinto，以将你的自定义职业添加到可用职业列表中。</p>
                 </li>
                 <li>
-                    <p>Start by editing the <a href="#TheTalisman">talisman</a>. Change the model as appropiate and edit the corresponding JSON files to point to those of your custom job.</p>
+                    <p>从编辑<a href="#TheTalisman">护身符</a>开始。适当更改模型并编辑相应的 JSON 文件以指向你的自定义职业的文件。</p>
                 </li>
                 <li>
-                    <p>Edit the <a href="#JobDescription">job description</a> JSON file. The data inside this file will vary depending on the job type (crafting / combat / etc). You'll need to add more aliases to your manifest, at least for the talisman, outfit, and tool / weapon.</p>
+                    <p>编辑<a href="#JobDescription">职业描述</a> JSON 文件。此文件中的数据将根据职业类型（制作/战斗/等）而有所不同。你需要向清单中添加更多别名，至少包括护身符、服装和工具/武器。</p>
                 </li>
                 <li>
-                    <p>Edit the rest of the models, UI and JSON files (the outfit, tool, workshop skin, etc.). These files may vary depending on the job type. There may also be Lua files involved, make sure to rename text as needed.</p>
+                    <p>编辑其余的模型、UI 和 JSON 文件（服装、工具、工作室皮肤等）。这些文件可能因职业类型而异。还可能涉及 Lua 文件，确保根据需要重命名文本。</p>
                 </li>
             </ol>
-            <h3><a name="TheTalisman"></a>The talisman</h3>
-            <p>Each job in stonehearth (except for Worker, which is the base job) makes use of an item we call talisman in order to unlock the job and promote the hearthling. Once promoted, the talisman is consumed and it's replaced by an equippable version of it (an actual tool / weapon), which the hearthling makes use of when they're doing their job or when they're fighting.</p>
-            <p>Normally we name the related files with the job name plus the name of the tool itself, for example <code>farmer_hoe.json</code>, <code>farmer_hoe_talisman.json</code>, <code>farmer_hoe_iconic.json</code>.</p>
+            <h3><a name="TheTalisman"></a>护身符（Talisman）</h3>
+            <p>Stonehearth 中的每个职业（除了 Worker，这是基础职业）都使用我们称为护身符的物品来解锁职业并提升 Hearthling。提升后，护身符被消耗并替换为其可装备版本（实际的工具/武器），Hearthling 在执行工作或战斗时使用它。</p>
+            <p>通常我们用职业名称加工具本身的名称来命名相关文件，例如 <code>farmer_hoe.json</code>、<code>farmer_hoe_talisman.json</code>、<code>farmer_hoe_iconic.json</code>。</p>
             <ul>
                 <li>
-                    <p>The <code>job_tool_talisman.json</code> file is similar to the file for other entities. In it, we have the item properties mixin.</p>
-                    <p>  For the entity_data we have the net worth and the catalog (make sure that the category is <strong>"tools"</strong> and that the material_tags include <strong>"stockpile_tool"</strong>, so that it's properly restocked to storages).</p>
-                    <p>  For the components, we have the model variants, which point to the model for the iconic version, and an "effect_list" with a default effect (in the stonehearth mod, iconics for talismans and workbenches have this particle effect to distinguish them quickly in stockpiles or the ground).</p>
-                    <p>  <img src="/modding_guide/images/common/gold.png" alt="icon"/> You might also see in some talisman files a component called <strong>"stonehearth:promotion_talisman"</strong>. This is an old component that was deprecated and no longer exists, so you can omit it for your job.</p>
+                    <p><code>job_tool_talisman.json</code> 文件类似于其他实体的文件。在其中，我们有物品属性 mixin。</p>
+                    <p>  对于 entity_data，我们有净资产和 catalog（确保类别是 <strong>"tools"</strong> 并且 material_tags 包括 <strong>"stockpile_tool"</strong>，以便正确地补货到存储中）。</p>
+                    <p>  对于组件，我们有 model variants，指向 iconic 版本的模型，以及具有默认效果的 "effect_list"（在 stonehearth 模组中，护身符和工作台的 iconics 具有此粒子效果，以便在库存或地面上快速区分它们）。</p>
+                    <p>  <img src="/modding_guide/images/common/gold.png" alt="图标"/> 你可能还会在一些护身符文件中看到一个名为 <strong>"stonehearth:promotion_talisman"</strong> 的组件。这是一个已弃用且不再存在的旧组件，因此你可以为你的职业省略它。</p>
                 </li>
                 <li>
-                    <p>Now we edit the <code>job_tool.json</code> file. The model in the <strong>"model_variants"</strong> component is that of the equipped tool, so remember to positionate it <a href="../../basic/wearables/weapons/index.html#EquippedModel">in your voxel editor</a> so that the hearthling can grab it properly.</p>
-                    <p>  The entity forms component only points to the iconic form, since this item is not meant to be placeable so we don't need a ghost JSON file.</p>
-                    <p>  The equipment_piece component usually has a <strong>"postures"</strong> field, since this is the weapon that they will use when in combat (even if this is not a combat job, they will still fight while in town alert mode).</p>
-                    <p>  In the entity_data, besides the usual <strong>"stonehearth:net_worth"</strong> and <strong>"stonehearth:catalog"</strong> entries, we have <a href="../../basic/wearables/weapons/index.html#WeaponData"><strong>"stonehearth:combat:weapon_data"</strong></a>, to define the range of the tool when it's used as a weapon in town alert and how much damage should it do; and <a href="../../basic/wearables/weapons/index.html#MeleeAttacks"><strong>"stonehearth:combat:melee_attacks"</strong></a>, to define a basic attack.</p>
-                    <p>  For combat units, advanced attacks are usually specified in other files, so that we can unlock them via a specific weapon or at a specific level.</p>
+                    <p>现在我们编辑 <code>job_tool.json</code> 文件。<strong>"model_variants"</strong> 组件中的模型是已装备工具的模型，所以记得在你的体素编辑器中<a href="../../basic/wearables/weapons/index.html#EquippedModel">定位它</a>，以便 Hearthling 可以正确抓取它。</p>
+                    <p>  Entity forms 组件仅指向 iconic 形式，因为此物品不可放置，所以我们不需要 ghost JSON 文件。</p>
+                    <p>  Equipment_piece 组件通常有一个 <strong>"postures"</strong> 字段，因为这是他们在战斗中使用的武器（即使这不是战斗职业，他们在城镇警戒模式下仍然会战斗）。</p>
+                    <p>  在 entity_data 中，除了通常的 <strong>"stonehearth:net_worth"</strong> 和 <strong>"stonehearth:catalog"</strong> 条目外，我们有 <a href="../../basic/wearables/weapons/index.html#WeaponData"><strong>"stonehearth:combat:weapon_data"</strong></a>，用于定义工具在城镇警戒模式下用作武器时的范围以及应该造成多少伤害；以及 <a href="../../basic/wearables/weapons/index.html#MeleeAttacks"><strong>"stonehearth:combat:melee_attacks"</strong></a>，用于定义基本攻击。</p>
+                    <p>  对于战斗单位，高级攻击通常在其他文件中指定，以便我们可以通过特定武器或在特定等级解锁它们。</p>
                 </li>
                 <li>
-                    <p>Then we edit the <code>job_tool_iconic.json</code>, and we add aliases for both the talisman and the tool (weapon).</p>
+                    <p>然后我们编辑 <code>job_tool_iconic.json</code>，并为护身符和工具（武器）添加别名。</p>
                 </li>
                 <li>
-                    <p>Finally, don't forget to make the talisman obtainable in the game! Via a recipe, loot, quest reward, whatever you want.</p>
+                    <p>最后，不要忘记使护身符在游戏中可获得！通过配方、战利品、任务奖励，任何你想要的。</p>
                 </li>
             </ul>
-            <h3><a name="JobDescription"></a>Job description</h3>
-            <p>These are the common fields that we can have for all jobs in their description JSON file:</p>
+            <h3><a name="JobDescription"></a>职业描述</h3>
+            <p>这些是我们可以在所有职业的描述 JSON 文件中拥有的通用字段：</p>
             <ul>
                 <li>
-                    <p><strong>"type": "job"</strong> -- this file represents a job.</p>
+                    <p><strong>"type": "job"</strong> -- 此文件表示一个职业。</p>
                 </li>
                 <li>
-                    <p><strong>"enabled"</strong> -- usually we want to set this to <strong>true</strong>. There's no function in game to enable jobs on the fly, so only set it to <strong>false</strong> if your job is a work in progress and you don't want it to appear in the promotion tree yet. There's also the possibility of using <strong>"in-progress"</strong> instead of true/false, which will make it appear in the promotion tree with a '?' sign as an icon and hide the name and data with more interrogation signs, as well as preventing the player from promoting to that job.</p>
+                    <p><strong>"enabled"</strong> -- 通常我们希望将其设置为 <strong>true</strong>。游戏中没有动态启用职业的功能，所以只有当你的职业正在进行中且你还不希望它出现在晋升树中时，才将其设置为 <strong>false</strong>。还有一种可能性是使用 <strong>"in-progress"</strong> 而不是 true/false，这将使其在晋升树中以 '?' 符号作为图标出现，并用更多问号隐藏名称和数据，以及防止玩家提升到该职业。</p>
                 </li>
                 <li>
-                    <p><strong>"job_id"</strong> -- a unique identifier.</p>
+                    <p><strong>"job_id"</strong> -- 唯一标识符。</p>
                 </li>
                 <li>
-                    <p><strong>"display_order"</strong> -- an ordinal to make our job icon appear before/after other jobs in the jobs index. Since mods can add more jobs without knowing about other jobs, it's normal that there are repeated ordinals, in that case the order might not be as expected.</p>
+                    <p><strong>"display_order"</strong> -- 一个序数，使我们的职业图标在职业索引中出现在其他职业之前/之后。由于模组可以在不了解其他职业的情况下添加更多职业，因此重复的序数是正常的，在这种情况下顺序可能不如预期。</p>
                 </li>
                 <li>
-                    <p><strong>"alias"</strong> -- the alias of our job preceded by the namespace plus a colon.</p>
+                    <p><strong>"alias"</strong> -- 我们职业的别名，前面加上命名空间和冒号。</p>
                 </li>
                 <li>
-                    <p><strong>"display_name"</strong> -- a localized display name for the job, to use in different parts of the UI.</p>
+                    <p><strong>"display_name"</strong> -- 职业的本地化显示名称，用于 UI 的不同部分。</p>
                 </li>
                 <li>
-                    <p><strong>"controller"</strong> -- the URI of this job's controller preceded by the namespace plus a colon. Remember that it has to be defined inside the <strong>"controllers"</strong> section of your manifest, not under "aliases".</p>
+                    <p><strong>"controller"</strong> -- 此职业控制器的 URI，前面加上命名空间和冒号。请记住，它必须在清单的 <strong>"controllers"</strong> 部分中定义，而不是在 "aliases" 下。</p>
                 </li>
                 <li>
-                    <p><strong>"description"</strong> -- a localized description for our job, will be shown in the bottom left of the promotion tree when we select our job.</p>
+                    <p><strong>"description"</strong> -- 我们职业的本地化描述，将在我们选择职业时显示在晋升树的左下角。</p>
                 </li>
                 <li>
-                    <p><strong>"requirements"</strong> -- a localized text that describes the requirements for this job, to show at the bottom of the promotion tree when we select it.</p>
-                    <p>  The icon and name of the required talisman, and the required parent job/level will be shown automatically. But we can add a custom description here, for example saying which job can craft this talisman, how to get it, or some flavor text (take a look at the requirements for the worker job).</p>
+                    <p><strong>"requirements"</strong> -- 描述此职业要求的本地化文本，将在我们选择时显示在晋升树的底部。</p>
+                    <p>  所需护身符的图标和名称，以及所需的父职业/等级将自动显示。但我们可以在这里添加自定义描述，例如说明哪个职业可以制作此护身符，如何获得它，或一些风味文本（查看 worker 职业的要求）。</p>
                 </li>
                 <li>
-                    <p><strong>"abilities"</strong> -- a path to the job abilities JSON file (it defines an <a href="../../basic/wearables/index.html#EquipmentPieces">equipment piece</a> where we can inject AI / etc to it, so that the hearthling knows how to perform their new job).</p>
+                    <p><strong>"abilities"</strong> -- 职业能力 JSON 文件的路径（它定义了一个<a href="../../basic/wearables/index.html#EquipmentPieces">equipment piece</a>，我们可以向其中注入 AI / 等，以便 Hearthling 知道如何执行他们的新职业）。</p>
                 </li>
                 <li>
-                    <p><strong>"equipment"</strong> -- contains keys referencing equipment slots pointing to equipment pieces. Normally we apply the job outfit in the <strong>"torso"</strong> slot, and the tool/weapon in the <strong>"mainhand"</strong> slot. We can also tell the game here to choose a random equipment piece for the hearthling. For example, take a look at <code>worker_description.json</code>.</p>
+                    <p><strong>"equipment"</strong> -- 包含引用装备槽指向 equipment pieces 的键。通常我们在 <strong>"torso"</strong> 槽中应用职业服装，在 <strong>"mainhand"</strong> 槽中应用工具/武器。我们也可以在这里告诉游戏为 Hearthling 选择随机 equipment piece。例如，查看 <code>worker_description.json</code>。</p>
                 </li>
                 <li>
-                    <p><strong>"roles"</strong> -- a string of roles separated by spaces or an array of roles (which is better for mod compatibility). Normally one role will be for the job name plus a <code>_job</code> suffix, and depending on the job type, we'll add more roles like <code>"crafter"</code>, <code>"combat"</code>, <code>"mail_wearer"</code>, etc. That way they'll be able to equip gear that has those roles in their equipment_piece component.</p>
+                    <p><strong>"roles"</strong> -- 由空格分隔的角色字符串或角色数组（这对模组兼容性更好）。通常一个角色将是职业名称加上 <code>_job</code> 后缀，根据职业类型，我们将添加更多角色，如 <code>"crafter"</code>、<code>"combat"</code>、<code>"mail_wearer"</code> 等。这样他们将能够装备在其 equipment_piece 组件中具有这些角色的装备。</p>
                 </li>
                 <li>
-                    <p><strong>"talisman_uri"</strong> -- the alias of our talisman entity prefixed by the namespace of our mod plus a colon.</p>
+                    <p><strong>"talisman_uri"</strong> -- 我们护身符实体的别名，前面加上我们模组的命名空间和冒号。</p>
                 </li>
                 <li>
-                    <p><strong>"default_stance"</strong> -- can be <strong>"passive"</strong> (used for most of the jobs), <strong>"aggressive"</strong> (used for combat jobs) or <strong>"defensive"</strong> (used for some NPC jobs, which will only attack if they're attacked).</p>
+                    <p><strong>"default_stance"</strong> -- 可以是 <strong>"passive"</strong>（用于大多数职业）、<strong>"aggressive"</strong>（用于战斗职业）或 <strong>"defensive"</strong>（用于某些 NPC 职业，只有在被攻击时才会攻击）。</p>
                 </li>
                 <li>
-                    <p><strong>"icon"</strong> -- path to the image for the icon that will appear in the different parts of the UI for our job. The icons in the promotion tree don't need the square background, that's added automatically.</p>
+                    <p><strong>"icon"</strong> -- 将在 UI 的不同部分为我们的职业出现的图标的图像路径。晋升树中的图标不需要方形背景，那是自动添加的。</p>
                 </li>
                 <li>
-                    <p><strong>"promotion_activity_name"</strong> -- an identifier not in use nowadays. It was intended for the town journal.</p>
+                    <p><strong>"promotion_activity_name"</strong> -- 现在未使用的标识符。它旨在用于城镇日志。</p>
                 </li>
                 <li>
-                    <p><strong>"task_groups": []</strong> -- an array of aliases of task groups that will get applied to the hearthling when they're promoted to this job, and removed when we promote them to another job or demote them.</p>
-                    <p>  Depending on the job type, we might want to include / not include certain task groups. For example if we don't include <code>"stonehearth:task_groups:build"</code>, the hearthling won't be able to build after promoting them, and their checkbox under the Build column in the citizens panel will get disabled. Some jobs will not include the task group that allows for harvesting resources, or moving items, so that the hearthling is more focused on their job.</p>
-                    <p>  There's no list of task groups but their aliases are grouped in the stonehearth manifest. You'll usually want the same ones that the job you copied had. More on AI in advanced sections of the guide.</p>
+                    <p><strong>"task_groups": []</strong> -- 任务组别名的数组，当 Hearthling 提升到此职业时将应用于他们，并在我们提升到另一个职业或降级时移除。</p>
+                    <p>  根据职业类型，我们可能希望包含/不包含某些任务组。例如，如果我们不包含 <code>"stonehearth:task_groups:build"</code>，Hearthling 在提升后将无法建造，并且他们在市民面板中 Build 列下的复选框将被禁用。一些职业将不包括允许 harvesting 资源或移动物品的任务组，以便 Hearthling 更专注于他们的职业。</p>
+                    <p>  没有任务组列表，但它们的别名在 stonehearth 清单中分组。你通常需要与你复制的职业相同的任务组。更多关于 AI 的内容见指南的高级部分。</p>
                 </li>
                 <li>
-                    <p><strong>"parent_job"</strong> -- URI of the parent job.</p>
+                    <p><strong>"parent_job"</strong> -- 父职业的 URI。</p>
                 </li>
                 <li>
-                    <p><strong>"max_level"</strong> -- if this job can level up (all jobs can except Worker), establish the maximum level that a hearthling can reach in it.</p>
+                    <p><strong>"max_level"</strong> -- 如果此职业可以升级（除 Worker 外所有职业都可以），确定 Hearthling 可以达到的最大等级。</p>
                 </li>
                 <li>
-                    <p><strong>"xp_rewards": {}</strong> -- the contents of this field may vary depending on the type of job, they serve to define how much exp will the hearthling get by doing different tasks on their job.</p>
+                    <p><strong>"xp_rewards": {}</strong> -- 此字段的内容可能因职业类型而异，它们用于定义 Hearthling 通过执行其职业中的不同任务将获得多少经验。</p>
                 </li>
                 <li>
-                    <p><strong>"level_data": {}</strong> -- the list of job perks for this job. See below.</p>
+                    <p><strong>"level_data": {}</strong> -- 此职业的职业特权列表。见下文。</p>
                 </li>
             </ul>
-            <h3><a name="JobPerks"></a> About job perks</h3>
-            <p>The way job perks from the <code>job_description.json</code> file work is:</p>
+            <h3><a name="JobPerks"></a> 关于职业特权</h3>
+            <p><code>job_description.json</code> 文件中职业特权的工作方式是：</p>
             <ul>
                 <li>
-                    <p>They all consist of an array of JSON objects.</p>
+                    <p>它们都由 JSON 对象数组组成。</p>
                 </li>
                 <li>
-                    <p>The minimum fields are <strong>"name"</strong>, <strong>"id"</strong>, <strong>"icon"</strong>, <strong>"description"</strong> and <strong>"level"</strong>. The "level" is used to unlock them. The "id" is an identifier used to perform checks in Lua when we need to know whether a hearthling has unlocked a perk or not.</p>
+                    <p>最小字段是 <strong>"name"</strong>、<strong>"id"</strong>、<strong>"icon"</strong>、<strong>"description"</strong> 和 <strong>"level"</strong>。"level" 用于解锁它们。"id" 是一个标识符，用于在我们需要知道 Hearthling 是否已解锁特权时在 Lua 中执行检查。</p>
                 </li>
                 <li>
-                    <p>If the perk consists in something that is automatically controlled by other files (such as unlocking recipes - each recipe defines at which level it will get unlocked) no extra fields are needed.</p>
+                    <p>如果特权包括由其他文件自动控制的内容（如解锁配方 - 每个配方定义了在哪个等级解锁），则不需要额外字段。</p>
                 </li>
                 <li>
-                    <p>If the perk involves something more elaborate, it will have a <strong>"type"</strong> field plus any additional custom fields for data.</p>
-                    <p>  This "type" is the name of a function defined in the job's controller file. Sometimes it will be defined in <code>stonehearth/jobs/base_job.lua</code> instead, since all jobs inherit from it. The extra fields can be used for data to pass to that custom function.</p>
-                    <p>  This way we can have perks that add permanent buffs to the hearthling, or equip invisible equipment that adds custom AI actions so that they can do more fancy things (like a new combat skill), or increase the maximum number of turrets / golems that the town can have, for example.</p>
+                    <p>如果特权涉及更复杂的内容，它将有一个 <strong>"type"</strong> 字段以及任何额外的自定义数据字段。</p>
+                    <p>  这个 "type" 是在职业控制器文件中定义的函数的名称。有时它将在 <code>stonehearth/jobs/base_job.lua</code> 中定义，因为所有职业都继承自它。额外字段可用于传递给该自定义函数的数据。</p>
+                    <p>  这样我们可以拥有为 Hearthling 添加永久 buff 的特权，或装备添加自定义 AI 行为的隐形装备，使他们可以做更花哨的事情（如新的战斗技能），或增加城镇可以拥有的炮塔/魔像的最大数量，例如。</p>
                 </li>
                 <li>
-                    <p>Together with perks that use a custom function, you'll also see a <strong>"demote_fn"</strong> field. This designates what should be run if the hearthling has that perk and is demoted. It's a way of ensuring that permanent buffs and custom abilities are removed when the hearthling is promoted/demoted to some other job. If you don't add it, the hearthling will keep those abilities.</p>
+                    <p>与使用自定义函数的特权一起，你还将看到一个 <strong>"demote_fn"</strong> 字段。这指定了如果 Hearthling 拥有该特权并被降级时应运行什么。这是一种确保在 Hearthling 提升/降级到其他职业时移除永久 buff 和自定义能力的方法。如果你不添加它，Hearthling 将保留这些能力。</p>
                 </li>
             </ul>
-            <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> You'll also see that many jobs at level 6 will get a title instead of / in addition to perks, which allows us to know that they're at the maximum level in the UI. This title is outside of the "perks" array. Nowadays it's not needed, all hearthlings will get a title that will be shown in the character sheet and will change as they level up (Apprentice, Journeyman, Master).</p>
-            <p>On top of the perks, hearthlings will gain +10 health points every time they level up. These will carry on after promoting / demoting.
-                Job experience is reset when you promote / demote a hearthling, to encourage specialization.
+            <p><img src="/modding_guide/images/common/gold.png" alt="图标"/> 你还会看到许多职业在 6 级将获得一个头衔而不是/除了特权之外，这使我们能够在 UI 中知道他们处于最大等级。此头衔在 "perks" 数组之外。现在它不是必需的，所有 Hearthlings 将获得一个将在角色表中显示并随着他们升级而改变的头衔（Apprentice、Journeyman、Master）。</p>
+            <p>除了特权外，Hearthlings 每次升级时将获得 +10 生命值。这些将在提升/降级后保留。
+                当你提升/降级 Hearthling 时，职业经验将重置，以鼓励专业化。
             </p>
-            <h3><a name="JobProgression"></a>About job progression</h3>
-            <p>In the job component inside the <code>base_human.json</code> mixin we can find info that is common for all jobs:</p>
+            <h3><a name="JobProgression"></a>关于职业 progression</h3>
+            <p>在 <code>base_human.json</code> mixin 内的 job 组件中，我们可以找到所有职业通用的信息：</p>
             <pre><code>  "stonehearth:job": {
      "starting_level_title": "i18n(stonehearth:stonehearth_mixins.base_human.job.starting_level_title)",
      "mid_level_title": "i18n(stonehearth:stonehearth_mixins.base_human.job.mid_level_title)",
@@ -196,10 +196,10 @@
      }
   }
 </code></pre>
-            <p>We can customize these fields via mixintos. For example, we have the titles based on level (Apprentice, Journeyman, Master), and the equation that is used to calculate the amount of experience required to get to the next level. Mind that not all of these fields are in use nowadays.</p>
-            <h2><a name="OtherJobs"></a>Creating other types of jobs</h2>
-            <p>You can create other types of jobs as long as they inherit from <code>base_job.lua</code>. For example, in the game we have the producers (farmer, trapper and shepherd) whose job is based on using <a href="../../advanced/call_handlers/index.html#Example2">zones</a>.</p>
-            <p>But you don't need to use zones if you don't want to. Just with custom <a href="../../advanced/ai/index.html">AI</a> should be enough. For instance, in the vanilla game, some crafters have other responsibilities (the herbalist heals, the cook farms, the engineer repairs turrets), they're not exclusively dedicated to crafting. And workers aren't a combat nor a crafting job.</p>
+            <p>我们可以通过 mixintos 自定义这些字段。例如，我们有基于等级的头衔（Apprentice、Journeyman、Master），以及用于计算达到下一级所需经验量的方程式。请注意，并非所有这些字段现在都在使用中。</p>
+            <h2><a name="OtherJobs"></a>创建其他类型的职业</h2>
+            <p>只要它们继承自 <code>base_job.lua</code>，你就可以创建其他类型的职业。例如，在游戏中我们有生产者（农民、捕猎者和牧羊人），他们的工作基于使用<a href="../../advanced/call_handlers/index.html#Example2">区域</a>。</p>
+            <p>但如果你不想，你不需要使用区域。仅使用自定义<a href="../../advanced/ai/index.html">AI</a> 就足够了。例如，在原版游戏中，一些工匠有其他职责（草药师治疗、厨师 farming、工程师修理炮塔），他们并不专门致力于制作。而 Workers 既不是战斗职业也不是制作职业。</p>
         </main>
     </body>
 </html>

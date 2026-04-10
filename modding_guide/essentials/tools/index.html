@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,34 +7,34 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Tools for modding</title>
+        <title>模组制作工具</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Tools for modding</h1>
+            <h1>模组制作工具</h1>
             <p>
-            <h2>What tools do I need to make my mod?</h2>
+            <h2>制作模组需要什么工具？</h2>
             </p>
             <ul>
-                <li><strong>Any text editor</strong>. You can use whichever editor you like, from Notepad, to Sublime. It's better if the text editor has features that help with programming, such as highlighting syntax, etc, but you can simply use the default editor that comes with Windows (Notepad).</li>
+                <li><strong>任意文本编辑器</strong>。你可以使用任何喜欢的编辑器，从记事本到 Sublime Text 都可以。如果文本编辑器具有帮助编程的功能（如语法高亮等）会更好，但你也可以简单地使用 Windows 自带的默认编辑器（记事本）。</li>
             </ul>
-            <p>That is the only required tool, actually, but depending on what your mod does, you will want more tools:</p>
+            <p>实际上，这是唯一必需的工具，但根据你的模组功能，你可能需要更多工具：</p>
             <ol>
                 <li>
-                    <p>If you want to add your own models to the game, you'll need a <strong>voxel editor</strong>. There are free ones, like <a href="https://ephtracy.github.io/">MagicaVoxel</a>, <a href="https://blackflux.com/node/11">VoxelShop</a> or <a href="http://guillaumechereau.github.io/goxel/">Goxel</a>; and paid ones like <a href="http://www.minddesk.com/">Qubicle</a>. It must have the option to export files in <em>.qb</em> format. Additionally, if you want to animate those models for the game, it'll need to have the option to export to another 3D format (.obj, etc.), and also be able to use "matrices" or different layers in the model, so that you can separate the different parts for animating.</p>
+                    <p>如果你想向游戏中添加自己的模型，你需要一个<strong>3D像素编辑器</strong>。有免费的编辑器，如 <a href="https://ephtracy.github.io/">MagicaVoxel</a>、<a href="https://blackflux.com/node/11">VoxelShop</a> 或 <a href="http://guillaumechereau.github.io/goxel/">Goxel</a>；也有付费的编辑器，如 <a href="http://www.minddesk.com/">Qubicle</a>。它必须能够导出 <em>.qb</em> 格式的文件。此外，如果你想为游戏中的模型制作动画，它还需要能够导出为其他 3D 格式（<em>.obj</em> 等），并且能够使用"矩阵"或模型中的不同图层，以便分离不同的部分用于动画制作。</p>
                 </li>
                 <li>
-                    <p>For <strong>animation</strong>, you can use free programs like <a href="https://www.blender.org/">Blender</a>, or paid programs like <a href="https://www.autodesk.com/education/free-software/3ds-max">3ds Max</a> or <a href="https://www.autodesk.com/education/free-software/maya">Maya</a> (these ones have free versions too). You'll need some kind of add-on or plugin that allows for skeletons and animations to be exported to the JSON structure that the game uses.</p>
+                    <p>对于<strong>动画制作</strong>，你可以使用免费程序如 <a href="https://www.blender.org/">Blender</a>，或付费程序如 <a href="https://www.autodesk.com/education/free-software/3ds-max">3ds Max</a> 或 <a href="https://www.autodesk.com/education/free-software/maya">Maya</a>（这些程序也有免费版本）。你需要某种插件或扩展，能够将骨骼和动画导出为游戏使用的 JSON 结构。</p>
                 </li>
                 <li>
-                    <p>For <strong>checking JSON syntax</strong>, there's a convenient online tool called <a href="https://jsonlint.com">JsonLint</a>, and there's also another tool for comparing the content of two JSON files: <a href="http://www.jsondiff.com/">Json Diff</a>.</p>
+                    <p>对于<strong>检查 JSON 语法</strong>，有一个方便的在线工具叫 <a href="https://jsonlint.com">JsonLint</a>，还有另一个用于比较两个 JSON 文件内容的工具：<a href="http://www.jsondiff.com/">Json Diff</a>。</p>
                 </li>
                 <li>
-                    <p>For <strong>faster mod creation</strong>, there's the official <a href="../../essentials/shed/index.html">SHED</a> (StoneHearth EDitor). It now includes a user-friendly particle effects editor, auto-complete for campaigns, and a recipes editor. It comes bundled in the game folder, at /stonehearth/shed/.</p>
+                    <p>为了<strong>更快地创建模组</strong>，可以使用官方的 <a href="../../essentials/shed/index.html">SHED</a>（StoneHearth 编辑器）。它现在包含用户友好的粒子效果编辑器、战役自动完成功能和配方编辑器。它捆绑在游戏文件夹中，位于 /stonehearth/shed/。</p>
                 </li>
                 <li>
-                    <p>For easier <strong>translation</strong> of existing mods to other languages, there's a web option at <a href="https://brunosupremo.github.io/Stonehearth-Translator/">Stonehearth-Translator</a> or a downloadable app at <a href="https://discourse.stonehearth.net/t/tkhs-translation-helper-program-downloadable/5086">thk's tool</a>.</p>
+                    <p>为了更轻松地<strong>翻译</strong>现有模组到其他语言，有一个网页选项 <a href="https://brunosupremo.github.io/Stonehearth-Translator/">Stonehearth-Translator</a>，或者可下载的应用程序 <a href="https://discourse.stonehearth.net/t/tkhs-translation-helper-program-downloadable/5086">thk 的工具</a>。</p>
                 </li>
             </ol>
         </main>

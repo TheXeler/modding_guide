@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,43 +7,43 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Modding Essentials</title>
+        <title>模组制作基础</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Modding Essentials</h1>
-            <p>In this guide we'll talk about how to start modding, what things can be modded, initial instructions and tools needed to start modding Stonehearth.</p>
-            <p>Please read the contents of this guide before attempting to do any modding. The basic, intermediate and advanced guides assume that you know all the essentials explained here.</p>
-            <p>Table of Contents</p>
+            <h1>模组制作基础</h1>
+            <p>在本指南中，我们将介绍如何开始模组制作、哪些内容可以被模组化、以及开始制作 Stonehearth 模组所需的初始说明和工具。</p>
+            <p>在尝试进行任何模组制作之前，请阅读本指南的内容。基础、中级和高级指南都假设你已经掌握了这里讲解的所有基础知识。</p>
+            <p>目录</p>
             <ol>
                 <li>
-                    <a href="managing/index.html">Managing mods</a> : where to get mods and how to enable / disable them.
+                    <a href="managing/index.html">模组管理</a>：从哪里获取模组以及如何启用/禁用它们。
                     <ol>
-                        <li><a href="managing/workshop/index.html">Steam Workshop mods</a> : all about installing and uploading Steam Workshop mods.</li>
-                        <li><a href="managing/unmanaged/index.html">Local mods</a> : all about installing and uploading non-Steam Workshop mods.</li>
+                        <li><a href="managing/workshop/index.html">Steam 创意工坊模组</a>：关于安装和上传 Steam 创意工坊模组的全部内容。</li>
+                        <li><a href="managing/unmanaged/index.html">本地模组</a>：关于安装和上传非 Steam 创意工坊模组的全部内容。</li>
                     </ol>
                 </li>
-                <li><a href="programming_languages/index.html">Programming languages</a> : which programming languages do we use in Stonehearth.</li>
-                <li><a href="tools/index.html">Tools for modding</a> : which programs do we need for creating mods.</li>
-                <li><a href="stonehearth/index.html">The Stonehearth mod</a> : how to explore the game files.</li>
-                <li><a href="json/index.html">Small intro to JSON</a> : basic explanation of JSON syntax.</li>
-                <li><a href="manifest/index.html">The manifest</a> : what is the manifest and its structure. Your first mod.</li>
-                <li><a href="entities_components/index.html">Entities and components</a> : what are they and how to represent them in JSON.</li>
-                <li><a href="mixins/index.html">Mixins</a> : what are mixins and how are they used.</li>
-                <li><a href="mixintos_overrides/index.html">Mixintos and overrides</a> : the basic API for modding.</li>
-                <li><a href="removing/index.html">Mixintypes</a> : how to use "mixintypes" to remove content from the stonehearth mod.</li>
-                <li><a href="localization/index.html">Localization</a> : how does localization work for mods.</li>
-                <li><a href="debugging/index.html">How to debug your errors</a> : tips for debugging your mod.</li>
+                <li><a href="programming_languages/index.html">编程语言</a>：Stonehearth 中使用的编程语言。</li>
+                <li><a href="tools/index.html">模组制作工具</a>：创建模组需要哪些程序。</li>
+                <li><a href="stonehearth/index.html">Stonehearth 模组</a>：如何浏览游戏文件。</li>
+                <li><a href="json/index.html">JSON 简介</a>：JSON 语法的基本说明。</li>
+                <li><a href="manifest/index.html">清单文件（Manifest）</a>：什么是清单文件及其结构。你的第一个模组。</li>
+                <li><a href="entities_components/index.html">实体与组件</a>：它们是什么以及如何用 JSON 表示。</li>
+                <li><a href="mixins/index.html">混入（Mixins）</a>：什么是混入以及如何使用。</li>
+                <li><a href="mixintos_overrides/index.html">Mixintos 和覆盖（Overrides）</a>：模组制作的基础 API。</li>
+                <li><a href="removing/index.html">Mixintypes</a>：如何使用 "mixintypes" 从 stonehearth 模组中移除内容。</li>
+                <li><a href="localization/index.html">本地化</a>：模组的本地化如何工作。</li>
+                <li><a href="debugging/index.html">错误调试方法</a>：调试模组的技巧。</li>
                 <li>
-                    <a href="debugtools/index.html">Using debug tools</a> : how to use debug tools to cheat and help testing faster.
+                    <a href="debugtools/index.html">使用调试工具</a>：如何使用调试工具作弊并加快测试速度。
                     <ol>
-                        <li><a href="debugtools/debugtools_mod/index.html">The debugtools mod</a> : built-in mod with many useful debug tools.</li>
-                        <li><a href="debugtools/default_console/index.html">The default console</a> : list of commands of the default console.</li>
+                        <li><a href="debugtools/debugtools_mod/index.html">debugtools 模组</a>：内置的包含许多有用调试工具的模组。</li>
+                        <li><a href="debugtools/default_console/index.html">默认控制台</a>：默认控制台命令列表。</li>
                     </ol>
                 </li>
-                <li><a href="startermods/index.html">Startermod example</a> : how to play with the starter mods to experiment and get used to modding.</li>
-                <li><a href="shed/index.html">How to save time with SHED</a> : how to start using the Stonehearth Editor to save time when modding.</li>
+                <li><a href="startermods/index.html">入门模组示例</a>：如何通过入门模组进行实验并熟悉模组制作。</li>
+                <li><a href="shed/index.html">使用 SHED 节省时间</a>：如何开始使用 Stonehearth 编辑器（SHED）在模组制作时节省时间。</li>
             </ol>
         </main>
     </body>

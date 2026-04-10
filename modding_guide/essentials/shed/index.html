@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,182 +7,182 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>How to save time with SHED</title>
+        <title>使用 SHED 节省时间</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>How to save time with SHED</h1>
+            <h1>使用 SHED 节省时间</h1>
             <ul>
-                <li><a href="#SHED">What is SHED?</a></li>
+                <li><a href="#SHED">什么是 SHED？</a></li>
                 <li>
-                    <a href="#Setup">Setup SHED</a>
+                    <a href="#Setup">设置 SHED</a>
                     <ul>
-                        <li><a href="#AdditionalSetup">Additional setup</a></li>
+                        <li><a href="#AdditionalSetup">额外设置</a></li>
                     </ul>
                 </li>
-                <li><a href="#FirstRun">First time run</a></li>
-                <li><a href="#Overview">Overview</a></li>
+                <li><a href="#FirstRun">首次运行</a></li>
+                <li><a href="#Overview">概览</a></li>
                 <li>
-                    <a href="#Basics">SHED basics</a>
+                    <a href="#Basics">SHED 基础</a>
                     <ul>
-                        <li><a href="#Workarounds">Some workarounds and important info</a></li>
+                        <li><a href="#Workarounds">一些变通方法和重要信息</a></li>
                     </ul>
                 </li>
-                <li><a href="#Troubleshooting">Some troubleshooting tips</a></li>
+                <li><a href="#Troubleshooting">一些故障排除提示</a></li>
             </ul>
-            <h2><a name="SHED"></a>What is SHED?</h2>
-            <p>SHED is short for Stonehearth Editor. It is written in C# using WinForms, although some of its editors are made with CEF, and it also uses some Python scripts.</p>
-            <h2><a name="Setup"></a>Setup SHED</h2>
-            <p>We now offer a SHED build bundled with the game. You can find it inside your Stonehearth installation folder:</p>
+            <h2><a name="SHED"></a>什么是 SHED？</h2>
+            <p>SHED 是 Stonehearth Editor 的缩写。它使用 WinForms 以 C# 编写，尽管其中一些编辑器是使用 CEF 制作的，并且它还使用一些 Python 脚本。</p>
+            <h2><a name="Setup"></a>设置 SHED</h2>
+            <p>我们现在提供与游戏捆绑的 SHED 版本。你可以在 Stonehearth 安装文件夹中找到它：</p>
             <ul>
-                <li>If you installed the game with the Humble Bundle installer, this will normally be at <code>C:\Program Files (x86)\Stonehearth\shed\</code>. </li>
-                <li>If you have installed it via Steam, then the mods folder will be at <code>C:\Program Files (x86)\Steam\steamApps\common\Stonehearth\shed\</code>. </li>
+                <li>如果使用 Humble Bundle 安装程序安装游戏，通常位于 <code>C:\Program Files (x86)\Stonehearth\shed\</code>。</li>
+                <li>如果通过 Steam 安装，则 mods 文件夹位于 <code>C:\Program Files (x86)\Steam\steamApps\common\Stonehearth\shed\</code>。</li>
             </ul>
-            <p>Alternatively, if you want to download and compile the latest SHED version from our public repository, follow these steps:</p>
+            <p>或者，如果你想从我们的公共仓库下载并编译最新的 SHED 版本，请按照以下步骤操作：</p>
             <ol>
-                <li>Get a Visual Studio version (minimum VS 2014). If you have one of the popular game engines, you might have installed already the Community version of Visual Studio, which is free. Otherwise you can find it <a href="https://www.visualstudio.com/en/downloads/">here</a>. 
-                    This IDE takes very long to download and install, so be sure you want to use SHED despite its bugs (you can always make your mods with any text editor).
+                <li>获取 Visual Studio 版本（最低 VS 2014）。如果你拥有流行的游戏引擎之一，你可能已经安装了免费的 Visual Studio Community 版本。否则你可以在<a href="https://www.visualstudio.com/en/downloads/">这里</a>找到它。
+                    这个 IDE 下载和安装需要很长时间，所以请确保尽管有 bug 你也想使用 SHED（你总是可以使用任何文本编辑器制作模组）。
                 </li>
-                <li>Download the SHED code from <a href="https://github.com/stonehearth/stonehearth-editor">here</a>. 
-                    Click in the "Clone or Download" button and save it in some folder in your computer.
+                <li>从<a href="https://github.com/stonehearth/stonehearth-editor">这里</a>下载 SHED 代码。
+                    点击 "Clone or Download" 按钮并将其保存到你计算机上的某个文件夹中。
                 </li>
-                <li>Open Visual Studio and go to File->Open->Project/Solution. Find the StonehearthEditor.sln file where you downloaded the code.</li>
-                <li>Select either Debug or Release and x86 or 64 bit (depending on your computer's architecture). Click on the Start button or in Build->Build Solution.</li>
-                <li>Once it has finished compiling, you can either run it from VS with the Start button, or find the exe in the respective folder.</li>
+                <li>打开 Visual Studio 并转到 File->Open->Project/Solution。在你下载代码的位置找到 StonehearthEditor.sln 文件。</li>
+                <li>选择 Debug 或 Release 以及 x86 或 64 位（取决于你计算机的架构）。点击 Start 按钮或 Build->Build Solution。</li>
+                <li>编译完成后，你可以使用 Start 按钮从 VS 运行它，或在相应文件夹中找到 exe 文件。</li>
             </ol>
-            <h3><a name="AdditionalSetup"></a>Additional setup</h3>
-            <p>If you want to use the <strong>auto-localization</strong> feature (which automatically prepares the translation file for your mod so that it can be translated to other languages), you must install <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a> in your computer. Make sure it is that version and not Python 3.
-                Then make sure you have the Python path in your environment variables so that your computer knows where to find it.
+            <h3><a name="AdditionalSetup"></a>额外设置</h3>
+            <p>如果你想使用<strong>自动本地化</strong>功能（它会自动为你的模组准备翻译文件，以便可以翻译成其他语言），你必须在计算机上安装 <a href="https://www.python.org/download/releases/2.7/">Python 2.7</a>。确保是该版本而不是 Python 3。
+                然后确保你的环境变量中有 Python 路径，以便你的计算机知道在哪里找到它。
             </p>
-            <h2><a name="FirstRun"></a>First time run</h2>
-            <p>Find the StonehearthEditor.exe inside the "shed" folder and run it. The first time you run SHED it will ask you to find your mods directory. Usually you would select the "mods" folder inside your Stonehearth folder.
+            <h2><a name="FirstRun"></a>首次运行</h2>
+            <p>在 "shed" 文件夹中找到 StonehearthEditor.exe 并运行它。第一次运行 SHED 时，它会要求你找到模组目录。通常你会选择 Stonehearth 文件夹中的 "mods" 文件夹。
                 <img src="/modding_guide/images/essentials/shed/choose_mods_folder.png" alt="choose_mods_folder"/>
             </p>
-            <p>To be able to see and create any content in SHED, the mods must be in plain folders, not in .smod or .zip. If your mods folder contains .smod files, SHED will offer you to uncompress them automatically. After it finishes, you might have to click on "File > Reload" for the mods to be detected by SHED.
+            <p>为了能够在 SHED 中查看和创建任何内容，模组必须是普通文件夹，而不是 .smod 或 .zip。如果你的模组文件夹包含 .smod 文件，SHED 将为你提供自动解压它们的选项。完成后，你可能需要点击 "File > Reload" 才能使 SHED 检测到模组。
                 <img src="/modding_guide/images/essentials/shed/ask_to_unzip.png" alt="ask_to_unzip"/>
-                If you manually unzip your mods, make sure the structure is the same than when we run <a href="../managing/unmanaged/index.html#ModConflicts">uncompressed mods</a> in the game, otherwise SHED won't know how to load them from the "mods" folder.
+                如果你手动解压模组，请确保结构与我们在游戏中运行<a href="../managing/unmanaged/index.html#ModConflicts">未压缩模组</a>时相同，否则 SHED 将不知道如何从 "mods" 文件夹加载它们。
             </p>
-            <p>SHED might take a little while to appear here and / or to load / reload all the mods, so be patient.
+            <p>SHED 可能需要一点时间才能出现和/或加载/重新加载所有模组，请耐心等待。
                 <img src="/modding_guide/images/essentials/shed/loading_data.png" alt="loading_data"/>
             </p>
-            <p>If you're going to upload your mods to the Steam Workshop, you will have already created them from the Mods menu in the game. In that case, after SHED has finished loading the base mods, go to File->Change Mod Directory:
+            <p>如果你打算将模组上传到 Steam 创意工坊，你将已经从游戏中的模组菜单创建了它们。在这种情况下，在 SHED 完成加载基础模组后，转到 File->Change Mod Directory：
                 <img src="/modding_guide/images/essentials/shed/steam_uploads_directory.png" alt="steam_uploads_directory"/>
             </p>
-            <p>You can browse and select your <code>steam_uploads</code> directory for the second text box, and click on 'Apply and reload', which will reload the mods list. Your mods will appear below the list of base mods, they won't get ordered together.</p>
-            <p>SHED expects the base mods to always be loaded, and you will also want to have them in order to clone items from them to your mods, so make sure you selected the right <code>mods</code> directory.</p>
-            <h2><a name="Overview"></a>Overview</h2>
-            <p>Let's take a look at the interface of SHED.
-                The options in the main menu are:
+            <p>你可以浏览并选择第二个文本框的 <code>steam_uploads</code> 目录，然后点击 'Apply and reload'，这将重新加载模组列表。你的模组将出现在基础模组列表下方，它们不会一起排序。</p>
+            <p>SHED 期望基础模组始终被加载，并且你也需要它们以便从它们克隆物品到你的模组中，所以确保你选择了正确的 <code>mods</code> 目录。</p>
+            <h2><a name="Overview"></a>概览</h2>
+            <p>让我们看看 SHED 的界面。
+                主菜单中的选项是：
             </p>
-            <p>File:</p>
+            <p>File：</p>
             <ul>
-                <li>New Mod</li>
-                <li>Save All</li>
-                <li>Reload</li>
-                <li>Change Mod Directory</li>
+                <li>New Mod（新建模组）</li>
+                <li>Save All（全部保存）</li>
+                <li>Reload（重新加载）</li>
+                <li>Change Mod Directory（更改模组目录）</li>
             </ul>
-            <p>View:</p>
+            <p>View：</p>
             <ul>
-                <li>Net Worth Visualizer</li>
+                <li>Net Worth Visualizer（净资产可视化器）</li>
             </ul>
-            <p>Help:</p>
+            <p>Help：</p>
             <ul>
-                <li>About</li>
+                <li>About（关于）</li>
             </ul>
             <p><img src="/modding_guide/images/essentials/shed/menubar_options.png" alt="menubar_options"/></p>
-            <p>Then we have the different tabs:</p>
+            <p>然后我们有不同的选项卡：</p>
             <ul>
-                <li>Manifest</li>
-                <li>Encounter Designer</li>
-                <li>Entity Stats Browser</li>
-                <li>Effects Editor</li>
-                <li>Recipe Editor</li>
+                <li>Manifest（清单）</li>
+                <li>Encounter Designer（遭遇战设计器）</li>
+                <li>Entity Stats Browser（实体统计浏览器）</li>
+                <li>Effects Editor（效果编辑器）</li>
+                <li>Recipe Editor（配方编辑器）</li>
             </ul>
             <p><img src="/modding_guide/images/essentials/shed/tabs.png" alt="tabs"/></p>
-            <p>We'll explain some basics of working with SHED here, and specific tutorials will go in the respective section of the modding guide.</p>
-            <h2><a name="Basics"></a>SHED basics</h2>
-            <p>The "File > New Mod" option automatically creates a mod folder and a pre-filled manifest for you, but it will be created in the base mods directory (a local mod). This is useful for users that don't use Steam.</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> If you use this option, you must enter the <strong>namespace</strong> of your mod in the text box of the dialog, not the name of your mod.</p>
-            <p>For basic modding, we'll be normally working in the Manifest tab.
-                When selecting a node on the treeview, the corresponding files will be opened in different tabs in the central area.
+            <p>我们将在这里解释一些使用 SHED 的基础知识，具体的教程将放在模组制作指南的相应部分。</p>
+            <h2><a name="Basics"></a>SHED 基础</h2>
+            <p>"File > New Mod" 选项会自动为你创建一个模组文件夹和预填充的清单，但它将在基础模组目录中创建（本地模组）。这对不使用 Steam 的用户很有用。</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你使用此选项，你必须在对话框的文本框中输入模组的<strong>命名空间</strong>，而不是模组的名称。</p>
+            <p>对于基本模组制作，我们通常会在 Manifest 选项卡中工作。
+                当在树视图中选择一个节点时，相应的文件将在中央区域的不同选项卡中打开。
                 <img src="/modding_guide/images/essentials/shed/node_selected.png" alt="node_selected"/>
-                These are the buttons on top of the tabs:
+                这些是选项卡顶部的按钮：
                 <img src="/modding_guide/images/essentials/shed/tab_bar_buttons.png" alt="tab_bar_buttons"/>
             </p>
             <ul>
                 <li>
-                    <p><strong>Open File in Text Editor</strong> : this will open the file in the text editor that you have assigned by default to open JSON files. You can change your default editor by right-clicking on a JSON file in the Windows File Explorer, clicking on "Properties", clicking on the "Change..." button and selecting the program of your choice.
+                    <p><strong>Open File in Text Editor</strong>：这将在你默认分配用于打开 JSON 文件的文本编辑器中打开文件。你可以通过在 Windows 资源管理器中右键单击 JSON 文件，点击 "Properties"，点击 "Change..." 按钮并选择你选择的程序来更改默认编辑器。
                         <img src="/modding_guide/images/essentials/shed/change_default_app.png" alt="change_default_app"/>
                     </p>
                 </li>
                 <li>
-                    <p><strong>Open Containing Folder</strong> : will open the folder where the current file resides.</p>
+                    <p><strong>Open Containing Folder</strong>：将打开当前文件所在的文件夹。</p>
                 </li>
                 <li>
-                    <p><strong>Save File</strong> : make sure to use it often when making changes to this file from within SHED.</p>
+                    <p><strong>Save File</strong>：在 SHED 中对此文件进行更改时，请确保经常使用它。</p>
                 </li>
                 <li>
-                    <p><strong>Localize This File</strong> : this will create the needed locale/en.json file if it doesn't exist, fill it with the appropiate strings and adjust your JSON file to point to them. Instructions on how to setup your file for this option to work correctly <a href="../../basic/adding_items/cloning_with_shed/index.html#AutoLocalization">here</a>.</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> This option might not work for all the files, so there could be some times when you will have to setup the localization of your files manually.</p>
+                    <p><strong>Localize This File</strong>：如果不存在，这将创建所需的 locale/en.json 文件，用适当的字符串填充它，并调整你的 JSON 文件以指向它们。有关如何设置文件以使此选项正常工作的说明在<a href="../../basic/adding_items/cloning_with_shed/index.html#AutoLocalization">这里</a>。</p>
+                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 此选项可能不适用于所有文件，因此有时你必须手动设置文件的本地化。</p>
                 </li>
                 <li>
-                    <p><strong>Preview with Mixins</strong> : this will open a window showing how the game will read the file after all the mixins have been applied. It will show comments to highlight the properties that come from mixins. These comments are invalid JSON, so don't copy anything from this window.
+                    <p><strong>Preview with Mixins</strong>：这将打开一个窗口，显示应用所有 mixins 后游戏将如何读取文件。它将显示注释以突出显示来自 mixins 的属性。这些注释是无效的 JSON，所以不要从此窗口复制任何内容。
                         <img src="/modding_guide/images/essentials/shed/mixin_preview.png" alt="mixin_preview"/>
                     </p>
                 </li>
             </ul>
-            <p>Not all these options appear for all of the files, only the applicable ones will show up.</p>
-            <p>On top of the tabs for the JSON files, you might also see more buttons. If you have an application assigned to open QB files by default, you can click in the buttons with the Qubicle icon to open the associated QB model. Same for the icons (.png files), though you can usually see them at the column on the right, above the dependencies.
+            <p>并非所有这些选项都适用于所有文件，只有适用的选项才会显示。</p>
+            <p>在 JSON 文件的选项卡顶部，你可能还会看到更多按钮。如果你有一个默认用于打开 QB 文件的应用程序，你可以点击带有 Qubicle 图标的按钮以打开关联的 QB 模型。图标（.png 文件）也是如此，尽管你通常可以在右侧列中看到它们，在依赖关系上方。
                 <img src="/modding_guide/images/essentials/shed/top_tab_buttons.png" alt="top_tab_buttons"/>
             </p>
-            <p>For localization strings, you can Ctrl+click on them and a dialog will appear allowing you to change the text. You can also know which text do they have by hovering over them, which is pretty convenient.
+            <p>对于本地化字符串，你可以 Ctrl+点击它们，将出现一个对话框允许你更改文本。你还可以通过将鼠标悬停在它们上面来知道它们有什么文本，这非常方便。
                 <img src="/modding_guide/images/essentials/shed/auto_loc.png" alt="auto_loc"/>
             </p>
-            <p>You can right-click the nodes in the treeview on the left to get different options. These options will be different depending on the type of item selected.
+            <p>你可以右键单击左侧树视图中的节点以获取不同的选项。这些选项将根据所选项目的类型而不同。
                 <img src="/modding_guide/images/essentials/shed/context_menu.png" alt="context_menu"/>
             </p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Bear in mind that cloning might still have bugs. Only JSON and Lua files with an alias will appear in the treeview of the Manifest tab.</p>
-            <p>When there's text with a darker background, you can Ctrl-click on it and it will open the referenced file in your default editor for that file's extension. It's also a way for SHED to tell you that it recognized the text as a reference to an existing file.</p>
-            <p>SHED will also tell us if there's some problem with one of our files. There will be an icon of a red circle with a cross in the treeview item, and for the tabs once we select it.
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 请记住，克隆可能仍有 bug。只有具有别名的 JSON 和 Lua 文件才会出现在 Manifest 选项卡的树视图中。</p>
+            <p>当有深色背景的文本时，你可以 Ctrl+点击它，它将在你默认的文件扩展名编辑器中打开引用的文件。这也是 SHED 告诉你它识别文本为对现有文件的引用的一种方式。</p>
+            <p>如果我们的文件有问题，SHED 也会告诉我们。树视图项目和选项卡中将有一个红色圆圈带叉的图标。
                 <img src="/modding_guide/images/essentials/shed/error_icons.png" alt="error_icons"/>
             </p>
-            <p>When there are errors, there will be a text in red in the status bar of SHED. Double click on it, and a list of the affected files will show up in a dialog. Clicking on them once will show more info in the text area above, double-clicking on them will also open them in SHED so that you can modify them and fix the errors.
+            <p>当有错误时，SHED 的状态栏中会有红色文本。双击它，受影响的文件列表将在对话框中显示。点击它们一次将在上方的文本区域中显示更多信息，双击它们也将在 SHED 中打开它们，以便你可以修改它们并修复错误。
                 <img src="/modding_guide/images/essentials/shed/error_list.png" alt="error_list"/>
             </p>
-            <p>If SHED complains about one of your files, but doesn't refresh the error once you fix it and save those changes, use the "File > Reload" option.</p>
-            <h3><a name="Workarounds"></a>Some workarounds and important info</h3>
-            <p>At the moment this page was last updated:</p>
+            <p>如果 SHED 抱怨你的某个文件，但在你修复并保存这些更改后没有刷新错误，请使用 "File > Reload" 选项。</p>
+            <h3><a name="Workarounds"></a>一些变通方法和重要信息</h3>
+            <p>在此页面最后更新时：</p>
             <ul>
                 <li>
-                    <p>The recipe editor will only show your recipes if they're from a new crafter that you've made in your mod, unfortunately.</p>
+                    <p>不幸的是，配方编辑器只会显示你模组中制作的新工匠的配方。</p>
                 </li>
                 <li>
-                    <p>Cloning crafting jobs won't clone the recipes index correctly. You'll have to clone it separately and edit its recipes manually.</p>
+                    <p>克隆制作职业不会正确克隆配方索引。你必须单独克隆它并手动编辑其配方。</p>
                 </li>
                 <li>
-                    <p>For the encounter designer to detect your campaigns, you must have created your own "gm:index" alias on your mod (SHED doesn't detect mixintos nor overrides).</p>
+                    <p>为了让遭遇战设计器检测你的战役，你必须在模组中创建自己的 "gm:index" 别名（SHED 不检测 mixintos 或 overrides）。</p>
                 </li>
                 <li>
-                    <p>If you think a file should have updated because you saved it but SHED doesn't seem to notice, reload from the File menu.</p>
+                    <p>如果你认为文件应该因为你保存了它而更新，但 SHED 似乎没有注意到，请从 File 菜单重新加载。</p>
                 </li>
                 <li>
-                    <p>For the effect editor to find your effect files (and all the derived files, like cubemitters, etc.), you must have set them up like in the stonehearth mod (same directories under "data" and "data/horde").</p>
+                    <p>为了让效果编辑器找到你的效果文件（以及所有派生文件，如 cubemitters 等），你必须像 stonehearth 模组中那样设置它们（"data" 和 "data/horde" 下的相同目录）。</p>
                 </li>
                 <li>
-                    <p>Bear in mind that drastically editing files outside of SHED while SHED is open and listing them might cause it to crash, especially if what you did was deleting the files or moving them.</p>
+                    <p>请记住，在 SHED 打开并列出文件时，在 SHED 外部大幅编辑文件可能会导致其崩溃，特别是如果你做的是删除文件或移动它们。</p>
                 </li>
             </ul>
-            <h2><a name="Troubleshooting"></a>Some troubleshooting tips</h2>
+            <h2><a name="Troubleshooting"></a>一些故障排除提示</h2>
             <ul>
                 <li>
-                    <p>If SHED becomes unresponsive, don't click on it. Let it run for a little while. There are many actions that cause it to reload a huge amount of files, and it's not optimized for that. So many times it will take some time to load or refresh.</p>
+                    <p>如果 SHED 变得无响应，不要点击它。让它运行一会儿。有许多操作会导致它重新加载大量文件，并且它没有为此优化。所以很多时候它需要一些时间来加载或刷新。</p>
                 </li>
                 <li>
-                    <p>If an error pops up besides SHED becoming unresponsive, you can try to click on "Continue". But if it still feels unstable, try to restart it. Worst case scenario: if you can't close SHED, open the Task Manager, right click on the "StonehearthEditor" process and click on "End Task".</p>
+                    <p>如果除了 SHED 变得无响应之外还弹出错误，你可以尝试点击 "Continue"。但如果它仍然感觉不稳定，请尝试重新启动它。最坏的情况：如果你无法关闭 SHED，打开任务管理器，右键单击 "StonehearthEditor" 进程并点击 "End Task"。</p>
                 </li>
                 <li>
-                    <p>If the Effects editor looks strange, and you can't use the CEF editor on the right side because it glitches, make sure that your monitor's display settings do not have a zoom higher / lower than 100%. Setting it to 100% and restarting SHED should get rid of that bugginess and allow you to use the effects editor comfortably.</p>
+                    <p>如果效果编辑器看起来奇怪，并且你无法使用右侧的 CEF 编辑器因为它出现故障，请确保你的显示器显示设置的缩放比例不高于或低于 100%。将其设置为 100% 并重新启动 SHED 应该可以消除这种错误并让你舒适地使用效果编辑器。</p>
                 </li>
             </ul>
         </main>

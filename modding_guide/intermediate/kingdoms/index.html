@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,158 +7,158 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Kingdoms</title>
+      <title>王国</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Kingdoms</h1>
-         <p>Kingdoms are managed through the population service, population call handler, and <code>population_faction.lua</code>. To add our new playable kingdom we can take a look at the rayyas_children and northern_alliance mods.</p>
-         <p>The steps for adding monster populations are similar, check this other <a href="../monsters/index.html">page</a>.</p>
+         <h1>王国</h1>
+         <p>王国通过 population 服务、population 调用处理程序和 <code>population_faction.lua</code> 进行管理。要添加新的可玩王国，我们可以查看 rayyas_children 和 northern_alliance 模组。</p>
+         <p>添加怪物种群的步骤类似，请查看此<a href="../monsters/index.html">页面</a>。</p>
          <ol>
             <li>
-               <p>Create the population files.</p>
-               <p>  We can copy an existing population JSON file, they're usually inside <code>stonehearth/services/server/population/data</code> (for Rayya's Children and Northern Alliance mods, they're inside their <code>data</code> folder). Let's check the properties that we can find in these files:</p>
+               <p>创建人口文件。</p>
+               <p>  我们可以复制现有人口 JSON 文件，它们通常位于 <code>stonehearth/services/server/population/data</code> 内（对于 Rayya's Children 和 Northern Alliance 模组，它们位于其 <code>data</code> 文件夹内）。让我们检查这些文件中可以找到的属性：</p>
                <ul>
                   <li>
-                     <p><strong>"type": "kingdom"</strong> -- this file represents a kingdom / population.</p>
+                     <p><strong>"type": "kingdom"</strong> -- 此文件表示一个王国/人口。</p>
                   </li>
                   <li>
-                     <p><strong>"display_name"</strong> -- localized display name to show in the UI.</p>
+                     <p><strong>"display_name"</strong> -- 要在 UI 中显示的本地化显示名称。</p>
                   </li>
                   <li>
-                     <p><strong>"kingdom_id"</strong> -- an identifier for the kingdom. Try to keep it unique, and only use lowercase and underscores by convention.</p>
+                     <p><strong>"kingdom_id"</strong> -- 王国的标识符。按照惯例，尽量保持唯一，并仅使用小写字母和下划线。</p>
                   </li>
                   <li>
-                     <p><strong>"favored_biome"</strong> -- URI of the favored biome. Normally favored biomes provide with enough resources for the base crafter job of your custom kingdom. When players choose to play with this kingdom in a non-favored biome, a warning will appear in the UI. </p>
-                     <p> <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> The warning will only appear if we chose a vanilla kingdom that's not favored. For modded biomes it won't appear. Nevertheless, a "(favored)" text will appear next to the biome name, so that players know that in that biome they'll have all the resources for this kingdom's jobs.</p>
+                     <p><strong>"favored_biome"</strong> -- 偏爱生物群系的 URI。通常，偏爱的生物群系为你的自定义王国的基础工匠职业提供足够的资源。当玩家选择在非偏爱生物群系中使用此王国游玩时，UI 中将出现警告。</p>
+                     <p> <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 警告仅在我们选择非偏爱的原版王国时出现。对于模组化生物群系，它不会出现。尽管如此，"(favored)" 文本将出现在生物群系名称旁边，以便玩家知道在该生物群系中他们将拥有此王国职业所需的所有资源。</p>
                   </li>
                   <li>
-                     <p><strong>"quote"</strong> -- unused legacy field.</p>
+                     <p><strong>"quote"</strong> -- 未使用的遗留字段。</p>
                   </li>
                   <li>
-                     <p><strong>"description"</strong> -- localized description that will appear in the list of playable kingdoms in the UI.</p>
+                     <p><strong>"description"</strong> -- 将出现在 UI 中可玩王国列表中的本地化描述。</p>
                   </li>
                   <li>
-                     <p><strong>"post_selection_description"</strong> -- a localized description that will appear in the text at the left side of the screen after we select our kingdom. You may need to start it with a space.</p>
+                     <p><strong>"post_selection_description"</strong> -- 在选择王国后，将出现在屏幕左侧文本中的本地化描述。你可能需要以空格开头。</p>
                   </li>
                   <li>
-                     <p><strong>"image"</strong> -- path to the image for the list of kingdoms. Usually 400x300 pixels.</p>
+                     <p><strong>"image"</strong> -- 王国列表中图像的路径。通常为 400x300 像素。</p>
                   </li>
                   <li>
-                     <p><strong>"story_board_image"</strong> -- path to the image that will appear at the right side of the screen after we select our kingdom in the first embarkation screen. Normally depicts a couple citizens of our kingdom, with a transparent background (which is filled by the chosen biome).</p>
+                     <p><strong>"story_board_image"</strong> -- 在第一个登船屏幕中选择王国后，将出现在屏幕右侧的图像路径。通常描绘王国的几个市民，具有透明背景（由选择的生物群系填充）。</p>
                   </li>
                   <li>
-                     <p><strong>"starting_talisman"</strong> -- URI of the first talisman that your kingdom will get. Once you place the banner, this talisman will be automatically created together with other items from the chosen loadout. Normally a talisman for a crafting job, so that the citizens can craft other talismans and unlock more jobs progressively.</p>
+                     <p><strong>"starting_talisman"</strong> -- 你的王国将获得的第一个护身符的 URI。放置旗帜后，此护身符将与所选装备中的其他物品一起自动创建。通常是工匠职业的护身符，以便市民可以制作其他护身符并逐步解锁更多职业。</p>
                   </li>
                   <li>
-                     <p><strong>"starting_resource"</strong> -- URI of the starting resource. After placing the banner, two items of this resource will be created together with the above. Normally a resource so that the initial crafter can craft a basic workbench and get the town started.</p>
+                     <p><strong>"starting_resource"</strong> -- 起始资源的 URI。放置旗帜后，将与此上述物品一起创建两个此资源物品。通常是一种资源，以便初始工匠可以制作基本工作台并启动城镇。</p>
                   </li>
                   <li>
-                     <p><strong>"job_index"</strong> -- URI of the job index for our custom kingdom. Take a look at how to create jobs to create your own custom jobs. You can also reuse the stonehearth ones if you want to.</p>
-                     <p> <img src="/modding_guide/images/common/gold.png" alt="icon"/>We can add a <strong>"base_job"</strong> field to the jobs index to specify a different base job than <code>"stonehearth:jobs:worker"</code>. You should only have one base job since the vanilla game doesn't support more than one. Normally it's a job that doesn't require a talisman, in case the player can't craft it for whatever reason. Take a look at how the Worker job is set up.</p>
+                     <p><strong>"job_index"</strong> -- 我们自定义王国的职业索引的 URI。查看如何创建职业以创建你自己的自定义职业。如果你愿意，你也可以重用 stonehearth 的职业。</p>
+                     <p> <img src="/modding_guide/images/common/gold.png" alt="图标"/> 我们可以向职业索引添加 <strong>"base_job"</strong> 字段以指定不同于 <code>"stonehearth:jobs:worker"</code> 的基础职业。你应该只有一个基础职业，因为原版游戏不支持多个。通常这是一个不需要护身符的职业，以防玩家因任何原因无法制作它。查看 Worker 职业的设置方式。</p>
                   </li>
                   <li>
-                     <p><strong>"inventory_capacity_equation"</strong> -- an equation to calculate how should the inventory capacity increase over time. For the vanilla game it's based on the number of hearthlings : <code>"math.max(num_citizens * 150, 1200)"</code>.</p>
+                     <p><strong>"inventory_capacity_equation"</strong> -- 计算库存容量应如何随时间增加的方程式。对于原版游戏，它基于 Hearthlings 的数量：<code>"math.max(num_citizens * 150, 1200)"</code>。</p>
                   </li>
                   <li>
-                     <p><strong>"initial_town_name"</strong> -- a localized name that will be assigned to the town by default (the game will append a random number to it too). In the vanilla game, the first encounter of the town progression campaign allows the player to set a custom name for their town and to choose a bonus.</p>
+                     <p><strong>"initial_town_name"</strong> -- 默认分配给城镇的本地化名称（游戏也会附加一个随机数）。在原版游戏中，城镇 progression 战役的第一次遭遇允许玩家为他们的城镇设置自定义名称并选择奖励。</p>
                   </li>
                   <li>
-                     <p><strong>"camp_standard"</strong> -- URI of the camp standard that will appear when we place the banner for our town. In the vanilla game, the first encounter of the town progression campaign changes this banner to look different and grant a bonus.</p>
+                     <p><strong>"camp_standard"</strong> -- 当我们为城镇放置旗帜时将出现的营地标准的 URI。在原版游戏中，城镇 progression 战役的第一次遭遇会将此旗帜更改为看起来不同并给予奖励。</p>
                   </li>
                   <li>
-                     <p><strong>"camp_hearth"</strong> -- optional field. We can specify a custom URI so that the firepit that appears after we place the banner is different. Mind that there are encounters in the vanilla campaigns that make use of the default firepit URI, so you may want to create your own campaigns for town progression instead.</p>
+                     <p><strong>"camp_hearth"</strong> -- 可选字段。我们可以指定自定义 URI，以便放置旗帜后出现的火坑不同。请注意，原版战役中有一些遭遇使用默认火坑 URI，因此你可能想改为创建自己的城镇 progression 战役。</p>
                   </li>
                   <li>
-                     <p><strong>"trappable_animals"</strong> -- URI of an index of trappable animals. Used for the <code>"stonehearth:jobs:trapper"</code> job, in the trapping service.</p>
+                     <p><strong>"trappable_animals"</strong> -- 可捕捉动物索引的 URI。用于 trapping 服务中的 <code>"stonehearth:jobs:trapper"</code> 职业。</p>
                   </li>
                   <li>
-                     <p><strong>"default_material"</strong> -- a string containing material tags for the default building material. For example, for rayyas_children, when we open the builder in the UI, they will have the clay material selected by default.</p>
+                     <p><strong>"default_material"</strong> -- 包含默认建筑材料标签的字符串。例如，对于 rayyas_children，当我们在 UI 中打开建造者时，他们将默认选择粘土材料。</p>
                   </li>
                   <li>
-                     <p><strong>"ordinal"</strong> -- an ordinal to order the kingdom in the list of playable kingdoms.</p>
+                     <p><strong>"ordinal"</strong> -- 用于在可玩王国列表中排序王国的序数。</p>
                   </li>
                   <li>
-                     <p><strong>"roles": {}</strong> -- here's where we define how do the citizens of our new kingdom look like.</p>
-                     <p> For playable kingdoms, we have only one role, called <strong>"default"</strong>. Inside it we normally have these entries:</p>
+                     <p><strong>"roles": {}</strong> -- 这里我们定义新王国的市民看起来如何。</p>
+                     <p> 对于可玩王国，我们只有一个角色，称为 <strong>"default"</strong>。在其中我们通常有以下条目：</p>
                      <ul>
                         <li>
-                           <p><strong>"male"</strong> -- here we define the entities that will represent a male citizen of our population. There's a <strong>"uri"</strong> array containing the URIs of the entities (e.g. the male hearthlings), and a <strong>"given_names"</strong> array containing names for the male citizens to choose at random.</p>
+                           <p><strong>"male"</strong> -- 这里我们定义将代表我们人口中男性市民的实体。有一个包含实体 URI（例如男性 Hearthlings）的 <strong>"uri"</strong> 数组，以及一个包含供男性市民随机选择的名称的 <strong>"given_names"</strong> 数组。</p>
                         </li>
                         <li>
-                           <p><strong>"female"</strong> -- same keys than for male, but pointing to the female citizen entities and female names.</p>
-                           <p>For hearthlings, the male/female entities basically inherit the <code>base_human.json</code> mixin, which contains all the common components and entity_data that they have, and then define their animation table (rig), and some model variants and customizations, to use in the roster screen.</p>
+                           <p><strong>"female"</strong> -- 与 male 相同的键，但指向女性市民实体和女性名称。</p>
+                           <p>对于 Hearthlings，male/female 实体基本上继承 <code>base_human.json</code> mixin，其中包含它们拥有的所有通用组件和 entity_data，然后定义它们的动画表（rig）以及一些模型变体和自定义，以便在名册屏幕中使用。</p>
                         </li>
                         <li>
-                           <p><strong>"surnames" : []</strong> -- an array containing surnames that will be chosen randomly for your citizens.</p>
+                           <p><strong>"surnames" : []</strong> -- 包含将为你的市民随机选择的姓氏的数组。</p>
                         </li>
                         <li>
-                           <p><strong>"attribute_distribution"</strong> -- here we can change the distribution of attribute points for the initial citizens (new citizens will have completely random stats).</p>
+                           <p><strong>"attribute_distribution"</strong> -- 这里我们可以更改初始市民的属性点分布（新市民将具有完全随机的 stats）。</p>
                            <ul>
                               <li>
-                                 <p><strong>"allocated_points"</strong> -- the <strong>"min"</strong> and <strong>"max"</strong> number of attribute points. Your citizens will have a random amount of points between "min" and "max" allocated for their stats (for example, with a minimum of 5 points it's not possible to get citizens with 1 mind / 1 body / 1 spirit during embarkation).</p>
+                                 <p><strong>"allocated_points"</strong> -- 属性点的 <strong>"min"</strong> 和 <strong>"max"</strong> 数量。你的市民将在 "min" 和 "max" 之间拥有随机数量的点数分配给他们的 stats（例如，最少 5 点，在登船期间不可能获得 1 mind / 1 body / 1 spirit 的市民）。</p>
                               </li>
                               <li>
-                                 <p><strong>"point_limits"</strong> -- here we can modify the <strong>"min"</strong> and <strong>"max"</strong> amount of points for each of the stats (<strong>"mind"</strong>, <strong>"body"</strong>, <strong>"spirit"</strong>). These stats are attributes added in the <code>base_human.json</code> mixin, so if you're gonna reuse them (since the UI is prepared for that) make sure that your citizens have them defined in their attributes component too.</p>
-                                 <p>  Examples from the vanilla kingdoms would be the Ascendancy population, which starts with a minimum "spirit" of 2, Rayya's Children starts with a minimum "mind" of 2, and Northern Alliance starts with a minimum "body" of 2. But remember that new citizens will have completely random attributes.</p>
+                                 <p><strong>"point_limits"</strong> -- 这里我们可以修改每个 stat（<strong>"mind"</strong>、<strong>"body"</strong>、<strong>"spirit"</strong>）的点数的 <strong>"min"</strong> 和 <strong>"max"</strong> 数量。这些 stats 是在 <code>base_human.json</code> mixin 中添加的属性，所以如果你要重用它们（因为 UI 已为此准备），请确保你的市民也在其 attributes 组件中定义了它们。</p>
+                                 <p>  原版王国的示例包括 Ascendancy 人口，它以最小 "spirit" 2 开始，Rayya's Children 以最小 "mind" 2 开始，Northern Alliance 以最小 "body" 2 开始。但请记住，新市民将具有完全随机的属性。</p>
                               </li>
                            </ul>
                         </li>
                      </ul>
                   </li>
                   <li>
-                     <p><strong>"pet_names" : {}</strong> -- this section contains arrays for pet names. Each array corresponds to an "id" defined in the "stonehearth:species" section of the entity_data of the pets. There's also a "default" array for default names in case the game can't find an appropiate key.</p>
+                     <p><strong>"pet_names" : {}</strong> -- 此部分包含宠物名称的数组。每个数组对应于宠物 entity_data 的 "stonehearth:species" 部分中定义的 "id"。还有一个 "default" 数组用于默认名称，以防游戏找不到合适的键。</p>
                   </li>
                   <li>
-                     <p><strong>"town_pieces" : {}</strong> -- these are pieces to compose the random town names that we can get when naming the town:</p>
+                     <p><strong>"town_pieces" : {}</strong> -- 这些是组成命名城镇时我们可以获得的随机城镇名称的部分：</p>
                      <ul>
-                        <li><strong>"optional_prefix"</strong> -- sometimes the town name will have a prefix from this array.</li>
-                        <li><strong>"town_name"</strong> -- an array of town names for your kingdom.</li>
-                        <li><strong>"suffix"</strong> -- an array of suffixes for your town name. Like the prefixes, not always will be used.</li>
+                        <li><strong>"optional_prefix"</strong> -- 有时城镇名称将具有此数组中的前缀。</li>
+                        <li><strong>"town_name"</strong> -- 你的王国的城镇名称数组。</li>
+                        <li><strong>"suffix"</strong> -- 你的城镇名称的后缀数组。像前缀一样，并不总是使用。</li>
                      </ul>
                   </li>
                   <li>
-                     <p><strong>"task_groups": "stonehearth:data:player_task_groups"</strong> -- here we're assigning the task groups that are used for playable kingdoms. More on that in the advanced sections of the guide.</p>
+                     <p><strong>"task_groups": "stonehearth:data:player_task_groups"</strong> -- 这里我们分配用于可玩王国的任务组。更多内容见指南的高级部分。</p>
                   </li>
                </ul>
             </li>
             <li>
-               <p>Add an alias for the population file to the manifest.</p>
+               <p>向清单添加人口文件的别名。</p>
                <pre><code>"aliases" : {
    "kingdoms:custom_kingdom" : "file(data/custom_kingdom.json)"
 }
 </code></pre>
             </li>
             <li>
-               <p>Add a mixinto to the playable kingdoms index.</p>
+               <p>向可玩王国索引添加 mixinto。</p>
                <pre><code>"mixintos" : {
    "stonehearth:playable_kingdom_index": "file(data/playable_kingdom_index.json)"
 }
 </code></pre>
-               <p>  Our mixinto file will look like this:</p>
+               <p>  我们的 mixinto 文件看起来像这样：</p>
                <pre><code>{
    "kingdoms": {
       "my_kingdom_id" : "my_mod:kingdoms:custom_kingdom"
    }
 }
 </code></pre>
-               <p>  We use the "kingdom_id" as the key here, pointing to the alias of our population file.</p>
+               <p>  我们在这里使用 "kingdom_id" 作为键，指向我们人口文件的别名。</p>
             </li>
             <li>
-               <p>Make sure you have all the files you need.</p>
-               <p>  Now the kingdom should be playable. But we might want to set up additional things:</p>
+               <p>确保你拥有所有需要的文件。</p>
+               <p>  现在王国应该是可玩的。但我们可能想要设置其他内容：</p>
                <ul>
                   <li>
-                     <p>Custom campaigns -- by default we'll get all the campaigns that are not gated by kingdom, depending on the game difficulty that we choose. We should make a custom town progression campaign for our kingdom, or remove any campaign that we don't want using mixintos or mixintypes.</p>
+                     <p>自定义战役 -- 默认情况下，我们将获得所有不受王国限制的战役，具体取决于我们选择的游戏难度。我们应该为我们的王国制作自定义城镇 progression 战役，或使用 mixintos 或 mixintypes 移除任何我们不想要的战役。</p>
                   </li>
                   <li>
-                     <p><a name="SoundConstants"></a>Custom music -- by default we'll get the music from the Ascendancy kingdom. If we want to customize the music that will play for our kingdom, we need to mixinto the sound constants:</p>
+                     <p><a name="SoundConstants"></a>自定义音乐 -- 默认情况下，我们将获得 Ascendancy 王国的音乐。如果我们想自定义将为我们的王国播放的音乐，我们需要 mixinto 声音常量：</p>
                      <pre><code>"mixintos" : {
    "stonehearth:data:sound_constants": "file(data/sound_constants.json)"
 }
 </code></pre>
-                     <p> Our mixinto will look like this (shortened example):</p>
+                     <p> 我们的 mixinto 看起来像这样（简化示例）：</p>
                      <pre><code>{
    "music": {
       "kingdoms": {
@@ -220,17 +220,17 @@
    }
 }
 </code></pre>
-                     <p> We've used existing tracks from the rayyas_children kingdom to show the difference (the files are in the stonehearth mod, that's why the aliases begin by <code>stonehearth</code>).</p>
-                     <p> Inside <strong>"kingdoms"</strong> we add a key with the URI of our kingdom. Then there are different sections for day and night music, and inside them, different groups depending on the town tier. We can add several tracks of music (the vanilla ones are in <strong>.ogg</strong> format, to save space), and one of them will be chosen randomly depending on the time of day and the current town tier.</p>
-                     <p> Each group also has a <strong>"loop"</strong> property, normally set to <strong>false</strong>, a <strong>"fade_in"</strong> in milliseconds, and a <strong>"volume"</strong> (from 0 to 100) in case we need to tune the volume because the music file has it too quiet/loud compared with other music/sounds in the game.</p>
+                     <p> 我们使用了来自 rayyas_children 王国的现有曲目来显示差异（文件在 stonehearth 模组中，这就是为什么别名以 <code>stonehearth</code> 开头）。</p>
+                     <p> 在 <strong>"kingdoms"</strong> 内，我们添加一个带有我们王国 URI 的键。然后有不同的白天和夜间音乐部分，在其中，根据不同的城镇等级有不同的组。我们可以添加多个音乐曲目（原版的是 <strong>.ogg</strong> 格式，以节省空间），其中一个将根据一天中的时间和当前城镇等级随机选择。</p>
+                     <p> 每个组还有一个 <strong>"loop"</strong> 属性，通常设置为 <strong>false</strong>，一个以毫秒为单位的 <strong>"fade_in"</strong>，以及一个 <strong>"volume"</strong>（从 0 到 100），以防我们需要调整音量，因为音乐文件与其他游戏中的音乐/声音相比太 quiet/loud。</p>
                   </li>
                   <li>
-                     <p>Custom UI -- we can optionally have different colors and images in the UI, like Rayya's Children and Northern Alliance do, by applying a deferred mod manifest after our kingdom is chosen. This will be covered in the <a href="../hotloading/index.html">hotloading manifests</a> section.</p>
+                     <p>自定义 UI -- 我们可以选择在 UI 中使用不同的颜色和图像，就像 Rayya's Children 和 Northern Alliance 所做的那样，通过在选择我们的王国后应用延迟模组清单。这将在<a href="../hotloading/index.html">热加载清单</a>部分中介绍。</p>
                   </li>
                </ul>
             </li>
             <li>
-               <p>Finally, we can test our new kingdom. It's a lot of work to add a new kingdom but we can start by copying an existing one and after everything is renamed, go little by little adjusting all the jobs, campaigns, etc.</p>
+               <p>最后，我们可以测试我们的新王国。添加新王国是一项大量工作，但我们可以从复制现有王国开始，在所有内容重命名后，逐步调整所有职业、战役等。</p>
             </li>
          </ol>
       </main>

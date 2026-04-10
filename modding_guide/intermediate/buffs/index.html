@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,80 +7,80 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Buffs</title>
+        <title>增益效果</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Buffs</h1>
-            <p>Buffs (both positive and negative) are temporary changes to an entity's attributes. They are applied in response to a situation or event. For example, sleeping on the ground may add the groggy buff to a hearthling, causing them to be slower for a few hours after waking up. </p>
-            <p>The buffs component is used to add, remove and keep track of all the buffs/debuffs that a hearthling currently has. The buff data that we declare in a JSON file is then managed by the <code>stonehearth/components/buffs/buff.lua</code> controller.</p>
-            <p>The existing buffs can be found inside <code>stonehearth/data/buffs</code>. There might be some more in subfolders of <code>stonehearth/jobs</code>.</p>
+            <h1>增益效果</h1>
+            <p>增益效果（包括正面和负面）是对实体属性的临时更改。它们是对某种情况或事件的响应而应用的。例如，睡在地上可能会给炉民添加昏昏沉沉的增益效果，导致他们在醒来后的几个小时内行动变慢。</p>
+            <p>增益效果组件用于添加、移除和跟踪炉民当前拥有的所有增益/减益效果。我们在 JSON 文件中声明的增益效果数据由 <code>stonehearth/components/buffs/buff.lua</code> 控制器管理。</p>
+            <p>现有的增益效果可以在 <code>stonehearth/data/buffs</code> 中找到。<code>stonehearth/jobs</code> 的子文件夹中可能还有一些。</p>
             <ul>
-                <li><a href="#CreatingBuffs">Creating buffs</a></li>
-                <li><a href="#ApplyingBuffs">Applying and removing buffs</a></li>
-                <li><a href="#Testing">Testing buffs</a></li>
+                <li><a href="#CreatingBuffs">创建增益效果</a></li>
+                <li><a href="#ApplyingBuffs">应用和移除增益效果</a></li>
+                <li><a href="#Testing">测试增益效果</a></li>
             </ul>
-            <h2><a name="CreatingBuffs"></a>Creating buffs</h2>
-            <p>We can easily create buffs that modify some attributes from the hearthlings with just JSON, or do some more complex things with a small Lua script. Don't forget to add an alias for your buff in your manifest!</p>
-            <p>These are the properties that we can find in the buff's JSON file:</p>
+            <h2><a name="CreatingBuffs"></a>创建增益效果</h2>
+            <p>我们可以轻松地仅使用 JSON 创建修改炉民某些属性的增益效果，或者使用小型 Lua 脚本执行更复杂的操作。不要忘记在清单中为您的增益效果添加别名！</p>
+            <p>以下是我们可以在增益效果的 JSON 文件中找到的属性：</p>
             <ul>
                 <li>
-                    <p><strong>"type" : "buff"</strong> -- we declare that this file represents a buff.</p>
+                    <p><strong>"type" : "buff"</strong> -- 我们声明此文件代表一个增益效果。</p>
                 </li>
                 <li>
-                    <p><strong>"axis"</strong> -- either <strong>"buff"</strong>, <strong>"neutral"</strong> or <strong>"debuff"</strong>. This will positionate the buff icon in different rows in the unit frame when we select the hearthling.</p>
+                    <p><strong>"axis"</strong> -- <strong>"buff"</strong>、<strong>"neutral"</strong> 或 <strong>"debuff"</strong> 之一。这将在我们选择炉民时将增益效果图标定位在单位框架的不同行中。</p>
                 </li>
                 <li>
-                    <p><strong>"display_name"</strong> -- a localized name for the buff to display in its tooltip in the UI.</p>
+                    <p><strong>"display_name"</strong> -- 增益效果的本地化名称，显示在 UI 的工具提示中。</p>
                 </li>
                 <li>
-                    <p><strong>"description"</strong> -- a localized description for the buff's tooltip.</p>
+                    <p><strong>"description"</strong> -- 增益效果工具提示的本地化描述。</p>
                 </li>
                 <li>
-                    <p><strong>"icon"</strong> -- an icon for the buff.</p>
+                    <p><strong>"icon"</strong> -- 增益效果的图标。</p>
                 </li>
                 <li>
-                    <p><strong>"duration"</strong> -- a <a href="../../basic/misc_json/index.html#TimeExpressions">time expression</a> for the duration of the buff (in-game time). The buff will be automatically removed once this duration ends. If this field is not included, the buff will be permanent.</p>
+                    <p><strong>"duration"</strong> -- 增益效果持续时间的<a href="../../basic/misc_json/index.html#TimeExpressions">时间表达式</a>（游戏内时间）。一旦此持续时间结束，增益效果将自动移除。如果不包含此字段，增益效果将是永久性的。</p>
                 </li>
                 <li>
-                    <p><strong>"persistent"</strong> -- whether this buff should be stored when the game is saved or not; leave it as <strong>false</strong> if the logic to add the buff is run by other scripts on load. When <strong>true</strong>, it will be reapplied automatically on load by the buff controller (<code>buff.lua</code>).</p>
+                    <p><strong>"persistent"</strong> -- 此增益效果是否应在保存游戏时存储；如果加载时由其他脚本运行添加增益效果的逻辑，则将其保留为 <strong>false</strong>。当为 <strong>true</strong> 时，它将在加载时由增益效果控制器（<code>buff.lua</code>）自动重新应用。</p>
                 </li>
                 <li>
-                    <p><strong>"repeat_add_action"</strong> -- what to do if the buff is readded when it hasn't finished its duration yet. It can be either <strong>"renew_duration"</strong>, which will restart the duration, <strong>"extend_duration"</strong>, which will sum the duration of the buff to the current time left, or <strong>"stack_and_refresh"</strong>, which will add a stack to the buff and restart its duration.</p>
-                    <p>  If this field is not included, the buff will continue with its current duration until it expires.</p>
+                    <p><strong>"repeat_add_action"</strong> -- 如果在增益效果尚未完成其持续时间时重新添加该效果，该怎么办。它可以是 <strong>"renew_duration"</strong>（将重新启动持续时间）、<strong>"extend_duration"</strong>（将增益效果的持续时间与当前剩余时间相加）或 <strong>"stack_and_refresh"</strong>（为增益效果添加一层堆叠并重新启动其持续时间）。</p>
+                    <p>如果不包含此字段，增益效果将继续其当前持续时间直到过期。</p>
                 </li>
                 <li>
-                    <p><strong>"max_stacks"</strong> -- used only when "repeat_add_action" is "stack_and_refresh". This is the maximum number of times that the buff can be stacked (each stack will reapply the modifiers on top of the current values).</p>
+                    <p><strong>"max_stacks"</strong> -- 仅在"repeat_add_action"为"stack_and_refresh"时使用。这是增益效果可以堆叠的最大次数（每层堆叠将在当前值之上重新应用修饰符）。</p>
                 </li>
                 <li>
-                    <p><strong>"cooldown_buff"</strong> -- optional field, points to an URI of a buff that will get applied when this buff's duration expires. While the cooldown buff is active, you won't be able to reapply this buff. You can see an example in the hothead buff (furious/winded buffs).</p>
+                    <p><strong>"cooldown_buff"</strong> -- 可选字段，指向在此增益效果持续时间过期时将应用的增益效果的 URI。当冷却增益效果处于活动状态时，您将无法重新应用此增益效果。您可以在易怒增益效果（furious/winded 增益效果）中看到一个示例。</p>
                 </li>
                 <li>
-                    <p><strong>"invisible_to_player"</strong> -- optional field, <strong>false</strong> by default. When <strong>true</strong>, the buff will not appear in the unit frame when we select the entity. This is useful if what the buff does should not be conveyed to the player (e.g. if it just sets a flag for use in other scripts, etc. For example, we use a swimming buff to change the hearthling's posture when they're in water and make them move slower).</p>
+                    <p><strong>"invisible_to_player"</strong> -- 可选字段，默认为 <strong>false</strong>。当为 <strong>true</strong> 时，当我们选择实体时，增益效果不会出现在单位框架中。如果增益效果的作用不应传达给玩家（例如，如果它只是为其他脚本设置标志等），这很有用。例如，我们使用游泳增益效果来改变炉民在水中的姿势并使他们移动更慢）。</p>
                 </li>
                 <li>
-                    <p><strong>"effect"</strong> -- optional field. URI of the effect that will run when the buff is added (for example, the stamina tonic makes an orange cloud of particles to appear on the hearthlings for a second when it is used).</p>
+                    <p><strong>"effect"</strong> -- 可选字段。添加增益效果时将运行的效果的 URI（例如，耐力药剂在使用时会使橙色粒子云在炉民身上出现一秒钟）。</p>
                 </li>
                 <li>
-                    <p><strong>"modifiers" : {}</strong> -- here we can modify attributes and stats. They are defined like for <a href="../traits/index.html#AttributeModifiers">traits</a>, only that the key here is called <strong>"modifiers"</strong>, not "attribute_modifiers".</p>
-                    <p>  For example, if we add this in our buff's JSON file:</p>
+                    <p><strong>"modifiers" : {}</strong> -- 在这里我们可以修改属性和统计数据。它们的定义方式与<a href="../traits/index.html#AttributeModifiers">特性</a>相同，只是这里的键称为 <strong>"modifiers"</strong>，而不是"attribute_modifiers"。</p>
+                    <p>例如，如果我们在增益效果的 JSON 文件中添加以下内容：</p>
                     <pre><code>"modifiers" : {
    "speed" : {
       "add" : 20
    }
 }
 </code></pre>
-                    <p>  in the game we'll see it when hovering over the attribute in the Attributes tab of the character sheet. That way we know which buff is modifying the attribute and how much:
+                    <p>在游戏中，当我们将鼠标悬停在角色表属性选项卡中的属性上时，我们将看到它。这样我们就知道哪个增益效果正在修改属性以及修改了多少：
                         <img src="/modding_guide/images/intermediate/buffs/attribute_modifiers.png" alt="attribute_modifiers"/>
-                        Both attribute modifiers and properties will be automatically undone if the buff/trait gets removed.
+                        如果增益效果/特性被移除，属性修饰符和属性将自动撤销。
                     </p>
                 </li>
                 <li>
-                    <p><strong>"properties": []</strong> -- optional field. An array of properties that we can use in scripts. Same than for <a href="../traits/index.html#Properties">traits</a>.</p>
+                    <p><strong>"properties": []</strong> -- 可选字段。我们可以在脚本中使用的属性数组。与<a href="../traits/index.html#Properties">特性</a>相同。</p>
                 </li>
                 <li>
-                    <p><strong>"script"</strong> -- optional field. URI of the script that will run when the buff is added and removed. You can reuse existing scripts from the stonehearth mod too. Look for buffs that are close in functionality to what you want to implement. The script structure is as follows:</p>
+                    <p><strong>"script"</strong> -- 可选字段。添加和移除增益效果时将运行的脚本的 URI。您也可以重用 stonehearth mod 中的现有脚本。寻找与您想要实现的功能相近的增益效果。脚本结构如下：</p>
                     <pre><code>local MyBuffScript = class()
 
 function MyBuffScript:on_buff_added(entity, buff)
@@ -88,36 +88,36 @@ function MyBuffScript:on_buff_added(entity, buff)
 end
 
 function MyBuffScript:on_buff_removed(entity, buff)
-   -- Here we can clean up stuff created by the buff
-   -- E.g. destroying timers, listeners, etc.
+   -- 在这里我们可以清理由增益效果创建的内容
+   -- 例如，销毁计时器、监听器等
 end
 
 return MyBuffScript
 </code></pre>
-                    <p>  The entity argument is the entity to which the buff has been added/removed and the buff argument represents the buff controller, so we can retrieve info from the JSON file as shown above.</p>
+                    <p>entity 参数是已添加/移除增益效果的实体，buff 参数代表增益效果控制器，因此我们可以如上所示从 JSON 文件中检索信息。</p>
                 </li>
                 <li>
-                    <p><strong>"script_info" : {}</strong> -- if we declared a script for this buff, we can define data for it here (actually we can include any field in the JSON file to retrieve it in the buff's script, so this field could have been called "data" if you wanted).</p>
+                    <p><strong>"script_info" : {}</strong> -- 如果我们为此增益效果声明了脚本，我们可以在此处为其定义数据（实际上我们可以在 JSON 文件中包含任何字段以在增益效果脚本中检索它，因此如果您愿意，此字段可以称为"data"）。</p>
                 </li>
                 <li>
-                    <p><strong>"injected_ai": {}</strong> -- we can inject AI through buffs. The syntax is the same than when <a href="../../basic/wearables/index.html#AI">injecting AI via an equipment piece</a>.</p>
+                    <p><strong>"injected_ai": {}</strong> -- 我们可以通过增益效果注入 AI。语法与通过<a href="../../basic/wearables/index.html#AI">装备部件注入 AI</a>时相同。</p>
                 </li>
                 <li>
-                    <p><strong>"set_posture": "stonehearth:swimming"</strong> -- we can set the posture of the hearthling like this. The key of the posture is defined in the postures.json file from the entity's rig.</p>
+                    <p><strong>"set_posture": "stonehearth:swimming"</strong> -- 我们可以像这样设置炉民的姿势。姿势的键在实体的 rig 的 postures.json 文件中定义。</p>
                 </li>
             </ul>
-            <p>You might see a "tags" property in some of the existing buffs. It's no longer in use, so you can omit it.</p>
-            <!-- 
-                * **"short_description"** <- only the sleeping buff uses it. It seems to be used in attribute tooltips when they show buff icons. But the only existing case doesnt have modifiers (if you have short description dont use modifiers because in citizen character sheet js we order by attribute based on modifiers)
+            <p>您可能会在一些现有的增益效果中看到"tags"属性。它不再使用，因此您可以省略它。</p>
+            <!--
+                * **"short_description"** <- 只有 sleeping 增益效果使用它。似乎在显示增益效果图标的属性工具提示中使用。但唯一存在的情况没有修饰符（如果您有 short description，请不要使用 modifiers，因为在 citizen character sheet js 中我们基于修饰符按属性排序）
                 -->
-            <h2><a name="ApplyingBuffs"></a>Applying and removing buffs</h2>
-            <p>There are several ways to apply buffs to entities:</p>
+            <h2><a name="ApplyingBuffs"></a>应用和移除增益效果</h2>
+            <p>有几种方法可以将增益效果应用到实体：</p>
             <ul>
                 <li>
-                    <p>Via <a href="../../basic/wearables/index.html#Buffs"><strong>"injected_buffs"</strong></a> property in an equipment piece. This will apply the buff as soon as the equipment piece is equipped by the entity. Normally we use buffs without duration for this case, so that they only expire if the equipment piece is unequipped.</p>
+                    <p>通过装备部件中的 <a href="../../basic/wearables/index.html#Buffs"><strong>"injected_buffs"</strong></a> 属性。一旦实体装备了装备部件，这将立即应用增益效果。通常我们在这种情况下使用没有持续时间的增益效果，以便它们仅在卸下装备部件时才过期。</p>
                 </li>
                 <li>
-                    <p>Via <strong>"inflictable_debuffs"</strong> property in the entity_data of an entity (e.g. a monster) or of an equipment piece (a weapon, normally). For example, undead have a 50% chance of inflicting this debuff while they're fighting:</p>
+                    <p>通过实体（例如怪物）或装备部件（通常是武器）的 entity_data 中的 <strong>"inflictable_debuffs"</strong> 属性。例如，不死生物在战斗时有 50% 的几率施加此减益效果：</p>
                     <pre><code>"entity_data": {
    "stonehearth:buffs": {
       "inflictable_debuffs": {
@@ -129,51 +129,51 @@ return MyBuffScript
    }
 }
 </code></pre>
-                    <p>  Remember that here we're not adding the buff to the entity that has this entity data, but to other entities hit in combat.</p>
+                    <p>请记住，这里我们不是将增益效果添加到具有此实体数据的实体，而是添加到战斗中被击中的其他实体。</p>
                 </li>
                 <li>
-                    <p>Via <strong>"inflictable_debuffs"</strong> property in combat attacks. Same syntax than above (an identifier linking to the URI of the buff and the chance).</p>
+                    <p>通过战斗攻击中的 <strong>"inflictable_debuffs"</strong> 属性。语法与上面相同（链接到增益效果 URI 的标识符和几率）。</p>
                 </li>
                 <li>
-                    <p>By using a consumable item: some of the tonics have a command in them that runs a function when we click on it. This function looks for the following info from the entity_data of the consumable:</p>
+                    <p>通过使用消耗品：一些药剂中有一个命令，当我们点击它时会运行一个函数。此函数查找消耗品的 entity_data 中的以下信息：</p>
                     <pre><code>"stonehearth:consumable": {
    "script": "stonehearth:consumables:scripts:buff_town",
    "buff": "stonehearth:buffs:courage_tonic"
 }
 </code></pre>
-                    <p>  The script will apply the buff to all the hearthlings. You can reuse it or use it as an example.</p>
+                    <p>脚本会将增益效果应用到所有炉民。您可以重用它或将其用作示例。</p>
                 </li>
                 <li>
-                    <p>In a Lua script (we can also pass an extra parameter with options):</p>
+                    <p>在 Lua 脚本中（我们还可以传递带有选项的额外参数）：</p>
                     <pre><code>entity:get_component('stonehearth:buffs'):add_buff('silent_woods:buffs:spooked')
--- Also possible:
+-- 也可以：
 radiant.entities.add_buff(entity, buff_uri)
 </code></pre>
                 </li>
             </ul>
-            <p>Buffs are removed when:</p>
+            <p>增益效果在以下情况下被移除：</p>
             <ul>
                 <li>
-                    <p>Their duration expires.</p>
+                    <p>其持续时间过期。</p>
                 </li>
                 <li>
-                    <p>The equipment piece that applied them is unequipped.</p>
+                    <p>应用它们的装备部件被卸下。</p>
                 </li>
                 <li>
-                    <p>In a Lua script (we can also pass an extra parameter as a flag for removing all the stacks):</p>
+                    <p>在 Lua 脚本中（我们还可以传递一个额外参数作为移除所有堆叠的标志）：</p>
                     <pre><code>entity:get_component('stonehearth:buffs'):remove_buff('silent_woods:buffs:spooked')
--- Also possible:
+-- 也可以：
 radiant.entities.remove_buff(entity, buff_uri)
 </code></pre>
                 </li>
             </ul>
-            <h2><a name="Testing"></a>Testing buffs</h2>
-            <p>We can easily add buffs to check that they're working as intended, even before hooking them to an equipment piece or in a script.</p>
-            <p>Once we add an alias for our buff in our manifest, we can select a hearthling in the game, open the <a href="../../essentials/debugtools/default_console/index.html">default console</a> and type:</p>
+            <h2><a name="Testing"></a>测试增益效果</h2>
+            <p>我们可以轻松添加增益效果以检查它们是否按预期工作，甚至在将它们挂钩到装备部件或脚本之前。</p>
+            <p>一旦我们在清单中为增益效果添加了别名，我们就可以在游戏中选择一个炉民，打开<a href="../../essentials/debugtools/default_console/index.html">默认控制台</a>并输入：</p>
             <pre><code>  add_buff my_mod:buffs:my_buff
 </code></pre>
-            <p>and press Enter. We should be able to see the icon of the buff next to the unit frame of the hearthling. If the buff is invisible to players, we can open the <a href="../../essentials/debugtools/debugtools_mod/index.html#ObjectBrowser">Object browser</a>, click on the value for the buffs component, and check that it's listed there.</p>
-            <p>We can also remove a buff in the same way, using the <code>remove_buff</code> command.</p>
+            <p>然后按 Enter。我们应该能够在炉民的单位框架旁边看到增益效果的图标。如果增益效果对玩家不可见，我们可以打开<a href="../../essentials/debugtools/debugtools_mod/index.html#ObjectBrowser">对象浏览器</a>，点击增益效果组件的值，并检查它是否列在那里。</p>
+            <p>我们也可以使用 <code>remove_buff</code> 命令以相同的方式移除增益效果。</p>
         </main>
     </body>
 </html>

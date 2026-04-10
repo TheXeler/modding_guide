@@ -1,39 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Stonehearth's Modding Guide">
+	<meta name="description" content="Stonehearth 模组制作指南">
 	<link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
 	<link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
 	<link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
 	<link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-	<title>Stonehearth's Modding Guide</title>
+	<title>Stonehearth 模组制作指南</title>
 </head>
 <body>
 	<script src="/modding_guide/menus.js"></script>
 	<main>
-		<h1>Stonehearth's Modding Guide</h1>
-		<p>Welcome to the Stonehearth modding guide!</p>
-		<p>The modding guide is a "how-to" approach to modding, step by step. We've divided it in several groups, from more basic to more advanced. It also includes explanations about the different types of scripts that we can find in the game.</p>
-		<p>In this guide we'll explain all the nuts and bolts of modding Stonehearth, how to make mods from scratch and how to speed up your modding using tools.</p>
-		<h2><a name="Modding"></a>Modding</h2>
-		<p>As defined by Wikipedia, modding is "the alteration of the program code of a video game in order to make it operate in a manner different from its original version." Stonehearth was developed to support modding.</p>
-		<h2><a name="Advice"></a>Starting Advice</h2>
-		<p>Before delving into the particularities of modding, it is always a good idea to plan carefully what you want to add to your mod.
-			Sometimes there are so many ideas that one wants to include, that it's hard to know where to start. Then, after some hours, days, or weeks, real life gets in the middle and you either lose interest, or don't have time anymore. By planning your desired features and organizing them in small bits, you will have more chances to finish your mod successfully. It's always better to start small and expand onto that.
+		<h1>Stonehearth 模组制作指南</h1>
+		<p>欢迎来到 Stonehearth 模组制作指南！</p>
+		<p>本模组制作指南采用循序渐进的"操作方法"方式编写。我们将其分为多个组别，从基础到高级。其中还包括对游戏中各类脚本的说明。</p>
+		<p>在本指南中，我们将详细讲解模组制作的各个环节，如何从零开始创建模组，以及如何利用工具提高模组制作效率。</p>
+		<h2><a name="Modding"></a>什么是模组制作</h2>
+		<p>根据维基百科的定义，模组制作是"对电子游戏程序代码进行修改，使其以不同于原始版本的方式运行"。Stonehearth 在设计之初就支持模组制作。</p>
+		<h2><a name="Advice"></a>入门建议</h2>
+		<p>在深入探讨模组制作的具体细节之前，仔细规划你想要添加到模组中的内容总是明智之举。
+			有时想法太多，难以确定从何入手。经过数小时、数天或数周后，现实生活的琐事可能会让你失去兴趣或没有时间继续。通过将所需功能进行规划并分解成小块，你将更有可能成功完成模组。从小处着手，逐步扩展，永远是更好的选择。
 		</p>
-		<p>Everything begins by designing and planning. So take a moment to write your ideas down, express how do you want the game to behave, and once you've taken a look at the several systems of the modding API, think of different ways to achieve your goals, and split those into small tasks.</p>
-		<p>If you feel overwhelmed by all that you want to do, you can get help from fellow modders. For example, some users know how to make nice models or animations, but have trouble with the programming side, and viceversa. Some of the best mods out there were started by teams of two or more modders. So feel free to share your ideas or ask questions at our forums: <a href="https://discourse.stonehearth.net/c/modding">https://discourse.stonehearth.net/c/modding</a></p>
-		<h2><a name="TOC"></a>Table of Contents</h2>
+		<p>一切始于设计和规划。花点时间将你的想法写下来，明确你希望游戏如何表现。在了解了模组 API 的各个系统后，思考实现目标的不同方法，并将其分解为小任务。</p>
+		<p>如果你感到不知所措，可以寻求其他模组制作者的帮助。例如，有些用户擅长制作精美的模型或动画，但在编程方面遇到困难，反之亦然。许多优秀的模组都是由两人或更多人组成的团队完成的。欢迎在我们的论坛分享你的想法或提出问题：<a href="https://discourse.stonehearth.net/c/modding">https://discourse.stonehearth.net/c/modding</a></p>
+		<h2><a name="TOC"></a>目录</h2>
 		<ol>
-			<li><a href="modding_guide/essentials/index.html">Modding Essentials</a> : The must-read topics for beginners.</li>
-			<li><a href="modding_guide/basic/index.html">Basic Modding</a> : How to make simple mods to get you started.</li>
-			<li><a href="modding_guide/intermediate/index.html">Intermediate Modding</a> : More complex modding topics.</li>
-			<li><a href="modding_guide/advanced/index.html">Advanced Modding</a> : Scripting-heavy topics.</li>
-			<li><a href="modding_guide/ace/index.html">ACE Modding</a> : For mod compatibility with ACE changes.</li>
+			<li><a href="modding_guide/essentials/index.html">模组制作基础</a>：初学者必读主题。</li>
+			<li><a href="modding_guide/basic/index.html">基础模组制作</a>：教你如何制作简单模组，助你入门。</li>
+			<li><a href="modding_guide/intermediate/index.html">中级模组制作</a>：更复杂的模组制作主题。</li>
+			<li><a href="modding_guide/advanced/index.html">高级模组制作</a>：涉及大量脚本的主题。</li>
+			<li><a href="modding_guide/ace/index.html">ACE 模组制作</a>：确保模组与 ACE 更改兼容。</li>
 		</ol>
-		<p>Happy modding!</p>
+		<p>祝模组制作愉快！</p>
 	</main>
 </body>
 </html>

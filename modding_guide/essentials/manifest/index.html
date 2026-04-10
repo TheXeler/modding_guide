@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,44 +7,44 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>The manifest</title>
+        <title>清单文件（Manifest）</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>The manifest</h1>
+            <h1>清单文件（Manifest）</h1>
             <ul>
-                <li><a href="#YourFirstMod">Your first mod</a></li>
+                <li><a href="#YourFirstMod">你的第一个模组</a></li>
                 <li>
-                    <a href="#TheManifest">What is the manifest?</a>
+                    <a href="#TheManifest">什么是清单文件？</a>
                     <ul>
-                        <li><a href="#OptionalFields">Optional fields</a></li>
+                        <li><a href="#OptionalFields">可选字段</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#Structure">Structure of the manifest</a>
+                    <a href="#Structure">清单文件的结构</a>
                     <ul>
-                        <li><a href="#Aliases">The aliases</a></li>
-                        <li><a href="#MixintosOverrides">Mixintos and Overrides</a></li>
-                        <li><a href="#Functions">Functions</a></li>
-                        <li><a href="#Controllers">Controllers</a></li>
-                        <li><a href="#Components">Components</a></li>
-                        <li><a href="#UI">UI</a></li>
-                        <li><a href="#Locales">Locales</a></li>
-                        <li><a href="#Dependencies">Dependencies</a></li>
-                        <li><a href="#DeprecatedAliases">Deprecated aliases</a></li>
-                        <li><a href="#Other">Other sections</a></li>
+                        <li><a href="#Aliases">别名（Aliases）</a></li>
+                        <li><a href="#MixintosOverrides">Mixintos 和覆盖（Overrides）</a></li>
+                        <li><a href="#Functions">函数（Functions）</a></li>
+                        <li><a href="#Controllers">控制器（Controllers）</a></li>
+                        <li><a href="#Components">组件（Components）</a></li>
+                        <li><a href="#UI">用户界面（UI）</a></li>
+                        <li><a href="#Locales">区域设置（Locales）</a></li>
+                        <li><a href="#Dependencies">依赖关系（Dependencies）</a></li>
+                        <li><a href="#DeprecatedAliases">已弃用的别名</a></li>
+                        <li><a href="#Other">其他部分</a></li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="YourFirstMod"></a>Your first mod</h2>
-            <p>To start making your mod, create a folder inside the Stonehearth/mods directory. You can name the folder however you want, but it can ONLY contain alphanumeric characters, hyphens and underscores. We also tend to use lowercase only for the folder name.</p>
+            <h2><a name="YourFirstMod"></a>你的第一个模组</h2>
+            <p>要开始制作你的模组，请在 Stonehearth/mods 目录中创建一个文件夹。你可以随意命名文件夹，但它<strong>只能</strong>包含字母数字字符、连字符和下划线。我们也倾向于仅使用小写字母作为文件夹名称。</p>
             <blockquote>
-                <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> If you're going to upload your mod to the Steam Workshop, you should create your mod folder via the <a href="../managing/workshop/index.html#UploadWorkshop">Mods menu</a>. Alternatively, you can develop your mod in the Stonehearth/mods folder, and when it's ready, generate the mod folder through the Mods menu, copy-paste the contents of your mod, and edit the content of the auto-generated manifest so that it includes your additions.</p>
-                <p>From there on, you should either continue developing your mod inside the auto-generated mod folder, or disable that mod and develop the one inside the mods folder, repeating the steps above whenever you need to push your update to the Workshop. Steps in this guide will refer to the mods folder (local mods), but you can develop your mod inside the auto-generated folder for the Workshop if you want.</p>
+                <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你打算将模组上传到 Steam 创意工坊，你应该通过<a href="../managing/workshop/index.html#UploadWorkshop">模组菜单</a>创建你的模组文件夹。或者，你可以在 Stonehearth/mods 文件夹中开发你的模组，当它准备好后，通过模组菜单生成模组文件夹，复制粘贴你的模组内容，并编辑自动生成的清单文件内容以包含你的添加内容。</p>
+                <p>从那时起，你应该继续在自动生成的模组文件夹中开发你的模组，或者禁用该模组并在 mods 文件夹中开发那个模组，每当需要将更新推送到创意工坊时重复上述步骤。本指南中的步骤将引用 mods 文件夹（本地模组），但如果你愿意，你可以在为创意工坊自动生成的文件夹中开发你的模组。</p>
             </blockquote>
-            <p>Create a text file inside your mod folder and name it <code>manifest.json</code> (make sure the extension is .json and not .json.txt or the like. Enable showing <a href="../stonehearth/index.html#FileExtensions">file extensions</a> so you can see the actual format of the file).
-                Now, open it with the text editor of your choice and copy/paste this data in it:
+            <p>在你的模组文件夹中创建一个文本文件并将其命名为 <code>manifest.json</code>（确保扩展名是 .json 而不是 .json.txt 或类似格式。启用显示<a href="../stonehearth/index.html#FileExtensions">文件扩展名</a>以便你可以看到文件的实际格式）。
+                现在，用你选择的文本编辑器打开它并复制/粘贴以下数据：
             </p>
             <pre><code>  {
      "info": {
@@ -54,99 +54,99 @@
      }
   }
 </code></pre>
-            <p>Here you can change the name to any name you want (e.g.: "Candy Land"). You must keep the version number as 3, as explained below.
-                As for the namespace, it can only contain alphanumeric characters and underscores. Usually the namespace matches the folder's name.
+            <p>在这里，你可以将名称更改为任何你想要的名称（例如："Candy Land"）。你必须将版本号保持为 3，如下文所述。
+                至于命名空间，它只能包含字母数字字符和下划线。通常命名空间与文件夹名称匹配。
             </p>
-            <p>And that's it. Your first mod is complete. Run Stonehearth, open the Mods menu, and you should see your mod listed there by name and with its namespace in small next to it. This mod doesn't do anything yet, but first we need to learn the structure of the manifest and how to work with the files.</p>
-            <h2><a name="TheManifest"></a>What is the manifest?</h2>
-            <p>The manifest is a list of all the assets and code in the mod.</p>
-            <p>The minimum required fields in the manifest are inside this section called "info":</p>
+            <p>就是这样。你的第一个模组完成了。运行 Stonehearth，打开模组菜单，你应该会看到你的模组按名称列出，旁边用小字显示其命名空间。这个模组目前还不做任何事情，但首先我们需要学习清单文件的结构以及如何处理文件。</p>
+            <h2><a name="TheManifest"></a>什么是清单文件？</h2>
+            <p>清单文件是模组中所有资源和代码的列表。</p>
+            <p>清单文件中最低要求的字段位于名为 "info" 的部分中：</p>
             <ol>
                 <li>
-                    <p>The <strong>namespace</strong> of the mod. <br/>
-                        This will be used to distinguish the identifiers of your mod's content from other mod's content. You will be using it in your files so try to keep it short and unique. It can only contain alphanumeric characters and underscores, using spaces or other characters is not allowed.
+                    <p>模组的<strong>命名空间</strong>。<br/>
+                        这将用于区分你的模组内容的标识符与其他模组内容的标识符。你将在文件中使用它，所以尽量保持简短且唯一。它只能包含字母数字字符和下划线，不允许使用空格或其他字符。
                     </p>
                 </li>
                 <li>
-                    <p>The <strong>version</strong>. <br/>
-                        <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> The <code>"version"</code> key of the "info" section refers to the modding API version of the game itself, not to your mod version. It was used to outdate automatically old mods when the API version was changed. To make your mod compatible with the current version of the game, always ensure that it has the same value than the one in the current <code>stonehearth</code> mod, which is 3 now.
+                    <p><strong>版本</strong>。<br/>
+                        <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> "info" 部分的 <code>"version"</code> 键指的是游戏本身的模组 API 版本，而不是你的模组版本。它用于在 API 版本更改时自动使旧模组过时。要使你的模组与当前版本的游戏兼容，请始终确保它具有与当前 <code>stonehearth</code> 模组中相同的值，现在是 3。
                     </p>
                 </li>
                 <li>
-                    <p>The <strong>name</strong> of the mod. <br/>
-                        A name or title for your mod. You can use any character for the name, as long as you use the namespace for your aliases.
+                    <p>模组的<strong>名称</strong>。<br/>
+                        你的模组的名称或标题。只要你在别名中使用命名空间，你可以对名称使用任何字符。
                     </p>
                 </li>
             </ol>
-            <h3><a name="OptionalFields"></a>Optional fields</h3>
-            <p>There can be other optional keys inside the "info" section of the manifest, that affect the way they are displayed in the Mods menu:</p>
+            <h3><a name="OptionalFields"></a>可选字段</h3>
+            <p>在清单文件的 "info" 部分中还可以有其他可选键，它们会影响模组在模组菜单中的显示方式：</p>
             <pre><code>  "required" : true
 </code></pre>
-            <p>This is only used for the main mods required to run the game (radiant, stonehearth). It displays them as checked and disabled in the Mods tab, so that players won't uncheck them accidentally. The other default mods also have the "is_base_mod" key, to highlight them in the Mods menu. These two keys allow to differentiate the base game content from the external mods, so you shouldn't use them.</p>
+            <p>这仅用于运行游戏所需的主要模组（radiant、stonehearth）。它在模组选项卡中将它们显示为已勾选且禁用状态，以便玩家不会意外取消勾选它们。其他默认模组也有 "is_base_mod" 键，以在模组菜单中高亮显示它们。这两个键允许区分基础游戏内容和外部模组，因此你不应该使用它们。</p>
             <pre><code>  "client_only": true
 </code></pre>
-            <p>This is a tag to prevent the mod from being compared when a player joins a multiplayer game. The game won't try to synchronize client-only mods (such as localization mods).</p>
+            <p>这是一个标签，用于防止在玩家加入多人游戏时比较该模组。游戏不会尝试同步仅限客户端的模组（如本地化模组）。</p>
             <pre><code>  "is_debug_mod": true
 </code></pre>
-            <p>This will tag a mod as a mod used for debugging (for example, the "debugtools" mod that comes bundled with the game). It will be labeled as "Debug Mod" in the Mods menu.</p>
+            <p>这将把模组标记为用于调试的模组（例如，游戏附带的 "debugtools" 模组）。它将在模组菜单中标记为"调试模组"。</p>
             <pre><code>  "default_enabled": false
 </code></pre>
-            <p>Use this tag inside the "info" section if you want your mod to be disabled by default.</p>
+            <p>如果你希望你的模组默认禁用，请在 "info" 部分中使用此标签。</p>
             <pre><code>  "author" : "Your name"
 </code></pre>
-            <p>This is an optional field. It won't have any effect in game but you can include your name or nickname there to remember who made that mod.</p>
-            <p>JSON allows for writing any key/value you want, so as long as the game doesn't treat it as a special keyword you can add other keys here.</p>
-            <h2><a name="Structure"></a>Structure of the manifest</h2>
-            <p>In the <code>stonehearth</code>'s manifest you can see other sections below the "info" one. They are used to reference all the assets in the game. Now we will cover briefly what do each of them do, and refer to specific sections in the guide for examples on how to use them.</p>
-            <h3><a name="Aliases"></a>The aliases</h3>
-            <p>An alias is a nickname to reference a game object. We can declare an alias and associate it with the file path to get to the data file that describes that object. Later on, inside our mod's files, we can reference that game object by using its alias (always prefixed by the namespace of our mod plus a colon), which is way shorter than having to write the whole path to the file. Let's see a short example from the stonehearth manifest:</p>
+            <p>这是一个可选字段。它在游戏中不会产生任何效果，但你可以在此处包含你的姓名或昵称以记住谁制作了这个模组。</p>
+            <p>JSON 允许编写任何你想要的键/值对，因此只要游戏不将其视为特殊关键字，你就可以在此处添加其他键。</p>
+            <h2><a name="Structure"></a>清单文件的结构</h2>
+            <p>在 <code>stonehearth</code> 的清单文件中，你可以看到 "info" 下面的其他部分。它们用于引用游戏中的所有资源。现在我们将简要介绍它们各自的作用，并在指南的特定部分中引用如何使用它们的示例。</p>
+            <h3><a name="Aliases"></a>别名（Aliases）</h3>
+            <p>别名是引用游戏对象的昵称。我们可以声明一个别名并将其与文件路径关联，以获取描述该对象的数据文件。稍后，在我们模组的文件中，我们可以通过使用其别名（始终以我们模组的命名空间加冒号为前缀）来引用该游戏对象，这比必须写入整个文件路径要短得多。让我们看一个来自 stonehearth 清单文件的简短示例：</p>
             <pre><code>  "aliases": {
      "medium_oak_tree" : "file(entities/trees/oak_tree/medium_oak_tree)"
   }
 </code></pre>
-            <p><a name="Filepaths"></a><img src="/modding_guide/images/common/gold.png" alt="icon"/>You may have noticed that the path looks a bit strange. There are several ways in which we can specify the paths. These are all equivalent:</p>
+            <p><a name="Filepaths"></a><img src="/modding_guide/images/common/gold.png" alt="图标"/>你可能已经注意到路径看起来有点奇怪。有几种方法可以指定路径。这些都是等效的：</p>
             <blockquote>
                 <pre><code> "medium_oak_tree" : "file(entities/trees/oak_tree/medium_oak_tree)"
  "medium_oak_tree" : "file(entities/trees/oak_tree/medium_oak_tree/medium_oak_tree.json)"
  "medium_oak_tree" : "/stonehearth/entities/trees/oak_tree/medium_oak_tree/medium_oak_tree.json"
 </code></pre>
-                <p>The syntax for the first one is shorthand for the second one, but it's only applicable if it's a JSON file inside a folder that has the same name as that file. If the file is a Lua file (or a .png, .qb, etc.), you will have to specify the whole path.  </p>
-                <p>The <strong>"file()"</strong> used to wrap the paths will start searching in the current folder. This is important to know because we can use this syntax to reference files from within other files, but the path to those files will not be the same depending on which folder we are in. More <a href="../mixins/index.html#RelativePaths">examples</a> on this later.</p>
+                <p>第一个语法是第二个语法的简写形式，但仅适用于在与该文件同名的文件夹中的 JSON 文件。如果文件是 Lua 文件（或 .png、.qb 等），你将必须指定整个路径。</p>
+                <p>用于包装路径的 <strong>"file()"</strong> 将从当前文件夹开始搜索。了解这一点很重要，因为我们可以使用此语法从其他文件中引用文件，但这些文件的路径将根据我们所在的文件夹而不同。稍后会有更多<a href="../mixins/index.html#RelativePaths">示例</a>。</p>
             </blockquote>
-            <p>Not all the files in our mod need to have an alias, but sometimes it can be handy to have extra aliases for certain files, not just for entities.</p>
-            <p>The aliases (the keys) should only contain letters, numbers, underscores and colons. You can use uppercase and lowercase, but stonehearth's convention is to only use lowercase and separate sections with colons (for organization) and then use underscores to separate words (you could also use hyphens, but the convention is using underscores). Using a mix of uppercase and lowercase is confusing, and you risk of making typos, so by default we only use lowercase for our JSON keys. Using spaces is also not recommended.</p>
-            <p>For a full example of a mod, go to the <a href="../startermods/index.html">starter mods</a> section.</p>
-            <h3><a name="MixintosOverrides"></a>Mixintos and Overrides</h3>
-            <p>These sections don't appear in the stonehearth manifest, but are the basics for modding. They are covered in the <a href="../mixintos_overrides/index.html">next sections</a> of the guide.</p>
-            <h3><a name="Functions"></a>Functions</h3>
-            <p>The keys listed inside the "functions" section are aliases for functions. They all list the path of the controller that has the definition of the function, and an endpoint, which refers to the client or the server, depending on where the function is meant to be run.</p>
-            <h3><a name="Controllers"></a>Controllers</h3>
-            <p>A controller is a Lua file containing a utility class that stores data and functions (and isn't a component, service, call handler, etc). It has some behaviors that make initializing / loading / destroying easier. In the stonehearth manifest you can find aliases for the controllers of the different jobs, traits, scenarios, inventory trackers, etc.</p>
-            <h3><a name="Components"></a>Components</h3>
-            <p>A component is a reusable blob of code that describes a related set of details about an entity. Components include things like ai/actions, an entity's render rig, it's carried items, its stats, etc. If any game logic of any sort is associated with an entity, there is likely a component attached to that entity covering that game logic. If you create a new component, you need to add it into this section of your manifest.</p>
-            <h3><a name="UI"></a>UI</h3>
-            <p>This section of the manifest declares the files that define the different UI views. It contains keys for lists of all the HTML files, Javascript (.js) files, and Less files (a variant of CSS).</p>
-            <h3><a name="Locales"></a>Locales</h3>
+            <p>并非我们模组中的所有文件都需要有别名，但有时为某些文件（不仅仅是实体）拥有额外的别名会很方便。</p>
+            <p>别名（键）应仅包含字母、数字、下划线和冒号。你可以使用大写和小写，但 stonehearth 的约定是仅使用小写并用冒号分隔部分（用于组织），然后使用下划线分隔单词（你也可以使用连字符，但约定是使用下划线）。混合使用大写和小写会造成混淆，并且你有拼写错误的风险，因此默认情况下我们仅对小写的 JSON 键使用小写。也不建议使用空格。</p>
+            <p>有关模组的完整示例，请参阅<a href="../startermods/index.html">入门模组</a>部分。</p>
+            <h3><a name="MixintosOverrides"></a>Mixintos 和覆盖（Overrides）</h3>
+            <p>这些部分不会出现在 stonehearth 清单文件中，但它们是模组制作的基础。它们在指南的<a href="../mixintos_overrides/index.html">下一部分</a>中进行介绍。</p>
+            <h3><a name="Functions"></a>函数（Functions）</h3>
+            <p>"functions" 部分中列出的键是函数的别名。它们都列出了具有函数定义的控制器的路径，以及一个端点，该端点指的是客户端或服务器，具体取决于函数 intended 在哪里运行。</p>
+            <h3><a name="Controllers"></a>控制器（Controllers）</a></h3>
+            <p>控制器是一个包含实用程序类的 Lua 文件，该类存储数据和函数（并且不是组件、服务、调用处理器等）。它具有一些使初始化/加载/销毁更容易的行为。在 stonehearth 清单文件中，你可以找到不同职业、特性、场景、库存跟踪器等的控制器的别名。</p>
+            <h3><a name="Components"></a>组件（Components）</h3>
+            <p>组件是一段可重用的代码块，描述实体的相关细节集。组件包括 ai/actions、实体的渲染装备、携带的物品、统计数据等。如果任何类型的游戏逻辑与实体相关联，则可能有附加到该实体的组件涵盖该游戏逻辑。如果你创建新组件，则需要将其添加到清单文件的此部分中。</p>
+            <h3><a name="UI"></a>用户界面（UI）</h3>
+            <p>清单文件的此部分声明定义不同 UI 视图的文件。它包含所有 HTML 文件、Javascript (.js) 文件和 Less 文件（CSS 的变体）列表的键。</p>
+            <h3><a name="Locales"></a>区域设置（Locales）</h3>
             <pre><code>  "default_locale":"en"
 </code></pre>
-            <p>This key is what allows for localization (more about how to localize your mod on the specific <a href="../localization/index.html">section</a> of the guide).</p>
-            <h3><a name="Dependencies"></a>Dependencies</h3>
-            <p>We can also specify that our mod should be loaded after other mod. This is useful when we want to add compatibility with other mods.
-                At the same level than "info", "default_locale", etc. we can add this array listing the namespaces of the mods we depend on:
+            <p>此键允许进行本地化（有关如何本地化你的模组的更多信息，请参阅指南的特定<a href="../localization/index.html">部分</a>）。</p>
+            <h3><a name="Dependencies"></a>依赖关系（Dependencies）</h3>
+            <p>我们还可以指定我们的模组应该在其他模组之后加载。当我们想要添加与其他模组的兼容性时，这很有用。
+                在与 "info"、"default_locale" 等相同的级别，我们可以添加此数组，列出我们依赖的模组的命名空间：
             </p>
             <pre><code>  "dependencies" : [ "mod_a", "mod_b"]
 </code></pre>
-            <p>This way, if our mod overrides the same files than "mod_a" or "mod_b", our overrides will win, because they'll be loaded last.</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> This won't force dependencies nor warn the players if they're missing the dependencies. Modders should talk among themselves to decide which mod should add the dependency, and tell players to install the mods they require.</p>
-            <p>The base mods will be loaded first. In multiplayer, client_only mods will be ordered separately, since the host might not have them. The "dependencies" field won't affect hotloaded manifests.</p>
-            <p>If the game detects a circular dependency (like mod_a depends on mod_b which depends on mod_c which depends on mod_a), these mods will be temporarily disabled (it won't affect the user_settings disabled setting and won't change the checkbox in the Mods menu). They will be disabled in case the dependency could cause bugs in the game. A pop up will appear after the mods have been loaded telling which ones have the circular dependency and will therefore be disabled.</p>
-            <p>In the same way, if we have a mod that has a dependency, but the depended mod is not installed or is disabled, the game will ignore the dependency and just load that mod as if it didn't have it.</p>
-            <h3><a name="DeprecatedAliases"></a>Deprecated aliases</h3>
-            <p>Deprecated aliases are for assets that devs wanted to replace while players already had versions of the assets. If they were to just delete the asset, then they would ruin save/load compatibility - or maybe it would load, but things would be broken. So by moving the original URI to this deprecated list, the original asset lives on but is no longer populated in new games. For example: the 'red_fox' originally used the rabbit's rig, but a fox doesn't really move like a rabbit. They decided to switch the fox over to the wolf rig, but when they first did this all pre-existing saves displayed horribly broken looking fox creatures. So instead they deprecated the asset and made a new fox, problem solved. Another example is when they updated many of the carpenter's assets, but that meant a lot of shape and color changes that people may not want instantly replaced in their homes.</p>
-            <p>Modders should use this feature anytime they have a mod that is already out to the public but they want to make a change to an art asset that is drastic enough that a save file's old data will cause issues, or the visuals are distinctly different enough to warrant not wanting to force someone to have the new visuals instantly.</p>
-            <h3><a name="Other"></a>Other sections</h3>
-            <p>There can be other sections in the manifest, such as "game", "client_init_script"/"server_init_script", "component_renderers", "invariant_renderers", "client_controllers", "client_components", ... but we won't be explaining those here. They will be mentioned in other sections of the guide.</p>
-            <p>There will be documentation on how to create components, call handlers, UI views, etc. in the <a href="../../advanced/index.html">advanced sections</a> of the guide.</p>
+            <p>这样，如果我们的模组覆盖了与 "mod_a" 或 "mod_b" 相同的文件，我们的覆盖将获胜，因为它们将最后加载。</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 这不会强制依赖关系，也不会在玩家缺少依赖关系时警告他们。模组制作者应该相互讨论以决定哪个模组应该添加依赖关系，并告诉玩家安装他们需要的模组。</p>
+            <p>基础模组将首先加载。在多人游戏中，仅限客户端的模组将单独排序，因为主机可能没有它们。"dependencies" 字段不会影响热加载的清单文件。</p>
+            <p>如果游戏检测到循环依赖（如 mod_a 依赖于 mod_b，mod_b 依赖于 mod_c，mod_c 依赖于 mod_a），这些模组将被临时禁用（它不会影响 user_settings 禁用设置，也不会更改模组菜单中的复选框）。如果依赖关系可能导致游戏中的错误，它们将被禁用。模组加载后会出现一个弹出窗口，告知哪些模组具有循环依赖关系并将因此被禁用。</p>
+            <p>同样，如果我们有一个具有依赖关系的模组，但所依赖的模组未安装或已禁用，游戏将忽略该依赖关系并像没有依赖关系一样加载该模组。</p>
+            <h3><a name="DeprecatedAliases"></a>已弃用的别名</h3>
+            <p>已弃用的别名用于开发者想要替换而玩家已经拥有资产版本的资产。如果他们只是删除资产，那么他们会破坏保存/加载兼容性——或者可能会加载，但事物会损坏。因此，通过将原始 URI 移动到此弃用列表，原始资产继续存在但不再在新游戏中填充。例如：'red_fox' 最初使用兔子的装备，但狐狸的移动方式并不像兔子。他们决定将狐狸切换到狼的装备，但当他们第一次这样做时，所有预先存在的存档都显示了严重损坏的狐狸生物。因此，他们改为弃用该资产并制作了一个新的狐狸，问题解决了。另一个例子是他们更新了许多木匠的资产，但这意味着许多形状和颜色的变化，人们可能不希望立即在家中被替换。</p>
+            <p>模组制作者应该在他们的模组已经向公众发布但想要对艺术资产进行足够剧烈的更改以至于存档文件的旧数据会导致问题，或者视觉效果明显不同到足以保证不强迫某人立即拥有新视觉效果时使用此功能。</p>
+            <h3><a name="Other"></a>其他部分</h3>
+            <p>清单文件中还可以有其他部分，如 "game"、"client_init_script"/"server_init_script"、"component_renderers"、"invariant_renderers"、"client_controllers"、"client_components" 等，但我们不会在此解释它们。它们将在指南的其他部分中提到。</p>
+            <p>指南的<a href="../../advanced/index.html">高级部分</a>中将有关于如何创建组件、调用处理器、UI 视图等的文档。</p>
         </main>
     </body>
 </html>

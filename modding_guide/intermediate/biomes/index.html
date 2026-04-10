@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,80 +7,80 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Biomes</title>
+        <title>生物群落</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Biomes</h1>
-            <p>As always, we can copy an existing biome to create our custom biome faster. Biome files are located in <code>stonehearth/data/biome</code>.</p>
+            <h1>生物群落</h1>
+            <p>与往常一样，我们可以复制现有的生物群系来更快地创建自定义生物群系。生物群系文件位于 <code>stonehearth/data/biome</code>。</p>
             <ul>
-                <li><a href="#Adding">Adding a biome to the list</a></li>
-                <li><a href="#BiomeInfo">Biome info</a></li>
-                <li><a href="#GenerationData">Biome generation data</a></li>
+                <li><a href="#Adding">将生物群系添加到列表</a></li>
+                <li><a href="#BiomeInfo">生物群系信息</a></li>
+                <li><a href="#GenerationData">生物群系生成数据</a></li>
             </ul>
-            <h2><a name="Adding"></a>Adding the biome to the list</h2>
-            <p>First, let's make an alias for our biome in our manifest:</p>
+            <h2><a name="Adding"></a>将生物群系添加到列表</h2>
+            <p>首先，让我们在清单中为我们的生物群系创建一个别名：</p>
             <pre><code>  "aliases" : {
      "biome:silent_woods" : "file(data/biome/silent_woods.json)"
   }
 </code></pre>
-            <p>Then, let's add the mixinto so that our biome appears in the list of available biomes:</p>
+            <p>然后，让我们添加 mixinto，以便我们的生物群系出现在可用生物群系列表中：</p>
             <pre><code>  "mixintos" : {
      "stonehearth:biome:index" : "file(data/biome/index.json)"
   }
 </code></pre>
-            <p>Our <code>index.json</code> mixinto file would look like this:</p>
+            <p>我们的 <code>index.json</code> mixinto 文件如下所示：</p>
             <pre><code>  {
      "biomes": {
         "silent_woods": "silent_woods:biome:silent_woods"
      }
   }
 </code></pre>
-            <p>The key is a custom identifier for our biome, and the alias points to our biome alias preceded by the namespace of our mod plus a colon.</p>
-            <h2><a name="BiomeInfo"></a>Biome info</h2>
-            <p>The definition of biomes is divided into two files. The first one contains the basic information, and it's the one that we reference in our alias (in our example, <code>silent_woods.json</code>). The second one contains only the data related to the actual terrain generation (in our example, it would be <code>silent_woods_generation_data.json</code>).</p>
-            <p>The info files contain these fields:</p>
+            <p>键是我们生物群系的自定义标识符，别名指向我们的生物群系别名，前面加上 mod 的命名空间和冒号。</p>
+            <h2><a name="BiomeInfo"></a>生物群系信息</h2>
+            <p>生物群系的定义分为两个文件。第一个文件包含基本信息，它是我们在别名中引用的文件（在我们的示例中为 <code>silent_woods.json</code>）。第二个文件仅包含与实际地形生成相关的数据（在我们的示例中，它将是 <code>silent_woods_generation_data.json</code>）。</p>
+            <p>信息文件包含以下字段：</p>
             <ul>
-                <li><strong>"type": "biome"</strong> -- this file represents a biome.</li>
-                <li><strong>"alias"</strong> -- the alias of our biome, preceded by the namespace of our mod plus a colon.</li>
-                <li><strong>"display_name"</strong> -- the localized name for our biome, this is the title that will appear for our biome in the "Select a Biome" list in the UI.</li>
-                <li><strong>"description"</strong> -- the localized description that will appear for our biome in the biomes list.</li>
-                <li><strong>"random_location_names"</strong> -- an array containing localized location names for our biome. One will be chosen when the player selects to play in our biome, and will appear in the description of the story in the embarkation screen (where we can click to change the biome).</li>
-                <li><strong>"image"</strong> -- the path to the image that will be used in the list of biomes in the UI. Usually it's 400x300 pixels.</li>
-                <li><strong>"story_board_image"</strong> -- this is the image that will appear at the right side of the first embarkation screen when the player selects our biome.</li>
-                <li><strong>"game_mode_images"</strong> -- a map containing aliases of game modes (usually <code>"stonehearth:game_mode:normal"</code> and <code>"stonehearth:game_mode:hard"</code>) pointing to images that will layer on top of the story board image. That allows us to use a semitransparent image to add enemies on top of the image when the player selects a non-peaceful game mode.</li>
-                <li><strong>"generation_file"</strong> -- a path pointing to the generation data JSON file for our biome.</li>
-                <li><strong>"mining_loot_table"</strong> -- optional field. We can link to a file containing a custom mining loot table for our biome (if we don't add this field, the mining service will load the <code>"stonehearth:mining:base_loot_table"</code> by default). An example can be seen in the desert biome (<code>stonehearth/data/biome/desert.json</code>). It mixins the base loot table, to reuse the default loot for the different terrain types, and then adjusts the <a href="../../basic/misc_json/index.html#WeightedSets">weight</a> of clay so that in the desert we get more clay by mining.</li>
-                <li><a name="AppliedManifests"></a><strong>"applied_manifests"</strong> -- optional field. We can use it to apply custom manifests only when the player chooses to play in our biome. An example can be seen in the desert biome too. (Hotloading manifests doesn't work for everything. It'll be discussed in another section of the guide).</li>
-                <li><strong>"default_starting_season"</strong> -- this field will point to the key of a season defined below. It's used to automatically select a default season in the UI (in the map screen during embarkation).</li>
-                <li><strong>"seasons"</strong> -- here we'll define the seasons and weather for our biome. See <a href="seasons_weather/index.html">this page</a> for how to set them up.</li>
+                <li><strong>"type": "biome"</strong> -- 此文件代表一个生物群系。</li>
+                <li><strong>"alias"</strong> -- 我们生物群系的别名，前面加上 mod 的命名空间和冒号。</li>
+                <li><strong>"display_name"</strong> -- 我们生物群系的本地化名称，这是将在 UI 的"选择生物群系"列表中显示的标题。</li>
+                <li><strong>"description"</strong> -- 将在生物群系列表中显示为我们生物群系的本地化描述。</li>
+                <li><strong>"random_location_names"</strong> -- 包含我们生物群系的本地化位置名称的数组。当玩家选择在我们的生物群系中游玩时，将选择一个名称，并出现在登船屏幕的故事描述中（我们可以点击那里更改生物群系）。</li>
+                <li><strong>"image"</strong> -- 将在 UI 的生物群系列表中使用的图像路径。通常为 400x300 像素。</li>
+                <li><strong>"story_board_image"</strong> -- 当玩家选择我们的生物群系时，将出现在第一个登船屏幕右侧的图像。</li>
+                <li><strong>"game_mode_images"</strong> -- 包含游戏模式别名（通常为 <code>"stonehearth:game_mode:normal"</code> 和 <code>"stonehearth:game_mode:hard"</code>）的映射，指向将分层在故事板图像顶部的图像。这允许我们使用半透明图像在玩家选择非和平游戏模式时在图像顶部添加敌人。</li>
+                <li><strong>"generation_file"</strong> -- 指向我们生物群系的生成数据 JSON 文件的路径。</li>
+                <li><strong>"mining_loot_table"</strong> -- 可选字段。我们可以链接到包含我们生物群系自定义采矿战利品表的文件（如果我们不添加此字段，采矿服务将默认加载 <code>"stonehearth:mining:base_loot_table"</code>）。可以在沙漠生物群系（<code>stonehearth/data/biome/desert.json</code>）中看到一个示例。它 mixin 基础战利品表，以重用不同地形类型的默认战利品，然后调整粘土的<a href="../../basic/misc_json/index.html#WeightedSets">权重</a>，以便在沙漠中通过采矿获得更多粘土。</li>
+                <li><a name="AppliedManifests"></a><strong>"applied_manifests"</strong> -- 可选字段。我们可以使用它仅在玩家选择在我们的生物群系中游玩时应用自定义清单。也可以在沙漠生物群系中看到一个示例。（热加载清单并不适用于所有情况。将在指南的另一部分讨论）。</li>
+                <li><strong>"default_starting_season"</strong> -- 此字段将指向下面定义的季节的键。它用于在 UI 中自动选择默认季节（在登船期间的地图屏幕中）。</li>
+                <li><strong>"seasons"</strong> -- 在这里我们将定义生物群系的季节和天气。有关如何设置它们的信息，请参阅<a href="seasons_weather/index.html">此页面</a>。</li>
             </ul>
-            <p>The warning about the biome not being the preferred biome for the chosen kingdom will not appear for custom mods, only for the stonehearth one.</p>
-            <h2><a name="GenerationData"></a>Biome generation data</h2>
-            <p>The terrain generation is managed from <code>stonehearth/services/server/world_generation/world_generation_service.lua</code>, with help of all the other files inside the <code>stonehearth/services/server/world_generation</code> directory, although the actual work is done from the C++ side. The terrain itself is generated from <code>stonehearth/data/service/game_creation_service.lua</code>, once the game knows which biome / seed / etc. it has to use.</p>
-            <p>The terrain service takes care of things like territory and visibility (fog of war). The hydrology service manages the behavior or the water (when it should create waterfalls, the rate at which it should deplete, etc). There are also some related components.</p>
-            <p>The data used in the generation data files is extracted from the <strong>"generation_file"</strong> linked in the main biome file. Within it we can determine things like height of the terrain, depth of water, which plants and trees will appear in our custom biome, etc. Some mods override the Lua files that generate the terrain, to allow for a different terrain generation (by default it's based on a noise function). For example, the <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1321926509">Canyon Biome mod</a> have tall vertical cliffs and rivers</p>
-            <p>The <code>temperate_generation_data.json</code> file has more comments than the corresponding files of the desert and arctic biomes, so it's a good start. Many comments have "Def N", which is the default value for that parameter, if we made some mistake and need to revert back to a reasonable value, or min/max values, so that we don't try to add invalid values. If we add a mixinto to <code>stonehearth/data/terrain/terrain_blocks.json</code> adding more terrain types, we'll be able to use them in our biome as well.</p>
-            <p>Ideally we'll start defining the shape of the terrain, then adding the trees/plants that we want, and finally double checking any static scenario that we want / don't want our biome to have (such as bunny statues, critter nests, landmarks, etc).</p>
-            <p>If we used a wrong value in the generation files, an error will pop up in game when generating the map. Sometimes it won't fail there, but only with certain seeds so we can try rerolling the map a few times and see if anything's wrong. Some values might also be affected by other ones, so while they aren't wrong, they might cause issues depending on the other values.</p>
-            <p>In short, it is recommended to change the values one by one and test a lot, so that we know exactly which value is causing the problem, and how much effect did our last change have in the terrain generation.</p>
-            <p>Let's explain a bit the different fields that we can find in the generation file:</p>
+            <p>关于生物群系不是所选王国的首选生物群系的警告不会出现在自定义 mod 中，仅出现在 stonehearth 中。</p>
+            <h2><a name="GenerationData"></a>生物群系生成数据</h2>
+            <p>地形生成由 <code>stonehearth/services/server/world_generation/world_generation_service.lua</code> 管理，并借助 <code>stonehearth/services/server/world_generation</code> 目录中的所有其他文件，尽管实际工作是在 C++ 端完成的。地形本身由 <code>stonehearth/data/service/game_creation_service.lua</code> 生成，一旦游戏知道它必须使用哪个生物群系/种子等。</p>
+            <p>地形服务处理领土和可见性（战争迷雾）等事物。水文学服务管理水的行为（何时应该创建瀑布、枯竭速率等）。还有一些相关的组件。</p>
+            <p>生成数据文件中使用的数据是从主生物群系文件中链接的 <strong>"generation_file"</strong> 中提取的。在其中，我们可以确定诸如地形高度、水深、哪些植物和树木将出现在我们的自定义生物群系中等事物。一些 mod 覆盖生成地形的 Lua 文件，以允许不同的地形生成（默认基于噪声函数）。例如，<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1321926509">Canyon Biome mod</a> 有高大的垂直悬崖和河流。</p>
+            <p><code>temperate_generation_data.json</code> 文件比沙漠和北极生物群系的相应文件有更多的注释，因此是一个很好的起点。许多注释有"Def N"，这是该参数的默认值，如果我们犯了错误并需要恢复到合理的值，或者最小/最大值，以便我们不尝试添加无效值。如果我们对 <code>stonehearth/data/terrain/terrain_blocks.json</code> 添加 mixinto 以添加更多地地形类型，我们也能够在我们的生物群系中使用它们。</p>
+            <p>理想情况下，我们将首先定义地形的形状，然后添加我们想要的树木/植物，最后仔细检查我们希望/不希望我们的生物群系具有的任何静态场景（如兔子雕像、小动物巢穴、地标等）。</p>
+            <p>如果我们在生成文件中使用了错误的值，在生成地图时游戏中会弹出错误。有时它不会在那里失败，但只在某些种子下失败，因此我们可以尝试重新滚动地图几次，看看是否有任何问题。一些值也可能受其他值影响，因此虽然它们没有错，但可能会根据其他值导致问题。</p>
+            <p>简而言之，建议逐个更改值并进行大量测试，以便我们确切知道哪个值导致问题，以及我们最近的更改对地形生成了多大影响。</p>
+            <p>让我们解释一下我们可以在生成文件中找到的不同字段：</p>
             <ul>
                 <li>
-                    <p><strong>"type": "biome_generation_data"</strong> -- this is a biome generation data file.</p>
+                    <p><strong>"type": "biome_generation_data"</strong> -- 这是一个生物群系生成数据文件。</p>
                 </li>
                 <li>
-                    <p><strong>"ring_tesselation" : {}</strong> -- these parameters are used for generating the rings we can see on the borders of the grass, which have different colors. The keys inside this field are keys from the block_types section inside <code>terrain_blocks.json</code>. We can only include keys of terrain types that are 1 block thick (like grass and dirt). We can change the width and terrain type of the ring, add more rings, or remove them if we don't want them. The terrain type that they link to ("name") is any key from the block_types section inside <code>terrain_blocks.json</code>.</p>
+                    <p><strong>"ring_tesselation" : {}</strong> -- 这些参数用于生成我们可以在草地边界上看到的环，它们具有不同的颜色。此字段内的键是 <code>terrain_blocks.json</code> 内 block_types 部分的键。我们只能包含厚度为 1 个方块的地形类型的键（如草地和泥土）。我们可以更改环的宽度和地形类型、添加更多环，或者如果我们不想要它们则移除它们。它们链接到的地形类型（"name"）是 <code>terrain_blocks.json</code> 内 block_types 部分的任何键。</p>
                 </li>
                 <li>
-                    <p><strong>"season"</strong> -- this points to the key of a season we defined in the main biome file. It will be used to choose the default palette to generate our biome (so that the UI can load starting colors in the map screen of embarkation, before the player chooses any season).</p>
+                    <p><strong>"season"</strong> -- 这指向我们在主生物群系文件中定义的季节的键。它将用于选择生成我们生物群系的默认调色板（以便 UI 可以在玩家选择任何季节之前在登船的地图屏幕中加载起始颜色）。</p>
                 </li>
                 <li>
-                    <p><strong>"palettes"</strong> -- the keys inside correspond to the seasons we defined for our biome. Each key will then map the terrain types from <code>terrain_blocks.json</code> to colors in hexadecimal format (starting by # and in uppercase by convention). This way the terrain can look different depending on the season. We can also define seasonal variants for plants (see <a href="../../basic/plants/index.html#SeasonalVariants">this page</a>).</p>
+                    <p><strong>"palettes"</strong> -- 内部的键对应于我们为生物群系定义的季节。每个键然后将 <code>terrain_blocks.json</code> 中的地形类型映射为十六进制格式的颜色（以 # 开头，按惯例大写）。这样，地形可以根据季节看起来不同。我们还可以为植物定义季节性变体（参见<a href="../../basic/plants/index.html#SeasonalVariants">此页面</a>）。</p>
                     <ul>
                         <li>
-                            <p>The colors of the terrain in the embarkation map will be picked up from the palette corresponding to the default season, as explained above. But if we want to change them, for example, to edit the color of water or trees, which are not taken from the palette, we can do so in a <strong>"minimap"</strong> section inside the <strong>"palettes"</strong> section, before defining any of the palettes. For instance:</p>
+                            <p>登船地图中的地形颜色将从对应于默认季节的调色板中选取，如上所述。但是，如果我们想更改它们，例如，编辑水或树木的颜色（这些不从调色板中获取），我们可以在 <strong>"palettes"</strong> 部分内的 <strong>"minimap"</strong> 部分中进行，在定义任何调色板之前。例如：</p>
                             <pre><code>"minimap":{
    "water":"#FF0000",
    "trees":"#AA3800",
@@ -88,15 +88,15 @@
    "mountains_1":"#334433"
 }
 </code></pre>
-                            <p>This will change the color of water, trees, and two of the terrain layers in the embarkation map. We can edit any of the colors that are displayed there by using the terrain type (plains, foothills or mountains) plus an underscore and a number representing the step/layer.</p>
+                            <p>这将更改登船地图中水、树木和两个地形层的颜色。我们可以通过使用地形类型（平原、山麓或山脉）加上下划线和表示步骤/层的数字来编辑其中显示的任何颜色。</p>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p><strong>"terrain": {}</strong> -- the parameters in this section control the shape of the terrain.</p>
+                    <p><strong>"terrain": {}</strong> -- 此部分中的参数控制地形的形状。</p>
                     <ul>
                         <li>
-                            <p><strong>"minimap" : {}</strong> -- optional field. We can map terrain types (water, plains/foothills/mountains plus underscore and step number) to custom names. These names appear on the right side of the map screen when we hover over the terrain. For instance, when hovering over water we can make it say "Ocean" or "Swamp", when hovering over plains we can make it say "Beach", etc.</p>
+                            <p><strong>"minimap" : {}</strong> -- 可选字段。我们可以将地形类型（水、平原/山麓/山脉加上下划线和步骤编号）映射到自定义名称。当我们将鼠标悬停在地形上时，这些名称会出现在地图屏幕的右侧。例如，当将鼠标悬停在水上时，我们可以使其显示"海洋"或"沼泽"，当将鼠标悬停在平原上时，我们可以使其显示"海滩"等。</p>
                             <pre><code>"minimap":{
    "water" : "i18n(my_mod:ui.shell.select_settlement.terrain_codes.water)",
    "plains_2" : "i18n(my_mod:ui.shell.select_settlement.terrain_codes.plains_2)"
@@ -104,67 +104,67 @@
 </code></pre>
                         </li>
                         <li>
-                            <p><strong>"noise_map_settings" : {}</strong> -- the terrain is generated using a simplex noise generator. These are the parameters for that generator. Check the comments in the <code>temperate_generation_data.json</code> for an idea on what they can do.</p>
+                            <p><strong>"noise_map_settings" : {}</strong> -- 地形使用 simplex 噪声生成器生成。这些是该生成器的参数。查看 <code>temperate_generation_data.json</code> 中的注释以了解它们可以做什么。</p>
                         </li>
                         <li>
-                            <p><strong>"plains_percentage"</strong> -- the percentage of plains. Depending on the other values below, it might not feel correct (for example, if we add too many steps for the foothills, they will cover the plains).</p>
+                            <p><strong>"plains_percentage"</strong> -- 平原的百分比。根据下面的其他值，它可能感觉不正确（例如，如果我们为山麓添加太多步骤，它们将覆盖平原）。</p>
                         </li>
                         <li>
-                            <p><strong>"height_base": 36</strong> -- this is an offset in regards to where the layers line up. Def 36, must be 1 (for the bedrock, which is the bottom layer that we can't mine) plus a multiple of five (which is related to mining: 1 block for the floor so that hearthlings can stand on it, and 4 blocks so that they have enough head space).</p>
+                            <p><strong>"height_base": 36</strong> -- 这是关于图层对齐位置的偏移量。默认为 36，必须是 1（对于基岩，这是我们无法挖掘的底层）加上五的倍数（这与采矿有关：1 个方块用于地板以便炉民可以站在上面，4 个方块以便他们有足够的头部空间）。</p>
                         </li>
                         <li>
-                            <p><strong>"plains": {}</strong>, <strong>"foothills" : {}</strong> and <strong>"mountains" : {}</strong> -- the parameters to define the quantity of layers of terrain and their height in blocks/world units. Normally we don't edit the values for plains, they can easily cause errors.</p>
+                            <p><strong>"plains": {}</strong>、<strong>"foothills" : {}</strong> 和 <strong>"mountains" : {}</strong> -- 定义地形层数量及其高度（以方块/世界单位为单位）的参数。通常我们不编辑平原的值，它们很容易导致错误。</p>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p><strong>"terrain_detailer": {}</strong> -- these are parameters to define the outcroppings (the bits of terrain that stick off the side of the terrain layers/steps).</p>
+                    <p><strong>"terrain_detailer": {}</strong> -- 这些是定义露头（粘在地形层/步骤侧面的地形块）的参数。</p>
                     <ul>
-                        <li><strong>"mountains" : {}</strong>, <strong>"foothills" : {}</strong> and <strong>"plains" : {}</strong> -- again, take a look at the comments in <code>temperate_generation_data.json</code> file to know what each parameter does. For example, if we set "layer_count" to 0, the sides of those terrain steps will be completely flat, so the terrain will look like giant rectangular shapes.</li>
+                        <li><strong>"mountains" : {}</strong>、<strong>"foothills" : {}</strong> 和 <strong>"plains" : {}</strong> -- 再次，查看 <code>temperate_generation_data.json</code> 文件中的注释以了解每个参数的作用。例如，如果我们将"layer_count"设置为 0，那些地形步骤的侧面将完全平坦，因此地形看起来像巨大的矩形形状。</li>
                     </ul>
                 </li>
                 <li>
-                    <p><strong>"landscape": {}</strong> -- these are parameters for defining the rest of the landscape:</p>
+                    <p><strong>"landscape": {}</strong> -- 这些是定义其余景观的参数：</p>
                     <ul>
                         <li>
-                            <p><strong>"placement_table": {}</strong> -- here we define all of the entities that we want to spawn in our terrain (trees, plants, bushes and boulders). The keys are the URIs of our entities (we can reuse trees etc. from the stonehearth mod, or use our custom entities, or both). For each key we define these properties:</p>
+                            <p><strong>"placement_table": {}</strong> -- 在这里我们定义所有想要在地形中生成的实体（树木、植物、灌木和巨石）。键是我们实体的 URI（我们可以重用 stonehearth mod 中的树木等，或使用我们的自定义实体，或两者兼用）。对于每个键，我们定义以下属性：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"placement_type"</strong> -- it can be either <strong>"single"</strong>, <strong>"dense"</strong> or <strong>"pattern"</strong>.</p>
+                                    <p><strong>"placement_type"</strong> -- 可以是 <strong>"single"</strong>、<strong>"dense"</strong> 或 <strong>"pattern"</strong>。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"parameters" : {}</strong> -- depending on the placement_type, we'll have different parameters. They refer to "tiles" which are 16x16x16 chunks of terrain (you can visualize them by pressing F1 with debug keys/debugtools enabled). With these fields we can specify how many entities can spawn in a tile, how much space we should leave around the entities so that nothing else spawn there (large trees need a big space for themselves), a radius to prevent trees from spawning semi-floating on cliffs, and values for grid-like patterns based on random chances, so that we can spawn groups of entities.</p>
-                                    <p>Take into account that these values can affect the placement of the entities, as in if they're too clustered it's possible that none of the entities will spawn, or entities will spawn on top of each other (due to their collision boxes). Always make sure to leave some space, otherwise plants won't find a place to spawn in the tiles, since trees occupy quite a big space.</p>
+                                    <p><strong>"parameters" : {}</strong> -- 根据 placement_type，我们将有不同的参数。它们指的是"tiles"，即 16x16x16 的地形块（您可以通过启用调试键/debugtools 并按 F1 来可视化它们）。使用这些字段，我们可以指定一个 tile 中可以生成多少实体，我们应该在实体周围留出多少空间以便没有其他东西在那里生成（大树需要很大的空间），一个半径以防止树木半漂浮在悬崖上生成，以及基于随机几率的网格状图案的值，以便我们可以生成实体组。</p>
+                                    <p>考虑到这些值会影响实体的放置，因为如果它们太聚集，可能没有任何实体会生成，或者实体会在彼此之上生成（由于它们的碰撞盒）。务必确保留出一些空间，否则植物将无法在 tiles 中找到生成的地方，因为树木占据了相当大的空间。</p>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <p><strong>"trees": {}</strong> -- parameters for tree placement:</p>
+                            <p><strong>"trees": {}</strong> -- 树木放置的参数：</p>
                             <ul>
-                                <li><strong>"sizes" : {}</strong> -- here we define the size of trees if we set up their aliases with the size as a suffix (check <a href="../../basic/plants/index.html#Trees">this other page</a>). If our trees don't have different sizes, we can (and should, since the "trees" section is required) define them with just their alias, and a couple fake sizes like "small": 0, "large": 10, for example. If we used the suffixes method for the aliases (recommended if your trees have different sizes), the ancient percentage will be used over large trees (so a percentage of the large trees will spawn as ancient instead).</li>
-                                <li><strong>"weights" : {}</strong> -- <a href="../../basic/misc_json/index.html#WeightedSets">weights</a> of each tree per terrain elevation. Here the number of entries may vary depending on how many terrain steps we defined before.</li>
-                                <li><strong>"noise_map_parameters": {}</strong> -- these are parameters for the noise function that generates the forests.</li>
+                                <li><strong>"sizes" : {}</strong> -- 如果我们使用大小作为后缀设置树木的别名，我们在这里定义树木的大小（查看<a href="../../basic/plants/index.html#Trees">此页面</a>）。如果我们的树木没有不同的大小，我们可以（并且应该，因为"trees"部分是必需的）仅使用它们的别名定义它们，以及一对假大小，如"small": 0, "large": 10。如果我们对别名使用了后缀方法（如果您的树木有不同的大小，推荐使用），古老百分比将用于大树（因此一定比例的大树将作为古老树木生成）。</li>
+                                <li><strong>"weights" : {}</strong> -- 每个地形海拔的每棵树的<a href="../../basic/misc_json/index.html#WeightedSets">权重</a>。这里的条目数量可能会根据我们之前定义了多少地形步骤而变化。</li>
+                                <li><strong>"noise_map_parameters": {}</strong> -- 这些是生成森林的噪声函数的参数。</li>
                             </ul>
                         </li>
                         <li>
-                            <p><strong>"berries" : {}</strong> -- parameters for placing bushes. This field is required (otherwise we'll get errors), but doesn't actually have an impact in the game, so we can use any of the trees/plants we defined for our biome in it.</p>
+                            <p><strong>"berries" : {}</strong> -- 放置灌木的参数。此字段是必需的（否则我们会得到错误），但实际上对游戏没有影响，因此我们可以在其中使用我们为生物群系定义的任何树木/植物。</p>
                         </li>
                         <li>
-                            <p><strong>"scattered": {}</strong> -- parameters for the rest of entities (like plants. If you don't see any trees being placed regardless of the parameters above, try adding them in this section too, like the desert biome does).</p>
+                            <p><strong>"scattered": {}</strong> -- 其余实体（如植物）的参数。如果无论上述参数如何都看不到任何树木被放置，请尝试也将它们添加到此部分，就像沙漠生物群系所做的那样）。</p>
                             <ul>
-                                <li><strong>"plants": {}</strong> -- the weights of the plants for the different terrain elevations, and their noise map parameters, so that they can spawn more scattered or more clustered in the different terrain elevations (mind tree placement for this, since if there are too many trees there might not be enough space for plants to appear).</li>
-                                <li><strong>"boulders": {}</strong> -- parameters for boulder placement. This field is also required. It's based on the same setup than trees, with the suffixes, so for the "namespace" field we should specify the alias without the suffix. Unfortunately for boulders we do have to make them with this suffixes for sizes otherwise they won't appear. We can, however, specify the full alias of any entity there and just add our boulders to the "scattered" weight set of plants.</li>
+                                <li><strong>"plants": {}</strong> -- 不同地形海拔的植物的权重，以及它们的噪声图参数，以便它们可以在不同的地形海拔中更分散或更集中地生成（注意树木放置，因为如果树木太多，可能没有足够的空间让植物出现）。</li>
+                                <li><strong>"boulders": {}</strong> -- 巨石放置的参数。此字段也是必需的。它基于与树木相同的设置，带有后缀，因此对于"namespace"字段，我们应该指定不带后缀的别名。不幸的是，对于巨石，我们必须使用这种大小后缀，否则它们不会出现。但是，我们可以在那里指定任何实体的完整别名，并仅将我们的巨石添加到植物的"scattered"权重集中。</li>
                             </ul>
                         </li>
                         <li>
-                            <p><strong>"water" : {}</strong> -- parameters for the water. Wrong values will throw an error in the loading screen when the terrain is being generated, not necessarily at the choose map screen. The <strong>"deep"</strong> value is the number of blocks from the surface to the deep sections of the water (you can see them in big lakes). The <strong>"shallow"</strong> value is the number of blocks from the surface to the shallow part of the lakes.</p>
-                            <p> At world generation, water will always be 1.5 blocks lower than the level of the surface where it spawns, unless we specify the <strong>"water_height_delta"</strong> property inside the <strong>"water"</strong> section. It can't be negative, and must always be lower than the level of the "shallow" value.</p>
+                            <p><strong>"water" : {}</strong> -- 水的参数。错误的值将在生成地形时的加载屏幕上抛出错误，不一定在选择地图屏幕上。<strong>"deep"</strong> 值是从水面到水深部分的方块数（您可以在大湖中看到它们）。<strong>"shallow"</strong> 值是从水面到湖泊浅水部分的方块数。</p>
+                            <p>在世界生成时，水将始终比其生成的表面水平低 1.5 个方块，除非我们在 <strong>"water"</strong> 部分内指定 <strong>"water_height_delta"</strong> 属性。它不能为负数，并且必须始终低于"shallow"值的水平。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <p><a href="https://www.stonehearth.net/desktop-tuesday-biomes/">Here</a>'s the old Desktop Tuesday about biomes, and <a href="https://www.stonehearth.net/dt-northern-alliance-glacier/">this</a> is the one about the Northern Alliance and the arctic biome (after seasons and weather were introduced).</p>
-            <p>You can find more biome mods at the Steam Workshop <a href="https://steamcommunity.com/workshop/browse/?appid=253250&amp;requiredtags%5B0%5D=Biome&amp;p=1">here</a>.</p>
+            <p><a href="https://www.stonehearth.net/desktop-tuesday-biomes/">这里</a>是关于生物群系的旧 Desktop Tuesday，<a href="https://www.stonehearth.net/dt-northern-alliance-glacier/">这个</a>是关于 Northern Alliance 和北极生物群系的（在引入季节和天气之后）。</p>
+            <p>您可以在 Steam Workshop <a href="https://steamcommunity.com/workshop/browse/?appid=253250&amp;requiredtags%5B0%5D=Biome&amp;p=1">这里</a>找到更多生物群系 mod。</p>
         </main>
     </body>
 </html>

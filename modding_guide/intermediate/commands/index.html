@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,46 +7,46 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Adding commands</title>
+        <title>添加命令</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Adding commands</h1>
+            <h1>添加命令</h1>
             <ul>
-                <li><a href="#Commands">What is a command?</a></li>
-                <li><a href="#AddingCommands">Adding commands to an entity</a></li>
-                <li><a href="#AddingByCode">Adding a command in Lua</a></li>
-                <li><a href="#EnableDisable">Enabling / disabling a command in Lua</a></li>
+                <li><a href="#Commands">什么是命令？</a></li>
+                <li><a href="#AddingCommands">向实体添加命令</a></li>
+                <li><a href="#AddingByCode">在 Lua 中添加命令</a></li>
+                <li><a href="#EnableDisable">在 Lua 中启用/禁用命令</a></li>
                 <li>
-                    <a href="#Anatomy">Anatomy of a command</a>
+                    <a href="#Anatomy">命令的结构</a>
                     <ul>
-                        <li><a href="#FireEvent">Fire Event</a></li>
-                        <li><a href="#Call">Call</a></li>
-                        <li><a href="#CallObject">Call object</a></li>
+                        <li><a href="#FireEvent">触发事件（Fire Event）</a></li>
+                        <li><a href="#Call">调用（Call）</a></li>
+                        <li><a href="#CallObject">调用对象（Call object）</a></li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="Commands"></a>What is a command?</h2>
-            <p>A command is an order that the players can issue on an entity they have clicked on. For example, "Release Pet" for pets, "Move Item" for decorations, and "Workshop" for workbenches and crafters. They are managed through the commands component.</p>
-            <p>Below are some command buttons on a hearthling's unit frame (the UI bar that displays information about a hearthling):
+            <h2><a name="Commands"></a>什么是命令？</h2>
+            <p>命令是玩家可以在他们点击的实体上发出的指令。例如，宠物的 "Release Pet"（释放宠物），装饰品的 "Move Item"（移动物品），以及工作台和工匠的 "Workshop"（工作室）。它们通过 commands 组件进行管理。</p>
+            <p>以下是 Hearthling 单位框架（显示有关 Hearthling 信息的 UI 栏）上的一些命令按钮：
                 <img src="/modding_guide/images/intermediate/commands/unit_frame.png" alt="unit_frame"/>
             </p>
-            <p>The citizens panel lists all commands available for the selected hearthling too, so that we can use them from there.
+            <p>市民面板也列出了所选 Hearthling 可用的所有命令，以便我们可以从那里使用它们。
                 <img src="/modding_guide/images/intermediate/commands/citizens_panel.png" alt="citizens_panel"/>
             </p>
-            <p>It also adds the "Change Jobs" button, which isn't treated as a command, it will directly bring up the promotion UI. You can also open the promotion tree by clicking on the job icon inside the character sheet.</p>
-            <h2><a name="AddingCommands"></a>Adding commands to an entity</h2>
-            <p>To make a command available on an entity, go to the entity's .json file, and add <strong>"stonehearth:commands"</strong> in the "components" section. Then, refer to the file or alias relevant for each command you want to add inside the <strong>"commands"</strong> array:</p>
+            <p>它还添加了 "Change Jobs"（更换职业）按钮，这不被视为命令，它将直接调出晋升 UI。你也可以通过点击角色表内的职业图标来打开晋升树。</p>
+            <h2><a name="AddingCommands"></a>向实体添加命令</h2>
+            <p>要使命令在实体上可用，请转到实体的 .json 文件，并在 "components" 部分添加 <strong>"stonehearth:commands"</strong>。然后，在 <strong>"commands"</strong> 数组内引用与你要添加的每个命令相关的文件或别名：</p>
             <pre><code>  "stonehearth:commands" : {
      "commands" : [
         "stonehearth:commands:use_consumable"
      ]
   }
 </code></pre>
-            <p>If you want to create an URI for your command, add it under the "aliases" section of your manifest.</p>
-            <h2><a name="AddingByCode"></a>Adding a command in Lua</h2>
-            <p>You can also add a command via Lua code. Some components or other Lua scripts add the commands manually like this, instead of on each JSON file:</p>
+            <p>如果你想为你的命令创建 URI，请将其添加到清单的 "aliases" 部分下。</p>
+            <h2><a name="AddingByCode"></a>在 Lua 中添加命令</h2>
+            <p>你也可以通过 Lua 代码添加命令。一些组件或其他 Lua 脚本手动添加命令，而不是在每个 JSON 文件中：</p>
             <pre><code>  local command_component = self._entity:add_component('stonehearth:commands')
   -- add the command you wish
   command_component:add_command('stonehearth:commands:place_item')
@@ -55,38 +55,38 @@
   -- can also modify the command's event data
   command_component:set_command_event_data(command_uri, event_data)
 </code></pre>
-            <h2><a name="EnableDisable"></a>Enabling / disabling a command in Lua</h2>
-            <p>Get the commands component and then call <code>set_command_enabled(uri, is_enabled)</code> on it:</p>
+            <h2><a name="EnableDisable"></a>在 Lua 中启用/禁用命令</h2>
+            <p>获取 commands 组件，然后在其上调用 <code>set_command_enabled(uri, is_enabled)</code>：</p>
             <pre><code>  local commands_component = self._entity:add_component('stonehearth:commands')
   commands_component:set_command_enabled('stonehearth:commands:place_item', true)
 </code></pre>
-            <p>Other functions you can call on the commands component are defined in <code>stonehearth/components/commands/commands_component.lua</code>.</p>
-            <h2><a name="Anatomy"></a>Anatomy of a command</h2>
-            <p>A command is a JSON file with <strong>"type" : "command"</strong>. It has a name, an enabled/disabled status, a tooltip, an image and some other pieces of information required to display it correctly in the UI. It can have different actions to execute, as well as different arguments based on the action type.</p>
-            <p>We can find the existing commands in <code>stonehearth/data/commands</code>. The combat commands that appear on top of the unit frame are a bit different, they're not treated like the rest of commands (they are shown/hidden depending on whether the hearthling has a combat job). The rescue command is also called directly from the Javascript code and shown/hidden depending on the status of the hearthling.</p>
-            <p>These are the different fields we can find in commands:</p>
+            <p>你可以在 commands 组件上调用的其他函数在 <code>stonehearth/components/commands/commands_component.lua</code> 中定义。</p>
+            <h2><a name="Anatomy"></a>命令的结构</h2>
+            <p>命令是一个具有 <strong>"type" : "command"</strong> 的 JSON 文件。它有一个名称、启用/禁用状态、工具提示、图像以及在 UI 中正确显示所需的其他信息。它可以有不同的执行动作，以及基于动作类型的不同参数。</p>
+            <p>我们可以在 <code>stonehearth/data/commands</code> 中找到现有命令。出现在单位框架顶部的战斗命令有点不同，它们不像其他命令那样处理（它们根据 Hearthling 是否有战斗职业来显示/隐藏）。救援命令也是直接从 Javascript 代码调用，并根据 Hearthling 的状态显示/隐藏。</p>
+            <p>这些是我们可以在命令中找到的不同字段：</p>
             <ul>
-                <li><strong>"type": "command"</strong> -- this file represents a command.</li>
-                <li><strong>"name"</strong> -- a custom identifier used internally. Try to keep it unique. By convention, we use lowercase and underscores (instead of spaces).</li>
-                <li><strong>"display_name"</strong> -- a localized name that will be shown in the tooltip when we hover over the command in the unit frame.</li>
-                <li><strong>"description"</strong> -- a localized description that will be shown in the tooltip for the command.</li>
-                <li><strong>"disabled_description"</strong> -- optional field. If we add it, the description on the tooltip will change to the one here whenever the command is disabled.</li>
-                <li><strong>"icon"</strong> -- the icon for the UI.</li>
-                <li><strong>"ordinal"</strong> -- optional field. An ordinal to show the different commands in a certain order in the UI.</li>
-                <li><strong>"hotkey_action"</strong> -- optional field. It's the name of the hotkey identifier for this command. If we add it to <code>stonehearth/data/hotkeys.json</code> via a mixinto, players will be able to bind key combos to this command in the Controls tab of the game settings.</li>
-                <li><strong>"default_enabled"</strong> -- optional field (<strong>true</strong> by default). Whether this command should be enabled by default (some commands are enabled/disabled manually in Lua).</li>
-                <li><strong>"visible_to_all_players"</strong> -- optional field (<strong>false</strong> by default). With this, the command will be visible for other players in multiplayer games when they select the entity that has this command, even if the entity belongs to another player.</li>
+                <li><strong>"type": "command"</strong> -- 此文件表示一个命令。</li>
+                <li><strong>"name"</strong> -- 内部使用的自定义标识符。尽量保持唯一。按照惯例，我们使用小写字母和下划线（而不是空格）。</li>
+                <li><strong>"display_name"</strong> -- 本地化名称，当我们将鼠标悬停在单位框架中的命令上时将在工具提示中显示。</li>
+                <li><strong>"description"</strong> -- 本地化描述，将在命令的工具提示中显示。</li>
+                <li><strong>"disabled_description"</strong> -- 可选字段。如果我们添加它，每当命令被禁用时，工具提示上的描述将更改为此处的描述。</li>
+                <li><strong>"icon"</strong> -- UI 的图标。</li>
+                <li><strong>"ordinal"</strong> -- 可选字段。一个序数，以在 UI 中按特定顺序显示不同的命令。</li>
+                <li><strong>"hotkey_action"</strong> -- 可选字段。它是此命令的热键标识符的名称。如果我们通过 mixinto 将其添加到 <code>stonehearth/data/hotkeys.json</code>，玩家将能够在游戏设置的 Controls 选项卡中为此命令绑定键组合。</li>
+                <li><strong>"default_enabled"</strong> -- 可选字段（默认为 <strong>true</strong>）。此命令是否应默认启用（某些命令在 Lua 中手动启用/禁用）。</li>
+                <li><strong>"visible_to_all_players"</strong> -- 可选字段（默认为 <strong>false</strong>）。使用此字段，当其他玩家在多人游戏中选择具有此命令的实体时，即使该实体属于另一个玩家，命令也将对他们可见。</li>
                 <li>
-                    <strong>"action"</strong> -- the type of action that the command has. There are two types, explained in more detail below:
+                    <strong>"action"</strong> -- 命令的动作类型。有两种类型，下面更详细地解释：
                     <ul>
-                        <li><strong>"fire_event"</strong> -- this command will fire an event that will be listened to by the UI (client side). We need to declare which event in a <strong>"event_name"</strong> field, as well as defining data in a <strong>"event_data"</strong> field (it's a table. If the event doesn't need anything passed, we should declare it empty <strong>{}</strong>).</li>
-                        <li><strong>"call"</strong> -- this command will call a function (defined in a <strong>"function"</strong> field) with some arguments (defined in an <strong>"args"</strong> array, which can be empty if we don't need to pass any or if the only argument we need to pass is the entity that has this command). </li>
+                        <li><strong>"fire_event"</strong> -- 此命令将触发一个事件，UI（客户端）将监听该事件。我们需要在 <strong>"event_name"</strong> 字段中声明哪个事件，并在 <strong>"event_data"</strong> 字段中定义数据（它是一个表。如果事件不需要传递任何内容，我们应该将其声明为空 <strong>{}</strong>）。</li>
+                        <li><strong>"call"</strong> -- 此命令将调用一个函数（在 <strong>"function"</strong> 字段中定义），带有一些参数（在 <strong>"args"</strong> 数组中定义，如果我们不需要传递任何参数或如果我们需要传递的唯一参数是具有此命令的实体，则可以为空）。</li>
                     </ul>
                 </li>
             </ul>
-            <h3><a name="FireEvent"></a>Fire Event</h3>
-            <p>One common action for a command is <strong>"fire_event"</strong>. This means that the event name associated is fired when we click on the command, and the UI will pick it up in the .js files and do something with it.</p>
-            <p>For example, this is the command that we add to workbenches to show the workshop UI (we add it in Lua):</p>
+            <h3><a name="FireEvent"></a>触发事件（Fire Event）</h3>
+            <p>命令的一个常见动作是 <strong>"fire_event"</strong>。这意味着当我们点击命令时会触发关联的事件名称，UI 将在 .js 文件中接收它并对其进行某些操作。</p>
+            <p>例如，这是我们添加到工作台以显示工作室 UI 的命令（我们在 Lua 中添加它）：</p>
             <pre><code>  {
      "type": "command",
      "name": "show_workshop",
@@ -101,7 +101,7 @@
      "event_data": {}
   }
 </code></pre>
-            <p>The "radiant_show_workshop" event above is hooked up to javascript with the following code from <code>stonehearth/ui/game/show_workshop/show_team_workshop.js</code>:</p>
+            <p>上面的 "radiant_show_workshop" 事件通过来自 <code>stonehearth/ui/game/show_workshop/show_team_workshop.js</code> 的以下代码连接到 javascript：</p>
             <pre><code>  $(document).ready(function () {
      App.workshopManager.init();
 
@@ -114,14 +114,14 @@
      });
   });
 </code></pre>
-            <p>In this example the event data was added via Lua in the workshop component when the game initialized it for the corresponding workbench, so we don't pass any parameter in the "event_data" field from the command's JSON file. This way, the event data can be different for each workbench.</p>
-            <p>If we had wanted this command to always pass the same data for the crafter_type parameter (for example, the mason from the stonehearth mod), we wouldn't have defined it via Lua and would have instead added it like this to the command's JSON file:</p>
+            <p>在此示例中，事件数据是在游戏为相应工作台初始化时通过 Lua 在工作室组件中添加的，所以我们不在命令的 JSON 文件的 "event_data" 字段中传递任何参数。这样，每个工作台的事件数据可以不同。</p>
+            <p>如果我们希望此命令始终为 crafter_type 参数传递相同的数据（例如，stonehearth 模组中的 mason），我们就不会通过 Lua 定义它，而是会像这样将其添加到命令的 JSON 文件中：</p>
             <pre><code>  "event_data": {
      "crafter_type" : "stonehearth:jobs:mason"
   }
 </code></pre>
-            <h3><a name="Call"></a>Call</h3>
-            <p>Another common action for a command is to call a function. For example, to use certain consumables, we have the use_consumable command:</p>
+            <h3><a name="Call"></a>调用（Call）</h3>
+            <p>命令的另一个常见动作是调用函数。例如，要使用某些消耗品，我们有 use_consumable 命令：</p>
             <pre><code>  {
      "type": "command",
      "name": "use_consumable",
@@ -134,7 +134,7 @@
      ]
   }
 </code></pre>
-            <p><a name="Functions"></a>The value for <strong>"function"</strong> is the name (preceded by the namespace of the mod plus a colon!) of a function described in the <strong>"functions"</strong> section of the manifest:</p>
+            <p><a name="Functions"></a><strong>"function"</strong> 的值是清单的 <strong>"functions"</strong> 部分中描述的函数的名称（前面加上模组的命名空间和冒号！）：</p>
             <pre><code>  "functions" :{
      "use_consumable_on_town": {
         "controller": "file(call_handlers/town_call_handler.lua)",
@@ -142,11 +142,11 @@
      }
   }
 </code></pre>
-            <p>In the <strong>"controller"</strong> field we define the file where the code of the <code>use_consumable_on_town</code> function is actually located. Normally it's in a call handler (they'll be explained in advanced sections of the guide). We also have to define if the <strong>"endpoint"</strong> is <strong>"client"</strong> or <strong>"server"</strong>, depending on whether the function should be executed on the client side or on the server side.</p>
-            <p>In our command's JSON file we have the <strong>"args"</strong> array to pass arguments to the function (check the <code>default_arrows.json</code> and <code>summon_titan_from_gong.json</code> commands for examples).</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Note that, even when we leave the "args" array empty, the first argument that will be passed is always the entity from which we executed this command.</p>
-            <h3><a name="CallObject"></a>Call object</h3>
-            <p>We can call a function on an object (like a service), if we add the <strong>"object"</strong> field. For example:</p>
+            <p>在 <strong>"controller"</strong> 字段中，我们定义了 <code>use_consumable_on_town</code> 函数的代码实际所在的文件。通常它在 call handler 中（它们将在指南的高级部分中解释）。我们还必须定义 <strong>"endpoint"</strong> 是 <strong>"client"</strong> 还是 <strong>"server"</strong>，具体取决于函数应该在客户端还是服务器端执行。</p>
+            <p>在我们命令的 JSON 文件中，我们有 <strong>"args"</strong> 数组来向函数传递参数（查看 <code>default_arrows.json</code> 和 <code>summon_titan_from_gong.json</code> 命令以获取示例）。</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>请注意，即使我们将 "args" 数组留空，传递的第一个参数始终是执行此命令的实体。</p>
+            <h3><a name="CallObject"></a>调用对象（Call object）</h3>
+            <p>如果我们添加 <strong>"object"</strong> 字段，我们可以在对象（如服务）上调用函数。例如：</p>
             <pre><code>  {
      "type": "command",
      "name": "restore_terrain",
@@ -160,8 +160,8 @@
      "args": []
   }
 </code></pre>
-            <p>Here the code of the <code>restore_terrain_command</code> function (notice that is not preceded by the namespace of the mod!) is defined in the building service (stonehearth.building), which is an object instantiated by the game. Remember that the first object of the "args" array will be the entity from which we executed this command.</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> For calling functions on an object in this way, we must add them to the manifest in the <strong>"object_commands"</strong> section (shortened example from the stonehearth manifest):</p>
+            <p>这里 <code>restore_terrain_command</code> 函数的代码（注意它前面没有模组的命名空间！）在 building 服务（stonehearth.building）中定义，这是一个由游戏实例化的对象。请记住，"args" 数组的第一个对象将是执行此命令的实体。</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 要以这种方式在对象上调用函数，我们必须将它们添加到清单的 <strong>"object_commands"</strong> 部分（stonehearth 清单的简化示例）：</p>
             <pre><code>  "object_commands": {
      "building": [
         "restore_terrain_command"

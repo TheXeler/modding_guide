@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,39 +13,39 @@
         <script src="/modding_guide/menus.js"></script>
         <main>
             <h1>Traits</h1>
-            <p>The traits component holds a map of all of an entity's traits. For hearthlings it's added in the <code>base_human.json</code> mixin.</p>
-            <p>Traits can be added, removed and retrieved through this component during the game. You can find all the existing traits inside <code>stonehearth/data/traits</code>.</p>
+            <p>Traits 组件保存实体所有 traits 的映射。对于 Hearthlings，它在 <code>base_human.json</code> mixin 中添加。</p>
+            <p>在游戏过程中，可以通过此组件添加、移除和检索 traits。你可以在 <code>stonehearth/data/traits</code> 中找到所有现有的 traits。</p>
             <ul>
                 <li>
-                    <a href="#CreatingTraits">Creating a trait</a>
+                    <a href="#CreatingTraits">创建 trait</a>
                     <ul>
-                        <li><a href="#AttributeModifiers">Attribute modifiers</a></li>
-                        <li><a href="#Properties">Properties</a></li>
+                        <li><a href="#AttributeModifiers">属性修饰符</a></li>
+                        <li><a href="#Properties">属性</a></li>
                     </ul>
                 </li>
-                <li><a href="#TraitExclusions">Trait exclusions</a></li>
-                <li><a href="#CustomTraitsIndex">Custom traits index</a></li>
+                <li><a href="#TraitExclusions">Trait 排除</a></li>
+                <li><a href="#CustomTraitsIndex">自定义 traits 索引</a></li>
             </ul>
-            <h2><a name="CreatingTraits"></a> Creating a trait</h2>
-            <p>A trait consists of a JSON file that describes features such as the display name, description, and icon.</p>
-            <p>To create a new trait, add a new alias to your manifest.json. For example:</p>
+            <h2><a name="CreatingTraits"></a> 创建 trait</h2>
+            <p>Trait 由一个 JSON 文件组成，该文件描述显示名称、描述和图标等功能。</p>
+            <p>要创建新 trait，请在 manifest.json 中添加新别名。例如：</p>
             <pre><code>  "aliases": {
      "traits:impatient" : "file(data/traits/impatient/impatient_trait.json)"
   }
 </code></pre>
-            <p>Then mixinto that alias entry to <code>stonehearth/data/traits/traits_index.json</code> so that it can be included in the list of traits that can be added to a new hearthling:</p>
+            <p>然后将该别名录入 mixinto 到 <code>stonehearth/data/traits/traits_index.json</code>，以便它可以包含在可以添加到新 Hearthling 的 traits 列表中：</p>
             <pre><code>  "mixintos": {
      "stonehearth:traits_index" : "file(data/traits/traits_index.json)"
   }
 </code></pre>
-            <p>The mixinto would look like this:</p>
+            <p>Mixinto 看起来像这样：</p>
             <pre><code>  {
      "traits": {
         "my_mod:traits:impatient": {}
      }
   }
 </code></pre>
-            <p>Our <code>impatient_trait.json</code> file looks like this:</p>
+            <p>我们的 <code>impatient_trait.json</code> 文件看起来像这样：</p>
             <pre><code>  {
      "type": "trait",
      "display_name": "i18n(my_mod:data.traits.impatient.impatient_trait.display_name)",
@@ -69,81 +69,81 @@
      }
   }
 </code></pre>
-            <p>Traits files have these fields:</p>
+            <p>Traits 文件具有以下字段：</p>
             <ul>
                 <li>
-                    <p><strong>"type" : "trait"</strong> -- this file represents a trait.</p>
+                    <p><strong>"type" : "trait"</strong> -- 此文件表示一个 trait。</p>
                 </li>
                 <li>
-                    <p><strong>"display_name"</strong> -- localized name for the trait to display in the UI.</p>
+                    <p><strong>"display_name"</strong> -- 要在 UI 中显示的 trait 的本地化名称。</p>
                 </li>
                 <li>
-                    <p><strong>"description"</strong> -- localized description for the trait to display in the UI. You can reference the name of the hearthling that has this trait by using <code>[name(i18n_data.entity)]</code> in your description text in the <code>en.json</code> file.</p>
+                    <p><strong>"description"</strong> -- 要在 UI 中显示的 trait 的本地化描述。你可以在 <code>en.json</code> 文件的描述文本中使用 <code>[name(i18n_data.entity)]</code> 来引用具有此 trait 的 Hearthling 的名称。</p>
                 </li>
                 <li>
-                    <p><strong>"icon"</strong> -- icon to display in the UI.</p>
+                    <p><strong>"icon"</strong> -- 要在 UI 中显示的图标。</p>
                 </li>
                 <li>
-                    <p><strong>"script_controller"</strong> -- optional field. A controller that will be created with the arguments: entity, uri, parent, args. The script can be used to create custom behavior associated with the trait.</p>
-                    <p>  For example, the food_preference trait script (<code>stonehearth/data/traits/food_preference/food_preference_script.lua</code>) gets data from the parent trait (using the uri parameter), and uses the data to change the entity's consumption preference and also adds a thought when the entity eats a food they don't like.</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Remember that the alias for the script controller must be added inside the <strong>"controllers"</strong> key of your manifest, not under the "aliases" key.</p>
+                    <p><strong>"script_controller"</strong> -- 可选字段。将使用参数 entity、uri、parent、args 创建的控制器。脚本可用于创建与 trait 关联的自定义行为。</p>
+                    <p>  例如，food_preference trait 脚本（<code>stonehearth/data/traits/food_preference/food_preference_script.lua</code>）从父 trait 获取数据（使用 uri 参数），并使用数据更改实体的消费偏好，并在实体吃不喜欢的食物时添加想法。</p>
+                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 请记住，脚本控制器的别名必须添加到清单的 <strong>"controllers"</strong> 键中，而不是 "aliases" 键下。</p>
                 </li>
                 <li>
-                    <p><strong>"data"</strong> -- optional field. If we defined a script controller for the trait, we can add data inside this field to retrieve it from the controller.</p>
+                    <p><strong>"data"</strong> -- 可选字段。如果我们为 trait 定义了脚本控制器，我们可以在此字段中添加数据以从控制器中检索它。</p>
                 </li>
                 <li>
-                    <p><strong>"attribute_modifiers"</strong> -- optional field. Modifiers for the hearthling's attributes. See <a href="#AttributeModifiers">below</a> for more details.</p>
+                    <p><strong>"attribute_modifiers"</strong> -- 可选字段。Hearthling 属性的修饰符。详见<a href="#AttributeModifiers">下文</a>。</p>
                 </li>
                 <li>
-                    <p><a name="Subjects"></a><strong>"subject_overrides"</strong> -- optional field. An array of overrides for subject matters (topics used in hearthling conversations). Each subject that is added to the hearthling has an associated opinion. The opinions are randomly chosen, unless something else overrides them. For example, the item preferences observed in the Appeal tab of the character sheet will produce positive opinions for the loved/liked items and negative opinions for the disliked items.</p>
-                    <p>  This field is used to add permanent subject matters to the hearthling or override their opinions if they already exist. Examples can be seen in the cultist trait and in the passion_job traits. Each entry in the array has 4 keys: <strong>"subject"</strong> (the URI of the subject), <strong>"sentiment"</strong> (-1 for negative, 0 for neutral, 1 for positive), <strong>"permanent"</strong> (whether this subject should be permanent or disappear after some time) and <strong>"unvarying"</strong> (hearthlings can change their opinion about subjects when having conversations, if this property is <strong>true</strong> they won't).</p>
+                    <p><a name="Subjects"></a><strong>"subject_overrides"</strong> -- 可选字段。主题事项（Hearthling 对话中使用的话题）的覆盖数组。添加到 Hearthling 的每个主题都有相关的意见。意见是随机选择的，除非有其他内容覆盖它们。例如，角色表 Appeal 选项卡中观察到的物品偏好将为喜爱/喜欢的物品产生正面意见，为不喜欢的物品产生负面意见。</p>
+                    <p>  此字段用于向 Hearthling 添加永久主题事项或覆盖其现有意见。示例可以在 cultist trait 和 passion_job traits 中看到。数组中的每个条目有 4 个键：<strong>"subject"</strong>（主题的 URI）、<strong>"sentiment"</strong>（-1 表示负面，0 表示中性，1 表示正面）、<strong>"permanent"</strong>（此主题是否应永久存在或在一段时间后消失）和 <strong>"unvarying"</strong>（Hearthlings 在对话时可以改变他们对主题的意见，如果此属性为 <strong>true</strong>，他们不会）。</p>
                 </li>
                 <li>
-                    <p><strong>"properties"</strong> -- optional field. It's an array of strings, we can add like custom tags in it and check for them in Lua scripts. See <a href="#Properties">below</a> for more info.</p>
+                    <p><strong>"properties"</strong> -- 可选字段。它是一个字符串数组，我们可以像自定义标签一样添加它们，并在 Lua 脚本中检查它们。详见<a href="#Properties">下文</a>。</p>
                 </li>
             </ul>
-            <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> The "magnificent_beard" trait has some properties listed in the traits index.</p>
-            <p>The <strong>"immigration_only" : true</strong> property will make it so that this trait can only be assigned if the hearthling is an immigrant (so it will never appear randomly at the select roster screen during embarkation).</p>
-            <p>The <strong>"gender" : "male"</strong> property will make it so that only male hearthlings can get this trait assigned. You may use this property without the "immigration_only" one, but the players will still be able to change the gender in the roster screen (which won't remove the trait).</p>
-            <p>This trait has both properties since females don't have the facial hair feature in the customization list, so to prevent errors during embarkation it was made as "immigration_only".</p>
-            <p>To test traits we can reroll many times in the customization screen until we get our new trait, but that takes time. Instead, let's add/remove our traits manually to the hearthlings via the default console. We can select a hearthling and type this in the default console:</p>
+            <p><img src="/modding_guide/images/common/gold.png" alt="图标"/> "magnificent_beard" trait 在 traits 索引中列出了一些属性。</p>
+            <p><strong>"immigration_only" : true</strong> 属性将使此 trait 仅在 Hearthling 是移民时分配（因此它在登船期间的选择名册屏幕上永远不会随机出现）。</p>
+            <p><strong>"gender" : "male"</strong> 属性将使只有男性 Hearthlings 才能获得此 trait。你可以单独使用此属性而不使用 "immigration_only"，但玩家仍然可以在名册屏幕上更改性别（这不会移除 trait）。</p>
+            <p>此 trait 具有这两个属性，因为女性在自定义列表中没有面部毛发功能，所以为了防止登船期间出现错误，它被设置为 "immigration_only"。</p>
+            <p>要测试 traits，我们可以在自定义屏幕上多次重新滚动直到获得新 trait，但这需要时间。相反，让我们通过默认控制台手动向 Hearthlings 添加/移除我们的 traits。我们可以选择一个 Hearthling 并在默认控制台中输入：</p>
             <pre><code>  add_trait my_mod:traits:impatient
   remove_trait my_mod:traits:impatient
 </code></pre>
-            <p>Notice that the URI is passed as a parameter without quotes.
+            <p>注意 URI 作为参数传递时不带引号。
                 <img src="/modding_guide/images/intermediate/traits/traits.png" alt="traits"/>
             </p>
-            <p>Attributes will appear in green in the Attributes tab if they're above their normal value, and in red if they're below it. Their tooltip will show the buffs that are causing the values to increase/decrease, but it won't show the traits that affect them (you can hint at that in the trait description though).</p>
-            <h3><a name="AttributeModifiers"></a>Attribute modifiers</h3>
-            <p>If a trait changes some numerical value, add it inside <strong>"attribute_modifiers"</strong> in the trait's JSON file, and have whatever manages the behavior that the numerical value changes check for the attribute value.</p>
-            <p>Beware that attribute modifiers aren't saved and are reapply to the entity on load.</p>
-            <p>These modifiers are managed in <code>stonehearth/lib/modifiers/modifiers_lib.lua</code>. We can also add attributes to the entity this way (for instance, the "social_loss_override" from the example above is not included by default in the hearthlings attributes, but there are scripts that check for it. We can inject new numerical values with this and check for them in other Lua files).</p>
-            <p>The possible values for the modifiers are <strong>"add"</strong>, <strong>"multiply"</strong>, <strong>"min"</strong>, and <strong>"max"</strong>. With "add" we can also substract (if the value we provide is negative), and with "multiply" we can also divide (if we provide a decimal value; for example, to change the attribute to one fifth of its current value we'd multiply by 0.2, which is 1/5).
-                Multiply is done before add, then min, then max. So if there are several buffs or traits affecting this attribute, they would get applied in that order.
+            <p>如果属性高于其正常值，它们将在 Attributes 选项卡中以绿色显示，如果低于正常值则以红色显示。它们的工具提示将显示导致值增加/减少的 buffs，但不会显示影响它们的 traits（不过你可以在 trait 描述中暗示这一点）。</p>
+            <h3><a name="AttributeModifiers"></a>属性修饰符</h3>
+            <p>如果 trait 更改某些数值，请将其添加到 trait JSON 文件中的 <strong>"attribute_modifiers"</strong> 内，并让管理数值更改行为的任何内容检查属性值。</p>
+            <p>请注意，属性修饰符不会保存，并且在加载时会重新应用到实体。</p>
+            <p>这些修饰符在 <code>stonehearth/lib/modifiers/modifiers_lib.lua</code> 中管理。我们也可以以这种方式向实体添加属性（例如，上面示例中的 "social_loss_override" 默认不包含在 Hearthlings 属性中，但有脚本检查它。我们可以注入新的数值并在其他 Lua 文件中检查它们）。</p>
+            <p>修饰符的可能值是 <strong>"add"</strong>、<strong>"multiply"</strong>、<strong>"min"</strong> 和 <strong>"max"</strong>。使用 "add" 我们也可以减去（如果我们提供的值是负数），使用 "multiply" 我们也可以除以（如果我们提供小数值；例如，要将属性更改为其当前值的五分之一，我们将乘以 0.2，即 1/5）。
+                Multiply 在 add 之前完成，然后是 min，最后是 max。因此，如果有多个 buffs 或 traits 影响此属性，它们将按该顺序应用。
             </p>
             <h3><a name="Properties"></a>Properties</h3>
-            <p>We can add custom properties to the hearthlings via traits, and then in other Lua scripts check for them. For example, the social component checks for this property that is injected to hearthlings with the loner trait:</p>
+            <p>我们可以通过 traits 向 Hearthlings 添加自定义 properties，然后在其他 Lua 脚本中检查它们。例如，社交组件检查注入到具有 loner trait 的 Hearthlings 的此 property：</p>
             <pre><code>  if radiant.entities.has_property(self._entity, 'avoids_conversations_with_citizens') then
      return -- entity doesn't initiate conversations with fellow citizens
   end
 </code></pre>
-            <h2><a name="TraitExclusions"></a>Trait exclusions</h2>
-            <p>If you take a look at <code>traits_index.json</code> from the stonehearth mod, you'll notice that there's a <strong>"groups"</strong> key at the top. This allows to define groups of related or opposite traits to create exclusions. When rolling the traits, if the hearthling gets assigned a trait from one of these groups, they won't get assigned a different trait from within the same group (hearthlings can have either 1 or 2 traits by default).</p>
-            <p>If our custom trait doesn't have to do with any other trait, we can define them under the <strong>"traits"</strong> key instead, like in the example above.</p>
-            <p>We can also define exclusions for traits inside either "groups" or "traits" like this:</p>
+            <h2><a name="TraitExclusions"></a>Trait 排除</h2>
+            <p>如果你查看 stonehearth 模组中的 <code>traits_index.json</code>，你会注意到顶部有一个 <strong>"groups"</strong> 键。这允许定义相关或相反 traits 的组以创建排除。当滚动 traits 时，如果 Hearthling 被分配了来自其中一个组的 trait，他们将不会被分配同一组内的不同 trait（Hearthlings 默认可以有 1 或 2 个 traits）。</p>
+            <p>如果我们的自定义 trait 与其他任何 trait 无关，我们可以像上面的示例一样在 <strong>"traits"</strong> 键下定义它们。</p>
+            <p>我们还可以像这样在 "groups" 或 "traits" 内定义 traits 的排除：</p>
             <pre><code>  "stonehearth:traits:green_thumb": {
      "excludes": {
         "stonehearth:traits:carnivore": true
      }
   }
 </code></pre>
-            <p>That way we don't have to add or move the traits inside "groups", which might affect other traits (traits are only defined once in all the index file) and can exclude the same trait for different traits.</p>
-            <h2><a name="CustomTraitsIndex"></a>Custom traits index</h2>
-            <p>The base kingdoms get their traits from the "stonehearth:data:traits" index by default, but we can specify a different traits index for modded populations. In their population JSON file, add this field:</p>
+            <p>这样我们就不必在 "groups" 内添加或移动 traits，这可能会影响其他 traits（traits 在整个索引文件中只定义一次），并且可以为不同的 traits 排除相同的 trait。</p>
+            <h2><a name="CustomTraitsIndex"></a>自定义 traits 索引</h2>
+            <p>基础王国默认从 "stonehearth:data:traits" 索引获取他们的 traits，但我们可以为模组化人口指定不同的 traits 索引。在他们的人口 JSON 文件中，添加此字段：</p>
             <pre><code>  "traits_index" : "my_mod:data:traits"
 </code></pre>
-            <p>Usually NPC factions don't make use of traits, only the playable ones do.</p>
-            <p>Mod from a community member that adds many traits to the game: <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1410871392">Kai Monkey's Traits</a></p>
+            <p>通常 NPC 派系不使用 traits，只有可玩派系使用。</p>
+            <p>社区成员制作的向游戏添加许多 traits 的模组：<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1410871392">Kai Monkey's Traits</a></p>
         </main>
     </body>
 </html>

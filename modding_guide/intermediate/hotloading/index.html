@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,46 +7,46 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Hotloading mods</title>
+      <title>热加载模组</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Hotloading mods</h1>
+         <h1>热加载模组</h1>
          <ul>
-            <li><a href="#Hotloading">What is hotloading?</a></li>
-            <li><a href="#When">When should I hotload mods?</a></li>
-            <li><a href="#How">How can I hotload mods?</a></li>
+            <li><a href="#Hotloading">什么是热加载？</a></li>
+            <li><a href="#When">何时应该热加载模组？</a></li>
+            <li><a href="#How">如何热加载模组？</a></li>
          </ul>
-         <h2><a name="Hotloading"></a>What is hotloading?</h2>
-         <p>In the case of Stonehearth, it means activating something at run time, that is, after the game has already initialized everything.</p>
-         <h2><a name="When"></a>When should I hotload mods?</h2>
-         <p>Well, you might have created a custom kingdom or biome, and want only certain campaigns or other features to be enabled only when that kingdom / biome has been chosen. For instance, when we choose to play with the Rayya's children mod, we override some images so that the UI looks different, and when we choose to play in the Desert biome, we override some models of goblins and other animals, so that they look more desert-like.</p>
-         <p>In the past we called it "hotloading mods", but in the present it should actually be called "applying manifests", since we're not activating whole mods here.</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/><a name="Requirements"></a><strong>Hotloading manifests is only allowed before world generation completes -OR- for 'client_only' manifests from client Lua</strong>.</p>
-         <p>Not everything in applied manifests will work. It's a known issue that certain mixintos won't get applied correctly from a hotloaded manifest, because the game has already cached those values (e.g. adding new crops to the list of initial crops). In most cases you'll have to add those into your main manifest.</p>
-         <p>The applied/hotloaded manifests are usually inside some subfolder of our mod, and they have the</p>
+         <h2><a name="Hotloading"></a>什么是热加载？</h2>
+         <p>在 Stonehearth 的情况下，它意味着在运行时激活某些内容，即在游戏已经初始化所有内容之后。</p>
+         <h2><a name="When"></a>何时应该热加载模组？</h2>
+         <p>嗯，你可能创建了一个自定义王国或生物群系，并且希望仅在选择该王国/生物群系时启用某些战役或其他功能。例如，当我们选择使用 Rayya's children 模组游玩时，我们会覆盖一些图像，使 UI 看起来不同，当我们选择在沙漠生物群系中游玩时，我们会覆盖一些 goblins 和其他动物的模型，使它们看起来更像沙漠风格。</p>
+         <p>过去我们称之为"热加载模组"，但现在实际上应该称为"应用清单"，因为我们在这里不是激活整个模组。</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/><a name="Requirements"></a><strong>热加载清单仅允许在世界生成完成之前 -或- 对于来自客户端 Lua 的 'client_only' 清单</strong>。</p>
+         <p>并非应用清单中的所有内容都会起作用。已知某些 mixintos 不会从热加载清单中正确应用，因为游戏已经缓存了这些值（例如，向初始作物列表中添加新作物）。在大多数情况下，你必须将这些添加到你的主清单中。</p>
+         <p>应用/热加载的清单通常位于我们模组的某个子文件夹内，并且在其 <strong>"info"</strong> 部分内有</p>
          <pre><code>  "deferred_load": true
 </code></pre>
-         <p>flag inside their <strong>"info"</strong> section.</p>
-         <h2><a name="How"></a>How can I hotload mods?</h2>
-         <p>In order to hotload the extra manifests we have two options:</p>
+         <p>标志。</p>
+         <h2><a name="How"></a>如何热加载模组？</h2>
+         <p>为了热加载额外的清单，我们有两个选项：</p>
          <ul>
             <li>
-               <p>If we made a custom biome, we can apply additional manifests in the <strong>"applied_manifests"</strong> key on the biome's JSON file (the one with the main info, not the generation data one), which will get applied when the player chooses to play in our biome:</p>
+               <p>如果我们制作了自定义生物群系，我们可以在生物群系的 JSON 文件（具有主要信息的文件，而不是生成数据文件）的 <strong>"applied_manifests"</strong> 键中应用其他清单，这将在玩家选择在我们的生物群系中游玩时应用：</p>
                <pre><code>"applied_manifests": {
    "desert": "file(desert/manifest.json)"
 }
 </code></pre>
             </li>
             <li>
-               <p><a name="ClientInitScript"></a>If we want to apply additional manifests only when a certain kingdom is chosen, or using other conditions, then we need to use a <strong>client_init_script</strong>.</p>
-               <p>  Create a Lua file inside your mod, and in your manifest, add:</p>
+               <p><a name="ClientInitScript"></a>如果我们想仅在选择特定王国或使用其他条件时应用其他清单，那么我们需要使用 <strong>client_init_script</strong>。</p>
+               <p>  在你的模组中创建一个 Lua 文件，并在你的清单中添加：</p>
                <pre><code>"client_init_script": "file(rayyas_children_client)"
 </code></pre>
-               <p>  at the root level (e.g. below the "info" section).</p>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Notice how in this case we don't include the <code>.lua</code> extension inside <strong>"file()"</strong>. For <strong>"server_init_script"</strong> we wouldn't include it either.</p>
-               <p>  The example above comes from the Rayya's Children mod. Now, inside your init script, you'd need to have something like this (continuing with the same example):</p>
+               <p>  在根级别（例如，在 "info" 部分下方）。</p>
+               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>注意在这种情况下，我们在 <strong>"file()"</strong> 中不包含 <code>.lua</code> 扩展名。对于 <strong>"server_init_script"</strong> 我们也不包含它。</p>
+               <p>  上面的示例来自 Rayya's Children 模组。现在，在你的 init 脚本中，你需要有这样的内容（继续使用相同的示例）：</p>
                <pre><code>rayyas_children = {
    constants = require 'constants'
 }
@@ -87,12 +87,12 @@ radiant.events.listen(rayyas_children, 'radiant:init', function()
 
 return rayyas_children
 </code></pre>
-               <p>  We have a couple local functions that we'll use to track which kingdom was chosen and to apply the additional manifest.</p>
-               <p>  At the bottom, we listen for this script being initialized, and when that's done then we listen for the <code>'radiant:client:server_ready'</code> event. Once that's ready, then we can start checking (using the stonehearth services) which kingdom is chosen in the embarkation screens.</p>
-               <p>  If the kingdom URI is <code>"rayyas_children:kingdoms:rayyas_children"</code> then we call:</p>
+               <p>  我们有几个本地函数，我们将使用它们来跟踪选择了哪个王国并应用额外的清单。</p>
+               <p>  在底部，我们监听此脚本被初始化，当完成后，我们监听 <code>'radiant:client:server_ready'</code> 事件。一旦准备好，我们就可以开始检查（使用 stonehearth 服务）在登船屏幕中选择了哪个王国。</p>
+               <p>  如果王国 URI 是 <code>"rayyas_children:kingdoms:rayyas_children"</code>，那么我们调用：</p>
                <pre><code>_radiant.res.apply_manifest("/rayyas_children/ui/manifest.json")
 </code></pre>
-               <p>  which effectively applies the extra manifest that changes the appearance of the UI. The deferred manifest has the <code>client_only</code> flag set to <strong>true</strong> (as noted <a href="#Requirements">above</a>, it's one of the requirements to hotload manifests). You might also see a <code>deferred_load</code> flag in applied manifests, but it's no longer needed for them. Main manifests shouldn't have it, either.</p>
+               <p>  这有效地应用了更改 UI 外观的额外清单。延迟清单的 <code>client_only</code> 标志设置为 <strong>true</strong>（如<a href="#Requirements">上面</a>所述，这是热加载清单的要求之一）。你也可能在应用的清单中看到 <code>deferred_load</code> 标志，但对于它们来说不再需要。主清单也不应该有它。</p>
             </li>
          </ul>
       </main>

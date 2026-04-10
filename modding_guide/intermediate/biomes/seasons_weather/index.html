@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,23 +7,23 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Seasons and weather</title>
+      <title>季节和天气</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Seasons and weather</h1>
+         <h1>季节和天气</h1>
          <ul>
-            <li><a href="#Seasons">Seasons</a></li>
+            <li><a href="#Seasons">季节</a></li>
             <li>
-               <a href="#Weather">Weather</a>
+               <a href="#Weather">天气</a>
                <ul>
-                  <li><a href="#SkySettings">Sky settings</a></li>
+                  <li><a href="#SkySettings">天空设置</a></li>
                </ul>
             </li>
          </ul>
-         <h2><a name="Seasons"></a>Seasons</h2>
-         <p>Seasons are defined in the main JSON file of the biomes. A small example of how to setup seasons:</p>
+         <h2><a name="Seasons"></a>季节</h2>
+         <p>季节在生物群系的主 JSON 文件中定义。以下是如何设置季节的小示例：</p>
          <pre><code>  "seasons": {
      "spring": {
         "display_name": "i18n(stonehearth:data.biome.temperate.seasons.spring.display_name)",
@@ -71,59 +71,59 @@
      }
   }
 </code></pre>
-         <p>We'll use custom keys as identifiers for the seasons (for example, "spring" / "summer" / "autumn" / "winter"). We can have an arbitrary number of seasons, but we'll need to make sure that they fit within the year.</p>
-         <p>You can check the length of the different time intervals in <code>stonehearth/data/calendar/calendar_constants.json</code>. By default they're setup like the real-world time, except for days (we have only 7 days per month). It is not advisable to change the calendar constants, since they might affect other mods and there can be code that depends on them. The names of the months can be found in the calendar constants too, if you want to change them.</p>
-         <p>Inside each season identifier, we have some properties:</p>
+         <p>我们将使用自定义键作为季节的标识符（例如，"spring" / "summer" / "autumn" / "winter"）。我们可以有任意数量的季节，但需要确保它们适应一年内。</p>
+         <p>您可以在 <code>stonehearth/data/calendar/calendar_constants.json</code> 中检查不同时间间隔的长度。默认情况下，它们的设置与现实世界的时间相同，除了天数（我们每月只有 7 天）。不建议更改日历常量，因为它们可能会影响其他 mod，并且可能有代码依赖于它们。如果您想更改月份的名称，也可以在日历常量中找到它们。</p>
+         <p>在每个季节标识符内，我们有一些属性：</p>
          <ul>
             <li>
-               <p><strong>"display_name"</strong> -- the localized name for the season that will be displayed in the UI (in the map embarkation screen, in the crops list -since crops have preferred seasons- and when we hover over the month name below the sun widget).</p>
+               <p><strong>"display_name"</strong> -- 将在 UI 中显示的季节的本地化名称（在地图登船屏幕、作物列表中——因为作物有首选季节——以及当我们将鼠标悬停在太阳小部件下方的月份名称上时）。</p>
             </li>
             <li>
-               <p><strong>"description"</strong> -- the localized description for the season. It will appear when we hover over the season name in the map embark screen and in the month name under the sun widget.</p>
+               <p><strong>"description"</strong> -- 季节的本地化描述。它将出现在我们将鼠标悬停在地图登船屏幕中的季节名称上以及太阳小部件下方的月份名称上时。</p>
             </li>
             <li>
-               <p><strong>"start_day"</strong> -- this determines the duration of the season. Internally, we start on day 0, so for the example above, spring's start day is 0 and summer's start day is 21, so the duration of spring is 3 in-game months (remember, 7 days per month).</p>
-               <p>  We manually express this duration in the description of the season, but the tooltip for the month name under the sun widget also has a counter telling when the season ends, since we don't start the game exactly at day 1 of the first month, but rather at the start of the chosen season, which happens in the middle of the first week of the corresponding month (for spring would be the first month, for summer the fourth, etc).</p>
-               <p>  We can make seasons last a different amount of months. For example, in the arctic biome winter lasts for 7 months, while spring and autumn last for 1 month and summer lasts for 3 months.</p>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Always make sure that your first season starts at day 0.</p>
+               <p><strong>"start_day"</strong> -- 这决定了季节的持续时间。在内部，我们从第 0 天开始，所以对于上面的示例，春季的开始日是 0，夏季的开始日是 21，因此春季的持续时间是 3 个游戏月（记住，每月 7 天）。</p>
+               <p>我们在季节的描述中手动表达此持续时间，但太阳小部件下方月份名称的工具提示也有一个计数器，告诉季节何时结束，因为我们不是从第一个月的第 1 天确切开始游戏，而是从所选季节的开始开始，这发生在相应月份的第一周中间（对于春季将是第一个月，对于夏季是第四个月，等等）。</p>
+               <p>我们可以使季节持续不同数量的月份。例如，在北极生物群系中，冬季持续 7 个月，而春季和秋季持续 1 个月，夏季持续 3 个月。</p>
+               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>务必确保您的第一个季节从第 0 天开始。</p>
             </li>
             <li>
-               <p><strong>"weather" : []</strong> -- an array of objects containing a weather URI and its <a href="../../../basic/misc_json/index.html#WeightedSets">weight</a>. This way we can define different weather for each season and make some weather types more frequent than other ones. For how to create your own weather, see below.</p>
+               <p><strong>"weather" : []</strong> -- 包含天气 URI 及其<a href="../../../basic/misc_json/index.html#WeightedSets">权重</a>的对象数组。这样我们可以为每个季节定义不同的天气，并使某些天气类型比其他类型更频繁。有关如何创建自己的天气，请参见下文。</p>
             </li>
          </ul>
-         <h2><a name="Weather"></a>Weather</h2>
-         <p>For creating a custom weather type we'll need to create several files. Existing weather can be found in <code>stonehearth/data/weather</code>, so we can copy one from there, rename it and edit the files.</p>
-         <p>First let's add the alias to our manifest so that we don't forget about it and we can use it in our custom biomes or add it to existing biomes from the stonehearth mod:</p>
+         <h2><a name="Weather"></a>天气</h2>
+         <p>要创建自定义天气类型，我们需要创建几个文件。现有天气可以在 <code>stonehearth/data/weather</code> 中找到，因此我们可以从那里复制一个，重命名并编辑文件。</p>
+         <p>首先，让我们将别名添加到我们的清单中，以便我们不会忘记它，并且可以在我们的自定义生物群系中使用它或将其添加到 stonehearth mod 的现有生物群系中：</p>
          <pre><code>  "aliases" : {
      "weather:sprinkles_rain" : "file(data/weather/sprinkles_rain/sprinkles_rain.json)"
   }
 </code></pre>
-         <p>The <code>sprinkles_rain.json</code> file would have the following properties:</p>
+         <p><code>sprinkles_rain.json</code> 文件将具有以下属性：</p>
          <ul>
             <li>
-               <p><strong>"display_name"</strong> -- the localized name for the weather, which will be shown in the tooltip when we hover over the weather forecast under the sun widget.</p>
+               <p><strong>"display_name"</strong> -- 天气的本地化名称，当我们将鼠标悬停在太阳小部件下方的天气预报上时，将显示在工具提示中。</p>
             </li>
             <li>
-               <p><strong>"description"</strong> -- the localized description that will be shown in the weather's tooltip. Here we can include the bonuses or disadvantages that the weather has. We can inline HTML tags in the text of the tooltip for better formatting.</p>
+               <p><strong>"description"</strong> -- 将在天气工具提示中显示的本地化描述。在这里，我们可以包括天气具有的增益或劣势。我们可以在工具提示文本中内联 HTML 标签以获得更好的格式。</p>
             </li>
             <li>
-               <p><strong>"icon"</strong> -- path to the icon for our weather that will be shown in the forecast.</p>
+               <p><strong>"icon"</strong> -- 将在预报中显示的我们天气的图标路径。</p>
             </li>
             <li>
-               <p><strong>"sky_settings"</strong> -- URI of the sky settings file. See <a href="#SkySettings">below</a>.</p>
+               <p><strong>"sky_settings"</strong> -- 天空设置文件的 URI。见<a href="#SkySettings">下文</a>。</p>
             </li>
             <li>
-               <p><strong>"thoughts": []</strong> -- array of thoughts for this weather. A random thought from this list will be added to every hearthling whenever the weather is active. If we include a thought more than once in the array we'll be changing its probability (there'll be more chances for it to be chosen).</p>
-               <p>  These URIs are not aliases, but rather a string composed of keys from the thoughts index. See <a href="../../thoughts/index.html">here</a> for more information.</p>
+               <p><strong>"thoughts": []</strong> -- 此天气的想法数组。每当天气活跃时，此列表中的随机想法将添加到每个炉民。如果我们在数组中多次包含一个想法，我们将改变其概率（将有更多机会被选中）。</p>
+               <p>这些 URI 不是别名，而是由想法索引中的键组成的字符串。有关更多信息，请参阅<a href="../../thoughts/index.html">这里</a>。</p>
             </li>
             <li>
-               <p><strong>"ambient_sound_key"</strong> -- this points to an identifier (for example, "rain") that will be used in the sound service to play ambient sound when this weather is active. You can reuse an existing identifier from <code>stonehearth/data/sounds/sound_constants.json</code> or inject a custom one there via a mixinto.</p>
+               <p><strong>"ambient_sound_key"</strong> -- 这指向一个标识符（例如，"rain"），当此天气活跃时，声音服务将使用该标识符播放环境声音。您可以重用 <code>stonehearth/data/sounds/sound_constants.json</code> 中的现有标识符，或通过 mixinto 在那里注入自定义标识符。</p>
             </li>
             <li>
-               <p><strong>"camera_attached_effect"</strong> -- URI of the effect to attach to the camera. It is an optional field. We normally use them for rain, snow, etc. These effects use cubemitters whose emitter has a CUBOID surface, so that it can cover all the camera view.</p>
+               <p><strong>"camera_attached_effect"</strong> -- 附加到相机的效果的 URI。这是一个可选字段。我们通常将它们用于雨、雪等。这些效果使用发射器具有 CUBOID 表面的 cubemitters，以便它可以覆盖所有相机视图。</p>
             </li>
             <li>
-               <p><strong>"subject_matter"</strong> -- URI of the subject matter for this weather (for example, "candyland:subjects:weather:sprinkles_rain"). For weather subjects we normally use 2D icons similar to those for the forecast, and save them inside the same folder than the other weather files. The subject matter file (<code>sprinkles_rain_subject.json</code>) would contain something like this:</p>
+               <p><strong>"subject_matter"</strong> -- 此天气的主题事项的 URI（例如，"candyland:subjects:weather:sprinkles_rain"）。对于天气主题，我们通常使用类似于预报的 2D 图标，并将它们保存在与其他天气文件相同的文件夹中。主题事项文件（<code>sprinkles_rain_subject.json</code>）将包含如下内容：</p>
                <pre><code>{
    "type": "entity",
    "components": {
@@ -135,41 +135,41 @@
    }
 }
 </code></pre>
-               <p>  The subject will be added to the list of conversation subjects of hearthlings when the weather is active.</p>
+               <p>当天气活跃时，主题将添加到炉民的对话主题列表中。</p>
             </li>
             <li>
-               <p><strong>"plant_growth_time_multiplier"</strong> -- optional field. It's a multiplier for the growth rate of plants. If we include it, plant growth will be affected when this weather is active, so we can make plants and crops grow faster or slower.</p>
+               <p><strong>"plant_growth_time_multiplier"</strong> -- 可选字段。它是植物生长速率的乘数。如果我们包含它，当此天气活跃时，植物生长将受到影响，因此我们可以使植物和作物生长得更快或更慢。</p>
             </li>
             <li>
-               <p><strong>"vision_multiplier"</strong> -- optional field. A multiplier for the vision radius, usually a decimal number (from 0 to 1). Depending on your graphic settings this might vary or not have effect, but this field is used to make your settlement be less visible when you zoom out from it. A good example would be the foggy weather with the fallback renderer disabled. When zooming out from your settlement, you'll see it get a bit obscured under a fog, and when you zoom in, you'll be able to see it sharp.</p>
+               <p><strong>"vision_multiplier"</strong> -- 可选字段。视野半径的乘数，通常是小数（从 0 到 1）。根据您的图形设置，这可能会有所不同或没有效果，但此字段用于在您缩小定居点时使其不太可见。一个很好的例子是禁用回退渲染器时的雾天。当您缩小时，您会看到它在雾下变得有点模糊，当您放大时，您将能够清晰地看到它。</p>
             </li>
             <li>
-               <p><strong>"hide_cloud_shadows"</strong> -- optional boolean to hide the clouds shadows that appear on the ground, for cloudy days, clear skies, etc.</p>
+               <p><strong>"hide_cloud_shadows"</strong> -- 可选布尔值，用于隐藏出现在地面上的云阴影，适用于阴天、晴天等。</p>
             </li>
             <li>
-               <p><strong>"snow_accumulation_per_minute"</strong> -- optional field. A really small value between 0 and 1 (it's per in-game minutes). It will make the top of the horizontal surfaces be covered by a flat layer of snow, which gets more opaque over time. Surfaces below other surfaces won't get snow on them. If this value is negative, it will remove the snow layer slowly, if there's snow from a previous day. The color of the snow is controlled in a shader, check the SNOW_COVER entry in <code>stonehearth/data/horde/materials/fullscreen_quad_material.json</code>. Check also <code>stonehearth/services/client/weather_render/weather_render_service.lua</code> for how we render the weather effects.</p>
+               <p><strong>"snow_accumulation_per_minute"</strong> -- 可选字段。0 到 1 之间的非常小的值（它是每游戏分钟）。它将使水平表面的顶部被一层平坦的雪覆盖，随着时间的推移变得更加不透明。其他表面下方的表面不会有雪。如果此值为负，如果有前一天的雪，它将缓慢移除雪层。雪的颜色在着色器中控制，检查 <code>stonehearth/data/horde/materials/fullscreen_quad_material.json</code> 中的 SNOW_COVER 条目。还要检查 <code>stonehearth/services/client/weather_render/weather_render_service.lua</code> 以了解我们如何渲染天气效果。</p>
             </li>
             <li>
-               <p><strong>"is_dark_during_daytime"</strong> -- optional field, <strong>false</strong> by default. When <strong>true</strong>, hearthlings will keep the fire pit lit during the day (normally we use it for bad weather like rain, snow, etc).</p>
+               <p><strong>"is_dark_during_daytime"</strong> -- 可选字段，默认为 <strong>false</strong>。当为 <strong>true</strong> 时，炉民将在白天保持火坑点燃（我们通常将其用于恶劣天气，如雨、雪等）。</p>
             </li>
             <li>
-               <p><strong>"unsheltered_debuff"</strong>, <strong>"unsheltered_animal_debuff"</strong> and <strong>"unsheltered_resistance_buff"</strong> -- optional fields that point to URIS of buffs. When we define them, our hearthlings will get the "unsheltered_debuff" applied and our pasture animals will get the "unsheltered_animal_debuff" applied when this weather is active. If our hearthlings or animals have the buff defined for "unsheltered_resistance_buff" (for example, by equipping some winter clothes), then they won't get the unsheltered debuffs.</p>
+               <p><strong>"unsheltered_debuff"</strong>、<strong>"unsheltered_animal_debuff"</strong> 和 <strong>"unsheltered_resistance_buff"</strong> -- 指向增益效果 URI 的可选字段。当我们定义它们时，当此天气活跃时，我们的炉民将获得"unsheltered_debuff"，我们的牧场动物将获得"unsheltered_animal_debuff"。如果我们的炉民或动物具有为"unsheltered_resistance_buff"定义的增益效果（例如，通过装备一些冬季服装），那么他们将不会获得无遮蔽减益效果。</p>
             </li>
             <li>
-               <p><strong>"controller"</strong> -- optional field. It's the URI of a Lua script (remember to add it to the "controllers" section in your manifest!) that will be run when this weather is active. Some examples would be <code>"stonehearth:weather_scripts:foggy"</code>, which spawns undead when the foggy weather is active, and <code>"stonehearth:weather_scripts:thunderstorm"</code>, which makes thunderbolts appear randomly and hurt hearthlings and trees.</p>
+               <p><strong>"controller"</strong> -- 可选字段。它是 Lua 脚本的 URI（请记住将其添加到清单的"controllers"部分！），当此天气活跃时将运行该脚本。一些示例包括 <code>"stonehearth:weather_scripts:foggy"</code>，当雾天活跃时生成不死生物，以及 <code>"stonehearth:weather_scripts:thunderstorm"</code>，使雷暴随机出现并伤害炉民和树木。</p>
             </li>
             <li>
-               <p><strong>"renderer"</strong> -- optional field. It's the URI of a Lua script (it must be declared in the "client_controllers" section of your manifest!). Examples would be <code>"stonehearth:weather_renderers:titanstorm"</code> and <code>"stonehearth:weather_renderers:windy"</code>. We can access client services from them and render things on the client side (like the gusts of wind effects, which aren't attached to the camera).</p>
+               <p><strong>"renderer"</strong> -- 可选字段。它是 Lua 脚本的 URI（必须在清单的"client_controllers"部分中声明！）。示例包括 <code>"stonehearth:weather_renderers:titanstorm"</code> 和 <code>"stonehearth:weather_renderers:windy"</code>。我们可以从它们访问客户端服务并在客户端渲染事物（如阵风效果，它们不附加到相机）。</p>
             </li>
          </ul>
-         <h3><a name="SkySettings"></a>Sky settings</h3>
-         <p>The sky is rendered via <code>stonehearth/services/client/sky_renderer/sky_renderer_service.lua</code>. The <code>sky_settings.json</code> file referenced in the weather's JSON file contains data regarding the sky for the weather.</p>
-         <p>It has these fields:</p>
+         <h3><a name="SkySettings"></a>天空设置</h3>
+         <p>天空通过 <code>stonehearth/services/client/sky_renderer/sky_renderer_service.lua</code> 渲染。天气的 JSON 文件中引用的 <code>sky_settings.json</code> 文件包含有关天气天空的数据。</p>
+         <p>它具有以下字段：</p>
          <ul>
             <li>
-               <p><strong>"sky_gradient"</strong> -- path to an image file (usually a 256x256 pixels PNG). From left to right, it represents in-game time (starting at midnight), and from top to bottom it represents top to bottom of the sky.</p>
-               <p>  You can reuse existing gradients (they are inside subfolders of <code>stonehearth/data/texture_gradient/skybox</code>) or create your own ones. The length of each gradient depends on what do you want the sky to look like at each time of day, perhaps you want more slower transitions or shorter ones.</p>
-               <p>  These are the percentages across the sky gradient where these time events occur:</p>
+               <p><strong>"sky_gradient"</strong> -- 图像文件的路径（通常是 256x256 像素的 PNG）。从左到右，它代表游戏内时间（从午夜开始），从上到下它代表天空的顶部到底部。</p>
+               <p>您可以重用现有的渐变（它们在 <code>stonehearth/data/texture_gradient/skybox</code> 的子文件夹内）或创建自己的渐变。每个渐变的长度取决于您希望天空在一天中的每个时间看起来如何，也许您希望更慢的过渡或更短的过渡。</p>
+               <p>以下是这些时间事件发生的天空渐变百分比：</p>
                <pre><code>midnight           0
 sunrise_start      10
 sunrise_peak_start 20
@@ -186,46 +186,46 @@ day_length        100
 </code></pre>
             </li>
             <li>
-               <p><strong>celestials": []</strong> -- an array containing parameters for the celestials. Normally it contains 2 entries, one for the sun and another one for the moon, with the following properties:</p>
+               <p><strong>"celestials": []</strong> -- 包含天体参数的数组。通常它包含 2 个条目，一个用于太阳，另一个用于月亮，具有以下属性：</p>
                <ul>
                   <li>
-                     <p><strong>"name"</strong> -- an identifier for the celestial (e.g. "sun").</p>
+                     <p><strong>"name"</strong> -- 天体的标识符（例如，"sun"）。</p>
                   </li>
                   <li>
-                     <p><strong>"shadows_enabled"</strong> -- a boolean to enable/disable shadows for this celestial object (normally set to <strong>true</strong>).</p>
+                     <p><strong>"shadows_enabled"</strong> -- 启用/禁用此天体对象阴影的布尔值（通常设置为 <strong>true</strong>）。</p>
                   </li>
                   <li>
-                     <p><strong>"light_colors" : []</strong> -- an array containing maps of <strong>"time"</strong> (which points to an identifier for the time of day), and <strong>"value"</strong> (an array containing an RGB color in <a href="http://www.corecoding.com/utilities/rgb-or-hex-to-float.php">decimal format</a>).</p>
-                     <p> If the light color is [0,0,0] the light will get disabled (e.g. we disable the sun during nighttime and the moon during daylight). The times of day used here are defined in the sky_renderer service, but you can just copy an existing sky_settings file to get them.</p>
+                     <p><strong>"light_colors" : []</strong> -- 包含 <strong>"time"</strong>（指向一天中的时间的标识符）和 <strong>"value"</strong>（包含<a href="http://www.corecoding.com/utilities/rgb-or-hex-to-float.php">十进制格式</a>的 RGB 颜色的数组）映射的数组。</p>
+                     <p>如果光色为 [0,0,0]，光将被禁用（例如，我们在夜间禁用太阳，在白天禁用月亮）。这里使用的一天中的时间在 sky_renderer 服务中定义，但您可以只复制现有的 sky_settings 文件来获取它们。</p>
                   </li>
                   <li>
-                     <p><strong>"ambient_colors"</strong> -- similar to the light colors, also useful for the low quality renderer.</p>
+                     <p><strong>"ambient_colors"</strong> -- 类似于光色，也对低质量渲染器有用。</p>
                   </li>
                   <li>
-                     <p><strong>"angles"</strong> -- angles on x, y, z for the directional lights. Only the most important light can cast shadows.</p>
+                     <p><strong>"angles"</strong> -- 定向光的 x、y、z 角度。只有最重要的光可以投射阴影。</p>
                   </li>
                   <li>
-                     <p><strong>"depth_offset_values"</strong> -- depth offsets for the light.</p>
+                     <p><strong>"depth_offset_values"</strong> -- 光的深度偏移。</p>
                   </li>
                </ul>
             </li>
             <li>
-               <p><strong>"params"</strong> -- parameters for the fog.</p>
+               <p><strong>"params"</strong> -- 雾的参数。</p>
                <ul>
-                  <li><strong>"height_fog"</strong> -- at each time of day, which fog height (in world space), fog thickness factor, fog noise factor and fog distance factor there should be.</li>
-                  <li><strong>"height_fog2"</strong> -- at each time of day, which fog noise scale on X, fog noise scale on Z and fog noise speed there should be.</li>
-                  <li><strong>"height_fog_color_mult"</strong> -- the color for the fog at each time of day.</li>
-                  <li><strong>"scattering"</strong> -- at each time of day, the hue shift, saturation factor, value factor, and sun brightness for the scattering of the light that there should be.</li>
+                  <li><strong>"height_fog"</strong> -- 在一天中的每个时间，应该有什么雾高度（在世界空间中）、雾厚度因子、雾噪声因子和雾距离因子。</li>
+                  <li><strong>"height_fog2"</strong> -- 在一天中的每个时间，应该有什么 X 轴雾噪声缩放、Z 轴雾噪声缩放和雾噪声速度。</li>
+                  <li><strong>"height_fog_color_mult"</strong> -- 一天中每个时间的雾的颜色。</li>
+                  <li><strong>"scattering"</strong> -- 在一天中的每个时间，应该有怎样的色调偏移、饱和度因子、值因子和太阳亮度用于光的散射。</li>
                </ul>
             </li>
             <li>
-               <p><strong>"colors"</strong> -- more parameters.</p>
+               <p><strong>"colors"</strong> -- 更多参数。</p>
                <ul>
-                  <li><strong>"starfield_brightness"</strong> -- the colors for the stars. Usually we set them to [0,0,0] during the day time so that they are disabled.</li>
+                  <li><strong>"starfield_brightness"</strong> -- 星星的颜色。通常我们在白天将它们设置为 [0,0,0] 以便禁用它们。</li>
                </ul>
             </li>
          </ul>
-         <p>We can test the sky gradient using the <a href="../../../essentials/debugtools/debugtools_mod/index.html#DebuggingWeather">Time Slider</a> debug tool.</p>
+         <p>我们可以使用<a href="../../../essentials/debugtools/debugtools_mod/index.html#DebuggingWeather">时间滑块</a>调试工具测试天空渐变。</p>
       </main>
    </body>
 </html>

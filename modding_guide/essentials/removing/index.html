@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,27 +14,27 @@
       <main>
          <h1>Mixintypes</h1>
          <ul>
-            <li><a href="#Mixintypes">How to remove content using mixintypes</a></li>
+            <li><a href="#Mixintypes">如何使用 mixintypes 移除内容</a></li>
             <li>
-               <a href="#Overriding">Overriding JSON nodes in mixintos with "mixintypes"</a>
+               <a href="#Overriding">使用 "mixintypes" 在 mixintos 中覆盖 JSON 节点</a>
                <ul>
                   <li><a href="#MixintypeRemove">Mixintype "remove"</a></li>
                   <li><a href="#MixintypeOverride">Mixintype "override"</a></li>
                </ul>
             </li>
-            <li><a href="#Lua">Removing content from Lua files</a></li>
+            <li><a href="#Lua">从 Lua 文件中移除内容</a></li>
          </ul>
-         <h2><a name="Mixintypes"></a>How to remove content using mixintypes</h2>
-         <p>Now we know how to add/modify things using <a href="../mixintos_overrides/index.html">mixintos and overrides</a>. But what happens if we don't want to add content, but instead want to remove it? Do we need to override the entire file?</p>
-         <p>What if we wanted to remove some campaigns, crafting recipes or hearthling's names? We can use overrides to do that, but as we explained, overrides are bad for mod compatibility.</p>
-         <p>Fortunately, the modding API has a system that allows us to override only certain values from within a JSON file. It is a way for modders to specify that a certain part of a mixinto will override an entire node. This allows us to replace arrays instead of adding to them.</p>
-         <h2><a name="Overriding"></a>Overriding JSON nodes in mixintos with "mixintypes"</h2>
-         <p>Normally, a mixinto can only add to an existing array, which means replacing a value in an array is difficult. To replace the entire array, you can either specify the JSON as an override in the manifest, which will blow away the original file (potentially game breaking), or create a special "mixintypes" field in your mixinto at the same level in the JSON as the field you want to modify, to ONLY replace that single node in the original file.</p>
+         <h2><a name="Mixintypes"></a>如何使用 mixintypes 移除内容</h2>
+         <p>现在我们知道如何使用 <a href="../mixintos_overrides/index.html">mixintos 和 overrides</a> 添加/修改内容。但是如果我们不想添加内容，而是想移除它怎么办？我们需要覆盖整个文件吗？</p>
+         <p>如果我们想要移除某些战役、制作配方或 Hearthling 的名称怎么办？我们可以使用 overrides 来做到这一点，但正如我们所解释的，overrides 对模组兼容性不利。</p>
+         <p>幸运的是，模组 API 有一个系统允许我们仅覆盖 JSON 文件中的某些值。这是一种让模组制作者指定 mixinto 的某个部分将覆盖整个节点的方法。这允许我们替换数组而不是向它们添加内容。</p>
+         <h2><a name="Overriding"></a>使用 "mixintypes" 在 mixintos 中覆盖 JSON 节点</h2>
+         <p>通常，mixinto 只能向现有数组添加内容，这意味着替换数组中的值很困难。要替换整个数组，你可以要么在清单中将 JSON 指定为 override，这将清除原始文件（可能导致游戏损坏），要么在你的 mixinto 中创建一个特殊的 "mixintypes" 字段，位于与你想要修改的字段相同的 JSON 级别，以仅替换原始文件中的单个节点。</p>
          <h3><a name="MixintypeRemove"></a>Mixintype "remove"</h3>
-         <p>For removing a node from the JSON, the syntax is like this:</p>
+         <p>要从 JSON 中移除节点，语法如下：</p>
          <pre><code>  "mixintypes": { "name_of_node" : "remove" }
 </code></pre>
-         <p>For example, this is how the Rayya's Children weaver's recipe list removes the Ascendancy's winter worker outfit from the list of available recipes (also replaces the recipe for the worker_outfit_2 with its own recipe, and adds an extra recipe for another outfit):</p>
+         <p>例如，这是 Rayya's Children 织布工的配方列表如何从可用配方列表中移除 Ascendancy 的冬季工人服装（还将 worker_outfit_2 的配方替换为其自己的配方，并为另一套服装添加额外配方）：</p>
          <pre><code>  {
      "mixins": "/stonehearth/jobs/weaver/recipes/recipes.json",
      "craftable_recipes": {
@@ -54,14 +54,14 @@
      }
   }
 </code></pre>
-         <p>The <strong>"mixintypes"</strong> keyword is at the same level than the key we want to remove. We tell which node(s) we want to modify within a mixintype, and then indicate that we want to remove it. This can be done in a mixinto or in a new file referenced elsewhere.</p>
-         <p>The example above imports all the recipes from the Ascendancy weaver via "mixins" and then modifies the ones that don't match with Rayya's Children. It's a file referenced in other files that are eventually added via a mixinto, but it's not a mixinto in itself. It just borrows data from the stonehearth mod so that it doesn't have to specify all the recipes manually.</p>
-         <p>We can't use "mixintypes" : "remove" for array values, since arrays can't contain key-value pairs.</p>
+         <p><strong>"mixintypes"</strong> 关键字与我们想要移除的键处于同一级别。我们告诉 mixintype 中想要修改哪些节点，然后指示我们要移除它。这可以在 mixinto 中或在其他地方引用的新文件中完成。</p>
+         <p>上面的示例通过 "mixins" 导入 Ascendancy 织布工的所有配方，然后修改与 Rayya's Children 不匹配的配方。它是一个在其他文件中引用的文件，最终通过 mixinto 添加，但它本身不是 mixinto。它只是借用 stonehearth 模组的数据，这样就不必手动指定所有配方。</p>
+         <p>我们不能对数组值使用 "mixintypes" : "remove"，因为数组不能包含键值对。</p>
          <h3><a name="MixintypeOverride"></a>Mixintype "override"</h3>
-         <p>You can use the mixintype <strong>"override"</strong> to replace existing arrays instead of appending to them. This is very important for translation mods that used to override population JSON files for translated names.</p>
-         <p>With mixintype "override" you can now provide your translation's population names as a mixinto in your mod's manifest instead of overriding the entire population.json file.</p>
-         <p>Within the target file, declare the node(s) you want to override, and then provide your replacement version. <br/>
-            In the example below, your manifest would look something like:
+         <p>你可以使用 mixintype <strong>"override"</strong> 来替换现有数组而不是追加到它们。这对于曾经覆盖人口 JSON 文件以获取翻译名称的翻译模组非常重要。</p>
+         <p>使用 mixintype "override"，你现在可以在模组的清单中将翻译的人口名称作为 mixinto 提供，而不是覆盖整个 population.json 文件。</p>
+         <p>在目标文件中，声明你想要覆盖的节点，然后提供你的替换版本。<br/>
+            在下面的示例中，你的清单看起来像这样：
          </p>
          <pre><code>  {
      "info" : {
@@ -82,8 +82,8 @@
      }
   }
 </code></pre>
-         <p>(Remember that use of overrides to add unexisting files to the stonehearth folders? This is another example.)
-            And then the mixinto files for the populations would look like this (shortened example):
+         <p>（还记得使用 overrides 向 stonehearth 文件夹添加不存在的文件吗？这是另一个示例。）
+            然后人口的 mixinto 文件看起来像这样（简化示例）：
          </p>
          <pre><code>  {
      "roles" : {
@@ -129,11 +129,11 @@
      }
   }
 </code></pre>
-         <p>As you can see, we define a <strong>"mixintypes"</strong> node in the same way than the mixintypes for removing content, that is, at the level of the node we want to override. Then, we specify the node (for example "given_names") plus a colon and "override". Only after that we can declare again the node and include the values that we want it to have.</p>
-         <p>This is the way to override arrays without having to override the entire file, which could cause conflicts on other nodes from the JSON file if the game updates.</p>
-         <p>You can also remove specific values from the array with this method, by overriding the node and then declaring only the values you want to keep.</p>
-         <h2><a name="Lua"></a>Removing content from Lua files</h2>
-         <p>Unfortunately, the systems explained above don't work for Lua files, so if you want to remove content from them, you'll have to override the entire file, meaning that it would not be compatible with other mods that rely on that file.</p>
+         <p>正如你所见，我们以与移除内容的 mixintypes 相同的方式定义 <strong>"mixintypes"</strong> 节点，即在我们想要覆盖的节点的级别。然后，我们指定节点（例如 "given_names"）加上冒号和 "override"。只有在那之后，我们才能再次声明该节点并包含我们希望它具有的值。</p>
+         <p>这是覆盖数组而无需覆盖整个文件的方法，如果游戏更新，这可能会导致 JSON 文件中其他节点的冲突。</p>
+         <p>你也可以使用此方法从数组中移除特定值，通过覆盖节点然后仅声明你想要保留的值。</p>
+         <h2><a name="Lua"></a>从 Lua 文件中移除内容</h2>
+         <p>不幸的是，上面解释的系统不适用于 Lua 文件，所以如果你想从它们中移除内容，你将不得不覆盖整个文件，这意味着它与依赖该文件的其他模组不兼容。</p>
       </main>
    </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,80 +7,80 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>The Stonehearth mod</title>
+        <title>Stonehearth 模组</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>The Stonehearth mod</h1>
+            <h1>Stonehearth 模组</h1>
             <ul>
-                <li><a href="#ModsNowadays">How mods are written today</a></li>
-                <li><a href="#ModAnatomy">Anatomy of a mod</a></li>
-                <li><a href="#HowToStart">How to start modding</a></li>
-                <li><a href="#FinalNotes">Final notes</a></li>
+                <li><a href="#ModsNowadays">当今模组的编写方式</a></li>
+                <li><a href="#ModAnatomy">模组的结构</a></li>
+                <li><a href="#HowToStart">如何开始模组制作</a></li>
+                <li><a href="#FinalNotes">最后说明</a></li>
             </ul>
-            <h2><a name="ModsNowadays"></a>How mods are written today</h2>
-            <p>First, a quick explanation of how modders were changing the game in the first alphas. <br/>
-                The Stonehearth game content is stored in the "stonehearth.smod" file in your installation directory. This is just a renamed zip file. You can unzip it and get a peek at all the images, models, and data files within. To mod the game modders unzip the file, find a particular game asset, and overwrite it with their own version. This works, but it has lots of problems...
+            <h2><a name="ModsNowadays"></a>当今模组的编写方式</h2>
+            <p>首先，简单解释一下在早期 Alpha 版本中模组制作者是如何修改游戏的。<br/>
+                Stonehearth 游戏内容存储在安装目录中的 "stonehearth.smod" 文件中。这只是一个重命名的 zip 压缩文件。你可以解压它，查看其中的所有图像、模型和数据文件。要模组化游戏，模组制作者会解压该文件，找到特定的游戏资源，并用他们自己的版本覆盖它。这种方法可行，但存在很多问题...
             </p>
-            <p>It requires changing files that the game installer owns. If you install a newer version of the game, it will blow away the changes that the mod has made.
-                It's difficult to manage multiple mods that are all trying to overwrite different pieces of the Stonehearth mod.
-                Multiple mods can't make changes to the same game object. They're both trying to overwrite the same file, and only one can win.
-                So, here's our plan for addressing the current state of affairs.
+            <p>它需要修改游戏安装程序拥有的文件。如果你安装了更新版本的游戏，它会清除模组所做的更改。
+                管理多个试图覆盖 Stonehearth 模组不同部分的模组很困难。
+                多个模组无法对同一个游戏对象进行更改。它们都试图覆盖同一个文件，只能有一个成功。
+                因此，以下是我们解决当前状况的计划。
             </p>
-            <h2><a name="ModAnatomy"></a>Anatomy of a mod</h2>
-            <p>A Stonehearth mod consists of:</p>
+            <h2><a name="ModAnatomy"></a>模组的结构</h2>
+            <p>一个 Stonehearth 模组包含：</p>
             <ol>
-                <li>A directory with the mod files</li>
-                <li>A manifest.json file in the directory describing the mod  </li>
+                <li>包含模组文件的目录</li>
+                <li>目录中描述模组的 manifest.json 文件</li>
             </ol>
-            <p>A Stonehearth mod is just a file or directory that sits in the "mods" directory in your Stonehearth installation directory (mods from the Steam workshop reside on a different directory). If the game sees a directory or .smod file (which is just a renamed zip file of a directory!) it will try to load it as a mod when the game starts. If a file and directory have the same name (like /foo vs foo.smod), the game chooses to load the directory, not the smod file.</p>
-            <h3><a name="HowToStart"></a>How to start modding</h3>
-            <p>To start modding Stonehearth, first we want to know the structure of the Stonehearth mod itself.
-                Let's go to the folder where Stonehearth is installed:
+            <p>Stonehearth 模组只是位于 Stonehearth 安装目录中 "mods" 目录下的文件或目录（来自 Steam 创意工坊的模组位于不同的目录）。如果游戏看到一个目录或 .smod 文件（这只是重命名的目录 zip 压缩包！），它会在游戏启动时尝试将其作为模组加载。如果文件和目录具有相同的名称（如 /foo 与 foo.smod），游戏会选择加载目录而不是 smod 文件。</p>
+            <h3><a name="HowToStart"></a>如何开始模组制作</h3>
+            <p>要开始制作 Stonehearth 模组，首先需要了解 Stonehearth 模组本身的结构。
+                让我们前往 Stonehearth 的安装文件夹：
             </p>
             <ul>
-                <li>If you installed it with the Humble Bundle installer, this will normally be at <code>C:\Program Files (x86)\Stonehearth</code>. </li>
-                <li>If you have installed it via Steam, then the folder will be at <code>C:\Program Files (x86)\Steam\SteamApps\common\Stonehearth</code>.</li>
+                <li>如果使用 Humble Bundle 安装程序安装，通常位于 <code>C:\Program Files (x86)\Stonehearth</code>。</li>
+                <li>如果通过 Steam 安装，则文件夹位于 <code>C:\Program Files (x86)\Steam\SteamApps\common\Stonehearth</code>。</li>
             </ul>
-            <p>Inside of this folder, you will see a folder called <code>mods</code>. Open it, and you will see the main mods that shape the game. <br/>
-                They are always required to run the game, and you can get glitches and bugs if you mess directly with their files.
+            <p>在此文件夹内，你会看到一个名为 <code>mods</code> 的文件夹。打开它，你将看到构成游戏的主要模组。<br/>
+                这些模组是运行游戏所必需的，如果直接修改它们的文件，可能会出现故障和错误。
             </p>
             <blockquote>
-                <p><a name="FileExtensions"></a><img src="/modding_guide/images/common/edit_big.png" alt="icon"/> For easier modding, turn on the file extensions on the windows explorer. <br/>
-                    <strong>For Windows 7</strong>, open the Control Panel and click on "Appearance and Personalization".  Now, click on "File Explorer Options" (can also appear as "Folder Options"), and go to the "View" tab. In this tab, under Advance Settings, you will see the option "Hide extensions for known file types". Uncheck this option, then click "Apply" and "OK". <br/>
+                <p><a name="FileExtensions"></a><img src="/modding_guide/images/common/edit_big.png" alt="图标"/> 为了更方便地制作模组，请在 Windows 资源管理器中显示文件扩展名。<br/>
+                    <strong>对于 Windows 7</strong>，打开控制面板并点击"外观和个性化"。现在，点击"文件资源管理器选项"（也可能显示为"文件夹选项"），然后转到"查看"选项卡。在此选项卡的"高级设置"下，你会看到"隐藏已知文件类型的扩展名"选项。取消选中此选项，然后点击"应用"和"确定"。<br/>
                     <img src="/modding_guide/images/essentials/stonehearth/show_extensions_w7.png" alt="show_extensions_w7"/>
-                    <strong>For Windows 8/8.1/10</strong>, open any folder, select the "View" tab at the top, and check "File name extensions".
+                    <strong>对于 Windows 8/8.1/10</strong>，打开任意文件夹，选择顶部的"查看"选项卡，然后勾选"文件扩展名"。
                     <img src="/modding_guide/images/essentials/stonehearth/show_extensions.png" alt="show_extensions"/>
                 </p>
             </blockquote>
-            <p>Now, select the stonehearth.smod file, and rename it so that the extension is .zip instead of .smod.
+            <p>现在，选择 stonehearth.smod 文件，并将其重命名，将扩展名从 .smod 改为 .zip。
                 <img src="/modding_guide/images/essentials/stonehearth/changing_the_extension.png" alt="changing_the_extension"/>
             </p>
-            <p>Then, unzip the stonehearth.zip with the built-in Windows option (right-click the file, select "Extract here") or use any compression software of your liking (7-Zip, Winrar,etc). It might take a while to extract all the files.</p>
-            <p>Make sure that after uncompressing, you have a folder named <code>stonehearth</code> inside which there are the game files. Some methods for unzipping files might get the stonehearth folder inside another folder called stonehearth; in that case, cut it and paste it one level above, so that the contents get merged. <br/>
-                If the folder is not in that path, the game won't be able to start.
+            <p>然后，使用 Windows 内置选项解压 stonehearth.zip（右键单击文件，选择"解压到此处"），或使用你喜欢的任何压缩软件（7-Zip、Winrar 等）。解压所有文件可能需要一些时间。</p>
+            <p>确保解压后，你有一个名为 <code>stonehearth</code> 的文件夹，其中包含游戏文件。某些解压方法可能会将 stonehearth 文件夹放在另一个名为 stonehearth 的文件夹内；在这种情况下，将其剪切并粘贴到上一级目录，以便合并内容。<br/>
+                如果文件夹不在该路径中，游戏将无法启动。
             </p>
-            <p>Example of extra inner folder for a mod, and how it should be:
+            <p>模组额外内部文件夹的示例，以及正确的方式：
                 <img src="/modding_guide/images/essentials/managing/bad_unzipping.png" alt="bad_unzipping"/>
                 <img src="/modding_guide/images/essentials/managing/good_unzipping.png" alt="good_unzipping"/>
             </p>
-            <p>Let's take a peek at the contents of the <code>stonehearth</code> folder (you can leave the .zip file there, it won't cause any problems).
-                You should see something like this:
+            <p>让我们看一下 <code>stonehearth</code> 文件夹的内容（你可以保留 .zip 文件，它不会造成任何问题）。
+                你应该看到类似这样的内容：
                 <img src="/modding_guide/images/essentials/stonehearth/stonehearth_files.png" alt="stonehearth_files"/>
             </p>
-            <p>Down below the folders you will find some Lua files and the manifest.json, the core of the mod. <br/>
-                For easier referencing, most of the modders use the same folder structure than in the <code>stonehearth</code> mod, but it's not required. As you can see, the folder names are very descriptive, although sometimes it can be tricky to find what you're searching for if you're not sure of what it is (an entity? a component? a service?).
+            <p>在文件夹下方，你会找到一些 Lua 文件和 manifest.json，这是模组的核心。<br/>
+                为了方便引用，大多数模组制作者使用与 <code>stonehearth</code> 模组相同的文件夹结构，但这不是必需的。正如你所见，文件夹名称非常具有描述性，尽管有时如果你不确定要找什么（实体？组件？服务？），可能会有点难找。
             </p>
             <blockquote>
-                <p><strong>Most of the usual modding is done by copy-pasting files from the Stonehearth mod into your own mod, and modifying them.</strong></p>
+                <p><strong>大多数常规模组制作是通过将文件从 Stonehearth 模组复制粘贴到你自己的模组中，然后修改它们来完成的。</strong></p>
             </blockquote>
-            <p>So, leaving this folder unzipped while modding is useful, but remember to delete it when downloading new updates for the game, or you will get a <a href="../managing/unmanaged/index.html#ModConflicts">conflict</a> and possibly errors when starting a new game after the update. </p>
-            <p>Alternatively, you can copy the stonehearth.smod to another directory outside the <code>mods</code> folder, rename it, and unzip it for reference.</p>
-            <p>There are example mods released by the developers for new modders. You can download them and start tinkering with them without being overwhelmed by the huge amount of files that the stonehearth mod has. There's a <a href="../startermods/index.html">section</a> in this guide dedicated to them.</p>
-            <h2><a name="FinalNotes"></a>Final notes</h2>
-            <p>You can use any game file as reference for your mod.</p>
-            <p>The modding guide includes explanations about most of the systems of the game, but there's still many files that aren't discussed here. Always check the game files for reference.</p>
+            <p>因此，在模组制作期间保持此文件夹解压状态很有用，但请记住在下载游戏新更新时删除它，否则你会遇到<a href="../managing/unmanaged/index.html#ModConflicts">冲突</a>，并且在更新后开始新游戏时可能会出现错误。</p>
+            <p>或者，你可以将 stonehearth.smod 复制到 <code>mods</code> 文件夹外的另一个目录，重命名并解压以供参考。</p>
+            <p>开发者为新模组制作者发布了一些示例模组。你可以下载它们并开始尝试，而不会被 stonehearth 模组中海量的文件所压倒。本指南中有一个<a href="../startermods/index.html">专门章节</a>介绍它们。</p>
+            <h2><a name="FinalNotes"></a>最后说明</h2>
+            <p>你可以使用任何游戏文件作为模组的参考。</p>
+            <p>模组制作指南包含了游戏大多数系统的说明，但仍有许多文件未在此讨论。请始终检查游戏文件以获取参考。</p>
         </main>
     </body>
 </html>
