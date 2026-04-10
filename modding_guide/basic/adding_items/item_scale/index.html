@@ -3,21 +3,21 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>Changing the scale</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>Changing the scale</h1>
          <p>It doesn't matter how big an object is when you model it compared with other objects in the game, because we can change its scale from its JSON file.</p>
          <p>If you don't specify the scale of an item, by default it's 0.1.</p>
          <p>Trees and boulders have a scale of 1 (defined in their mixins), which means that each of the voxels in their models occupies 1 terrain block (you can see the size of a terrain block by opening the zones menu or the building menu, a grid will be displayed on the terrain).</p>
          <p>Iconics are usually modeled with a size of 10x10x10 voxels, and since the default scale is 0.1, they fit perfectly in 1 block of terrain inside the game, which makes them align nicely in the stockpiles, and also fit in the hands of the hearthlings. Hearthlings themselves also have a 0.1 scale. Their face is 13 voxels wide, and you can see in the game that they barely occupy more than one terrain block of width.
-            <img src="/modding_guide/images/basic/adding_items/item_scale.png" alt="item_scale"/>
+            <img src="/images/basic/adding_items/item_scale.png" alt="item_scale"/>
          </p>
          <p>To change the scale of an object, we need to add the <strong>"render_info"</strong> component to its JSON file. For example, this is the wheat_pile_ghost.json file, which determines the aspect of a wheat pile once placed:</p>
          <pre><code>  {
@@ -51,9 +51,9 @@
 </code></pre>
          <p>Inside the "render_info" component we say <strong>"scale" : 0.12</strong>, which will make the object look slightly larger than with the default scale.
             With this, we can make items smaller (e.g.: <strong>"scale" : 0.05</strong> - half as big as the default scale):
-            <img src="/modding_guide/images/basic/adding_items/small_scale.png" alt="small_scale"/>
+            <img src="/images/basic/adding_items/small_scale.png" alt="small_scale"/>
             or larger (e.g.: <strong>"scale" : 2</strong> - 20 times bigger than the default scale):
-            <img src="/modding_guide/images/basic/adding_items/big_scale.png" alt="big_scale"/>
+            <img src="/images/basic/adding_items/big_scale.png" alt="big_scale"/>
          </p>
          <p>The render_info component is also used for defining other properties such as animation tables, <a href="../../color_maps/index.html">color maps</a>, and <a href="../../color_maps/index.html#RenderMaterials">material maps</a>.</p>
          <p>We can also test this in game. Select an entity, open the <a href="../../../essentials/debugtools/debugtools_mod/index.html#LuaConsole">Lua console</a>, and type this:</p>

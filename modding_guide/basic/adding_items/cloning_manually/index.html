@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>Adding items manually</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>Adding items manually</h1>
          <p>Prepare your own mod (such as the basic, empty mod example on <a href="../../../essentials/manifest/index.html">this section</a>) or reuse startermod_basic or <a href="https://github.com/stonehearth/startermod_items">startermod_items</a> for this example.</p>
@@ -33,30 +33,30 @@
                <p><strong>All the entities</strong> from the game (except for workbenches, job uniforms and a couple more things) <strong>reside inside the stonehearth/entities folder</strong>.</p>
                <p>  For convenience, modders recreate the structure of the stonehearth directories, so that it's easier for them to find files later, but it is not required. You could have all the files of your mod at the same level than the manifest.json file, or inside just one folder, but that's bad practice for when the mod grows bigger.  </p>
                <p>  The table for one files are inside <code>stonehearth/entities/furniture/table_for_one</code>. Create the entities/furniture subfolders if you don't have them inside your mod's folder. Then, <strong>copy</strong> the table_for_one folder from the stonehearth mod <strong>and paste</strong> it into the furniture folder from your mod.</p>
-               <p><img src="/modding_guide/images/basic/adding_items/copying.png" alt="copying"/></p>
+               <p><img src="/images/basic/adding_items/copying.png" alt="copying"/></p>
             </li>
             <li>
                <p><strong>Rename</strong> the table_for_one folder to the name of the entity you want to add. To avoid typos and troubles with paths, use only lowercase letters, numbers and underscores, both for folders and for naming files. In this case let's rename the folder to something like "custom_table".
-                  <img src="/modding_guide/images/basic/adding_items/renaming_folder.png" alt="renaming_folder"/>
+                  <img src="/images/basic/adding_items/renaming_folder.png" alt="renaming_folder"/>
                   Now for the files. <strong>Rename</strong> the files replacing "table_for_one" with "custom_table".
-                  <img src="/modding_guide/images/basic/adding_items/renaming_files.png" alt="renaming_files"/>
+                  <img src="/images/basic/adding_items/renaming_files.png" alt="renaming_files"/>
                   Then, we'd open the QB files in a voxel editor, change the model to our liking, and <strong>re-export</strong> it to a QB file with the corresponding name. More instructions on that in the <a href="../../art/modeling/index.html">art section</a> of the guide. Don't forget to take a <strong>screenshot</strong> of the model too, to replace the copied icon.
-                  <img src="/modding_guide/images/basic/adding_items/editing_model.png" alt="editing_model"/>
-                  <img src="/modding_guide/images/basic/adding_items/editing_iconic_model.png" alt="editing_iconic_model"/>
+                  <img src="/images/basic/adding_items/editing_model.png" alt="editing_model"/>
+                  <img src="/images/basic/adding_items/editing_iconic_model.png" alt="editing_iconic_model"/>
                   Now we have to open each JSON file and make sure everything is correct. Open custom_table.json.
                </p>
                <p><strong>Replace</strong> all text where it says table_for_one with custom_table, so that the paths point to our files.
-                  <img src="/modding_guide/images/basic/adding_items/editing_root_file.png" alt="editing_root_file"/>
+                  <img src="/images/basic/adding_items/editing_root_file.png" alt="editing_root_file"/>
                   Adjust the region_collision_shape values if needed (more info <a href="../../../intermediate/regions/collision_destination/index.html#RegionCollision">here</a>).
-                  <img src="/modding_guide/images/basic/adding_items/region_collision_shape.png" alt="region_collision_shape"/>
+                  <img src="/images/basic/adding_items/region_collision_shape.png" alt="region_collision_shape"/>
                   Modify the entity_data as you want. In this case, we'll increase the value in gold and appeal.
-                  <img src="/modding_guide/images/basic/adding_items/editing_entity_data.png" alt="editing_entity_data"/>
+                  <img src="/images/basic/adding_items/editing_entity_data.png" alt="editing_entity_data"/>
                   Next, open the custom_table_ghost.json file. Again, change the table_for_one to custom_table and adjust the model_origin and region_origin if needed. <br/>
                   In the entity_data, change the name and description to another text and localize it (guide for localization <a href="../../../essentials/localization/index.html">here</a>, remember to add <strong>"default_locale" : "en"</strong> to your manifest!), or just leave the plain text without localization. Change the icon's name to point to our image and edit the material tags if you want (in this case, we changed 'wood' for 'stone'). <br/>
-                  <img src="/modding_guide/images/basic/adding_items/editing_ghost_file.png" alt="editing_ghost_file"/>
+                  <img src="/images/basic/adding_items/editing_ghost_file.png" alt="editing_ghost_file"/>
                </p>
                <p>Finally, open the custom_table_iconic.json file, and adjust the values like explained above.
-                  <img src="/modding_guide/images/basic/adding_items/editing_iconic_file.png" alt="editing_iconic_file"/>
+                  <img src="/images/basic/adding_items/editing_iconic_file.png" alt="editing_iconic_file"/>
                </p>
             </li>
             <li>
@@ -88,7 +88,7 @@
                <p>  Check the "iconic" checkbox, click on the stamp tool and click on the terrain to spawn it. Right-click to exit the item stamper.</p>
                <p>  Click on the spawned item to verify the name and description.</p>
                <p>  Order to place it somewhere to verify it looks correct in the 3 entity forms (you might need to create a stockpile first and wait for the item to be restocked, in order for the placement menu to detect it).
-                  <img src="/modding_guide/images/basic/adding_items/testing_new_item.png" alt="testing_new_item"/>
+                  <img src="/images/basic/adding_items/testing_new_item.png" alt="testing_new_item"/>
                </p>
             </li>
          </ol>

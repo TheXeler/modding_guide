@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>存储物品</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>存储物品</h1>
          <p>在 Stonehearth 中有几种类型的存储。</p>
@@ -82,7 +82,7 @@
          <p>如上文对存储类型的注释中所解释的，输入箱是一种特殊类型的存储。炉民将优先向它们补货，即使是已经存储在其他类型存储中的物品。它们的过滤器列表一次只允许启用一个过滤器。</p>
          <p>这对制作者很有用，因为其他炉民可以为他们带来材料，他们不必走那么远去获取，对于建筑也很有用，因为您可以在建筑工地附近拥有一个优先存储，这样建造的炉民就不会耗尽资源。</p>
          <p>另一方面，输出箱只能由制作者填充。他们会将刚刚制作的物品放置在输出箱中，其他炉民将从那里拿起这些物品并将它们带到具有适当过滤器的存储中（输出箱没有太多容量，尽管它们有标准的过滤器集，因为制作者可以制作任何类型的物品）。</p>
-         <p><img src="/modding_guide/images/basic/storages/input_output.png" alt="input_output"/></p>
+         <p><img src="/images/basic/storages/input_output.png" alt="input_output"/></p>
          <p>这两种存储类型都已实现显示其内容的功能。堆放也可以显示存储的物品，但它们以线性方式执行，而对于这些存储类型，您可以自定义显示。如果您复制输入或输出箱的文件，您将已经定义了这一点，但让我们还是看一下参数：</p>
          <pre><code>  "stonehearth:storage": {
      "type": "input_crate",
@@ -100,7 +100,7 @@
 </code></pre>
          <p>它们非常不言自明。<strong>"render_contents" : true</strong> 将使存储的内容被渲染（使用此选项，您可以创建类型为'urn'或'crate'的存储，也可以显示其内容）。</p>
          <p>过滤器列表指向此存储物品允许的过滤器列表，<strong>"is_single_filter" : true</strong> 将使我们在同一时间只能启用一个过滤器。它还将移除过滤器组的复选框，并在未选择过滤器时显示注意提示：
-            <img src="/modding_guide/images/basic/storages/single_filter.png" alt="single_filter"/>
+            <img src="/images/basic/storages/single_filter.png" alt="single_filter"/>
          </p>
          <p>请记住，如果输入箱的"is_single_filter"设置为 false，它们将无法按预期工作（它们会抛出错误）。但除此之外，我们可以让我们的箱子和瓮具有单个过滤器和/或不同的过滤器列表，使用 <strong>"filter_list"</strong> 选项。</p>
          <p>为了显示物品，我们还需要向存储添加一个骨架。我们通过定义"render_info"组件内的 <strong>"animation_table"</strong>，然后在"effect_list"组件内分配一个默认效果来实现。这是一个播放短动画（2 帧）以将物品定位在模型顶部的效果。</p>
@@ -180,7 +180,7 @@
             <li>
                <p>对于"resources"组，我们重用了一些现有的 stonehearth 过滤器。每个过滤器都有一个 <strong>"ordinal"</strong>（用于在组内水平排列过滤器），一个用于工具提示的 <strong>"display_name"</strong>，一个在 UI 中显示的 <strong>"icon"</strong>，以及一个关联的 <strong>"filter"</strong>。此过滤器对应于我们在"stonehearth:catalog"内的 entity_data 内的"material_tags"中编写的一个或多个标签。这样，我们告诉物品应该补货到启用了此过滤器的存储中。</p>
                <blockquote>
-                  <p><img src="/modding_guide/images/common/gold.png" alt="icon"/>如果存储选中了"All"过滤器，材质标签将被忽略。如果改为选中"None"，则没有任何物品会补货到该存储中，炉民会将其中剩余的任何物品移动到其他存储中。</p>
+                  <p><img src="/images/common/gold.png" alt="icon"/>如果存储选中了"All"过滤器，材质标签将被忽略。如果改为选中"None"，则没有任何物品会补货到该存储中，炉民会将其中剩余的任何物品移动到其他存储中。</p>
                </blockquote>
             </li>
             <li>
@@ -200,7 +200,7 @@
   ...
 </code></pre>
          <p>最后，我们可以检查我们的过滤器在 UI 中的外观：
-            <img src="/modding_guide/images/basic/storages/custom_filters.png" alt="custom_filters"/>
+            <img src="/images/basic/storages/custom_filters.png" alt="custom_filters"/>
          </p>
          <h2><a name="PatrollableItems"></a>关于可巡逻物品</h2>
          <p>您可能已经注意到游戏中的一些存储在其 entity_data 内有一个 <strong>"stonehearth:town_patrol"</strong> 键。此键用于指定应由战斗单位巡逻的物品。其他实体，如农民田地，也有此 entity_data。</p>

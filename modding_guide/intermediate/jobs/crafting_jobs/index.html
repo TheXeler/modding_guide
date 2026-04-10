@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>制作类职业</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>制作类职业</h1>
             <p>让我们创建一个新的制作类职业。我们称它为 Lamplighter（点灯人），他们将制作用于点亮游戏中路灯的燃料（这个示例职业来自 <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1357451622">Silent Woods</a> 模组）。</p>
@@ -215,7 +215,7 @@
 }
 </code></pre>
                             <p> 这些属性用于定义工匠将播放以将原料放在工作台顶部的效果，以及在工匠拿起之前定位掉落的原料和生产物品的偏移量。</p>
-                            <p> <img src="/modding_guide/images/common/edit_big.png" alt="图标"/> 我们也可以在工作台.json 文件的 entity_data 中定义工作台等效物。例如：</p>
+                            <p> <img src="/images/common/edit_big.png" alt="图标"/> 我们也可以在工作台.json 文件的 entity_data 中定义工作台等效物。例如：</p>
                             <pre><code>"stonehearth:workshop": {
    "equivalents": [ "stonehearth:mason:pedestal:amberstone" ]
 }
@@ -232,7 +232,7 @@
                         </li>
                         <li>
                             <p>我们编辑控制器文件。这非常重要。我们重命名的控制器文件仍将具有相同的代码，所以我们必须在其中重命名一些内容。</p>
-                            <p> <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 游戏中的所有职业都继承自 <code>base_job.lua</code>。制作类职业改为继承自 <code>crafting_job.lua</code>，因为该文件已经继承自 base_job.lua。<code>CraftingJob</code> 类在 crafting_job.lua 中定义，负责向 Hearthling 添加 crafter 组件并管理工匠在制作配方时的经验获取。</p>
+                            <p> <img src="/images/common/row_alert2.png" alt="图标"/> 游戏中的所有职业都继承自 <code>base_job.lua</code>。制作类职业改为继承自 <code>crafting_job.lua</code>，因为该文件已经继承自 base_job.lua。<code>CraftingJob</code> 类在 crafting_job.lua 中定义，负责向 Hearthling 添加 crafter 组件并管理工匠在制作配方时的经验获取。</p>
                             <p> 在我们重命名 Herbalist 为 Lamplighter 并删除所有不需要的代码后，我们的 <code>lamplighter.lua</code> 文件将如下所示：</p>
                             <pre><code>local CraftingJob = require 'stonehearth.jobs.crafting_job'
 
@@ -280,7 +280,7 @@ end
 </code></pre>
                     <p>  我们为新职业添加一个键，用于工具提示的本地化 <strong>"name"</strong> 和 <strong>"description"</strong>，CSS <strong>"class"</strong>（通常与我们复制的相同），<strong>"required_job"</strong>，这是我们工匠的别名，前面加上我们模组的命名空间和冒号，本地化的 <strong>"required_job_text"</strong>，当玩家尚未提升任何人到我们的制作类职业时将在工具提示中显示，用于菜单项显示的 <strong>"icon"</strong> 的路径，<strong>"menu_action" : "show_crafter_ui"</strong>（这将使点击按钮打开我们工匠的工作室），以及 <strong>"hotkey_action"</strong>，它将指向 <code>hotkeys.json</code> 中的热键，以便玩家可以绑定键以用它们打开我们工匠的工作室。</p>
                     <p>  请注意，如果我们在此处添加热键操作，我们将必须向 <code>stonehearth/data/hotkeys.json</code> 添加 mixinto 并在那里也添加操作。</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 确保为另一个工匠创建你的护身符的配方，使其在游戏中可获得，或以其他方式使其可获得。</p>
+                    <p>  <img src="/images/common/row_alert2.png" alt="图标"/> 确保为另一个工匠创建你的护身符的配方，使其在游戏中可获得，或以其他方式使其可获得。</p>
                 </li>
                 <li>
                     <p>最后，我们可以在游戏中测试我们的新制作类职业，并确保一切按预期工作。</p>
@@ -320,7 +320,7 @@ end
                     <ul>
                         <li>
                             <p>在 stonehearth 模组的 'jobs:carpenter' 节点下搜索 'recipes' 节点，右键单击它，并点击 'Clone'。</p>
-                            <p> <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 为了更容易克隆，你可以尝试使用 engineer 配方列表，它具有较少的项目并且更容易编辑。</p>
+                            <p> <img src="/images/common/row_alert2.png" alt="图标"/> 为了更容易克隆，你可以尝试使用 engineer 配方列表，它具有较少的项目并且更容易编辑。</p>
                         </li>
                         <li>
                             <p>在克隆对话框中，将 Target mod 设置为你的模组。</p>

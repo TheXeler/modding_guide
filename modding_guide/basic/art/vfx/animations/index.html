@@ -1,48 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Animations</title>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
+        <title>动画</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
-            <h1>Animations</h1>
-            <p>The animation effects are stored in some of the subdirectories of <code>stonehearth/data/rigs</code>.</p>
+            <h1>动画</h1>
+            <p>动画效果存储在 <code>stonehearth/data/rigs</code> 的某些子目录中。</p>
             <ul>
                 <li>
-                    <a href="#AnimationTrack">The effect file</a>
+                    <a href="#AnimationTrack">效果文件</a>
                     <ul>
-                        <li><a href="#HideBoneAttachItem">Hide bone and attach item tracks</a></li>
+                        <li><a href="#HideBoneAttachItem">隐藏骨骼和附加物品轨道</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#AnimationFiles">The animation files</a>
+                    <a href="#AnimationFiles">动画文件</a>
                     <ul>
-                        <li><a href="#Skeleton">The skeleton</a></li>
-                        <li><a href="#Postures">Postures</a></li>
-                        <li><a href="#Animations">Animations</a></li>
+                        <li><a href="#Skeleton">骨骼</a></li>
+                        <li><a href="#Postures">姿态</a></li>
+                        <li><a href="#Animations">动画</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#CreatingAnimations">How to create animations</a>
+                    <a href="#CreatingAnimations">如何创建动画</a>
                     <ul>
-                        <li><a href="#Tools">Tools for animating</a></li>
-                        <li><a href="#PreparingTheModel">Preparing the model</a></li>
-                        <li><a href="#BlenderSetup">Blender add-on setup</a></li>
-                        <li><a href="#PreparingScene">Preparing the scene in Blender</a></li>
-                        <li><a href="anim_existing/index.html">Animating existing entities</a></li>
-                        <li><a href="anim_custom/index.html">Animating custom entities</a></li>
+                        <li><a href="#Tools">动画工具</a></li>
+                        <li><a href="#PreparingTheModel">准备模型</a></li>
+                        <li><a href="#BlenderSetup">Blender 插件设置</a></li>
+                        <li><a href="#PreparingScene">在 Blender 中准备场景</a></li>
+                        <li><a href="anim_existing/index.html">为现有实体制作动画</a></li>
+                        <li><a href="anim_custom/index.html">为自定义实体制作动画</a></li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="AnimationTrack"></a>The effect file</h2>
-            <p>Example of an animation track from an effect JSON file:</p>
+            <h2><a name="AnimationTrack"></a>效果文件</h2>
+            <p>效果 JSON 文件中动画轨道的示例：</p>
             <pre><code>  "animation": {
      "type": "animation_effect",
      "start_time": 0,
@@ -50,20 +50,20 @@
      "loop": true
   }
 </code></pre>
-            <p>These are the fields that we can find in an animation track:</p>
+            <p>这些是我们可以在动画轨道中找到的字段：</p>
             <ul>
-                <li><strong>"type" : "animation_effect"</strong> -- the type of the track. An animation effect.</li>
-                <li><strong>"animation"</strong> -- name of the animation file to play. Here we only have to say the name of the file (for example, <code>work.json</code>). We have to setup correctly the <a href="#Skeleton">rig</a> of the entity, since it will have a property to define the folder in which the animations for this entity are stored, so that the game can find them just with the name.</li>
-                <li><strong>"loop"</strong> -- a boolean (defaults to <strong>false</strong>). Usually it'll be <strong>true</strong> for entities that play a constant animation or pose (such as certain workbenches and containers), and <strong>false</strong> for animations that are meant to be played only once. Certain animations played by the AI will still have this set to <strong>true</strong>, such as eat, chop or breathe animations, but in general be careful since looping tracks can make an AI action get stuck when not configured correctly.</li>
-                <li><strong>"start_time"</strong> -- optional field (defaults to 0). Time in milliseconds at which the animation should start in regards to the whole effect.</li>
-                <li><strong>"end_time"</strong> -- optional field (defaults to the natural duration of the animation). Time in milliseconds at which the animation should end. If there are other tracks that are longer, the last frame will be held until the whole effect ends.</li>
-                <li><strong>"speed"</strong> -- optional field (defaults to 1, minimum is 0.01). The speed at which the animation should be played.</li>
-                <li><strong>"blend_time"</strong> -- optional field (defaults to 200). The time that the animation blending will last (in milliseconds).</li>
-                <li><strong>"response_frame"</strong> -- optional field. Only used for animations that will be played on hearthling conversations. It's the frame of this animation at which the next speaker will start talking. Not really related to rendering the animation, it's just a flag for the Lua code to make the other person start an animation.</li>
+                <li><strong>"type" : "animation_effect"</strong> -- 轨道的类型。动画效果。</li>
+                <li><strong>"animation"</strong> -- 要播放的动画文件的名称。这里我们只需要说文件的名称（例如，<code>work.json</code>）。我们必须正确设置实体的 <a href="#Skeleton">rig（骨骼/装备）</a>，因为它将有一个属性来定义存储此实体动画的文件夹，以便游戏可以仅通过名称找到它们。</li>
+                <li><strong>"loop"</strong> -- 布尔值（默认为 <strong>false</strong>）。通常对于播放恒定动画或姿势的实体（如某些工作台和容器），它将为 <strong>true</strong>，而对于只打算播放一次的动画，它将为 <strong>false</strong>。AI 播放的某些动画仍将此设置为 <strong>true</strong>，例如吃、砍伐或呼吸动画，但通常要小心，因为如果配置不正确，循环轨道可能会导致 AI 动作卡住。</li>
+                <li><strong>"start_time"</strong> -- 可选字段（默认为 0）。动画应开始的时间（以毫秒为单位），相对于整个效果。</li>
+                <li><strong>"end_time"</strong> -- 可选字段（默认为动画的自然持续时间）。动画应结束的时间（以毫秒为单位）。如果有其他更长的轨道，最后一帧将被保持直到整个效果结束。</li>
+                <li><strong>"speed"</strong> -- 可选字段（默认为 1，最小值为 0.01）。动画应播放的速度。</li>
+                <li><strong>"blend_time"</strong> -- 可选字段（默认为 200）。动画混合将持续的时间（以毫秒为单位）。</li>
+                <li><strong>"response_frame"</strong> -- 可选字段。仅用于将在炉民对话中播放的动画。它是此动画中下一个说话者开始说话的帧。与渲染动画没有真正关系，它只是 Lua 代码的标志，让另一个人开始动画。</li>
             </ul>
-            <h3><a name="HideBoneAttachItem"></a>Hide bone and attach item tracks</h3>
-            <p>Together with the animation tracks, we sometimes see these other types of track: <strong>"hide_bone"</strong> and <strong>"attach_item_effect"</strong>.</p>
-            <p><a name="HideBone"></a>Example of a hide bone track:</p>
+            <h3><a name="HideBoneAttachItem"></a>隐藏骨骼和附加物品轨道</h3>
+            <p>与动画轨道一起，我们有时会看到这些其他类型的轨道：<strong>"hide_bone"</strong> 和 <strong>"attach_item_effect"</strong>。</p>
+            <p><a name="HideBone"></a>隐藏骨骼轨道的示例：</p>
             <pre><code>  "hide_carrying" : {
      "type": "hide_bone",
      "start_time": 0,
@@ -71,14 +71,14 @@
      "bone": "carry"
   }
 </code></pre>
-            <p>We have these properties:</p>
+            <p>我们有这些属性：</p>
             <ul>
-                <li><strong>"type" : "hide_bone"</strong> -- the type of the track is hide bone. This track will hide a bone from the entity's skeleton when this animation is played. Useful to hide items like weapons in eat/sleep animations, etc.</li>
-                <li><strong>"bone"</strong> -- the name of the bone to hide. If the bone is invisible (a helper bone) and doesn't have anything attached when this animation runs, we don't need to add a <strong>"hide_bone"</strong> track to the effect for it.</li>
-                <li><strong>"start_time"</strong> -- optional field (defaults to 0). The time in milliseconds at which the bone should start to stay hidden.</li>
-                <li><strong>"end_time"</strong> -- optional field (defaults to the duration of the effect). The time in milliseconds at which the bone should be visible again. Don't use if the effect loops.</li>
+                <li><strong>"type" : "hide_bone"</strong> -- 轨道的类型是隐藏骨骼。当播放此动画时，此轨道将隐藏实体骨骼中的一个骨骼。用于在吃/睡觉动画等中隐藏武器等物品。</li>
+                <li><strong>"bone"</strong> -- 要隐藏的骨骼的名称。如果骨骼是不可见的（辅助骨骼）并且在此动画运行时没有附加任何东西，我们不需要为其向效果添加 <strong>"hide_bone"</strong> 轨道。</li>
+                <li><strong>"start_time"</strong> -- 可选字段（默认为 0）。骨骼应开始保持隐藏的时间（以毫秒为单位）。</li>
+                <li><strong>"end_time"</strong> -- 可选字段（默认为效果的持续时间）。骨骼应再次可见的时间（以毫秒为单位）。如果效果循环，请不要使用。</li>
             </ul>
-            <p><a name="AttachItem"></a>Example of attach item tracks:</p>
+            <p><a name="AttachItem"></a>附加物品轨道的示例：</p>
             <pre><code>  "grab_axe" : {
      "type": "attach_item_effect",
      "start_time": 0,
@@ -95,37 +95,37 @@
      "bone": "mainHand"
   }
 </code></pre>
-            <p>We have these properties:</p>
+            <p>我们有这些属性：</p>
             <ul>
                 <li>
-                    <p><strong>"type" : "attach_item_effect"</strong> -- the type of the track is attach item. This track will attach an item to a bone from the entity's skeleton when this animation is played.</p>
+                    <p><strong>"type" : "attach_item_effect"</strong> -- 轨道的类型是附加物品。当播放此动画时，此轨道会将物品附加到实体骨骼的一个骨骼上。</p>
                 </li>
                 <li>
-                    <p><strong>"bone"</strong> -- the name of the bone to attach the item to.</p>
+                    <p><strong>"bone"</strong> -- 要将物品附加到的骨骼的名称。</p>
                 </li>
                 <li>
-                    <p><strong>"start_time"</strong> / <strong>"end_time"</strong> -- optional fields (will default to the duration of the effect). Same than for the <a href="#HideBone">hide_bone</a> track.</p>
+                    <p><strong>"start_time"</strong> / <strong>"end_time"</strong> -- 可选字段（将默认为效果的持续时间）。与 <a href="#HideBone">hide_bone</a> 轨道相同。</p>
                 </li>
                 <li>
-                    <p><strong>"item"</strong> / <strong>"item_in_slot"</strong> -- we must use one of these fields to determine the item to attach:</p>
+                    <p><strong>"item"</strong> / <strong>"item_in_slot"</strong> -- 我们必须使用其中一个字段来确定要附加的物品：</p>
                     <ul>
                         <li>
-                            <p><a name="AttachItemSyntax"></a>For <strong>"item"</strong> we just have to specify a URI. The item will be attached to the bone just for the duration of the animation.</p>
-                            <p> You might see that for the <code>promote.json</code> effect, <strong>"item"</strong> is <code>"{{talisman}}"</code>. We can use this syntax surrounding the name of a variable with double curly braces if we set up a value for it via the AI (in this case you can see it in the <code>stonehearth/ai/actions/change_job_using_talisman_action.lua</code> file).</p>
+                            <p><a name="AttachItemSyntax"></a>对于 <strong>"item"</strong>，我们只需指定一个 URI。物品将仅在动画持续时间内附加到骨骼。</p>
+                            <p>您可能会看到对于 <code>promote.json</code> 效果，<strong>"item"</strong> 是 <code>"{{talisman}}"</code>。如果我们通过 AI 为其设置值，我们可以使用这种用双大括号包围变量名称的语法（在这种情况下，您可以在 <code>stonehearth/ai/actions/change_job_using_talisman_action.lua</code> 文件中看到它）。</p>
                         </li>
                         <li>
-                            <p>For <strong>"item_in_slot"</strong> we must specify an <a href="../../../wearables/index.html#AddingGear">equipment slot</a>. Whatever item is currently equipped in that slot will be shown attached to the specified bone for the duration of the animation.</p>
+                            <p>对于 <strong>"item_in_slot"</strong>，我们必须指定一个 <a href="../../../wearables/index.html#AddingGear">装备槽</a>。当前装备在该槽位中的任何物品都将显示为在动画持续时间内附加到指定的骨骼。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="AnimationFiles"></a>The animation files</h2>
-            <p>Let's now discuss the different files involved in making animations.</p>
-            <p>In the stonehearth mod, they're organized in subfolders from <code>stonehearth/data/rigs</code>. For example, for hearthlings they're in <code>stonehearth/data/rigs/entities/humans</code>. We normally have 2 folders (<code>effects</code> and <code>animations</code>) and then one JSON file for the <a href="#Skeleton">skeleton</a> and one for the <a href="#Postures">postures</a>.</p>
-            <p>For the case of hearthlings, we made a <code>skeletons</code> folder to contain the male and female skeleton files, and also have several JSON files besides <code>postures.json</code> to store data concerning conversations and happiness (moods).</p>
-            <h3><a name="Skeleton"></a>The skeleton</h3>
-            <p>The skeleton or rig is a JSON file defining the bones that will move every part of the entity.</p>
-            <p>Example of a small rig file:</p>
+            <h2><a name="AnimationFiles"></a>动画文件</h2>
+            <p>现在让我们讨论制作动画涉及的不同文件。</p>
+            <p>在 stonehearth mod 中，它们组织在 <code>stonehearth/data/rigs</code> 的子文件夹中。例如，对于炉民，它们在 <code>stonehearth/data/rigs/entities/humans</code> 中。我们通常有 2 个文件夹（<code>effects</code> 和 <code>animations</code>），然后每个 <a href="#Skeleton">骨骼</a> 有一个 JSON 文件，每个 <a href="#Postures">姿态</a> 有一个 JSON 文件。</p>
+            <p>对于炉民的情况，我们制作了一个 <code>skeletons</code> 文件夹来包含男性和女性骨骼文件，并且除了 <code>postures.json</code> 之外还有几个 JSON 文件来存储有关对话和幸福感（情绪）的数据。</p>
+            <h3><a name="Skeleton"></a>骨骼</h3>
+            <p>骨骼或 rig 是一个 JSON 文件，定义将移动实体每个部分的骨骼。</p>
+            <p>小型 rig 文件的示例：</p>
             <pre><code>  {
      "type" : "rig",
      "skeleton": {
@@ -139,46 +139,46 @@
      "effects_root": "file(effects)"
   }
 </code></pre>
-            <p>We can see these properties:</p>
+            <p>我们可以看到这些属性：</p>
             <ul>
                 <li>
-                    <p><strong>"type" : "rig"</strong> -- this file represents a skeleton.</p>
+                    <p><strong>"type" : "rig"</strong> -- 此文件代表一个骨骼。</p>
                 </li>
                 <li>
-                    <p><strong>"skeleton" : {}</strong> -- here we define the bones for the entity. Each key is the name of a matrix/layer from the QB model (we separate each movable part to a different layer), and the value is an array representing X, Y and Z coordinates for the pivot. That part of the model will be moved/rotated with that pivot as origin.</p>
-                    <p>  We can also include bone names that aren't names of matrices from the model. For example, most skeletons will have a <strong>"root"</strong> bone aligned with the floor and the center of the entity. It represents where the entity is located in the ground, so it's rarely moved, but normally all the other bones are parented to it in your animation program so that animating is easier.</p>
-                    <p>  For hearthlings we also have a <strong>"bodyPosition"</strong> bone, to move all the body without moving the <strong>"root"</strong>. The <strong>"ATTOVERCOG"</strong> bone is used to attach images to it, such as the health indicator or speech bubbles. There's also the <strong>"mainHand"</strong> and <strong>"offHand"</strong> bones, which are used to attach weapons or other items to the hearthlings hands.</p>
-                    <p>  In general, you can have as many helper bones as you need (but the total number of bones + helper bones can't be higher than 50), and they don't need to be present in all the animations (for example, the <strong>"carry"</strong> bone isn't used in all the animations). The helper bones aren't visible in the game unless we attach something to them.</p>
+                    <p><strong>"skeleton" : {}</strong> -- 这里我们定义实体的骨骼。每个键是 QB 模型中矩阵/层的名称（我们将每个可移动部分分离到不同的层），值是一个表示枢轴 X、Y 和 Z 坐标的数组。模型的该部分将以该枢轴为原点进行移动/旋转。</p>
+                    <p>我们还可以包括不是模型矩阵名称的骨骼名称。例如，大多数骨骼将有一个与地板和实体中心对齐的 <strong>"root"</strong> 骨骼。它代表实体在地面上的位置，因此很少移动，但通常在您的动画程序中所有其他骨骼都父级连接到它，以便更容易制作动画。</p>
+                    <p>对于炉民，我们还有一个 <strong>"bodyPosition"</strong> 骨骼，用于移动整个身体而不移动 <strong>"root"</strong>。<strong>"ATTOVERCOG"</strong> 骨骼用于将图像附加到它上面，例如健康指示器或对话气泡。还有 <strong>"mainHand"</strong> 和 <strong>"offHand"</strong> 骨骼，用于将武器或其他物品附加到炉民的手上。</p>
+                    <p>通常，您可以拥有任意数量的辅助骨骼（但骨骼 + 辅助骨骼的总数不能超过 50），并且它们不需要存在于所有动画中（例如，<strong>"carry"</strong> 骨骼并非在所有动画中都使用）。除非我们将东西附加到辅助骨骼上，否则它们在游戏中是不可见的。</p>
                 </li>
                 <li>
-                    <p><strong>"animation_root"</strong> -- points to the folder where we keep all the animations for this skeleton.</p>
+                    <p><strong>"animation_root"</strong> -- 指向我们保存此骨骼所有动画的文件夹。</p>
                 </li>
                 <li>
-                    <p><strong>"effects_root"</strong> -- points to the folder where we keep all the effects (with animation tracks) for this skeleton.</p>
+                    <p><strong>"effects_root"</strong> -- 指向我们保存此骨骼所有效果（带有动画轨道）的文件夹。</p>
                 </li>
                 <li>
-                    <p><strong>"postures"</strong> -- optional field. Points to a <code>postures.json</code> file to define <a href="#Postures">postures</a> for the entity.</p>
+                    <p><strong>"postures"</strong> -- 可选字段。指向 <code>postures.json</code> 文件以定义实体的 <a href="#Postures">姿态</a>。</p>
                 </li>
                 <li>
-                    <p><strong>"conversation_effects"</strong> -- optional field. Points to a <code>conversation_effects.json</code> file defining effects for conversations (only use if the entity can have conversations - like heartlings or pets). Check the existing ones for examples.</p>
+                    <p><strong>"conversation_effects"</strong> -- 可选字段。指向 <code>conversation_effects.json</code> 文件，定义对话的效果（仅当实体可以进行对话时使用 - 如炉民或宠物）。查看现有的作为示例。</p>
                 </li>
                 <li>
-                    <p><strong>"moods"</strong> -- optional field. Points to a <code>moods.json</code> file, to apply animations depending on the entity's mood (only use if they can be happy/sad like hearthlings). It contains maps of animations like in the postures file.</p>
+                    <p><strong>"moods"</strong> -- 可选字段。指向 <code>moods.json</code> 文件，根据实体的情绪应用动画（仅当它们可以像炉民一样高兴/悲伤时使用）。它包含类似于姿态文件中的动画映射。</p>
                 </li>
             </ul>
-            <p>   You might see a <strong>"weighted_effects"</strong> field in some rigs. It's not used anymore, instead we have a <code>"stonehearth:idle_effects"</code> field inside the entity_data to randomize idle effects based on weights.</p>
-            <p>   You might also see a <strong>"collision_shape" : {}</strong> field in some of the rigs. It's also not used, we define the <a href="../../../../intermediate/regions/collision_destination/index.html#CollisionTypes">collision type</a> in the mob component of the entity.</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Important! To associate a skeleton to an entity, we need to define the animation table in the render_info component of the entity's JSON file. For instance:</p>
+            <p>您可能会在一些 rigs 中看到 <strong>"weighted_effects"</strong> 字段。它不再使用，相反，我们在 entity_data 中有一个 <code>"stonehearth:idle_effects"</code> 字段，用于根据权重随机化空闲效果。</p>
+            <p>您可能还会在一些 rigs 中看到 <strong>"collision_shape" : {}</strong> 字段。它也不使用，我们在实体的 mob 组件中定义 <a href="../../../../intermediate/regions/collision_destination/index.html#CollisionTypes">碰撞类型</a>。</p>
+            <p><img src="/images/common/row_alert2.png" alt="icon"/>重要！要将骨骼关联到实体，我们需要在实体 JSON 文件的 render_info 组件中定义 animation table。例如：</p>
             <pre><code>  "components": {
      "render_info": {
         "animation_table": "stonehearth:skeletons:humanoid:male"
      }
   }
 </code></pre>
-            <p>The <strong>"animation_table"</strong> property must point to the skeleton JSON file.</p>
-            <h3><a name="Postures"></a>Postures</h3>
-            <p>Postures are a way of defining different animations for certain situations. They are managed via the posture component.</p>
-            <p>A shortened example from the human <code>postures.json</code></p>
+            <p><strong>"animation_table"</strong> 属性必须指向骨骼 JSON 文件。</p>
+            <h3><a name="Postures"></a>姿态</h3>
+            <p>姿态是为某些情况定义不同动画的一种方式。它们通过 posture 组件进行管理。</p>
+            <p>人类 <code>postures.json</code> 的简化示例</p>
             <pre><code>  {
      "stonehearth:carrying" : {
         "idle_breathe" : "carry_idle",
@@ -206,27 +206,27 @@
      }
   }
 </code></pre>
-            <p>In this file we define postures, and map animations to other animations inside them. In Lua code we call <code>radiant.entities.set_posture(entity, posture)</code> (or use the <code>'stonehearth:set_posture'</code> AI action) to change the posture to one of the keys defined here.</p>
-            <p>Then when we play any of the animations defined for that posture while the entity is in that posture, the animation that will actually play is the one assigned in the map.</p>
-            <p>For example, when a hearthling is swimming they get a buff that changes their posture to <code>"stonehearth:swimming"</code>. If then we tell them to play the <code>"idle_breathe"</code> animation, they'll play the <code>"idle_swim"</code> animation instead.</p>
-            <h3><a name="Animations"></a>Animations</h3>
-            <p>Finally, let's describe the animation files. Like everything else, they're just JSON files. We place them all inside the <code>animations</code> folder of the corresponding rig, so that the folder can be referenced in the <a href="#Skeleton">skeleton</a> (there's no index to mixinto animations to). Usually they have the same name than the effect file that references them, even if the effect file has additional tracks (like sounds, particle effects, etc).</p>
-            <p>Each animation file contains 3 fields:</p>
+            <p>在此文件中，我们定义姿态，并将动画映射到其中的其他动画。在 Lua 代码中，我们调用 <code>radiant.entities.set_posture(entity, posture)</code>（或使用 <code>'stonehearth:set_posture'</code> AI 动作）将姿态更改为此处定义的键之一。</p>
+            <p>然后，当我们在实体处于该姿态时播放为该姿态定义的任何动画时，实际播放的动画将是映射中分配的动画。</p>
+            <p>例如，当炉民游泳时，他们会获得一个将其姿态更改为 <code>"stonehearth:swimming"</code> 的增益效果。如果我们然后告诉他们播放 <code>"idle_breathe"</code> 动画，他们将改为播放 <code>"idle_swim"</code> 动画。</p>
+            <h3><a name="Animations"></a>动画</h3>
+            <p>最后，让我们描述动画文件。像其他一切一样，它们只是 JSON 文件。我们将它们全部放在相应 rig 的 <code>animations</code> 文件夹中，以便可以在 <a href="#Skeleton">骨骼</a> 中引用该文件夹（没有索引可以 mixinto 动画）。通常它们与引用它们的效果文件具有相同的名称，即使效果文件有其他轨道（如声音、粒子效果等）。</p>
+            <p>每个动画文件包含 3 个字段：</p>
             <ul>
                 <li>
-                    <p><strong>"type" : "animation"</strong> -- this file represents an animation.</p>
+                    <p><strong>"type" : "animation"</strong> -- 此文件代表一个动画。</p>
                 </li>
                 <li>
-                    <p><strong>"total_frames"</strong> -- optional field. A string containing the number of frames. Doesn't seem to be in use anywhere, but you can use it to remember how many frames the animation has.</p>
+                    <p><strong>"total_frames"</strong> -- 可选字段。包含帧数的字符串。似乎在任何地方都没有使用，但您可以使用它来记住动画有多少帧。</p>
                 </li>
                 <li>
-                    <p><strong>"frames" : []</strong> -- an array containing the frames of the animation. Some points to take into account:</p>
+                    <p><strong>"frames" : []</strong> -- 包含动画帧的数组。需要注意的一些要点：</p>
                     <ul>
                         <li>
-                            <p>Each animation must have at least 2 frames.</p>
+                            <p>每个动画必须至少有 2 帧。</p>
                         </li>
                         <li>
-                            <p>Each frame is a JSON object containing the position, rotation and scale of every bone from the skeleton. Example of one frame from a door rig:</p>
+                            <p>每帧是一个 JSON 对象，包含骨骼中每个骨骼的位置、旋转和缩放比例。门 rig 的一帧示例：</p>
                             <pre><code>{
    "root": {
       "pos": [0,0,0],
@@ -252,145 +252,145 @@
 </code></pre>
                         </li>
                         <li>
-                            <p>The <strong>"pos"</strong> array represents X, Y and Z coordinates.</p>
+                            <p><strong>"pos"</strong> 数组表示 X、Y 和 Z 坐标。</p>
                         </li>
                         <li>
-                            <p>The <strong>"rot"</strong> array represents the rotation as a quaternion (w, x, y, z).</p>
+                            <p><strong>"rot"</strong> 数组表示作为四元数 (w, x, y, z) 的旋转。</p>
                         </li>
                         <li>
-                            <p>Scale support was introduced later in the game (to animate the hearthlings' eyes) so some existing animations might be missing the <strong>"sca"</strong> array (contains scale for x, y, z).</p>
+                            <p>缩放支持是在游戏后期引入的（用于动画化炉民的眼睛），因此一些现有动画可能缺少 <strong>"sca"</strong> 数组（包含 x, y, z 的缩放比例）。</p>
                         </li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="CreatingAnimations"></a>How to create animations</h2>
-            <p>In order to create an animation for an entity in Stonehearth, we need a 3D modeling/animation program that can export to the JSON format that the game uses. To do that, people have created plugins or add-ons that can be used with known programs. You can create your own too.</p>
-            <p><a href="https://www.youtube.com/watch?v=wTkSYbuHRCk&amp;list=PL11b6cWivbuDiw1ydhEpTpQsv_zMw95jr">Here</a> you can find the original animation video tutorials by community member <code>voxel_pirate</code>.</p>
-            <p><a href="https://www.youtube.com/watch?v=F-a12mb_o_Y">Here</a> you can find a more recent animation video tutorial made by community member <code>Moonsight</code>.</p>
-            <p>Below we'll explain how to animate with the Blender add-on based on those tutorials.</p>
-            <p>These are general steps that should work to produce animations for Stonehearth. Feel free to adjust your workflow if you're more proficient with Qubicle / Blender. You can also use other 3D applications as long as they can import / export to the formats that Stonehearth uses for the rigs and animations.</p>
-            <h3><a name="Tools"></a>Tools for animating</h3>
-            <p>There are several plugins available for creating animations in the Stonehearth format. If you want more functionality, you can make your own plugin for the animation program of your choice. The format of the JSON files that need to be imported / exported is easy to understand.</p>
+            <h2><a name="CreatingAnimations"></a>如何创建动画</h2>
+            <p>为了在 Stonehearth 中为实体创建动画，我们需要一个可以导出为游戏使用的 JSON 格式的 3D 建模/动画程序。为此，人们创建了可与已知程序一起使用的插件或附加组件。您也可以创建自己的。</p>
+            <p><a href="https://www.youtube.com/watch?v=wTkSYbuHRCk&amp;list=PL11b6cWivbuDiw1ydhEpTpQsv_zMw95jr">这里</a> 您可以找到社区成员 <code>voxel_pirate</code> 的原始动画视频教程。</p>
+            <p><a href="https://www.youtube.com/watch?v=F-a12mb_o_Y">这里</a> 您可以找到社区成员 <code>Moonsight</code> 制作的最近动画视频教程。</p>
+            <p>下面我们将解释如何基于这些教程使用 Blender 插件制作动画。</p>
+            <p>这些是应该适用于为 Stonehearth 制作动画的一般步骤。如果您对 Qubicle / Blender 更熟练，请随意调整您的工作流程。只要它们可以导入/导出 Stonehearth 用于 rigs 和动画的格式，您也可以使用其他 3D 应用程序。</p>
+            <h3><a name="Tools"></a>动画工具</h3>
+            <p>有几种插件可用于创建 Stonehearth 格式的动画。如果您想要更多功能，您可以为您选择的动画程序制作自己的插件。需要导入/导出的 JSON 文件格式很容易理解。</p>
             <ul>
-                <li><a href="https://github.com/stonehearth/maxscripts">3ds Max scripts</a> -- these scripts were used initially by the development team to export the rigs and animations. There are no instructions about how to use them, and they might have bugs or be outdated, but you might want to try them if your program of choice is 3ds Max.</li>
-                <li><a href="https://github.com/stonehearth/mayascripts">Maya scripts</a> -- these scripts were used after the development team switched to Maya for making animations. Please read <a href="https://github.com/stonehearth/mayascripts/blob/master/Readme.txt">this Readme file</a> before using! There's a community member who also created their own scripts for Maya a long time ago, but at the moment most people use the Blender add-on.</li>
-                <li><a href="https://github.com/relyss/blender_addon_sh">Blender add-on</a> -- community member <code>voxel_pirate</code> created this add-on to use with Blender. We'll be giving directions on how to use it in this guide.</li>
+                <li><a href="https://github.com/stonehearth/maxscripts">3ds Max 脚本</a> -- 这些脚本最初由开发团队用于导出 rigs 和动画。没有关于如何使用它们的说明，并且它们可能有错误或已过时，但如果您选择的程序是 3ds Max，您可能想尝试它们。</li>
+                <li><a href="https://github.com/stonehearth/mayascripts">Maya 脚本</a> -- 这些脚本在开发团队切换到 Maya 制作动画后使用。使用前请阅读 <a href="https://github.com/stonehearth/mayascripts/blob/master/Readme.txt">此 Readme 文件</a>！很久以前还有一位社区成员为他们自己的 Maya 创建了脚本，但目前大多数人使用 Blender 插件。</li>
+                <li><a href="https://github.com/relyss/blender_addon_sh">Blender 插件</a> -- 社区成员 <code>voxel_pirate</code> 创建了此插件以与 Blender 一起使用。我们将在本指南中提供如何使用它的说明。</li>
             </ul>
-            <h3><a name="PreparingTheModel"></a>Preparing the model</h3>
-            <p>First of all, regardless of the tool you've chosen, the QB model should be prepared and exported to a format that your animation program can read.</p>
-            <p>Normally models meant to be animated will not be centered over (0, 0, 0) in Qubicle / your modeling program (at least the ones for mobs). When in doubt, load up their QB model and see if it's centered.</p>
+            <h3><a name="PreparingTheModel"></a>准备模型</h3>
+            <p>首先，无论您选择了什么工具，都应该准备 QB 模型并导出为您的动画程序可以读取的格式。</p>
+            <p>通常，打算制作动画的模型在 Qubicle / 您的建模程序中不会居中于 (0, 0, 0)（至少对于 mobs 的模型是这样）。如有疑问，加载它们的 QB 模型并查看它是否居中。</p>
             <ol>
                 <li>
-                    <p>As mentioned before, each movable part of the model should be split into a separate matrix/layer in the <strong>.qb</strong> file.</p>
-                    <p>  We usually leave all the layers with the same size until we're done iterating with the model, and then optimize them at the end. We might need to separate more parts to different layers if when animating they look strange, and in Qubicle they move to the origin when we paste them, so keeping the same size will ensure they're correctly aligned to each other while we work on the model.</p>
+                    <p>如前所述，模型的每个可移动部分应在 <strong>.qb</strong> 文件中分割到单独的矩阵/层中。</p>
+                    <p>我们通常将所有层保持相同的大小，直到我们完成模型的迭代，然后在最后优化它们。如果在制作动画时它们看起来很奇怪，我们可能需要将更多部分分离到不同的层，并且在 Qubicle 中，当我们粘贴它们时，它们会移动到原点，因此保持相同的大小将确保我们在处理模型时它们彼此正确对齐。</p>
                 </li>
                 <li>
-                    <p>Name each layer like the bone you're going to use in your skeleton (e.g. <code>head</code>, <code>body</code>, <code>leftArm</code>, etc). We normally use lowercase names without underscores, although we use numbers sometimes. Check <a href="../../modeling/index.html#LayerNames">this page</a> to see how the hearthling body parts were named.</p>
-                    <p>  If you're going to reuse an existing skeleton (such as the hearthling's rig) make sure that the bone names match with those in the skeleton file (without counting the helper bones). Qubicle might have appended extra <code>_0</code> text in their names which will give us some trouble later.</p>
-                    <p>  In Qubicle, you can rename a matrix by selecting it and pressing F2:</p>
-                    <p>  <img src="/modding_guide/images/art/vfx/renaming_matrix.png" alt="renaming_matrix"/></p>
-                    <p>  For hearthlings, the body, head, eyes (and eyebrows for the male) are in separate files, so you'll want to merge them together before exporting to <strong>.obj</strong> (or export them separately then import all of them in Blender).</p>
+                    <p>将每个层命名为您将在骨骼中使用的骨骼名称（例如 <code>head</code>、<code>body</code>、<code>leftArm</code> 等）。我们通常使用不带下划线的小写名称，尽管我们有时使用数字。查看<a href="../../modeling/index.html#LayerNames">此页面</a>以查看炉民身体部位是如何命名的。</p>
+                    <p>如果您打算重用现有骨骼（如炉民的 rig），请确保骨骼名称与骨骼文件中的名称匹配（不包括辅助骨骼）。Qubicle 可能在其名称中附加了额外的 <code>_0</code> 文本，这稍后会给我们带来一些麻烦。</p>
+                    <p>在 Qubicle 中，您可以通过选择矩阵并按 F2 来重命名它：</p>
+                    <p><img src="/images/art/vfx/renaming_matrix.png" alt="renaming_matrix"/></p>
+                    <p>对于炉民，身体、头部、眼睛（男性的眉毛）在单独的文件中，因此您需要在导出为 <strong>.obj</strong> 之前将它们合并在一起（或者分别导出然后在 Blender 中导入所有它们）。</p>
                 </li>
                 <li>
-                    <p>Once all the parts are split and correctly named, it's time to export them. Select them all (or none) so that the whole model is taken into account, and export it as <strong>.obj</strong> (or another format that your animation program supports, such as <strong>.dae</strong> for example). Make sure that in the export options the layers are kept as separate objects.</p>
-                    <p>  For Qubicle 1, the .obj export settings are:</p>
+                    <p>一旦所有部分都被分割并正确命名，就该导出它们了。选择它们全部（或不选）以便考虑整个模型，并将其导出为 <strong>.obj</strong>（或您的动画程序支持的其他格式，例如 <strong>.dae</strong>）。确保在导出选项中层保持为单独的对象。</p>
+                    <p>对于 Qubicle 1，.obj 导出设置为：</p>
                     <ul>
-                        <li><strong>Export As</strong> : One Object Per Matrix</li>
+                        <li><strong>Export As</strong> : One Object Per Matrix（每个矩阵一个对象）</li>
                         <li><strong>Material</strong> : SimpleTex</li>
                     </ul>
-                    <p>  Settings for SimpleTex:</p>
+                    <p>SimpleTex 设置：</p>
                     <ul>
-                        <li><strong>Colormap</strong> : Use colors of selected matrices</li>
-                        <li><strong>Pixels per color</strong> : 1 pixel</li>
-                        <li><strong>Faces per color</strong> : 1</li>
-                        <li><strong>Padding</strong> : unchecked</li>
-                        <li><strong>Draw outlines to texture</strong> : unchecked</li>
-                        <li><strong>Outline color and outline opacity</strong> : (indifferent as we didn't check the setting above)</li>
-                        <li><strong>Don't overwrite existing texture map</strong> : unchecked</li>
+                        <li><strong>Colormap</strong> : Use colors of selected matrices（使用选定矩阵的颜色）</li>
+                        <li><strong>Pixels per color</strong> : 1 pixel（每种颜色 1 像素）</li>
+                        <li><strong>Faces per color</strong> : 1（每种颜色 1 面）</li>
+                        <li><strong>Padding</strong> : unchecked（未选中）</li>
+                        <li><strong>Draw outlines to texture</strong> : unchecked（未选中）</li>
+                        <li><strong>Outline color and outline opacity</strong> : (indifferent as we didn't check the setting above)（轮廓颜色和轮廓不透明度：无关，因为我们未选中上述设置）</li>
+                        <li><strong>Don't overwrite existing texture map</strong> : unchecked（未选中）</li>
                     </ul>
-                    <p>  General settings:</p>
+                    <p>常规设置：</p>
                     <ul>
-                        <li><strong>Scale factor</strong> : 1.00</li>
-                        <li><strong>Remove lamina faces</strong> : checked</li>
-                        <li><strong>Remove completely surrounded cubes</strong> : checked</li>
-                        <li><strong>Move center to world origin</strong> : unchecked</li>
+                        <li><strong>Scale factor</strong> : 1.00（缩放因子）</li>
+                        <li><strong>Remove lamina faces</strong> : checked（选中）</li>
+                        <li><strong>Remove completely surrounded cubes</strong> : checked（选中）</li>
+                        <li><strong>Move center to world origin</strong> : unchecked（未选中）</li>
                     </ul>
-                    <p>  <img src="/modding_guide/images/art/vfx/obj_export_settings.png" alt="obj_export_settings"/></p>
+                    <p><img src="/images/art/vfx/obj_export_settings.png" alt="obj_export_settings"/></p>
                 </li>
             </ol>
-            <p>Lastly, once you've finished iterating with the model/rig, you can optimize the matrices/layers and reexport the model as a <strong>.qb</strong>, to save in size in your mod. In Qubicle 1 this is done by selecting the matrices and clicking on the 'Modify > Optimize Size' menu. All empty space around the voxels will shrink while maintaining a cubical layer as boundary.</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>The workflow to export the prepared model might be completely different in other tools. For example, <a href="https://blackflux.com/node/11">Voxelshop</a> can't export to <strong>.obj</strong>, but can export to <strong>.dae</strong> (which Blender can read). However, the model parts might move, flip or scale themselves during import/export or other issues can arise since it's a different format, so you'll need to adjust your animation workflow.</p>
-            <h3><a name="BlenderSetup"></a>Blender add-on setup</h3>
-            <p>We'll explain how to setup the environment for animating with the open source program Blender.</p>
-            <p>The Blender add-on was developed by community member <code>voxel_pirate</code>. It supports import of existing rigs, use of meta files (which are custom files created by the add-on to reflect bone hierarchy, not used in the game), export of skeletons and animations, and offseting animations so that we don't have to make the same animation from scratch for the male and female skeletons. It can import existing animations too, but since the JSON files describe each frame of the animation, it's hard to work with them.</p>
+            <p>最后，一旦您完成了模型/rig 的迭代，您可以优化矩阵/层并将模型重新导出为 <strong>.qb</strong>，以节省 mod 中的大小。在 Qubicle 1 中，这是通过选择矩阵并点击'Modify > Optimize Size'菜单来完成的。体素周围的所有空白空间将缩小，同时保持立方层作为边界。</p>
+            <p><img src="/images/common/row_alert2.png" alt="icon"/>在其他工具中，导出准备模型的流程可能完全不同。例如，<a href="https://blackflux.com/node/11">Voxelshop</a> 不能导出为 <strong>.obj</strong>，但可以导出为 <strong>.dae</strong>（Blender 可以读取）。但是，模型部分可能在导入/导出期间移动、翻转或自行缩放，或者可能出现其他问题，因为它是不同的格式，因此您需要调整您的动画工作流程。</p>
+            <h3><a name="BlenderSetup"></a>Blender 插件设置</h3>
+            <p>我们将解释如何使用开源程序 Blender 设置动画环境。</p>
+            <p>Blender 插件由社区成员 <code>voxel_pirate</code> 开发。它支持导入现有 rigs、使用元文件（这是插件创建的自定义文件以反映骨骼层次结构，游戏中不使用）、导出骨骼和动画，以及偏移动画，以便我们不必从头开始为男性和女性骨骼制作相同的动画。它也可以导入现有动画，但由于 JSON 文件描述了动画的每一帧，因此很难使用它们。</p>
             <ul>
                 <li>
-                    <p>Download the latest version of Blender <a href="https://www.blender.org/download/">here</a>.</p>
+                    <p>从<a href="https://www.blender.org/download/">这里</a>下载最新版本的 Blender。</p>
                 </li>
                 <li>
-                    <p>Download the Stonehearth add-on <a href="/modding_guide/files/io_stonehearth_092.zip">here</a>.
+                    <p>从<a href="/modding_guide/files/io_stonehearth_092.zip">这里</a>下载 Stonehearth 插件。</p>
                 </li>
             </ul>
-            <p>Instructions for installing the add-on:</p>
+            <p>安装插件的说明：</p>
             <ol>
                 <li>
-                    <p>Open Blender, and go to File-> User Preferences... and make sure "Add-ons" is selected at the top and "Import-Export" is selected at the left menu:
-                        <img src="/modding_guide/images/art/vfx/blender_user_prefs.png" alt="blender_user_prefs"/>
+                    <p>打开 Blender，转到 File-> User Preferences... 并确保顶部选择了"Add-ons"，左侧菜单选择了"Import-Export"：
+                        <img src="/images/art/vfx/blender_user_prefs.png" alt="blender_user_prefs"/>
                     </p>
                 </li>
                 <li>
-                    <p>Click on the "Install Add-on from File..." button at the bottom of the window.</p>
+                    <p>点击窗口底部的"Install Add-on from File..."按钮。</p>
                 </li>
                 <li>
-                    <p>Select the zip folder of the add-on, there's no need to uncompress it (or if you've already uncompressed it, select the <code>init.py</code> file instead). Click on "Install from File..." at the top right.</p>
+                    <p>选择插件的 zip 文件夹，无需解压缩它（或者如果您已经解压缩它，则选择 <code>init.py</code> 文件）。点击右上角的"Install from File..."。</p>
                 </li>
                 <li>
-                    <p>Search for 'Import-Export: Stonehearth Add-On' (the list should have refreshed to only show that), and check it in order to enable it.</p>
+                    <p>搜索'Import-Export: Stonehearth Add-On'（列表应已刷新以仅显示该内容），并选中它以启用它。</p>
                 </li>
                 <li>
-                    <p>Click on "Save User Settings" at the bottom so that the add-on keeps being enabled any time you open Blender, and close the window.</p>
+                    <p>点击底部的"Save User Settings"，以便每次打开 Blender 时插件都保持启用状态，然后关闭窗口。</p>
                 </li>
                 <li>
-                    <p>Verify that the add-on was loaded. Go to 'File->Import...' and 'File->Export...' and check that a new type called "Stonehearth (.json)" is listed there.</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> If installing the add-on this way didn't work (due to permissions or other reasons), try uncompressing it and pasting the folder inside the <code>Blender Foundation/Blender/&lt;version_number&gt;/scripts/addons</code> directory (might be hidden).</p>
-                    <p>  If you are updating the Add-On then you might want to un-check it from the add-ons list and delete it from your hard disk, to prevent any confusion.</p>
+                    <p>验证插件已加载。转到'File->Import...'和'File->Export...'并检查那里是否列出了名为"Stonehearth (.json)"的新类型。</p>
+                    <p><img src="/images/common/row_alert2.png" alt="icon"/> 如果以这种方式安装插件不起作用（由于权限或其他原因），请尝试解压缩它并将文件夹粘贴到 <code>Blender Foundation/Blender/&lt;version_number&gt;/scripts/addons</code> 目录中（可能是隐藏的）。</p>
+                    <p>如果您正在更新插件，那么您可能希望从插件列表中取消选中它并从硬盘中删除它，以防止任何混淆。</p>
                 </li>
             </ol>
-            <h3><a name="PreparingScene"></a>Preparing the scene in Blender</h3>
-            <p>Instructions to prepare the scene for animating:</p>
+            <h3><a name="PreparingScene"></a>在 Blender 中准备场景</h3>
+            <p>准备场景以进行动画的说明：</p>
             <ol>
                 <li>
-                    <p>Open Blender.</p>
+                    <p>打开 Blender。</p>
                 </li>
                 <li>
-                    <p>Go to the Scene menu. In a default installation of Blender, it will appear in the menu at the right. Click on the third icon (a light, sphere and cylinder) and if you scroll down, you should see a section called "Stonehearth UI", expand it if it's closed:</p>
-                    <p>  <img src="/modding_guide/images/art/vfx/blender_scene_menu.png" alt="blender_scene_menu"/></p>
+                    <p>转到 Scene 菜单。在默认安装的 Blender 中，它将出现在右侧的菜单中。点击第三个图标（灯光、球体和圆柱体），如果向下滚动，您应该看到一个名为"Stonehearth UI"的部分，如果它关闭了，请展开它：</p>
+                    <p><img src="/images/art/vfx/blender_scene_menu.png" alt="blender_scene_menu"/></p>
                 </li>
                 <li>
-                    <p>With the mouse cursor over the default 3D scene, press "A" twice to select everything.</p>
+                    <p>将鼠标光标放在默认 3D 场景上，按两次"A"以选择所有内容。</p>
                 </li>
                 <li>
-                    <p>Press "Delete" and click on the small button that appears next to your mouse to confirm the deletion.</p>
-                    <p>  <img src="/modding_guide/images/art/vfx/blender_cleaning_start_scene.png" alt="blender_cleaning_start_scene"/>
-                        The starting scene must be empty. You may save the current scene as a Blender file (.blend) for the future, to start your new animations with a clean environment.
+                    <p>按"Delete"并点击鼠标旁边出现的小按钮以确认删除。</p>
+                    <p><img src="/images/art/vfx/blender_cleaning_start_scene.png" alt="blender_cleaning_start_scene"/>
+                        起始场景必须为空。您可以将当前场景保存为 Blender 文件 (.blend) 以备将来使用，以干净的环境开始您的新动画。
                     </p>
                 </li>
                 <li>
-                    <p>If you import now the .obj model, you might think the model wasn't imported correctly. But if you zoom out, you'll see something like the following picture:</p>
-                    <p>  <img src="/modding_guide/images/art/vfx/blender_small_grid.png" alt="blender_small_grid"/>
-                        which feels strange an uncomfortable.
+                    <p>如果您现在导入 .obj 模型，您可能会认为模型未正确导入。但是如果您缩小视图，您将看到类似以下图片的内容：</p>
+                    <p><img src="/images/art/vfx/blender_small_grid.png" alt="blender_small_grid"/>
+                        这感觉奇怪和不舒服。
                     </p>
                 </li>
                 <li>
-                    <p>To change the grid this Press "N" to open the hidden menu at the right side of the scene.</p>
+                    <p>要更改网格，请按"N"以打开场景右侧的隐藏菜单。</p>
                 </li>
                 <li>
-                    <p>Expand the "Display" section, click on "Lines" and type 22, then press enter. Click on "Scale" and change it to 10.</p>
+                    <p>展开"Display"部分，点击"Lines"并输入 22，然后按 Enter。点击"Scale"并将其更改为 10。</p>
                 </li>
                 <li>
-                    <p>Now the view grid will fit the model better:</p>
-                    <p>  <img src="/modding_guide/images/art/vfx/blender_big_grid.png" alt="blender_big_grid"/>
-                        You can save this setup by going to File->User Preferences and saving. Press N again to hide the menu if you want.
+                    <p>现在视图网格将更好地适应模型：</p>
+                    <p><img src="/images/art/vfx/blender_big_grid.png" alt="blender_big_grid"/>
+                        您可以通过转到 File->User Preferences 并保存来保存此设置。如果需要，再次按 N 以隐藏菜单。
                     </p>
                 </li>
             </ol>

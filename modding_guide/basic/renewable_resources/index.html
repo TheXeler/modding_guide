@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>可再生资源</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>可再生资源</h1>
          <p>可再生资源是指任何像浆果丛或绵羊这样的物品，一旦收获，将在一段时间后重新生长，我们将能够再次收获它。</p>
@@ -95,7 +95,7 @@
    }
 }
 </code></pre>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>如果我们在 renewable_resource_node 组件中添加 <strong>"durability"</strong> 字段，我们将能够收获实体 N 次，之后它将被销毁。如果我们不包含它，我们将能够在每次重新生长时无限期地继续收获它。</p>
+               <p><img src="/images/common/row_alert2.png" alt="icon"/>如果我们在 renewable_resource_node 组件中添加 <strong>"durability"</strong> 字段，我们将能够收获实体 N 次，之后它将被销毁。如果我们不包含它，我们将能够在每次重新生长时无限期地继续收获它。</p>
             </li>
             <li>
                <p>我们在 mod 的清单中为我们的蘑菇添加了别名：</p>
@@ -109,7 +109,7 @@
             </li>
             <li>
                <p>最后，我们将植物添加到生物群落中（如<a href="../plants/index.html#Plants">这里</a>所示。如何创建您自己的生物群落在<a href="../../intermediate/biomes/index.html">这里</a>解释），并包含一些<a href="../color_maps/index.html#RenderMaterials">材质映射</a>，以便蘑菇发光。确保测试它可以正确收获并且可以更新其资源。
-                  <img src="/modding_guide/images/basic/color_maps/render_materials.png" alt="render_materials"/>
+                  <img src="/images/basic/color_maps/render_materials.png" alt="render_materials"/>
                </p>
             </li>
          </ol>
@@ -182,12 +182,12 @@
          <ol>
             <li>
                <p>首先，我们找到我们要从中复制种子的现有植物。在这种情况下，请注意我们将有 4 个生长阶段加上成熟的 wintermoss：
-                  <img src="/modding_guide/images/basic/renewable_resources/evolve_stages.png" alt="evolve_stages"/>
+                  <img src="/images/basic/renewable_resources/evolve_stages.png" alt="evolve_stages"/>
                </p>
             </li>
             <li>
                <p>首先让我们修改"seed"文件夹内的文件：
-                  <img src="/modding_guide/images/basic/renewable_resources/seed_files.png" alt="seed_files"/>
+                  <img src="/images/basic/renewable_resources/seed_files.png" alt="seed_files"/>
                   我们重命名它们以引用我们植物的名称，保持名称的后缀不变，以便我们知道每个文件引用什么。
                </p>
                <p>wintermoss_plant_seed_iconic.json：</p>
@@ -323,7 +323,7 @@
                   <li>
                      <p><strong>"stonehearth:evolve": {}"</strong> -- 此组件负责将种子生长为植物，以及将植物阶段生长为下一个阶段。它没有属性，它们是在"entity_data"的 <strong>"stonehearth:evolve_data"</strong> 部分中定义的，因为它们可重用于此类植物的所有种子。</p>
                      <p>演化数据的属性是：<strong>"next_stage"</strong>，指向下一个生长阶段的完整别名，在本例中为"stonehearth:plants:wintermoss:sprout"，以及 <strong>"evolve_time"</strong>，这是一个<a href="../misc_json/index.html#TimeExpressions">时间表达式</a>，表示种子种植后生长到下一个阶段所需的时间。如果尚未添加别名，请记住将它们添加到您的清单中。</p>
-                     <p><img src="/modding_guide/images/common/gold.png" alt="icon"/>我们还可以为 <strong>"next_stage"</strong> 属性指定 URI 数组。这样实体将随机演化为这些实体之一，例如，可以演化为 poyo 或恐龙的蛋。</p>
+                     <p><img src="/images/common/gold.png" alt="icon"/>我们还可以为 <strong>"next_stage"</strong> 属性指定 URI 数组。这样实体将随机演化为这些实体之一，例如，可以演化为 poyo 或恐龙的蛋。</p>
                   </li>
                   <li>
                      <p><strong>"stonehearth:entity_forms" : { ... }</strong> -- 提醒一下，这里我们添加了两个可选字段：<strong>"placeable_on_ground"</strong>，允许将此物品放置在地面上，以及 <strong>"hide_undeploy_ui"</strong>，这将在实体放置后从单位框架中隐藏取消部署按钮。</p>

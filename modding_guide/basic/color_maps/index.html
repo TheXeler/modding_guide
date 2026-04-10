@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>颜色和材质图</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>颜色和材质图</h1>
          <p><strong>颜色图</strong>是我们可以用来为物品添加颜色多样性的东西。它们与<strong>材质图</strong>一起使用。现有的颜色图和材质图可以在 <code>stonehearth/data/materials</code> 内找到。</p>
@@ -86,14 +86,14 @@
             </li>
          </ol>
          <blockquote>
-            <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> "one_of"类型也可用于随机化 QB 模型。</p>
+            <p><img src="/images/common/gold.png" alt="icon"/> "one_of"类型也可用于随机化 QB 模型。</p>
          </blockquote>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 在测试时，如果您注意到无论您生成物品多少次，它总是具有相同的颜色，请尝试在您声明颜色/材质图的"render_info"组件内添加以下内容：</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/> 在测试时，如果您注意到无论您生成物品多少次，它总是具有相同的颜色，请尝试在您声明颜色/材质图的"render_info"组件内添加以下内容：</p>
          <pre><code>    "cache_model_geometry": false
 </code></pre>
          <p>
             出于性能原因，默认情况下会缓存模型几何体，但在 Lua 文件中的某些地方我们禁用了它，因此对于某些实体，即使它们的 JSON 文件中没有将"cache_model_geometry"设置为 false，随机颜色也会起作用。<!-- 例如，在 population_faction.lua 的 fixup post load 中，它加载 json 时不进行缓存。-->
-            <img src="/modding_guide/images/basic/color_maps/color_maps.png" alt="color_maps"/>
+            <img src="/images/basic/color_maps/color_maps.png" alt="color_maps"/>
          </p>
          <h2><a name="RenderMaterials"></a>应用渲染材质</h2>
          <p>我们还可以使用材质图应用不同的渲染材质。它将使颜色以不同方式渲染，例如使其闪亮、半透明或发光。在尝试制作自己的材质之前，您可以使用 stonehearth mod 中的现有材质。</p>
@@ -148,7 +148,7 @@
                <p>让我们测试渲染材质是否应用于我们的实体（如果存在任何问题，stonehearth.log 中将出现一条消息，通知游戏无法加载材质）：</p>
             </li>
          </ol>
-         <p><img src="/modding_guide/images/basic/color_maps/render_materials.png" alt="render_materials"/></p>
+         <p><img src="/images/basic/color_maps/render_materials.png" alt="render_materials"/></p>
          <p>您可以在此处阅读更多关于<a href="shaders/index.html">渲染材质和着色器</a>的信息。</p>
       </main>
    </body>

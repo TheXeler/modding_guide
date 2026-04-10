@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>使用 SHED 节省时间</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>使用 SHED 节省时间</h1>
             <ul>
@@ -57,17 +57,17 @@
             </p>
             <h2><a name="FirstRun"></a>首次运行</h2>
             <p>在 "shed" 文件夹中找到 StonehearthEditor.exe 并运行它。第一次运行 SHED 时，它会要求你找到模组目录。通常你会选择 Stonehearth 文件夹中的 "mods" 文件夹。
-                <img src="/modding_guide/images/essentials/shed/choose_mods_folder.png" alt="choose_mods_folder"/>
+                <img src="/images/essentials/shed/choose_mods_folder.png" alt="choose_mods_folder"/>
             </p>
             <p>为了能够在 SHED 中查看和创建任何内容，模组必须是普通文件夹，而不是 .smod 或 .zip。如果你的模组文件夹包含 .smod 文件，SHED 将为你提供自动解压它们的选项。完成后，你可能需要点击 "File > Reload" 才能使 SHED 检测到模组。
-                <img src="/modding_guide/images/essentials/shed/ask_to_unzip.png" alt="ask_to_unzip"/>
+                <img src="/images/essentials/shed/ask_to_unzip.png" alt="ask_to_unzip"/>
                 如果你手动解压模组，请确保结构与我们在游戏中运行<a href="../managing/unmanaged/index.html#ModConflicts">未压缩模组</a>时相同，否则 SHED 将不知道如何从 "mods" 文件夹加载它们。
             </p>
             <p>SHED 可能需要一点时间才能出现和/或加载/重新加载所有模组，请耐心等待。
-                <img src="/modding_guide/images/essentials/shed/loading_data.png" alt="loading_data"/>
+                <img src="/images/essentials/shed/loading_data.png" alt="loading_data"/>
             </p>
             <p>如果你打算将模组上传到 Steam 创意工坊，你将已经从游戏中的模组菜单创建了它们。在这种情况下，在 SHED 完成加载基础模组后，转到 File->Change Mod Directory：
-                <img src="/modding_guide/images/essentials/shed/steam_uploads_directory.png" alt="steam_uploads_directory"/>
+                <img src="/images/essentials/shed/steam_uploads_directory.png" alt="steam_uploads_directory"/>
             </p>
             <p>你可以浏览并选择第二个文本框的 <code>steam_uploads</code> 目录，然后点击 'Apply and reload'，这将重新加载模组列表。你的模组将出现在基础模组列表下方，它们不会一起排序。</p>
             <p>SHED 期望基础模组始终被加载，并且你也需要它们以便从它们克隆物品到你的模组中，所以确保你选择了正确的 <code>mods</code> 目录。</p>
@@ -90,7 +90,7 @@
             <ul>
                 <li>About（关于）</li>
             </ul>
-            <p><img src="/modding_guide/images/essentials/shed/menubar_options.png" alt="menubar_options"/></p>
+            <p><img src="/images/essentials/shed/menubar_options.png" alt="menubar_options"/></p>
             <p>然后我们有不同的选项卡：</p>
             <ul>
                 <li>Manifest（清单）</li>
@@ -99,21 +99,21 @@
                 <li>Effects Editor（效果编辑器）</li>
                 <li>Recipe Editor（配方编辑器）</li>
             </ul>
-            <p><img src="/modding_guide/images/essentials/shed/tabs.png" alt="tabs"/></p>
+            <p><img src="/images/essentials/shed/tabs.png" alt="tabs"/></p>
             <p>我们将在这里解释一些使用 SHED 的基础知识，具体的教程将放在模组制作指南的相应部分。</p>
             <h2><a name="Basics"></a>SHED 基础</h2>
             <p>"File > New Mod" 选项会自动为你创建一个模组文件夹和预填充的清单，但它将在基础模组目录中创建（本地模组）。这对不使用 Steam 的用户很有用。</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你使用此选项，你必须在对话框的文本框中输入模组的<strong>命名空间</strong>，而不是模组的名称。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 如果你使用此选项，你必须在对话框的文本框中输入模组的<strong>命名空间</strong>，而不是模组的名称。</p>
             <p>对于基本模组制作，我们通常会在 Manifest 选项卡中工作。
                 当在树视图中选择一个节点时，相应的文件将在中央区域的不同选项卡中打开。
-                <img src="/modding_guide/images/essentials/shed/node_selected.png" alt="node_selected"/>
+                <img src="/images/essentials/shed/node_selected.png" alt="node_selected"/>
                 这些是选项卡顶部的按钮：
-                <img src="/modding_guide/images/essentials/shed/tab_bar_buttons.png" alt="tab_bar_buttons"/>
+                <img src="/images/essentials/shed/tab_bar_buttons.png" alt="tab_bar_buttons"/>
             </p>
             <ul>
                 <li>
                     <p><strong>Open File in Text Editor</strong>：这将在你默认分配用于打开 JSON 文件的文本编辑器中打开文件。你可以通过在 Windows 资源管理器中右键单击 JSON 文件，点击 "Properties"，点击 "Change..." 按钮并选择你选择的程序来更改默认编辑器。
-                        <img src="/modding_guide/images/essentials/shed/change_default_app.png" alt="change_default_app"/>
+                        <img src="/images/essentials/shed/change_default_app.png" alt="change_default_app"/>
                     </p>
                 </li>
                 <li>
@@ -124,31 +124,31 @@
                 </li>
                 <li>
                     <p><strong>Localize This File</strong>：如果不存在，这将创建所需的 locale/en.json 文件，用适当的字符串填充它，并调整你的 JSON 文件以指向它们。有关如何设置文件以使此选项正常工作的说明在<a href="../../basic/adding_items/cloning_with_shed/index.html#AutoLocalization">这里</a>。</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 此选项可能不适用于所有文件，因此有时你必须手动设置文件的本地化。</p>
+                    <p>  <img src="/images/common/row_alert2.png" alt="图标"/> 此选项可能不适用于所有文件，因此有时你必须手动设置文件的本地化。</p>
                 </li>
                 <li>
                     <p><strong>Preview with Mixins</strong>：这将打开一个窗口，显示应用所有 mixins 后游戏将如何读取文件。它将显示注释以突出显示来自 mixins 的属性。这些注释是无效的 JSON，所以不要从此窗口复制任何内容。
-                        <img src="/modding_guide/images/essentials/shed/mixin_preview.png" alt="mixin_preview"/>
+                        <img src="/images/essentials/shed/mixin_preview.png" alt="mixin_preview"/>
                     </p>
                 </li>
             </ul>
             <p>并非所有这些选项都适用于所有文件，只有适用的选项才会显示。</p>
             <p>在 JSON 文件的选项卡顶部，你可能还会看到更多按钮。如果你有一个默认用于打开 QB 文件的应用程序，你可以点击带有 Qubicle 图标的按钮以打开关联的 QB 模型。图标（.png 文件）也是如此，尽管你通常可以在右侧列中看到它们，在依赖关系上方。
-                <img src="/modding_guide/images/essentials/shed/top_tab_buttons.png" alt="top_tab_buttons"/>
+                <img src="/images/essentials/shed/top_tab_buttons.png" alt="top_tab_buttons"/>
             </p>
             <p>对于本地化字符串，你可以 Ctrl+点击它们，将出现一个对话框允许你更改文本。你还可以通过将鼠标悬停在它们上面来知道它们有什么文本，这非常方便。
-                <img src="/modding_guide/images/essentials/shed/auto_loc.png" alt="auto_loc"/>
+                <img src="/images/essentials/shed/auto_loc.png" alt="auto_loc"/>
             </p>
             <p>你可以右键单击左侧树视图中的节点以获取不同的选项。这些选项将根据所选项目的类型而不同。
-                <img src="/modding_guide/images/essentials/shed/context_menu.png" alt="context_menu"/>
+                <img src="/images/essentials/shed/context_menu.png" alt="context_menu"/>
             </p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 请记住，克隆可能仍有 bug。只有具有别名的 JSON 和 Lua 文件才会出现在 Manifest 选项卡的树视图中。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 请记住，克隆可能仍有 bug。只有具有别名的 JSON 和 Lua 文件才会出现在 Manifest 选项卡的树视图中。</p>
             <p>当有深色背景的文本时，你可以 Ctrl+点击它，它将在你默认的文件扩展名编辑器中打开引用的文件。这也是 SHED 告诉你它识别文本为对现有文件的引用的一种方式。</p>
             <p>如果我们的文件有问题，SHED 也会告诉我们。树视图项目和选项卡中将有一个红色圆圈带叉的图标。
-                <img src="/modding_guide/images/essentials/shed/error_icons.png" alt="error_icons"/>
+                <img src="/images/essentials/shed/error_icons.png" alt="error_icons"/>
             </p>
             <p>当有错误时，SHED 的状态栏中会有红色文本。双击它，受影响的文件列表将在对话框中显示。点击它们一次将在上方的文本区域中显示更多信息，双击它们也将在 SHED 中打开它们，以便你可以修改它们并修复错误。
-                <img src="/modding_guide/images/essentials/shed/error_list.png" alt="error_list"/>
+                <img src="/images/essentials/shed/error_list.png" alt="error_list"/>
             </p>
             <p>如果 SHED 抱怨你的某个文件，但在你修复并保存这些更改后没有刷新错误，请使用 "File > Reload" 选项。</p>
             <h3><a name="Workarounds"></a>一些变通方法和重要信息</h3>

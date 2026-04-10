@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>武器</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>武器</h1>
             <ul>
@@ -33,7 +33,7 @@
                 <li>
                     <p>我们重命名文件和文件夹，例如称之为 magic_sword。请注意，有 2 个模型，一个是用于图标/默认版本，另一个将在装备武器时显示。</p>
                     <p><a name="EquippedModel"></a>注意其方向和位置。炉民抓取它的点应该在您的建模程序中的 (0,0,0)，无论模型大小如何。方向将使其在游戏中朝前，以便炉民以正确的方向挥动它：
-                        <img src="/modding_guide/images/basic/wearables/weapon.png" alt="weapon"/>
+                        <img src="/images/basic/wearables/weapon.png" alt="weapon"/>
                     </p>
                     <p>图标的 JSON 文件没有什么特别的。另一个 JSON 文件将在"entity_data"中具有净值和目录条目的常用属性。</p>
                     <p>武器将只有一个默认模型变体，即"equipped"QB 模型。</p>
@@ -112,7 +112,7 @@
                 </li>
                 <li>
                     <p>在游戏中测试您的新武器：
-                        <img src="/modding_guide/images/basic/wearables/armor.png" alt="armor"/>
+                        <img src="/images/basic/wearables/armor.png" alt="armor"/>
                     </p>
                 </li>
             </ol>
@@ -163,15 +163,15 @@
             <p>请注意这里的 <strong>"chance_of_success"</strong> 属性。这是一个百分比，将用于计算运行此防御的几率，这将在该回合阻挡敌人的攻击。</p>
             <p>"chance_of_success"属性是近战防御独有的。</p>
             <p>请记住在您的建模程序中将盾牌模型定位在 (0,0,0) 坐标上：
-                <img src="/modding_guide/images/basic/wearables/shield.png" alt="shield"/>
+                <img src="/images/basic/wearables/shield.png" alt="shield"/>
             </p>
             <h3><a name="RangedWeapons"></a>远程武器</h3>
             <p>要实现远程武器，请将 <code>stonehearth/weapons/bow</code> 复制到您的 mod（忽略 bow_talisman.json 文件，它用于弓箭手，因为这把弓是他们的默认武器）。</p>
             <p>在大多数方面，它与其他武器类似。重命名文件并编辑它们。注意装备版本的 QB 模型的位置和方向：
-                <img src="/modding_guide/images/basic/wearables/ranged_weapon.png" alt="ranged_weapon"/>
+                <img src="/images/basic/wearables/ranged_weapon.png" alt="ranged_weapon"/>
             </p>
             <blockquote>
-                <p><img src="/modding_guide/images/common/gold.png" alt="icon"/><a name="NoDrop"></a>在装备部件组件中，您可能会注意到此字段：</p>
+                <p><img src="/images/common/gold.png" alt="icon"/><a name="NoDrop"></a>在装备部件组件中，您可能会注意到此字段：</p>
                 <pre><code>    "no_drop": true
 </code></pre>
                 <p>这用于战斗职业的默认武器或护甲，它们也没有"roles"字段。</p>
@@ -223,7 +223,7 @@
 </code></pre>
                     <p>它是一个具有非常少属性的实体。注意 <strong>"stonehearth:projectile" : {}</strong> 组件。我们可以用这种方式创建自己的投射物。</p>
                     <p>arrow.qb 模型定位在 (0,0,0) 上，箭头的尖端溢出，这将是箭头消失之前沉入敌人的部分：
-                        <img src="/modding_guide/images/basic/wearables/arrow.png" alt="arrow"/>
+                        <img src="/images/basic/wearables/arrow.png" alt="arrow"/>
                     </p>
                 </li>
                 <li>

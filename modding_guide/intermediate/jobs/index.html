@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>添加职业</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>添加职业</h1>
             <p>我们可以创建自己的职业/类别，并更改现有的晋升树以适应我们的偏好。</p>
@@ -68,7 +68,7 @@
                     <p><code>job_tool_talisman.json</code> 文件类似于其他实体的文件。在其中，我们有物品属性 mixin。</p>
                     <p>  对于 entity_data，我们有净资产和 catalog（确保类别是 <strong>"tools"</strong> 并且 material_tags 包括 <strong>"stockpile_tool"</strong>，以便正确地补货到存储中）。</p>
                     <p>  对于组件，我们有 model variants，指向 iconic 版本的模型，以及具有默认效果的 "effect_list"（在 stonehearth 模组中，护身符和工作台的 iconics 具有此粒子效果，以便在库存或地面上快速区分它们）。</p>
-                    <p>  <img src="/modding_guide/images/common/gold.png" alt="图标"/> 你可能还会在一些护身符文件中看到一个名为 <strong>"stonehearth:promotion_talisman"</strong> 的组件。这是一个已弃用且不再存在的旧组件，因此你可以为你的职业省略它。</p>
+                    <p>  <img src="/images/common/gold.png" alt="图标"/> 你可能还会在一些护身符文件中看到一个名为 <strong>"stonehearth:promotion_talisman"</strong> 的组件。这是一个已弃用且不再存在的旧组件，因此你可以为你的职业省略它。</p>
                 </li>
                 <li>
                     <p>现在我们编辑 <code>job_tool.json</code> 文件。<strong>"model_variants"</strong> 组件中的模型是已装备工具的模型，所以记得在你的体素编辑器中<a href="../../basic/wearables/weapons/index.html#EquippedModel">定位它</a>，以便 Hearthling 可以正确抓取它。</p>
@@ -175,7 +175,7 @@
                     <p>与使用自定义函数的特权一起，你还将看到一个 <strong>"demote_fn"</strong> 字段。这指定了如果 Hearthling 拥有该特权并被降级时应运行什么。这是一种确保在 Hearthling 提升/降级到其他职业时移除永久 buff 和自定义能力的方法。如果你不添加它，Hearthling 将保留这些能力。</p>
                 </li>
             </ul>
-            <p><img src="/modding_guide/images/common/gold.png" alt="图标"/> 你还会看到许多职业在 6 级将获得一个头衔而不是/除了特权之外，这使我们能够在 UI 中知道他们处于最大等级。此头衔在 "perks" 数组之外。现在它不是必需的，所有 Hearthlings 将获得一个将在角色表中显示并随着他们升级而改变的头衔（Apprentice、Journeyman、Master）。</p>
+            <p><img src="/images/common/gold.png" alt="图标"/> 你还会看到许多职业在 6 级将获得一个头衔而不是/除了特权之外，这使我们能够在 UI 中知道他们处于最大等级。此头衔在 "perks" 数组之外。现在它不是必需的，所有 Hearthlings 将获得一个将在角色表中显示并随着他们升级而改变的头衔（Apprentice、Journeyman、Master）。</p>
             <p>除了特权外，Hearthlings 每次升级时将获得 +10 生命值。这些将在提升/降级后保留。
                 当你提升/降级 Hearthling 时，职业经验将重置，以鼓励专业化。
             </p>

@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>碰撞区域</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>碰撞区域</h1>
             <p><strong>致谢</strong>：本指南的很大一部分来自 Discourse 用户 Tuhalu 的优秀<a href="https://discourse.stonehearth.net/t/reference-positioning-placeable-items/14858">区域指南</a>。</p>
@@ -31,16 +31,16 @@
             <h2><a name="WorldCoordinates"></a>世界坐标</h2>
             <p>游戏世界有一套基于右手坐标系的坐标。假设"北"是进入屏幕的方向，上方是地面上方，那么当你开始新游戏时，+Y 是向上，+Z 是向南，+X 是向东（假设你没有旋转相机）。</p>
             <p>在接下来的所有图片中，轴的颜色告诉你它是哪个轴。按照惯例，X 始终是红色，Y 始终是绿色，Z 始终是蓝色。
-                <img src="/modding_guide/images/intermediate/regions/world_axes.png" alt="world_axes"/>
+                <img src="/images/intermediate/regions/world_axes.png" alt="world_axes"/>
             </p>
             <p>每个黑色网格方块是 1"单位"大小（在游戏中按 Z 进入区域模式并亲自查看网格）。</p>
             <h3><a name="VoxelEditors"></a>关于对象坐标的说明</h3>
             <p>Qubicle 中对象的坐标系与 Stonehearth 中的世界坐标系不同。Qubicle 使用左手坐标系，而 Stonehearth 使用右手坐标系。这对你稍后使用的偏移量有影响。</p>
             <p>确切的差异是 Z 轴的方向。在 Qubicle 中，正 Z 轴指向对象的背面（或"北"）。在 Stonehearth 中，正 Z 轴指向对象的前面（或"南"）。</p>
             <p>这是 Qubicle 中的桶。注意 Z 轴远离桶的前面。
-                <img src="/modding_guide/images/intermediate/regions/barrel_model.png" alt="barrel_model"/>
+                <img src="/images/intermediate/regions/barrel_model.png" alt="barrel_model"/>
             </p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 在其他体素编辑器中可能会有所不同。对于 Qubicle，请确保始终以右手 Z 轴导出模型，否则模型在游戏中可能会翻转或奇怪地旋转。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 在其他体素编辑器中可能会有所不同。对于 Qubicle，请确保始终以右手 Z 轴导出模型，否则模型在游戏中可能会翻转或奇怪地旋转。</p>
             <h2><a name="Properties"></a>Mob 组件的其他属性</h2>
             <p>在基础模组实体的 JSON 文件中，你可能会在 <strong>"mob"</strong> 组件中看到其他属性。</p>
             <ul>

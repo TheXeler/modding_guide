@@ -3,14 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-	<link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-	<link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-	<link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+	<link href='/css/styles.css' rel='stylesheet' type='text/css'>
+	<link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+	<link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+	<link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
 	<title>控制器</title>
 </head>
 <body>
-	<script src="/modding_guide/menus.js"></script>
+	<script src="/menus.js"></script>
 	<main>
 		<h1>控制器</h1>
 		<p>现有控制器分布在 stonehearth mod 的许多文件夹中，因此要找到它们，请查看清单中的路径。</p>
@@ -100,7 +100,7 @@
 		<pre><code>  local tr_data = tracker:get_tracking_data()
 </code></pre>
 
-		<p><img src="/modding_guide/images/common/gold.png" alt="icon"/>请注意，有时 stonehearth mod 中已经存在将创建和使用您的控制器的代码。一些 JSON 文件引用将为您创建的控制器别名/文件，因此您只需在清单中声明控制器，编写其 Lua 文件并在 JSON 中引用它（例如：组件、特性/增益效果脚本等）。</p>
+		<p><img src="/images/common/gold.png" alt="icon"/>请注意，有时 stonehearth mod 中已经存在将创建和使用您的控制器的代码。一些 JSON 文件引用将为您创建的控制器别名/文件，因此您只需在清单中声明控制器，编写其 Lua 文件并在 JSON 中引用它（例如：组件、特性/增益效果脚本等）。</p>
 
 		<h2><a name="ClientControllers"></a>客户端控制器</h2>
 		<p>清单的 <strong>"controllers"</strong> 部分用于服务器控制器。大多数控制器都属于此类别。您可以从它们访问服务器端服务，如人口服务。控制器状态会被保存。</p>

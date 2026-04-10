@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>Thoughts</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>Thoughts</h1>
          <p>Hearthlings 从 <code>base_human.json</code> mixin 获得 happiness 组件和 thoughts 组件。这些组件使他们能够根据当前的 thoughts 变得高兴或悲伤，我们可以在角色表的 Morale 选项卡中看到这些 thoughts。</p>
@@ -67,14 +67,14 @@
   "stonehearth:thoughts:job:gained_a_level"
 </code></pre>
          <p>注意我们用冒号分隔键，就像 URIs 一样。</p>
-         <p><img src="/modding_guide/images/common/gold.png" alt="图标"/> Happiness 组件从 <code>stonehearth/data/happiness/thoughts.json</code> 读取 thoughts，因此我们必须对其进行 mixinto 以便将我们的自定义 thoughts 添加到列表中（我们可以重用现有的类别/组或添加新的）。但我们也可以使用我们模组的命名空间来引用我们的自定义 thoughts。例如，上面的示例如果我们像这样引用 thought 也会起作用：<code>'my_mod:thoughts:traits:impatient'</code>。</p>
+         <p><img src="/images/common/gold.png" alt="图标"/> Happiness 组件从 <code>stonehearth/data/happiness/thoughts.json</code> 读取 thoughts，因此我们必须对其进行 mixinto 以便将我们的自定义 thoughts 添加到列表中（我们可以重用现有的类别/组或添加新的）。但我们也可以使用我们模组的命名空间来引用我们的自定义 thoughts。例如，上面的示例如果我们像这样引用 thought 也会起作用：<code>'my_mod:thoughts:traits:impatient'</code>。</p>
          <p>要在游戏中测试，我们可以使用默认控制台手动添加和移除 thoughts（如果命令未出现，请启用 debugtools 模组）：</p>
          <pre><code>  add_thought stonehearth:thoughts:traits:charismatic:inspired
   remove_thought stonehearth:thoughts:traits:charismatic:inspired
 </code></pre>
          <p>选择 Hearthling，打开默认控制台并输入 <code>add_thought</code> 命令。注意我们将 thought URI 作为参数传递时不带引号。</p>
          <p>我们可以通过使用 debugtools 检查所选 Hearthling 的 happiness 组件来查看幸福感和 thoughts 的内部值。选择一个 Hearthling，打开<a href="../../essentials/debugtools/debugtools_mod/index.html#ObjectBrowser">对象浏览器</a>，然后点击 "stonehearth:happiness" 的值：
-            <img src="/modding_guide/images/intermediate/thoughts/happiness_component.png" alt="happiness_component"/>
+            <img src="/images/intermediate/thoughts/happiness_component.png" alt="happiness_component"/>
          </p>
       </main>
    </body>

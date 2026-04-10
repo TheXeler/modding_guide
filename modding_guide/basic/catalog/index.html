@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>The catalog</title>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
+        <title>目录</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
-            <h1>The catalog</h1>
-            <p>The catalog service takes care of cataloging the entities based on properties inside the entity_data of those entities.</p>
-            <p>This is an example of entity_data used by the catalog service, it is inside berry_bush_ghost.json, so the root entity described in berry_bush.json will also have this name/description/icon etc. (because it includes it as a mixin) :</p>
+            <h1>目录</h1>
+            <p>目录服务负责根据实体数据中的属性对实体进行分类。</p>
+            <p>这是目录服务使用的 entity_data 示例，它位于 berry_bush_ghost.json 内，因此 berry_bush.json 中描述的根实体也将具有此名称/描述/图标等（因为它将其作为 mixin 包含）：</p>
             <pre><code>  "entity_data": {
     "stonehearth:catalog": {
        "display_name": "i18n(stonehearth:entities.plants.berry_bush.display_name)",
@@ -25,39 +25,39 @@
     }
   }
 </code></pre>
-            <p>Since it's inside "entity_data", this information will be the shared by every item of this type. The usual properties are <strong>"display_name"</strong>, <strong>"description"</strong> and <strong>"icon"</strong>, which will be shown in the unit frame when you select this item inside the game (in any of its entity forms). If we wanted, we could have different properties for the <a href="../adding_items/index.html#Iconic">iconic version</a>, since it's a separate entity on itself.
-                <img src="/modding_guide/images/basic/catalog/unit_frame.png" alt="unit_frame"/>
+            <p>由于它在"entity_data"内，此信息将由该类型的每个物品共享。通常的属性是 <strong>"display_name"</strong>、<strong>"description"</strong> 和 <strong>"icon"</strong>，当您在游戏中选择此物品（在其任何实体形式中）时，它们将显示在单位框架中。如果我们愿意，我们可以为<a href="../adding_items/index.html#Iconic">iconic 版本</a>设置不同的属性，因为它本身是一个独立的实体。
+                <img src="/images/basic/catalog/unit_frame.png" alt="unit_frame"/>
             </p>
-            <p>Besides those, we also have <strong>"category"</strong>, <strong>"material_tags"</strong>, and <strong>"subjects"</strong>. <br/>
-                <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/><strong>The values for these three properties are not meant to be localized</strong> (they're not inside "i18n()"), they are used by the game to assign categories internally.
+            <p>除了这些，我们还有 <strong>"category"</strong>、<strong>"material_tags"</strong> 和 <strong>"subjects"</strong>。<br/>
+                <img src="/images/common/row_alert2.png" alt="icon"/><strong>这三个属性的值不应本地化</strong>（它们不在"i18n()"内），游戏使用它们在内部指定类别。
             </p>
-            <p><a name="MaterialTags"></a>The <strong>"material_tags"</strong> is a string of materials separated by spaces. Alternatively, we can declare it as an array of strings, which will make it more compatible with other mods:</p>
+            <p><a name="MaterialTags"></a><strong>"material_tags"</strong> 是由空格分隔的材质字符串。或者，我们可以将其声明为字符串数组，这将使其与其他 mod 更兼容：</p>
             <pre><code>    "material_tags": [ "plant", "stockpile_plant" ]
 </code></pre>
-            <p>This way mods can add tags to this item without changing the whole string, which could overwrite other mod's added tags.</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>If you need to add a material tag to an item that has them as a string separated by spaces, your mixinto will need to have a string separated by spaces too, overwriting the whole value. If you want to convert it to an array (or viceversa), you'll need to use a <a href="../../essentials/removing/index.html#MixintypeOverride">mixintype</a> to override the JSON node.</p>
-            <p>It is very important that you fill this field correctly when creating your own items, since they are restocked to the storage based on one or more of these tags. In this case, the "stockpile_plant" tag will make it so the item is restocked to stockpiles and crates with the plant filter enabled.
-                <img src="/modding_guide/images/basic/catalog/storage_filter.png" alt="storage_filter"/>
+            <p>这样，mod 可以向此物品添加标签而无需更改整个字符串，这可能会覆盖其他 mod 添加的标签。</p>
+            <p><img src="/images/common/row_alert2.png" alt="icon"/>如果您需要向以空格分隔的字符串形式拥有材质标签的物品添加材质标签，您的 mixinto 也需要有一个以空格分隔的字符串，覆盖整个值。如果您想将其转换为数组（或反之亦然），您需要使用 <a href="../../essentials/removing/index.html#MixintypeOverride">mixintype</a> 来覆盖 JSON 节点。</p>
+            <p>在创建您自己的物品时正确填写此字段非常重要，因为它们会根据其中一个或多个标签补货到存储中。在这种情况下，"stockpile_plant"标签将使物品补货到启用了植物过滤器的堆放和箱子中。
+                <img src="/images/basic/catalog/storage_filter.png" alt="storage_filter"/>
             </p>
-            <p>When you tick the "All" checkbox in a stockpile, it will accept every item, without checking the tags. When you tick the "None" checkbox, the stockpile will refuse any item whatever their tags are. If you tick every filter, the "All" box will automatically tick, but it will not accept all items, just every items that match at least one of the filters.</p>
-            <p>The other tags defined here are used to catalog the item, and can be consulted like any other entity_data. For example, we could have "flammable" as one of the material tags and in some Lua file, check for all the entities with that tag and set fire to them (running a VFX, destroying the entities after some time has passed, or changing their model variants to give them a burnt look).</p>
+            <p>当您在堆放中勾选"All"复选框时，它将接受每个物品，而不检查标签。当您勾选"None"复选框时，堆放将拒绝任何物品，无论它们的标签是什么。如果您勾选每个过滤器，"All"框将自动勾选，但它不会接受所有物品，只接受至少匹配其中一个过滤器的每个物品。</p>
+            <p>此处定义的其他标签用于编目物品，并且可以像任何其他 entity_data 一样查询。例如，我们可以将"flammable"作为材质标签之一，并在某个 Lua 文件中，检查具有该标签的所有实体并点燃它们（运行 VFX，一段时间后销毁实体，或更改其模型变体以使其具有烧焦的外观）。</p>
             <blockquote>
-                <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> You might still see a "material" component in some of the game files. This is deprecated and has been replaced by the "material_tags" inside the "stonehearth:catalog" key from the entity_data.</p>
+                <p><img src="/images/common/gold.png" alt="icon"/> 您可能仍然在一些游戏文件中看到"material"组件。这已被弃用，并已由 entity_data 中"stonehearth:catalog"键内的"material_tags"取代。</p>
             </blockquote>
-            <p>A list with the existing storage filters is in <strong>stonehearth/ui/data/stockpile_filters.json</strong> and a list with the filters for the input boxes is in <strong>stonehearth/ui/data/input_box_filters.json</strong>. They are defined there, along with the localized string for displaying their name in the UI, their icon, order, etc. You can add <a href="../storages/index.html#Filters">your own filters</a> with mixintos to these files.</p>
-            <p>The <strong>"category"</strong> is a generic category used for some of the traits and components, as well as to catalog your inventory (for edibles, wealth and showing groups of items in some of the menus). You can use it like the material tags, and use your own category if you want. There isn't a list of the existing categories, but if you copy a similar item from the stonehearth mod it will already have an appropiate category.</p>
-            <p>Its value is a single word, not several words separated by spaces, it's different from the "material_tags".</p>
-            <p>Another common key inside the "stonehearth:catalog" entity_data is</p>
+            <p>现有存储过滤器的列表在 <strong>stonehearth/ui/data/stockpile_filters.json</strong> 中，输入框过滤器的列表在 <strong>stonehearth/ui/data/input_box_filters.json</strong> 中。它们在那里定义， along with 用于在 UI 中显示其名称的本地化字符串、其图标、顺序等。您可以使用 mixintos 向这些文件添加<a href="../storages/index.html#Filters">您自己的过滤器</a>。</p>
+            <p><strong>"category"</strong> 是一个通用类别，用于某些特质和组件，以及编目您的库存（用于食品、财富和在某些菜单中显示物品组）。您可以像使用材质标签一样使用它，并根据需要使用您自己的类别。没有现有类别的列表，但如果您从 stonehearth mod 复制类似物品，它将已经具有适当的类别。</p>
+            <p>它的值是单个单词，不是由空格分隔的几个单词，这与"material_tags"不同。</p>
+            <p>"stonehearth:catalog" entity_data 内的另一个常见键是</p>
             <pre><code>  "is_item": true
 </code></pre>
-            <p>This is normally used in the JSON files for the iconics, so that the hearthlings know that these are items that can be picked up.</p>
-            <p>The catalog service also reads the <strong>"stonehearth:net_worth"</strong> and <strong>"stonehearth:appeal"</strong> entries inside entity data to catalog buyable / sellable items and items that count for the appeal functionality / item preferences.</p>
-            <h2><a name="UnitInfo"></a>Unit info</h2>
-            <p>Unit info is a component that was previously used for managing all the names and descriptions of the entities, but nowadays should only be used for
-                things that can have custom names and descriptions (for example pets, hearthlings, goblins...).
+            <p>这通常用于 iconics 的 JSON 文件中，以便炉民知道这些是可以拾取的物品。</p>
+            <p>目录服务还读取实体数据内的 <strong>"stonehearth:net_worth"</strong> 和 <strong>"stonehearth:appeal"</strong> 条目，以编目可购买/可出售物品以及计入吸引力功能/物品偏好的物品。</p>
+            <h2><a name="UnitInfo"></a>单位信息</h2>
+            <p>单位信息是一个以前用于管理实体所有名称和描述的组件，但现在应仅用于
+                可以具有自定义名称和描述的事物（例如宠物、炉民、哥布林...）。
             </p>
-            <p>In the game, this component is added from Lua when we want to change custom data of entities. In <strong>radiant/modules/entities.lua</strong> you can find functions to set custom names, descriptions, etc. from other Lua files, or even from the JavaScript files from the UI.</p>
-            <p>This way we ensure that this component is only added when we really have custom data that can change, as opposed to the display_name or description that we have inside the entity_data, which is reused for all the items of that type.</p>
+            <p>在游戏中，当我们想要更改实体的自定义数据时，会从 Lua 添加此组件。在 <strong>radiant/modules/entities.lua</strong> 中，您可以找到从其他 Lua 文件甚至 UI 的 JavaScript 文件设置自定义名称、描述等的函数。</p>
+            <p>这样我们确保仅在确实有可以更改的自定义数据时才添加此组件，这与 entity_data 内的 display_name 或 description 相反，后者被该类型的所有物品重用。</p>
         </main>
     </body>
 </html>

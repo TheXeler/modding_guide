@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>季节和天气</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>季节和天气</h1>
          <ul>
@@ -85,7 +85,7 @@
                <p><strong>"start_day"</strong> -- 这决定了季节的持续时间。在内部，我们从第 0 天开始，所以对于上面的示例，春季的开始日是 0，夏季的开始日是 21，因此春季的持续时间是 3 个游戏月（记住，每月 7 天）。</p>
                <p>我们在季节的描述中手动表达此持续时间，但太阳小部件下方月份名称的工具提示也有一个计数器，告诉季节何时结束，因为我们不是从第一个月的第 1 天确切开始游戏，而是从所选季节的开始开始，这发生在相应月份的第一周中间（对于春季将是第一个月，对于夏季是第四个月，等等）。</p>
                <p>我们可以使季节持续不同数量的月份。例如，在北极生物群系中，冬季持续 7 个月，而春季和秋季持续 1 个月，夏季持续 3 个月。</p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>务必确保您的第一个季节从第 0 天开始。</p>
+               <p><img src="/images/common/row_alert2.png" alt="icon"/>务必确保您的第一个季节从第 0 天开始。</p>
             </li>
             <li>
                <p><strong>"weather" : []</strong> -- 包含天气 URI 及其<a href="../../../basic/misc_json/index.html#WeightedSets">权重</a>的对象数组。这样我们可以为每个季节定义不同的天气，并使某些天气类型比其他类型更频繁。有关如何创建自己的天气，请参见下文。</p>

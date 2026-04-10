@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>调用处理器</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>调用处理器</h1>
          <p>在本节中，我们将讨论什么是调用处理器并提供使用示例。现有调用处理器可以在 <code>stonehearth/call_handlers</code> 下找到。</p>
@@ -97,7 +97,7 @@
      }
   }
 </code></pre>
-         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/><a name="StartMenu"></a>请注意，我们可以 mixinto <code>start_menu.json</code> 文件以向开始菜单添加任何新选项。有一些可选字段，如 <strong>"required_job"</strong> 和 <strong>"required_job_text"</strong>，它们仅用于区域，以在玩家将某人晋升为该职业之前禁用它们。对于制作菜单，它们会立即生效，但对于其余选项来说很棘手，因为它涉及 UI 文件。</p>
+         <p><img src="/images/common/gold.png" alt="icon"/><a name="StartMenu"></a>请注意，我们可以 mixinto <code>start_menu.json</code> 文件以向开始菜单添加任何新选项。有一些可选字段，如 <strong>"required_job"</strong> 和 <strong>"required_job_text"</strong>，它们仅用于区域，以在玩家将某人晋升为该职业之前禁用它们。对于制作菜单，它们会立即生效，但对于其余选项来说很棘手，因为它涉及 UI 文件。</p>
          <p>条目的名称（上面示例中的 <code>create_pasture</code>）将成为选择该项目时调用的操作（或者，某些菜单有一个 <strong>"menu_action"</strong> 字段，其中包含要调用的操作）。这些操作的处理程序在 <code>stonehearth/ui/game/start_menu/start_menu.js</code> 中：</p>
          <pre><code>  menuActions: {
      // ...
@@ -131,7 +131,7 @@
      });
   },
 </code></pre>
-         <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>现在您可能想知道，如果函数是从 <code>start_menu.js</code> 读取的，我们如何从我们的 mod 中为我们的新菜单添加自定义函数？请参阅<a href="../ui/index.html#AddingToExistingViews">此页面</a>以解决您的疑问。</p>
+         <p><img src="/images/common/edit_big.png" alt="icon"/>现在您可能想知道，如果函数是从 <code>start_menu.js</code> 读取的，我们如何从我们的 mod 中为我们的新菜单添加自定义函数？请参阅<a href="../ui/index.html#AddingToExistingViews">此页面</a>以解决您的疑问。</p>
          <h3><a name="DesignatingZone"></a>在客户端指定区域</h3>
          <p>UI 调用了一个客户端 Lua 函数来绘制区域。此函数在清单的 <strong>"functions"</strong> 部分中声明：</p>
          <pre><code>  "functions": {
@@ -194,7 +194,7 @@
          <p>请注意，它在客户端（客户端端点）上运行，并且只能访问客户端可用的 Lua 项目。</p>
          <p>该函数允许玩家在世界中点击并指定一个区域。它将根据您传入的 Color4(r, g, b, a) 绘制区域。</p>
          <p>一旦玩家释放鼠标，此函数将调用服务器函数以实际创建区域。由于我们在客户端和服务器之间通信，它也必须在调用处理器中定义。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，对于这些示例，我们使用的是 stonehearth 命名空间，您在代码中编写时将使用您的 mod 命名空间。如果您正在制作自定义类型的区域，请确保更改任何应指向您的 mod 的引用。</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/>请注意，对于这些示例，我们使用的是 stonehearth 命名空间，您在代码中编写时将使用您的 mod 命名空间。如果您正在制作自定义类型的区域，请确保更改任何应指向您的 mod 的引用。</p>
          <h3><a name="CreatingZone"></a>创建区域</h3>
          <p>创建区域的函数位于服务器上：</p>
          <p><code>_radiant.call('stonehearth:create_pasture', box.min, size)</code>。</p>
@@ -312,7 +312,7 @@
 </code></pre>
          <p>在 <code>stonehearth/ui/game/modes/zones_mode/zones_mode.js</code> 中有 <code>_examineEntity</code> 函数。您需要向其中添加另一个 <code>if</code>，以便在选择新区域时显示您的自定义 UI 视图。确保您的 UI 视图扩展了 <code>StonehearthBaseZonesModeView</code>，以便它具有区域的通用功能。</p>
          <p>此外，请确保在 <code>stonehearth/ui/game/modes/mode_manager.js</code> 的 <code>_getModeForEntity</code> 函数中将区域类型注册为区域。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>在编写本指南时，<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1577375188">ACE</a> mod 覆盖了 <code>mode_manager.js</code> 以使其更容易根据所选实体更改 UI 模式。如果您基于该代码，玩家需要安装并启用 ACE mod 才能玩您的 mod。</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/>在编写本指南时，<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1577375188">ACE</a> mod 覆盖了 <code>mode_manager.js</code> 以使其更容易根据所选实体更改 UI 模式。如果您基于该代码，玩家需要安装并启用 ACE mod 才能玩您的 mod。</p>
       </main>
    </body>
 </html>

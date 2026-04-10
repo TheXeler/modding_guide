@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>添加自定义</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>添加自定义</h1>
          <ul>
@@ -82,11 +82,11 @@
                <p>我们在此处添加的颜色将适用于任何建筑部件，屋顶除外。</p>
                <p>在每个材质标签的键内，我们有一个包含颜色列表的 <strong>"colors"</strong> 条目。每种颜色都表示为以井号 (#) 开头的十六进制 RGB 颜色。按照惯例，这些颜色为大写。</p>
                <p>每个颜色条目都有一个 <strong>"display_name"</strong>，这是您希望在工具提示中显示的名称的本地化键，以及一个用于在调色板中排列颜色的 ordinal。游戏中现有颜色的名称是使用<a href="http://www.color-blindness.com/color-name-hue/">此网站</a>获得的，但您可以使用任何您想要的名称。</p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 列表中是否有重复的 ordinals 并不重要，但我们不能有重复的颜色。这包括在不同材质条目中重复的颜色。游戏需要将颜色与特定的资源材质关联起来以计算建筑成本。因此，请确保您添加的颜色在您的 mod 或 stonehearth mod 中都没有重复。</p>
+               <p><img src="/images/common/row_alert2.png" alt="icon"/> 列表中是否有重复的 ordinals 并不重要，但我们不能有重复的颜色。这包括在不同材质条目中重复的颜色。游戏需要将颜色与特定的资源材质关联起来以计算建筑成本。因此，请确保您添加的颜色在您的 mod 或 stonehearth mod 中都没有重复。</p>
             </li>
             <li>
                <p>在游戏中测试您的新颜色（您可以使用 debugtools 中的<a href="../../essentials/debugtools/debugtools_mod/index.html#ItemStamper">Item Stamper</a>生成资源）：
-                  <img src="/modding_guide/images/basic/customization/building_colors.png" alt="building_colors"/>
+                  <img src="/images/basic/customization/building_colors.png" alt="building_colors"/>
                </p>
             </li>
          </ol>
@@ -139,7 +139,7 @@
          <p>发型是具有默认调色板的 QB 模型，映射在 <code>stonehearth/data/materials/hair_color_map.json</code> 中。当我们在名册屏幕中选择炉民的外观时，游戏会将不同的调色板应用于同一模型。</p>
          <p>在设计您自己的发型时，您需要重用此颜色图中的颜色，但也可以添加更多颜色并添加 mixintos 以在颜色和材质图中覆盖它们。</p>
          <p>复制现有发型的 QB 模型时，请注意它分为 2 层：
-            <img src="/modding_guide/images/basic/customization/hair_model.png" alt="hair_model"/>
+            <img src="/images/basic/customization/hair_model.png" alt="hair_model"/>
          </p>
          <p>对应于头发上部的层命名为 <strong>hat</strong>，下部的层命名为 <strong>head</strong>。这种分离是实现帽子所必需的。根据您为头饰使用的透明度设置，当炉民装备该物品时，头发模型的"hat"层将被隐藏或不隐藏。</p>
          <p>因此，在导出模型之前，我们必须确保正确命名图层。还要注意，男性炉民比女性炉民高 1 个体素，因此最好导入现有发型，以便我们可以使用滴管工具选择颜色并知道在哪里切割帽子部分。</p>
@@ -162,7 +162,7 @@
             确保"values"列表中没有重复的键，否则这些模型将在游戏中被覆盖。
          </p>
          <p>最后，我们可以在游戏中测试我们的新模型并确保它看起来不错：
-            <img src="/modding_guide/images/basic/customization/custom_hair.png" alt="custom_hair"/>
+            <img src="/images/basic/customization/custom_hair.png" alt="custom_hair"/>
          </p>
          <h3><a name="CustomColors"></a>为皮肤、头发和眼睛添加自定义颜色</h3>
          <p>与我们添加新发型的方式相同，我们可以对 customization 文件进行 mixinto 并添加我们自己的<a href="../color_maps/index.html#MaterialMap">材质图</a>。</p>
@@ -210,7 +210,7 @@
   }
 </code></pre>
          <p>现在我们可以测试游戏中的新头发颜色：
-            <img src="/modding_guide/images/basic/customization/hair_colors.png" alt="hair_colors"/>
+            <img src="/images/basic/customization/hair_colors.png" alt="hair_colors"/>
          </p>
          <h3><a name="Lua"></a>使用 Lua 更改自定义</h3>
          <p>我们可以在 customization 组件（<code>_add_style</code> 和 <code>_remove_style</code> 函数）中找到如何使用 Lua 更改自定义的示例：</p>

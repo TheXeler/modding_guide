@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>添加装备</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>添加装备</h1>
             <p>有关如何创建您自己的战斗职业，请参阅本指南的<a href="../../intermediate/jobs/combat_jobs/index.html">这一部分</a>。</p>
@@ -120,7 +120,7 @@
                     <p>测试物品是否可以获得、补货、装备，是否应用了您添加到其中的任何能力/增益效果，以及在卸下物品时它们是否被移除。</p>
                 </li>
             </ol>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，对于装备，如果您向其添加<a href="../color_maps/index.html">颜色映射</a>以使其发光或类似效果，如果设置为"merge_with_model"，它将不会被正确应用。为了解决这个问题，请通过 mixinto 将颜色映射应用到 base_human.json mixin。</p>
+            <p><img src="/images/common/row_alert2.png" alt="icon"/>请注意，对于装备，如果您向其添加<a href="../color_maps/index.html">颜色映射</a>以使其发光或类似效果，如果设置为"merge_with_model"，它将不会被正确应用。为了解决这个问题，请通过 mixinto 将颜色映射应用到 base_human.json mixin。</p>
             <h2><a name="Buffs"></a>注入增益效果</h2>
             <p>注入增益效果、命令和 AI 是通过"stonehearth:equipment_piece"组件内的数组完成的：</p>
             <pre><code>  "stonehearth:equipment_piece": {

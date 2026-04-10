@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>碰撞和目标</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>碰撞和目标</h1>
          <ul>
@@ -63,7 +63,7 @@
          <h2><a name="RegionCollision"></a>碰撞区域</h2>
          <p>碰撞区域告诉游戏 Hearthling 不能穿过对象行走，并且我们不能在该区域放置任何其他物品。如果没有碰撞区域，Hearthlings 将能够直接穿过对象！</p>
          <p><strong>region_collision_shape</strong> 组件根据其自己的坐标系定义碰撞区域。+Y 与世界坐标系相同，但 +X 和 +Z 相反。这样定义是为了使大多数值为正（X 或 Z 方向大于 2 个方块的对象可能不会所有值都为正）。
-            <img src="/modding_guide/images/intermediate/regions/region_collision.png" alt="region_collision"/>
+            <img src="/images/intermediate/regions/region_collision.png" alt="region_collision"/>
          </p>
          <p>如果你按 F11 并选择一个实体，你应该能够看到其碰撞区域作为一个带有浅蓝色边缘的透明框。它通常与目标区域重叠，所以有时很难看到一个或另一个。</p>
          <p>以下是从 <code>stone_chair.json</code> 中获取的示例：</p>
@@ -84,9 +84,9 @@
          <pre><code>  "region_collision_shape": {}
 </code></pre>
          <p>然后打开游戏并使用我们的物品的<a href="../../../essentials/debugtools/debugtools_mod/index.html#EntityEditor">Entity editor</a>。带 + 号的铅笔允许添加新的碰撞区域，X 是移除它们，我们可以使用每个维度的上下箭头来调整它们：</p>
-         <p><img src="/modding_guide/images/intermediate/regions/collision_region.png" alt="collision_region"/></p>
+         <p><img src="/images/intermediate/regions/collision_region.png" alt="collision_region"/></p>
          <p>一旦你对碰撞区域满意，点击 Collision 部分旁边的卷轴图标，点击 Copy 按钮，并将数据粘贴到你的 JSON 文件中（再次记住，碰撞和目标区域不放 在 ghost JSON 文件中）。</p>
-         <p><img src="/modding_guide/images/intermediate/regions/copy_json.png" alt="copy_json"/></p>
+         <p><img src="/images/intermediate/regions/copy_json.png" alt="copy_json"/></p>
          <h3><a name="RegionCollisionTypes"></a>区域碰撞类型</h3>
          <p>除了碰撞类型外，还有区域碰撞类型，但在大多数情况下模组制作者不需要关心它们。</p>
          <ul>
@@ -122,7 +122,7 @@
          <p>在根实体 JSON 文件的组件中（不是 ghost！），我们可以在游戏中可视化地添加、移除和调整目标区域。</p>
          <p>现在将你的物品放置在世界上，选择它并打开 Entity editor。添加一个目标区域并确保也选中 "Auto update Adjacency" 复选框。现在你可以点击相邻标志的任何方块。</p>
          <p>你应该看到一个带有紫色边缘的透明框（目标区域），以及与该区域相邻的带有红色边缘的透明框。这些红框定义了 Hearthling 可以站在哪些网格方块上被视为"靠近"对象。目标是让红框包含对象边缘周围的网格（它们必须对齐，否则可能会发生不好的事情！）。</p>
-         <p><img src="/modding_guide/images/intermediate/regions/destination_region.png" alt="destination_region"/></p>
+         <p><img src="/images/intermediate/regions/destination_region.png" alt="destination_region"/></p>
          <p>Hearthlings 将走到相邻区域中的任何方块开始与对象交互。如果我们的目标区域很高，相邻区域也将很高（但通常它只有一块厚，因为 Hearthlings 只需要 1 个方块站在地面上）。</p>
          <p>通过调整目标区域和相邻标志，我们可以使 Hearthlings 仅从对象的一侧交互。例如，陶工仅从前面使用窑炉，只有当较长侧旁边的方块未被其他物品的碰撞框占据时才能到达床。</p>
          <p>可能的相邻标志有：</p>

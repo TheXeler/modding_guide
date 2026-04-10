@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>热加载模组</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>热加载模组</h1>
          <ul>
@@ -23,7 +23,7 @@
          <h2><a name="When"></a>何时应该热加载模组？</h2>
          <p>嗯，你可能创建了一个自定义王国或生物群系，并且希望仅在选择该王国/生物群系时启用某些战役或其他功能。例如，当我们选择使用 Rayya's children 模组游玩时，我们会覆盖一些图像，使 UI 看起来不同，当我们选择在沙漠生物群系中游玩时，我们会覆盖一些 goblins 和其他动物的模型，使它们看起来更像沙漠风格。</p>
          <p>过去我们称之为"热加载模组"，但现在实际上应该称为"应用清单"，因为我们在这里不是激活整个模组。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/><a name="Requirements"></a><strong>热加载清单仅允许在世界生成完成之前 -或- 对于来自客户端 Lua 的 'client_only' 清单</strong>。</p>
+         <p><img src="/images/common/row_alert2.png" alt="图标"/><a name="Requirements"></a><strong>热加载清单仅允许在世界生成完成之前 -或- 对于来自客户端 Lua 的 'client_only' 清单</strong>。</p>
          <p>并非应用清单中的所有内容都会起作用。已知某些 mixintos 不会从热加载清单中正确应用，因为游戏已经缓存了这些值（例如，向初始作物列表中添加新作物）。在大多数情况下，你必须将这些添加到你的主清单中。</p>
          <p>应用/热加载的清单通常位于我们模组的某个子文件夹内，并且在其 <strong>"info"</strong> 部分内有</p>
          <pre><code>  "deferred_load": true
@@ -45,7 +45,7 @@
                <pre><code>"client_init_script": "file(rayyas_children_client)"
 </code></pre>
                <p>  在根级别（例如，在 "info" 部分下方）。</p>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>注意在这种情况下，我们在 <strong>"file()"</strong> 中不包含 <code>.lua</code> 扩展名。对于 <strong>"server_init_script"</strong> 我们也不包含它。</p>
+               <p>  <img src="/images/common/row_alert2.png" alt="图标"/>注意在这种情况下，我们在 <strong>"file()"</strong> 中不包含 <code>.lua</code> 扩展名。对于 <strong>"server_init_script"</strong> 我们也不包含它。</p>
                <p>  上面的示例来自 Rayya's Children 模组。现在，在你的 init 脚本中，你需要有这样的内容（继续使用相同的示例）：</p>
                <pre><code>rayyas_children = {
    constants = require 'constants'

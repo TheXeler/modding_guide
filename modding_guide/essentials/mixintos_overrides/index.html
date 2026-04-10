@@ -3,18 +3,18 @@
      <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-          <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-          <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-          <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+          <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+          <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+          <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+          <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
           <title>Mixintos 和 Overrides</title>
      </head>
      <body>
-          <script src="/modding_guide/menus.js"></script>
+          <script src="/menus.js"></script>
           <main>
                <h1>Mixintos 和 Overrides</h1>
                <p>使用 Mixintos 和 Overrides，你将能够修改 Stonehearth 模组（或任何模组）中的内容，而无需篡改模组的内部文件。Mixintos 和 Overrides 都在你的模组清单中指定。</p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 记得仅在<a href="../json/index.html">需要时</a>添加逗号，否则游戏将无法读取你的清单并且无法加载你的模组。查看这些其他<a href="../debugging/index.html">提示</a>以进行调试。</p>
+               <p><img src="/images/common/row_alert2.png" alt="图标"/> 记得仅在<a href="../json/index.html">需要时</a>添加逗号，否则游戏将无法读取你的清单并且无法加载你的模组。查看这些其他<a href="../debugging/index.html">提示</a>以进行调试。</p>
                <ul>
                     <li><a href="#Mixintos">Mixinto</a></li>
                     <li><a href="#ModifyingMixinto">使用 Mixintos 修改内容</a></li>
@@ -94,7 +94,7 @@
 </code></pre>
                <p>当然，如果你愿意，你可以在模组中使用相同的路径，以便你的文件组织方式与 stonehearth 模组相同。</p>
                <p>在这种情况下，"my_effect.json" 在 stonehearth 模组中不存在，只存在于我们的模组中，但通过在清单中这样指定，游戏会认为它确实有这个不存在的文件，并用我们的内容覆盖它。这个效果/动画何时播放是另一个问题。</p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 注意这些 overrides 中的路径（指向 stonehearth 模组中不存在的文件的路径）<strong>不</strong>以正斜杠开头。对于这种类型的 overrides，必须以这种方式声明，否则它们将无法工作。<br/>
+               <p><img src="/images/common/row_alert2.png" alt="图标"/> 注意这些 overrides 中的路径（指向 stonehearth 模组中不存在的文件的路径）<strong>不</strong>以正斜杠开头。对于这种类型的 overrides，必须以这种方式声明，否则它们将无法工作。<br/>
                     清单和其他文件中的其他完整路径必须以正斜杠开头，除非另有说明。其中一些无论有没有斜杠都能正常工作，但为了保持一致性，我们将在示例中使用相同的语法。
                </p>
                <h2><a name="Compatibility"></a>模组兼容性</h2>

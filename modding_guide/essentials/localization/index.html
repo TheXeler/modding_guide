@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>本地化</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>本地化</h1>
          <p>
@@ -59,7 +59,7 @@
 </code></pre>
          <p>但将它们组织起来很有用，这样你可以在不同节点内拥有重复的键。</p>
          <p>在为现有的 en.json 文件制作翻译模组时，你必须使用完全相同的键，然后将文本/值部分翻译成你的语言。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 在翻译 stonehearth 模组时，你可能会在本地化字符串中找到特殊文本，如 <strong>[str(i18n_data.town_name)]</strong>。这些应该保持不变。它们是将在游戏中被替换的变量。例如，[str(i18n_data.town_name)] 代表你的城镇名称。这些变量在触发对话框的 JSON 文件（如战役遭遇战）中声明。这样，我们就可以在可翻译文本中使用由游戏动态生成的专有名词，如 Boss 名称、你的城镇名称（你在开始游戏时自定义的）等。</p>
+         <p><img src="/images/common/row_alert2.png" alt="图标"/> 在翻译 stonehearth 模组时，你可能会在本地化字符串中找到特殊文本，如 <strong>[str(i18n_data.town_name)]</strong>。这些应该保持不变。它们是将在游戏中被替换的变量。例如，[str(i18n_data.town_name)] 代表你的城镇名称。这些变量在触发对话框的 JSON 文件（如战役遭遇战）中声明。这样，我们就可以在可翻译文本中使用由游戏动态生成的专有名词，如 Boss 名称、你的城镇名称（你在开始游戏时自定义的）等。</p>
          <p>关于字体以及如何制作翻译模组的信息可以在<a href="../../basic/localization_mod/index.html">这里</a>找到。</p>
       </main>
    </body>

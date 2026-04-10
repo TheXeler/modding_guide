@@ -3,14 +3,14 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-		<link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-		<link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-		<link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+		<link href='/css/styles.css' rel='stylesheet' type='text/css'>
+		<link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+		<link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+		<link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
 		<title>AI 动作</title>
 	</head>
 	<body>
-		<script src="/modding_guide/menus.js"></script>
+		<script src="/menus.js"></script>
 		<main>
 			<h1>AI 动作</h1>
 			<p>您可以在此 <a href="/modding_guide/files/AI.pdf">PDF</a> 中找到本页的所有信息。</p>
@@ -71,7 +71,7 @@
 				</li>
 			</ul>
 			<p>以下是 AI 检查器中典型 AI 树的外观截图。活动（=帧）以尖括号呈现。其余节点是动作。叶节点是叶子动作。内部节点是复合、任务组或任务动作。根始终是 <code>stonehearth:top</code> 活动。</p>
-			<p><img src="/modding_guide/images/essentials/debugtools/ai_inspector.png" alt="ai_inspector"/></p>
+			<p><img src="/images/essentials/debugtools/ai_inspector.png" alt="ai_inspector"/></p>
 			<h2><a name="WritingActions"></a>编写动作</h2>
 			<p>动作是在 mod 清单中注册并"注入"到角色 AI 中的 Lua 脚本。本节探讨如何声明动作。<a href="#InjectingActions">下一节</a>探讨如何将动作注入到角色的 AI 中。</p>
 			<h3><a name="LeafAction"></a>叶子动作示例</h3>
@@ -218,7 +218,7 @@
 				</li>
 			</ul>
 			<p><a name="AIStateMachine"></a>以下是 AI 动作状态机的简化图：
-				<img src="/modding_guide/images/advanced/ai/ai_state_machine.png" alt="ai_state_machine"/>
+				<img src="/images/advanced/ai/ai_state_machine.png" alt="ai_state_machine"/>
 			</p>
 			<h3><a name="CompoundAction"></a>复合动作示例</h3>
 			<p>（假设的）<code>find_and_paint_subject_action.lua</code></p>

@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>材质和着色器</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>材质和着色器</h1>
          <ul>
@@ -200,19 +200,19 @@
      gl_FragColor = outColor.rgba;
   }
 </code></pre>
-         <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/><strong>技术说明</strong>：在 Stonehearth 中，我们的着色器使用稍旧版本的 GLSL 编写，这意味着我们有一些已弃用的关键字，如"varying"和"attribute"。它们在兼容性上下文中仍然有效，更多信息可以在<a href="https://gamedev.stackexchange.com/questions/29672/in-out-keywords-in-glsl">这里</a>找到。</p>
+         <p><img src="/images/common/edit_big.png" alt="icon"/><strong>技术说明</strong>：在 Stonehearth 中，我们的着色器使用稍旧版本的 GLSL 编写，这意味着我们有一些已弃用的关键字，如"varying"和"attribute"。它们在兼容性上下文中仍然有效，更多信息可以在<a href="https://gamedev.stackexchange.com/questions/29672/in-out-keywords-in-glsl">这里</a>找到。</p>
          <p>有关 GLSL 的更多信息，您可以深入阅读他们的文档<a href="https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language">这里</a>。</p>
          <h2><a name="Testing"></a>测试着色器</h2>
          <p>您可以在 user_settings.json 中启用此属性，以便能够在不需要重启游戏的情况下测试对着色器和 cubemitter 文件的更改：</p>
          <pre><code>  "enable_renderer_file_watcher" : true
 </code></pre>
          <p>它应该与您的 user_id 处于同一级别，确保在需要的地方添加逗号。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 此选项可能并不总是按预期工作。在某些情况下，您可能需要重新加载游戏才能使更改生效。注意由于渲染相关文件中的错误文件路径或无效值导致的崩溃。</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/> 此选项可能并不总是按预期工作。在某些情况下，您可能需要重新加载游戏才能使更改生效。注意由于渲染相关文件中的错误文件路径或无效值导致的崩溃。</p>
          <p>制作新的渲染材质和着色器非常复杂，但如果您觉得冒险，可以随时复制现有着色器并进行修改。玩家可能拥有不支持某些属性的旧显卡，因此在创建着色器时要小心。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>作为参考，Stonehearth 使用 OpenGL 4.1 进行高质量渲染，但低质量渲染器适用于较旧的驱动程序，因此您应该使用旧式 GLSL。您可以使用 <code>#version</code> pragma 在着色器顶部指定要编译的程序版本。请参阅<a href="https://github.com/mattdesl/lwjgl-basics/wiki/GLSL-Versions">此页面</a>作为参考。但是，请注意，如果您使用 4.1 等最新版本独有的语法和函数，您的着色器可能在由旧 GPU 驱动程序编译时崩溃，因为它们不支持这些函数。</p>
-         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> 有时着色器会导致视觉故障，如果将受影响的体素分割到 QB 模型中的单独矩阵或层中，可以避免这种情况（对于仅将材质应用于其部分颜色的模型）。</p>
-         <p><img src="/modding_guide/images/basic/color_maps/render_materials_layers.png" alt="render_materials_layers"/></p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 在当前版本的游戏中，已知具有渲染材质的实体在尝试选择它们时不会显示轮廓。具有自定义渲染材质的模型部分将显示不正确的选择颜色。</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/>作为参考，Stonehearth 使用 OpenGL 4.1 进行高质量渲染，但低质量渲染器适用于较旧的驱动程序，因此您应该使用旧式 GLSL。您可以使用 <code>#version</code> pragma 在着色器顶部指定要编译的程序版本。请参阅<a href="https://github.com/mattdesl/lwjgl-basics/wiki/GLSL-Versions">此页面</a>作为参考。但是，请注意，如果您使用 4.1 等最新版本独有的语法和函数，您的着色器可能在由旧 GPU 驱动程序编译时崩溃，因为它们不支持这些函数。</p>
+         <p><img src="/images/common/gold.png" alt="icon"/> 有时着色器会导致视觉故障，如果将受影响的体素分割到 QB 模型中的单独矩阵或层中，可以避免这种情况（对于仅将材质应用于其部分颜色的模型）。</p>
+         <p><img src="/images/basic/color_maps/render_materials_layers.png" alt="render_materials_layers"/></p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/> 在当前版本的游戏中，已知具有渲染材质的实体在尝试选择它们时不会显示轮廓。具有自定义渲染材质的模型部分将显示不正确的选择颜色。</p>
       </main>
    </body>
 </html>

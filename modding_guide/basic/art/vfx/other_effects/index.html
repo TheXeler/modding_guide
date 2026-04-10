@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Other effects</title>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
+        <title>其他效果</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
-            <h1>Other effects</h1>
-            <p>There are some types of effects we haven't talked about yet.</p>
+            <h1>其他效果</h1>
+            <p>还有一些我们尚未讨论的效果类型。</p>
             <ul>
                 <li>
-                    <a href="#SFX">Sound effects</a>
+                    <a href="#SFX">音效</a>
                     <ul>
-                        <li><a href="#UISounds">Playing sounds in the UI</a></li>
+                        <li><a href="#UISounds">在 UI 中播放声音</a></li>
                     </ul>
                 </li>
-                <li><a href="#UnitStatus">Unit status effects</a></li>
-                <li><a href="#ActivityOverlay">Activity overlay effects</a></li>
-                <li><a href="#TriggerTrack">Trigger effects</a></li>
-                <li><a href="#SHED">Creating other effects with SHED</a></li>
+                <li><a href="#UnitStatus">单位状态效果</a></li>
+                <li><a href="#ActivityOverlay">活动覆盖效果</a></li>
+                <li><a href="#TriggerTrack">触发效果</a></li>
+                <li><a href="#SHED">使用 SHED 创建其他效果</a></li>
             </ul>
-            <h2><a name="SFX"></a>Sound effects</h2>
-            <p>Sound effects in Stonehearth are in <strong>.ogg</strong> format (to save in filesize).</p>
-            <p>We can play sounds in Lua (by running the effect they're in) or <a href="#UISounds">through Javascript</a> (for example, when we buy something in a shop via the UI). For how to play music and ambient sounds, check <a href="../../../../intermediate/kingdoms/index.html#SoundConstants">this page</a>.</p>
-            <p>Effects can also have a sound track besides light, animations, or particles. An example sound track for the effect JSON file looks like this:</p>
+            <h2><a name="SFX"></a>音效</h2>
+            <p>Stonehearth 中的音效采用 <strong>.ogg</strong> 格式（以节省文件大小）。</p>
+            <p>我们可以在 Lua 中播放声音（通过运行它们所在的效果）或<a href="#UISounds">通过 Javascript</a>（例如，当我们通过 UI 在商店中购买物品时）。有关如何播放音乐和环境声音，请查看<a href="../../../../intermediate/kingdoms/index.html#SoundConstants">此页面</a>。</p>
+            <p>效果除了光照、动画或粒子外，还可以有音轨。效果 JSON 文件的示例音轨如下所示：</p>
             <pre><code>  "sound": {
      "type": "sound_effect",
      "start_time": 150,
@@ -39,58 +39,58 @@
      "track" : "stonehearth:sounds:death_poof"
   }
 </code></pre>
-            <p>These are the fields for the effect file:</p>
+            <p>这些是效果文件的字段：</p>
             <ul>
                 <li>
-                    <p><strong>"type" : "sound_effect"</strong> - this effect track is a sound effect.</p>
+                    <p><strong>"type" : "sound_effect"</strong> - 此效果轨道是音效。</p>
                 </li>
                 <li>
-                    <p><strong>"loop"</strong> -- a boolean to loop the sound (<strong>false</strong> by default).</p>
+                    <p><strong>"loop"</strong> -- 循环声音的布尔值（默认为 <strong>false</strong>）。</p>
                 </li>
                 <li>
-                    <p><strong>"start_time"</strong> -- optional field (defaults to 0). The start time (in milliseconds) at which the sound track should start (in regards to the whole effect). Some sounds are played near the end of the effect, so this might be higher than 0.</p>
+                    <p><strong>"start_time"</strong> -- 可选字段（默认为 0）。音轨应开始的时间（以毫秒为单位）（相对于整个效果）。某些声音在效果接近尾声时播放，因此这可能大于 0。</p>
                 </li>
                 <li>
-                    <p><strong>"end_time"</strong> -- optional field (defaults to the natural duration of the sound). The time (in milliseconds) at which the sound track should end.</p>
+                    <p><strong>"end_time"</strong> -- 可选字段（默认为声音的自然持续时间）。音轨应结束的时间（以毫秒为单位）。</p>
                 </li>
                 <li>
-                    <p><strong>"duration"</strong> -- optional field. Duration of the sound track in milliseconds. It doesn't need to match the natural duration of the sound.</p>
-                    <p>  <img src="/modding_guide/images/common/edit_big.png" alt="icon"/> The way these four fields interact is:</p>
+                    <p><strong>"duration"</strong> -- 可选字段。音轨的持续时间，以毫秒为单位。它不需要与声音的自然持续时间匹配。</p>
+                    <p><img src="/images/common/edit_big.png" alt="icon"/> 这四个字段的交互方式是：</p>
                     <ul>
-                        <li>The sound starts at <strong>"start_time"</strong>.</li>
-                        <li>If <strong>"loop"</strong> is set, the sound loops for the <strong>"duration"</strong>.</li>
-                        <li>If <strong>"end_time"</strong> is set, the sound stops being played at <strong>"end_time"</strong>, even if <strong>"loop"</strong> is <strong>true</strong>. In this case, <strong>"loop"</strong> just loops the interval between <strong>"start_time"</strong> and <strong>"end_time"</strong> (in regards of the whole duration of the effect, not continuously).</li>
-                        <li>If <strong>"end_time"</strong> is not set, it marks the track as finished when the natural duration of the sound is done.</li>
+                        <li>声音在 <strong>"start_time"</strong> 开始。</li>
+                        <li>如果设置了 <strong>"loop"</strong>，声音将循环播放 <strong>"duration"</strong> 时长。</li>
+                        <li>如果设置了 <strong>"end_time"</strong>，声音将在 <strong>"end_time"</strong> 停止播放，即使 <strong>"loop"</strong> 为 <strong>true</strong>。在这种情况下，<strong>"loop"</strong> 只是循环 <strong>"start_time"</strong> 和 <strong>"end_time"</strong> 之间的间隔（相对于效果的整个持续时间，而不是连续循环）。</li>
+                        <li>如果未设置 <strong>"end_time"</strong>，当声音的自然持续时间结束时，它将标记轨道为完成。</li>
                     </ul>
                 </li>
                 <li>
-                    <p><strong>"min_distance"</strong> -- optional field (20 by default). The minimum distance (in number of blocks) at which the sound will start to be audible. If we move our camera farther than this distance from the entity that is playing the effect, we'll stop hearing the sound.</p>
+                    <p><strong>"min_distance"</strong> -- 可选字段（默认为 20）。声音开始可听的最小距离（以方块数为单位）。如果我们将相机移动到离播放效果的实体比此距离更远，我们将不再听到声音。</p>
                 </li>
                 <li>
-                    <p><strong>"max_distance"</strong> -- optional field (60 by default). The maximum distance at which the sound will be audible.</p>
-                    <p>  <img src="/modding_guide/images/common/edit_big.png" alt="icon"/>Note: for this type of sound that is based on distance / location, make sure that your sound file is exported as mono, not as stereo, otherwise there'll be weird echoing. We can use a high value if we want the sound to be audible from far away.</p>
+                    <p><strong>"max_distance"</strong> -- 可选字段（默认为 60）。声音可听的最大距离。</p>
+                    <p><img src="/images/common/edit_big.png" alt="icon"/>注意：对于这种基于距离/位置的声音类型，请确保您的声音文件导出为单声道而不是立体声，否则会出现奇怪的回声。如果我们希望声音从远处也能听到，我们可以使用较高的值。</p>
                 </li>
                 <li>
-                    <p><strong>"falloff"</strong> -- optional field (defaults to 1). The attenuation for the sound (when at a distance, the sound will be less audible). Can contain decimals.</p>
+                    <p><strong>"falloff"</strong> -- 可选字段（默认为 1）。声音的衰减（在远处，声音的可听度会降低）。可以包含小数。</p>
                 </li>
                 <li>
-                    <p><strong>"volume"</strong> -- optional field (defaults to 0.1). The volume (from 0.1 to 100) for the sound, in case we need to adjust it because our file is too loud or quiet compared to the rest of the in-game sounds. Will be scaled with the Effects volume from the game's Sound settings.</p>
+                    <p><strong>"volume"</strong> -- 可选字段（默认为 0.1）。声音的音量（从 0.1 到 100），以防我们需要调整它，因为我们的文件与游戏中的其他声音相比太响或太轻。将根据游戏声音设置中的效果音量进行缩放。</p>
                 </li>
                 <li>
-                    <p><strong>"pitch"</strong> -- optional field. The pitch to apply to the sound track.</p>
+                    <p><strong>"pitch"</strong> -- 可选字段。应用于音轨的音高。</p>
                 </li>
                 <li>
-                    <p><strong>"max_instances"</strong> -- optional field. This is useful when many instances of this sound can be running at the same time. For example, if we wanted that only one lullaby is heard regardless of how many hearthlings are sleeping nearby, we'd set this to 1.</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>Mind that for this particular example, when the first hearthling (who started to play the lullaby) wakes up, the sound will stop, no matter if there are other hearthlings nearby still sleeping (they cancelled playing their sounds because we already got to the <strong>"max_instances"</strong>). If another hearthling goes to sleep after the first one woke up, then the sound will be played again.</p>
+                    <p><strong>"max_instances"</strong> -- 可选字段。当许多此声音的实例可以同时运行时，这很有用。例如，如果我们希望无论附近有多少炉民在睡觉都只听到一首摇篮曲，我们会将其设置为 1。</p>
+                    <p><img src="/images/common/row_alert2.png" alt="icon"/>请注意，对于这个特定示例，当第一个炉民（开始播放摇篮曲的人）醒来时，声音将停止，无论附近是否有其他炉民仍在睡觉（他们取消了播放他们的声音，因为我们已经达到了 <strong>"max_instances"</strong>）。如果另一个炉民在第一个炉民醒来后去睡觉，那么声音将再次播放。</p>
                 </li>
                 <li>
-                    <p><strong>"repeat"</strong> -- optional field (defaults to <strong>false</strong>). Provided your effect contains at least an animation track and a sound track, we restart the sound when the animation loops. This is normally true without needing this field, but in rare cases where the sound effect has a longer duration than the animation you might want to use it to change how it's played. It depends on the duration / loop / start_time and end_time that you set up for your tracks.</p>
+                    <p><strong>"repeat"</strong> -- 可选字段（默认为 <strong>false</strong>）。如果您的效果至少包含一个动画轨道和一个音轨，当动画循环时，我们会重新启动声音。通常情况下这是真的，无需此字段，但在极少数情况下，如果音效的持续时间比动画长，您可能希望使用它来更改其播放方式。这取决于您为轨道设置的 duration / loop / start_time 和 end_time。</p>
                 </li>
                 <li>
-                    <p><strong>"fade_out_time"</strong> -- optional field (defaults to 0 / no fade out). Number of milliseconds after which the sound will stop being audible (it will fade out at the end). Don't use if your sound loops.</p>
+                    <p><strong>"fade_out_time"</strong> -- 可选字段（默认为 0 / 无淡出）。声音将停止可听的毫秒数（它将在末尾淡出）。如果您的声音循环，请不要使用。</p>
                 </li>
                 <li>
-                    <p><strong>"track"</strong> -- required field. The URI of the sound file that we want to play, or this:</p>
+                    <p><strong>"track"</strong> -- 必填字段。我们要播放的声音文件的 URI，或者这个：</p>
                     <pre><code>"track" : {
    "type": "one_of",
    "items": [
@@ -100,19 +100,19 @@
    ]
 }
 </code></pre>
-                    <p>  In which case, a random sound from the array will be played.</p>
+                    <p>在这种情况下，将播放数组中的随机声音。</p>
                 </li>
             </ul>
-            <h3><a name="UISounds"></a>Playing sounds in the UI</h3>
-            <p>This is the syntax for playing sounds in Javascript files:</p>
+            <h3><a name="UISounds"></a>在 UI 中播放声音</h3>
+            <p>这是在 Javascript 文件中播放声音的语法：</p>
             <pre><code>  radiant.call('radiant:play_sound', {'track' : 'stonehearth:sounds:ui:start_menu:shop_buy'} )
 </code></pre>
-            <p>We call the <code>'radiant:play_sound'</code> function and pass an object that contains the URI of the track that we want to play.</p>
-            <h2><a name="UnitStatus"></a>Unit status effects</h2>
-            <p>The bubbles that appear on top of hearthlings when they talk, or the heart that appears when a hearthling loses health are unit status effects.</p>
-            <p><img src="/modding_guide/images/art/vfx/unit_status_effects.png" alt="unit_status_effects"/></p>
-            <p>They are achieved by attaching an image that always faces the camera to a bone from the hearthling's rig (or to a certain distance from the center of any entity).</p>
-            <p>This is an effect track for a unit status effect:</p>
+            <p>我们调用 <code>'radiant:play_sound'</code> 函数并传递一个包含我们要播放的轨道的 URI 的对象。</p>
+            <h2><a name="UnitStatus"></a>单位状态效果</h2>
+            <p>炉民说话时出现在他们头顶的气泡，或者炉民失去生命值时出现的心形，都是单位状态效果。</p>
+            <p><img src="/images/art/vfx/unit_status_effects.png" alt="unit_status_effects"/></p>
+            <p>它们是通过将始终面向相机的图像附加到炉民 rig 的骨骼（或任何实体中心的特定距离）来实现的。</p>
+            <p>这是单位状态效果的效果轨道：</p>
             <pre><code>  "unit_status_effect": {
      "type": "unit_status_effect",
      "material": {
@@ -134,18 +134,18 @@
      "bone": "head"
   }
 </code></pre>
-            <p>We can see the following properties:</p>
+            <p>我们可以看到以下属性：</p>
             <ul>
                 <li>
-                    <p><strong>"type" : "unit_status_effect"</strong> -- this track is a unit status effect.</p>
+                    <p><strong>"type" : "unit_status_effect"</strong> -- 此轨道是单位状态效果。</p>
                 </li>
                 <li>
-                    <p><strong>"duration"</strong> -- the duration in milliseconds that we want this effect track to last. If you don't specify a duration, it may loop forever depending on the effect, so be careful.</p>
+                    <p><strong>"duration"</strong> -- 我们希望此效果轨道持续的持续时间，以毫秒为单位。如果您不指定持续时间，根据效果的不同，它可能会永远循环，所以要小心。</p>
                 </li>
                 <li>
-                    <p><strong>"material" : {}</strong> -- required field. A <a href="../../../color_maps/shaders/index.html#RenderMaterials">render material</a> to render the image. Normally it will point to the billboard material (which renders the image that always faces the camera), and pass the image to show in the "samplers" field (see example above).</p>
-                    <p>  If you want your image to animate, you can set it up like in the example, adding a <strong>"numAnimationFrames"</strong> and a <strong>"frameRate"</strong> fields besides the image in <strong>"map"</strong> (<strong>"name"</strong> must be <strong>"albedoMap"</strong>). Notice how the image name ends with an underscore: we have 25 images in that folder (one per frame) called from <code>dead_00.png</code> to <code>dead_24.png</code>. You can use that convention in order to create animated images.</p>
-                    <p>  Another way to animate if you can't use that convention is like this:</p>
+                    <p><strong>"material" : {}</strong> -- 必填字段。用于渲染图像的<a href="../../../color_maps/shaders/index.html#RenderMaterials">渲染材质</a>。通常它将指向 billboard 材质（渲染始终面向相机的图像），并在"samplers"字段中传递要显示的图像（参见上面的示例）。</p>
+                    <p>如果您希望图像动画化，您可以像示例中那样设置它，除了在 <strong>"map"</strong> 中的图像外，还添加 <strong>"numAnimationFrames"</strong> 和 <strong>"frameRate"</strong> 字段（<strong>"name"</strong> 必须是 <strong>"albedoMap"</strong>）。注意图像名称以下划线结尾：该文件夹中有 25 张图像（每帧一张），从 <code>dead_00.png</code> 到 <code>dead_24.png</code>。您可以使用该约定来创建动画图像。</p>
+                    <p>如果不能使用该约定，另一种动画化方法如下：</p>
                     <pre><code>"samplers" : [
    {
       "name" : "albedoMap",
@@ -165,37 +165,37 @@
    }
 ]
 </code></pre>
-                    <p>  Specify the paths to the images for each frame in an <strong>"animation_frames" : []</strong> field, with a <strong>"numLoops"</strong> field for how many times it should run. Remember that the paths here will be read from <code>stonehearth/data/horde</code> unless you use an absolute path.</p>
+                    <p>在 <strong>"animation_frames" : []</strong> 字段中指定每帧图像的路径，并使用 <strong>"numLoops"</strong> 字段指定它应该运行的次数。请记住，除非您使用绝对路径，否则这里的路径将从 <code>stonehearth/data/horde</code> 读取。</p>
                 </li>
                 <li>
-                    <p><strong>"bone"</strong> -- optional field, defaults to <strong>"head"</strong>. Unit status effects are meant for animated entities, so it's likely they already have a "head" bone. You can define a different bone to attach the image to here. For some posed entities this points to the "center" bone (make sure the bone exists in your entity's <a href="../animations/index.html#Skeleton">rig</a>).</p>
+                    <p><strong>"bone"</strong> -- 可选字段，默认为 <strong>"head"</strong>。单位状态效果旨在用于动画实体，因此它们可能已经有一个"head"骨骼。您可以在此处定义不同的骨骼来附加图像。对于某些姿势实体，这指向"center"骨骼（确保骨骼存在于您实体的 <a href="../animations/index.html#Skeleton">rig</a> 中）。</p>
                 </li>
                 <li>
-                    <p><strong>"width"</strong> -- optional field, defaults to 3.0. Scale for the width (e.g. <strong>2</strong> is double the width of the image).</p>
+                    <p><strong>"width"</strong> -- 可选字段，默认为 3.0。宽度的缩放比例（例如，<strong>2</strong> 是图像宽度的两倍）。</p>
                 </li>
                 <li>
-                    <p><strong>"height"</strong> -- optional field, defaults to 3.0. Scale for the height (e.g. <strong>2</strong> is double the height of the image). Bear in mind that the image will look smaller when you zoom out. If your image is not perfectly square, <strong>"height"</strong> might need to be slightly bigger than <strong>"width"</strong> or viceversa in order to keep the proportions.</p>
+                    <p><strong>"height"</strong> -- 可选字段，默认为 3.0。高度的缩放比例（例如，<strong>2</strong> 是图像高度的两倍）。请记住，当您缩小视图时，图像看起来会更小。如果您的图像不是完美的正方形，<strong>"height"</strong> 可能需要略大于 <strong>"width"</strong>，反之亦然，以保持比例。</p>
                 </li>
                 <li>
-                    <p><strong>"xOffset"</strong> -- optional field, defaults to 0 (we'll subtract half the width from it so that the origin is at the center of the image). Offset in the horizontal coordinate to move the image to (can be negative).</p>
+                    <p><strong>"xOffset"</strong> -- 可选字段，默认为 0（我们将从中减去一半的宽度，以便原点位于图像的中心）。水平坐标的偏移量，用于移动图像（可以为负）。</p>
                 </li>
                 <li>
-                    <p><strong>"yOffset"</strong> -- optional field, defaults to 0 (will get scaled if the entity is scaled, to adjust to its height). Offset in the vertical coordinate to move the image to (can be negative). Similarly to the width and height, the offsets are defined in units, not in pixels.</p>
+                    <p><strong>"yOffset"</strong> -- 可选字段，默认为 0（如果实体被缩放，它将被缩放以调整其高度）。垂直坐标的偏移量，用于移动图像（可以为负）。与宽度和高度类似，偏移量以单位定义，而不是像素。</p>
                 </li>
             </ul>
-            <p>The following fields are only used in <code>stonehearth/data/effects/thoughts/thought_bubble_base.json</code>, but you can use them too for your effect if you want:</p>
+            <p>以下字段仅在 <code>stonehearth/data/effects/thoughts/thought_bubble_base.json</code> 中使用，但如果您愿意，也可以为您的效果使用它们：</p>
             <ul>
-                <li><strong>"xScalePivot"</strong> -- optional field, defaults to 0.5. The pivot for scaling the image horizontally.</li>
-                <li><strong>"yScalePivot"</strong> -- optional field, defaults to 0.5. The pivot for scaling the image vertically. These are positions relative to the image, so the defaults mentioned point to the center of the image.</li>
-                <li><strong>"detach"</strong> -- optional field, defaults to <strong>false</strong>. When <strong>true</strong>, the image will be detached from the bone when it's created, and will get attached after that. By default the images are created directly attached to the bone.</li>
-                <li><strong>"entryAnimation" : {}</strong> -- optional field. Parameters for animating the image when it appears.</li>
-                <li><strong>"exitAnimation" : {}</strong> -- optional field. Parameters for animating the image when it disappears. Take a look at <code>thought_bubble_base.json</code> to check which fields to use for entry/exit animation.</li>
+                <li><strong>"xScalePivot"</strong> -- 可选字段，默认为 0.5。水平缩放图像的枢轴。</li>
+                <li><strong>"yScalePivot"</strong> -- 可选字段，默认为 0.5。垂直缩放图像的枢轴。这些是相对于图像的位置，因此提到的默认值指向图像的中心。</li>
+                <li><strong>"detach"</strong> -- 可选字段，默认为 <strong>false</strong>。当为 <strong>true</strong> 时，图像将在创建时与骨骼分离，然后在那之后附加。默认情况下，图像直接附加到骨骼上创建。</li>
+                <li><strong>"entryAnimation" : {}</strong> -- 可选字段。图像出现时的动画参数。</li>
+                <li><strong>"exitAnimation" : {}</strong> -- 可选字段。图像消失时的动画参数。查看 <code>thought_bubble_base.json</code> 以检查用于进入/退出动画的字段。</li>
             </ul>
-            <p>You can find more examples of unit status effects in <code>stonehearth/data/effects</code>, although the effects there are mixed. There's also some unit status effects that have an animation track, those are under the <code>stonehearth/data/rigs</code> folder, but finding them is harder.</p>
-            <h2><a name="ActivityOverlay"></a>Activity overlay effects</h2>
-            <p>The toast that appears hovering above an entity when we mark it for harvesting, looting, etc. is an activity overlay effect.</p>
-            <p><img src="/modding_guide/images/art/vfx/activity_overlay_effects.png" alt="activity_overlay_effects"/></p>
-            <p>This is mostly used for non-animated entities. Example of an activity overlay track:</p>
+            <p>您可以在 <code>stonehearth/data/effects</code> 中找到更多单位状态效果的示例，尽管那里的效果是混合的。还有一些具有动画轨道的单位状态效果，它们位于 <code>stonehearth/data/rigs</code> 文件夹下，但找到它们比较困难。</p>
+            <h2><a name="ActivityOverlay"></a>活动覆盖效果</h2>
+            <p>当我们标记实体进行收获、掠夺等时，悬停在实体上方的 toast 通知是活动覆盖效果。</p>
+            <p><img src="/images/art/vfx/activity_overlay_effects.png" alt="activity_overlay_effects"/></p>
+            <p>这主要用于非动画实体。活动覆盖轨道的示例：</p>
             <pre><code>  "activity_overlay_effect": {
      "type" : "activity_overlay_effect",
      "material" : {
@@ -214,29 +214,29 @@
      "y_offset" : -10
  }
 </code></pre>
-            <p>These are the fields that we can find in an activity overlay effect track:</p>
+            <p>这些是我们可以在活动覆盖效果轨道中找到的字段：</p>
             <ul>
                 <li>
-                    <p><strong>"type" : "activity_overlay_effect"</strong> -- this is an activity overlay effect track.</p>
+                    <p><strong>"type" : "activity_overlay_effect"</strong> -- 这是一个活动覆盖效果轨道。</p>
                 </li>
                 <li>
-                    <p><strong>"material" : {}</strong> -- a <a href="../../../color_maps/shaders/index.html#RenderMaterials">render material</a> to render the image. Normally it will point to the overlay material, and pass the images to show in the "samplers" field (see example above).</p>
-                    <p>  Normally we'll have an entry for the <strong>"foregroundMap"</strong> for the main image (make it with a transparent background), and one entry for the <strong>"albedoMap"</strong> variable for the background image (normally points to <code>default_overlay.png</code>, which is the square bubble image, will be tinted with the player color in multiplayer).</p>
-                    <p>  Remember that the paths to the images will be read from <code>stonehearth/data/horde</code> by default unless we use an absolute path.</p>
+                    <p><strong>"material" : {}</strong> -- 用于渲染图像的<a href="../../../color_maps/shaders/index.html#RenderMaterials">渲染材质</a>。通常它将指向 overlay 材质，并在"samplers"字段中传递要显示的图像（参见上面的示例）。</p>
+                    <p>通常我们会有一个用于主图像的 <strong>"foregroundMap"</strong> 条目（使用透明背景制作），以及一个用于背景图像的 <strong>"albedoMap"</strong> 变量条目（通常指向 <code>default_overlay.png</code>，即方形气泡图像，在多人游戏中将用玩家颜色着色）。</p>
+                    <p>请记住，除非我们使用绝对路径，否则图像的路径将默认从 <code>stonehearth/data/horde</code> 读取。</p>
                 </li>
                 <li>
-                    <p><strong>"width"</strong> -- optional field (defaults to 64). The width for the image.</p>
+                    <p><strong>"width"</strong> -- 可选字段（默认为 64）。图像的宽度。</p>
                 </li>
                 <li>
-                    <p><strong>"height"</strong> -- optional field (defaults to 64). The height for the image. Unlike with unit status effects, <strong>"width"</strong> and <strong>"height"</strong> for overlay effects are defined in pixels.</p>
+                    <p><strong>"height"</strong> -- 可选字段（默认为 64）。图像的高度。与单位状态效果不同，覆盖效果的 <strong>"width"</strong> 和 <strong>"height"</strong> 以像素定义。</p>
                 </li>
                 <li>
-                    <p><strong>"y_offset"</strong> -- optional field. The offset to place the image vertically above the center of the entity. Unlike with unit status effects, <strong>"y_offset"</strong> for overlay effects is defined in pixels. Defaults to 0, but will still appear above the entity so you can use negative values if you want to lower it - be careful since high negative values can make it sink into the terrain on certain camera positions/rotations. </p>
+                    <p><strong>"y_offset"</strong> -- 可选字段。将图像垂直放置在实体中心上方的偏移量。与单位状态效果不同，覆盖效果的 <strong>"y_offset"</strong> 以像素定义。默认为 0，但仍会出现在实体上方，因此如果您想降低它，可以使用负值 - 小心，因为较高的负值可能会使其在某些相机位置/旋转下沉到地形中。</p>
                 </li>
             </ul>
-            <h2><a name="TriggerTrack"></a>Trigger effects</h2>
-            <p>In a <a href="../animations/index.html#AttachItemSyntax">previous section</a> we talked about some syntax for the attach item track that can only be seen for the <code>promote</code> effect, and it's dependent on the AI action. The promote effect also has several <strong>"trigger_effect"</strong> tracks, which aren't used anywhere else in the code (likely because we can trigger and listen to events more easily from Lua). This effect has animation, sound and cubemitter tracks, besides several trigger effect tracks.</p>
-            <p>You'll rarely want to use this, since there might be easier/other ways to do this, but here's the example:</p>
+            <h2><a name="TriggerTrack"></a>触发效果</h2>
+            <p>在<a href="../animations/index.html#AttachItemSyntax">上一节</a>中，我们讨论了 attach item 轨道的一些语法，这些语法只能在 <code>promote</code> 效果中看到，并且依赖于 AI 动作。promote 效果还有几个 <strong>"trigger_effect"</strong> 轨道，这些轨道在代码的其他地方没有使用（可能是因为我们可以更容易地从 Lua 触发和监听事件）。此效果除了几个触发效果轨道外，还有动画、声音和 cubemitter 轨道。</p>
+            <p>您很少会使用这个，因为可能有更简单/其他的方法来做这件事，但这里是示例：</p>
             <pre><code>  "promote_trigger" : {
      "type": "trigger_effect",
      "start_frame": 145,
@@ -246,18 +246,18 @@
      }
   }
 </code></pre>
-            <p>The properties are:</p>
+            <p>属性是：</p>
             <ul>
-                <li><strong>"type" : "trigger_effect"</strong> -- this track is a trigger effect.</li>
-                <li><strong>"start_frame"</strong> -- the frame at which the track should trigger.</li>
-                <li><strong>"info" : {}</strong> -- the info about the event to trigger. It has an <strong>"event"</strong> field with an event key, and a <strong>"talisman"</strong> field (which is custom data, also retrieved from the arguments passed to the <code>'stonehearth:run_effect'</code> action). In <code>change_job_using_talisman_action.lua</code> we create a trigger function (think of it as a callback) to pass to the promote effect when we run it. It then runs code depending on the <strong>"event"</strong> to promote the hearthling, removing the talisman and assigning their tool via the job component.</li>
+                <li><strong>"type" : "trigger_effect"</strong> -- 此轨道是触发效果。</li>
+                <li><strong>"start_frame"</strong> -- 轨道应触发的帧。</li>
+                <li><strong>"info" : {}</strong> -- 关于要触发的事件的信息。它有一个带有事件键的 <strong>"event"</strong> 字段，以及一个 <strong>"talisman"</strong> 字段（这是自定义数据，也从传递给 <code>'stonehearth:run_effect'</code> 动作的参数中检索）。在 <code>change_job_using_talisman_action.lua</code> 中，我们创建一个触发函数（将其视为回调）以在运行 promote 效果时传递给它。然后根据 <strong>"event"</strong> 运行代码以提升炉民，移除护身符并通过 job 组件分配他们的工具。</li>
             </ul>
-            <h2><a name="SHED"></a>Creating other effects with SHED</h2>
-            <p>We already mentioned <a href="../index.html#SHED">one way</a> to create effects with SHED. There's another option: go to the Effects Editor, find a similar effect than what you want to create in the 'Effects' tab. Right click on it, click on 'Clone', change the target mod to your mod and provide a replacement name.</p>
-            <p><img src="/modding_guide/images/art/vfx/cloning_effect_from_effects_tab.png" alt="cloning_effect_from_effects_tab"/></p>
-            <p>Then confirm, and the tree view will refresh to add your effect. Edit it since the replacement texts might be pointing to unexisting files and change the rest of properties to what you want to.</p>
-            <p>With this method you will need to add an alias for the effect separately, but you can do so in the Manifest view: right click in your mod's name, click on 'Add New Alias', select the file that was created, and then a popup will appear for you to edit the alias.</p>
-            <p>With the other method the alias will be generated when cloning the effect file, so it might be faster. You'll need to create any additional files separately, or reuse some from the stonehearth mod.</p>
+            <h2><a name="SHED"></a>使用 SHED 创建其他效果</h2>
+            <p>我们已经提到了<a href="../index.html#SHED">一种</a>使用 SHED 创建效果的方法。还有另一种选择：转到 Effects Editor，在'Effects'选项卡中找到与您想要创建的类似的效果。右键单击它，点击'Clone'，将目标 mod 更改为您的 mod 并提供替换名称。</p>
+            <p><img src="/images/art/vfx/cloning_effect_from_effects_tab.png" alt="cloning_effect_from_effects_tab"/></p>
+            <p>然后确认，树视图将刷新以添加您的效果。编辑它，因为替换文本可能指向不存在的文件，并将其余属性更改为您想要的。</p>
+            <p>使用此方法，您需要单独为效果添加别名，但您可以在 Manifest 视图中执行此操作：右键单击您的 mod 名称，点击'Add New Alias'，选择创建的文件，然后将出现一个弹出窗口供您编辑别名。</p>
+            <p>使用另一种方法，克隆效果文件时将生成别名，因此可能更快。您需要单独创建任何其他文件，或重用 stonehearth mod 中的一些文件。</p>
         </main>
     </body>
 </html>

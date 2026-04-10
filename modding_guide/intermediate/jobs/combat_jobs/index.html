@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>战斗类职业</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>战斗类职业</h1>
             <p>战斗由许多文件控制：combat 服务、combat_state / target_tables 组件、<code>stonehearth/ai/actions/combat</code> 下的 AI 行为等。</p>
@@ -208,7 +208,7 @@
                         </li>
                         <li>
                             <p>我们编辑控制器文件。这非常重要。我们重命名的控制器文件仍将具有相同的代码，所以我们必须在其中重命名一些内容。</p>
-                            <p> <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 游戏中的所有职业都继承自 <code>base_job.lua</code>。战斗类职业改为继承自 <code>combat_job.lua</code>，因为该文件已经继承自 base_job.lua。<code>CombatJob</code> 类在 combat_job.lua 中定义，负责在战斗单位提升时将它们添加到默认队伍中，在他们降级到非战斗职业时移除它们，并管理战斗单位在巡逻时的经验获取。</p>
+                            <p> <img src="/images/common/row_alert2.png" alt="图标"/> 游戏中的所有职业都继承自 <code>base_job.lua</code>。战斗类职业改为继承自 <code>combat_job.lua</code>，因为该文件已经继承自 base_job.lua。<code>CombatJob</code> 类在 combat_job.lua 中定义，负责在战斗单位提升时将它们添加到默认队伍中，在他们降级到非战斗职业时移除它们，并管理战斗单位在巡逻时的经验获取。</p>
                             <p> 在我们重命名 Footman 为 Crusader 后，我们的 <code>crusader.lua</code> 文件将如下所示：</p>
                             <pre><code>local CrusaderClass = class()
 

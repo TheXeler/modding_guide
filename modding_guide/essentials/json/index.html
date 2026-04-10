@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>JSON 简介</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>JSON 简介</h1>
             <p>在 Stonehearth 中，我们使用 <a href="https://www.json.org/">JSON</a> 作为数据文件（那些不是 3D 模型/2D 图像/脚本等的文件）。
@@ -60,7 +60,7 @@
   }
 </code></pre>
             <blockquote>
-                <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 我们<strong>不能</strong>在 JSON 对象的同一级别拥有重复的键。键是标识符，所以如果我们在示例中再次写入 "game_name" 而不是 "genre"，即使值不同，读取 JSON 的程序也会难以确定哪个是我们想要分配给该键的正确值。</p>
+                <p><img src="/images/common/row_alert2.png" alt="图标"/> 我们<strong>不能</strong>在 JSON 对象的同一级别拥有重复的键。键是标识符，所以如果我们在示例中再次写入 "game_name" 而不是 "genre"，即使值不同，读取 JSON 的程序也会难以确定哪个是我们想要分配给该键的正确值。</p>
             </blockquote>
             <h3><a name="Numbers"></a>数字</h3>
             <p>当我们需要编写不是字符串的值时，我们不需要使用引号。例如，对于数字，我们这样写：</p>

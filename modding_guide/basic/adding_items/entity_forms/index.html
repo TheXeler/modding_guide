@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>Entity Forms</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>Entity Forms</h1>
          <p>Let's take a look at the entity forms component. We'll be using the Piggy Bank from the startermod_basic mod for this explanation (refer to <a href="../../../essentials/startermods/index.html">this</a> for how to get it).</p>
@@ -30,7 +30,7 @@
          <p>Every placeable item must have 3 forms, represented by different JSON files:</p>
          <h3><a name="Root"></a>Root</h3>
          <p>This represents the placed item. Its JSON file contains the entity_forms component, therefore references the two other forms's files.
-            <img src="/modding_guide/images/basic/adding_items/piggy_root.png" alt="piggy_root"/>
+            <img src="/images/basic/adding_items/piggy_root.png" alt="piggy_root"/>
          </p>
          <p>This is the piggy_bank.json file that represents the Piggy Bank entity:</p>
          <pre><code>  {
@@ -69,7 +69,7 @@
          <p>The entity_forms component will read the files for the ghost and iconic forms that we declare here, so the game will know how to represent this entity when it is in a stockpile, when we order to place it, and when it is already placed.</p>
          <h3><a name="Ghost"></a>Ghost</h3>
          <p>This represents the semi-transparent form that the item has when we order to place it in the world but it hasn't been placed yet.
-            <img src="/modding_guide/images/basic/adding_items/piggy_ghost.png" alt="piggy_ghost"/>
+            <img src="/images/basic/adding_items/piggy_ghost.png" alt="piggy_ghost"/>
          </p>
          <p>This is the piggy_bank_ghost.json file:</p>
          <pre><code>  {
@@ -108,7 +108,7 @@
          <p>Notice that it doesn't have a "type" field, it's not really an entity, it's just a blob of data reused by other entities and components. It only has some mixins, components and entity_data that we need to represent the "ghost" form of the item. We also reuse it as a mixin in the piggy_bank.json file, so all of these properties are pulled into that file too.</p>
          <h3><a name="Iconic"></a>Iconic</h3>
          <p>This represents the small / simplified form of the item, which we get when we craft / obtain that item and when hearthlings carry it or move it to a stockpile.
-            <img src="/modding_guide/images/basic/adding_items/piggy_iconic.png" alt="piggy_iconic"/>
+            <img src="/images/basic/adding_items/piggy_iconic.png" alt="piggy_iconic"/>
          </p>
          <p>This is the piggy_bank_iconic.json file:</p>
          <pre><code>  {

@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>Mixins</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>Mixins</h1>
          <p>我们在指南的前面部分已经遇到过 Mixins。不要将它们与 "mixintos" 混淆。</p>
@@ -163,16 +163,16 @@
          <p>注意 "mixins" 节点的数组括号。第一个 mixin 指定为路径，其他的指定为别名。</p>
          <h3><a name="RelativePaths"></a>关于相对路径</h3>
          <p>观察上面示例中的 mixin "file(cobblestone_fence_gate_ghost.json)"。由于 cobblestone_fence_gate_ghost.json 文件与 cobblestone_fence_gate.json（引用它的文件）在同一文件夹中，<strong>"file()"</strong> 将在同一文件夹中搜索 cobblestone_fence_gate_ghost.json：
-            <img src="/modding_guide/images/essentials/mixins/mixin_in_same_folder.png" alt="mixin_in_same_folder"/>
+            <img src="/images/essentials/mixins/mixin_in_same_folder.png" alt="mixin_in_same_folder"/>
          </p>
          <p>如果它在另一个文件夹中，我们将使用 "file(other_folder/cobblestone_fence_gate_ghost.json)"。例如，如果像这张图片中那样，我们会说 "file(mixins/cobblestone_fence_gate_ghost.json)"：
-            <img src="/modding_guide/images/essentials/mixins/mixin_in_inner_folder.png" alt="mixin_in_inner_folder"/>
+            <img src="/images/essentials/mixins/mixin_in_inner_folder.png" alt="mixin_in_inner_folder"/>
          </p>
          <p>如果它在 cobblestone_fence_gate.json 所在文件夹的外部，我们将使用 "file(../cobblestone_fence_gate_ghost.json)"：
-            <img src="/modding_guide/images/essentials/mixins/mixin_outside.png" alt="mixin_outside"/>
+            <img src="/images/essentials/mixins/mixin_outside.png" alt="mixin_outside"/>
          </p>
          <p>如果它在外部的一个文件夹中，我们将使用 "file(../other_folder/cobblestone_fence_gate_ghost.json)"。在这张图片的情况下，它将是 "file(../mixins/cobblestone_fence_gate_ghost.json)"：
-            <img src="/modding_guide/images/essentials/mixins/mixin_in_outer_folder.png" alt="mixin_in_outer_folder"/>
+            <img src="/images/essentials/mixins/mixin_in_outer_folder.png" alt="mixin_in_outer_folder"/>
          </p>
          <p>正如你所见，对于我们从包含路径引用的文件的文件夹向上的每个目录，我们在路径开头附加一个 <code>../</code>。</p>
          <h3><a name="AbsolutePaths"></a>关于绝对路径</h3>

@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>测试你的模组</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>测试你的模组</h1>
             <p>除了使用 debugtools 外，还有几个模组可以帮助我们测试自己的模组。通常我们会在其中创建自己的测试文件，无需仅为测试自定义模组而制作带有 mixintos 的单独模组。</p>
@@ -116,14 +116,14 @@ return SettlementTest
 </code></pre>
                     <p>  我们在第一行需要 <code>micro_world.lua</code> 文件，其中包含 <code>Microworld</code> 类。然后我们实例化 Microworld 类，并为我们的对象定义一个 <code>__init()</code> 函数以初始化我们的自定义世界。在其中，我们调用 Microworld 类的初始化函数，传递我们希望测试世界的直径（以方块数为单位），并调用 <code>create_world()</code> 函数（也来自 Microworld 类）以实际创建平坦地形。最后，我们返回我们的对象。</p>
                     <p>  如果需要，我们可以在类中创建更多函数。<code>micro_world.lua</code> 中已经有许多函数对准备测试世界很有用，你可以像调用 <code>create_world()</code> 函数一样调用它们，并传递你需要的任何参数。例如，<code>create_world()</code> 函数可以接收王国 URI 和生物群系 URI 作为参数，以使用它们生成测试世界。</p>
-                    <p>  <a name="Warning"></a><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 请注意，microworld 尝试模拟常规游戏，但它实际上并不经历与常规游戏相同的游戏流程。例如，我们必须手动初始化要在 <code>MicroWorld:create_world</code> 中使用的服务。因此，如果你遇到仅在测试中发生的 bug，这可能是由于测试本身而不是游戏。通常测试应该匹配游戏行为，但不能保证。</p>
+                    <p>  <a name="Warning"></a><img src="/images/common/row_alert2.png" alt="图标"/> 请注意，microworld 尝试模拟常规游戏，但它实际上并不经历与常规游戏相同的游戏流程。例如，我们必须手动初始化要在 <code>MicroWorld:create_world</code> 中使用的服务。因此，如果你遇到仅在测试中发生的 bug，这可能是由于测试本身而不是游戏。通常测试应该匹配游戏行为，但不能保证。</p>
                 </li>
             </ul>
             <h2><a name="StonehearthTests"></a>Stonehearth Tests</h2>
             <p>这些测试与上面解释的 Microworld 世界非常相似。<code>stonehearth_tests</code> 模组利用 <code>microworld</code> 模组生成测试世界，因此如果你计划使用 <code>stonehearth_tests</code> 模组，你需要在模组菜单中启用两者。</p>
             <p>开发团队使用此模组在开发过程中手动隔离测试功能，或尝试在小环境中重现 bug。</p>
             <p>你在此模组中有大量示例可以重用，所以如果你是编码新手，你可以在这里摆弄 Lua，直到你感觉足够舒适以在你的模组中尝试更复杂的事情。</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 上面为 microworld <a href="#Warning"> stated</a> 的相同警告也适用于 stonehearth_tests 模组。例如，在运行测试时，你会注意到游戏大师服务尚未初始化（当你打开 Campaign Browser 调试工具时它看起来是空白的——幸运的是它有一个从 UI 启动它的按钮）。所以你需要手动初始化它们。此外，除非你执行 <code>multiplayer_test.lua</code> 中列出的操作，否则多人游戏不起作用。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 上面为 microworld <a href="#Warning"> stated</a> 的相同警告也适用于 stonehearth_tests 模组。例如，在运行测试时，你会注意到游戏大师服务尚未初始化（当你打开 Campaign Browser 调试工具时它看起来是空白的——幸运的是它有一个从 UI 启动它的按钮）。所以你需要手动初始化它们。此外，除非你执行 <code>multiplayer_test.lua</code> 中列出的操作，否则多人游戏不起作用。</p>
             <h3><a name="SetupTests"></a>设置 stonehearth_tests</h3>
             <p><strong>stonehearth_tests</strong> 模组现在与游戏捆绑在一起。</p>
             <ol>
@@ -160,7 +160,7 @@ return SettlementTest
 </code></pre>
             <h2><a name="Autotests"></a>Stonehearth Autotests</h2>
             <p>我们可以创建自动化测试，将预期结果与实际结果进行比较，这样我们就不必手动测试功能。它们对于验证在更改某些代码后是否引入了回归非常有用。</p>
-            <p><img src="/modding_guide/images/common/gold.png" alt="图标"/> 请记住，我们可能无法自动化某些事情，并且 autotest 有时重现的问题在游戏中无法重现，反之亦然。尽量避免有时通过有时失败的不可靠测试。</p>
+            <p><img src="/images/common/gold.png" alt="图标"/> 请记住，我们可能无法自动化某些事情，并且 autotest 有时重现的问题在游戏中无法重现，反之亦然。尽量避免有时通过有时失败的不可靠测试。</p>
             <p>要创建我们自己的自动化测试，我们有两个现在与游戏捆绑在一起的模组。<code>stonehearth_autotest</code> 模组需要 <code>autotest_framework</code> 模组才能工作，因此如果你计划运行 autotests，你必须在 user_settings.json 中启用两者：</p>
             <ol>
                 <li>
@@ -296,7 +296,7 @@ end
 </code></pre>
                     <p>  为了找到 autotests 中使用的辅助函数，你需要查看 <code>autotest_framework</code> 文件。例如，在上面的示例中，我们调用 <code>autotest.env.create_person()</code>，这是来自 <code>autotest_framework/lib/server/autotest_environment.lua</code> 的函数。</p>
                     <p>  函数 <code>autotest.util.listen()</code> 是来自 <code>autotest_framework/lib/server/autotest_util_server.lua</code> 的包装函数（你可以在那里找到其他辅助函数，如 <code>fail_if_expired(timeout)</code>）。</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 任何时候你在 autotests 中监听事件时，你必须使用其中定义的包装器之一，以便 autotest 框架可以正确清理它们，无论测试通过还是失败（否则，当下一个测试执行时，一些监听器可能仍然存在，并可能在错误的时间触发，抛出错误）。</p>
+                    <p>  <img src="/images/common/row_alert2.png" alt="图标"/> 任何时候你在 autotests 中监听事件时，你必须使用其中定义的包装器之一，以便 autotest 框架可以正确清理它们，无论测试通过还是失败（否则，当下一个测试执行时，一些监听器可能仍然存在，并可能在错误的时间触发，抛出错误）。</p>
                     <p>  <code>autotest:success()</code>、<code>autotest:fail()</code> 和 <code>autotest:sleep()</code> 函数在 <code>autotest_framework/lib/server/autotest_instance.lua</code> 中定义，它控制 autotests 的实际执行。<code>sleep()</code> 函数的参数是一个表示毫秒的数字。</p>
                     <p>  测试中使用的其他常见函数位于 <code>autotest_framework/lib/server/autotest_ui_server.lua</code> 中。当然，你可以使用来自游戏的代码（如检索组件等）。</p>
                     <p>  要小心，因为如果你不重置/清理某些内容，它们可能会从一个测试保留到另一个测试，如打开的 UI 菜单。</p>
@@ -329,7 +329,7 @@ end
                 </li>
                 <li>
                     <p>将 [PATH_TO_MODS_FOLDER] 替换为你的 stonehearth 模组文件夹的路径。</p>
-                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 只有模组文件夹中提取的模组将被分析。其他文件夹中的模组或 .smod 格式的模组将被跳过。</p>
+                    <p><img src="/images/common/row_alert2.png" alt="图标"/> 只有模组文件夹中提取的模组将被分析。其他文件夹中的模组或 .smod 格式的模组将被跳过。</p>
                 </li>
                 <li>
                     <p>加载你想要分析的游戏。</p>
@@ -362,7 +362,7 @@ end
                     <p>再次分析！</p>
                 </li>
             </ol>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 重要：每次需要加载新分析时，启动一个新的 <code>lua_profiler/lua_profiler.html</code> 标签页。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 重要：每次需要加载新分析时，启动一个新的 <code>lua_profiler/lua_profiler.html</code> 标签页。</p>
             <p>注意：如果你在 <code>ai::CreateAction</code> 中分析时遇到游戏崩溃，请在前一行添加对 <code>ai.get()</code> 的检查。</p>
         </main>
     </body>

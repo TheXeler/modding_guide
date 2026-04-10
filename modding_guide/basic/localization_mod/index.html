@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>翻译 mods</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>翻译 mods</h1>
          <p>游戏的翻译可以作为 mods 提供。我们也可以为其他玩家的 mods 提供翻译。</p>
@@ -24,7 +24,7 @@
          </ul>
          <h2><a name="StartermodLocale"></a>startermod_locale mod</h2>
          <p>要制作 stonehearth mod 或任何其他 mod 的粉丝翻译，我们可以使用 <strong>startermod_locale</strong> mod 作为模板。</p>
-         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> 如果您通过 Mods 菜单中的<a href="../../essentials/managing/workshop/index.html#UploadWorkshop">“创建新 Mod”按钮</a>创建翻译 mod，请确保勾选“这是一个翻译 mod吗？”复选框，以便将 mod 正确标记为 <code>"client_only"</code>。否则，请确保在清单的"info"部分将此属性设置为 true。</p>
+         <p><img src="/images/common/gold.png" alt="icon"/> 如果您通过 Mods 菜单中的<a href="../../essentials/managing/workshop/index.html#UploadWorkshop">“创建新 Mod”按钮</a>创建翻译 mod，请确保勾选“这是一个翻译 mod吗？”复选框，以便将 mod 正确标记为 <code>"client_only"</code>。否则，请确保在清单的"info"部分将此属性设置为 true。</p>
          <p>从 Github 下载 <a href="https://github.com/stonehearth/startermod_locale">startermod_locale</a>。将其解压缩到"mods"文件夹中，并确保文件夹名为 startermod_locale，并且具有正确的结构，以便可以加载而不会出现<a href="../../essentials/managing/unmanaged/index.html#ModConflicts">冲突</a>。</p>
          <p>在 startermod_locale 文件夹内，您应该看到一个 manifest.json 文件、一个 added_languages.json 文件和一个 translations 文件夹，其中包含 2 个文件夹，代表创建此 mod 时存在的两个 mods（stonehearth 和 rayyas_children）。在每个文件夹内，将有 2 个名为 en-XA.json 和 en-DEV.json 的文件。</p>
          <p>startermod_locale mod 添加了 stonehearth 和 rayya children 的 en.json 文件的伪本地化。en-DEV.json 文件是用于生成 en-XA.json 的纯英文。伪本地化将 stonehearth 的 en.json 文件中的所有字符替换为带有重音符号的字符。这模拟了外语在游戏中显示时的样子。</p>
@@ -51,7 +51,7 @@
 </code></pre>
          <p><strong>"display_name"</strong> 的值是设置语言下拉菜单将显示的语言名称。您可以使用它以 native 形式显示语言名称。</p>
          <p>名称（"en-XA"）是翻译的语言代码（参见：<a href="http://www.science.co.il/Language/Locale-codes.asp">http://www.science.co.il/Language/Locale-codes.asp</a>）。大多数语言和语言变体都有语言代码。在这种情况下，"en"表示英语，"XA"是为伪区域设置制作的名称。德语翻译将是 de-DE.json，中文普通话翻译将是 zh-CN.json。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 如果您有特定区域的翻译，翻译文件名的最后 2 个字母必须大写！</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/> 如果您有特定区域的翻译，翻译文件名的最后 2 个字母必须大写！</p>
          <p>然后，回到 startermod_locale 的 manifest.json，我们使用 overrides 添加此 mod 提供的翻译：</p>
          <pre><code>  "overrides": {
      "stonehearth/locales/en-XA.json": "file(translations/stonehearth/en-XA.json)",
@@ -62,10 +62,10 @@
 </code></pre>
          <p>这些 overrides 的作用就像您在 stonehearth/locales/ 和 rayyas_children/locales/ 目录下添加了<a href="../../essentials/mixintos_overrides/index.html#OverrideNonExisting">新文件</a>一样。</p>
          <p>指向的文件是 translations 文件夹下的 en-XA.json / en-DEV.json 文件。这些是包含所有翻译字符串的文件。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 对于您的翻译 mod，请从 <code>stonehearth/locales</code> 复制"en.json"，此示例 mod 提供的示例不包含最新版本游戏的所有字符串。还要从 rayyas_children 和 northern_alliance mods 以及您希望翻译的任何其他 mod 中复制 en.json。</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/> 对于您的翻译 mod，请从 <code>stonehearth/locales</code> 复制"en.json"，此示例 mod 提供的示例不包含最新版本游戏的所有字符串。还要从 rayyas_children 和 northern_alliance mods 以及您希望翻译的任何其他 mod 中复制 en.json。</p>
          <h2><a name="I18NData"></a>如何翻译 en.json</h2>
          <p>仅翻译 JSON 文件中冒号（':'）后面的字符串。您可以使用像 <a href="https://brunosupremo.github.io/Stonehearth-Translator/">Stonehearth-Translator</a> 这样的工具更轻松地编辑 JSON。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 不要修改 ':' 左侧的字符串，这些是游戏使用的字符串地址。另外，不要修改括号（'[' 或 ']'）包围的字符串。</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/> 不要修改 ':' 左侧的字符串，这些是游戏使用的字符串地址。另外，不要修改括号（'[' 或 ']'）包围的字符串。</p>
          <p>示例：</p>
          <pre><code>    ...
     "ai": {
@@ -106,13 +106,13 @@
                <p>找到您要更改的字体。为此：</p>
                <ul>
                   <li>在游戏打开并显示使用该字体的 UI 片段时，在浏览器中输入 <code>localhost:1338</code>，然后点击"Stonehearth UI"。
-                     <img src="/modding_guide/images/essentials/debugging/ui_port.png" alt="ui_port"/>
+                     <img src="/images/essentials/debugging/ui_port.png" alt="ui_port"/>
                   </li>
                   <li>然后激活“检查元素”按钮并返回游戏。
-                     <img src="/modding_guide/images/essentials/debugging/inspect_element_tool.png" alt="inspect_element_tool"/>
+                     <img src="/images/essentials/debugging/inspect_element_tool.png" alt="inspect_element_tool"/>
                   </li>
                   <li>点击具有相关字体的文本并返回浏览器。在“Style”选项卡中，您应该在其中一个 CSS 样式（font-family 属性）中找到字体名称。
-                     <img src="/modding_guide/images/basic/localization_mod/finding_game_font.png" alt="finding_game_font"/>
+                     <img src="/images/basic/localization_mod/finding_game_font.png" alt="finding_game_font"/>
                   </li>
                </ul>
             </li>
@@ -128,7 +128,7 @@
             </li>
             <li>
                <p>可选地覆盖任何其他 .less 文件，如果您看到翻译后的文本溢出 UI，或者您想更改字体大小等。</p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 请记住，覆盖 .less 文件将与也覆盖相同文件的其他 mod 不兼容。</p>
+               <p><img src="/images/common/row_alert2.png" alt="icon"/> 请记住，覆盖 .less 文件将与也覆盖相同文件的其他 mod 不兼容。</p>
                <p>只要您的翻译 mod 已启用，即使玩家未在系统设置中选择您的语言，也会应用您的新字体。</p>
             </li>
          </ol>

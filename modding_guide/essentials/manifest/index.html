@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>清单文件（Manifest）</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>清单文件（Manifest）</h1>
             <ul>
@@ -40,7 +40,7 @@
             <h2><a name="YourFirstMod"></a>你的第一个模组</h2>
             <p>要开始制作你的模组，请在 Stonehearth/mods 目录中创建一个文件夹。你可以随意命名文件夹，但它<strong>只能</strong>包含字母数字字符、连字符和下划线。我们也倾向于仅使用小写字母作为文件夹名称。</p>
             <blockquote>
-                <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你打算将模组上传到 Steam 创意工坊，你应该通过<a href="../managing/workshop/index.html#UploadWorkshop">模组菜单</a>创建你的模组文件夹。或者，你可以在 Stonehearth/mods 文件夹中开发你的模组，当它准备好后，通过模组菜单生成模组文件夹，复制粘贴你的模组内容，并编辑自动生成的清单文件内容以包含你的添加内容。</p>
+                <p><img src="/images/common/row_alert2.png" alt="图标"/> 如果你打算将模组上传到 Steam 创意工坊，你应该通过<a href="../managing/workshop/index.html#UploadWorkshop">模组菜单</a>创建你的模组文件夹。或者，你可以在 Stonehearth/mods 文件夹中开发你的模组，当它准备好后，通过模组菜单生成模组文件夹，复制粘贴你的模组内容，并编辑自动生成的清单文件内容以包含你的添加内容。</p>
                 <p>从那时起，你应该继续在自动生成的模组文件夹中开发你的模组，或者禁用该模组并在 mods 文件夹中开发那个模组，每当需要将更新推送到创意工坊时重复上述步骤。本指南中的步骤将引用 mods 文件夹（本地模组），但如果你愿意，你可以在为创意工坊自动生成的文件夹中开发你的模组。</p>
             </blockquote>
             <p>在你的模组文件夹中创建一个文本文件并将其命名为 <code>manifest.json</code>（确保扩展名是 .json 而不是 .json.txt 或类似格式。启用显示<a href="../stonehearth/index.html#FileExtensions">文件扩展名</a>以便你可以看到文件的实际格式）。
@@ -69,7 +69,7 @@
                 </li>
                 <li>
                     <p><strong>版本</strong>。<br/>
-                        <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> "info" 部分的 <code>"version"</code> 键指的是游戏本身的模组 API 版本，而不是你的模组版本。它用于在 API 版本更改时自动使旧模组过时。要使你的模组与当前版本的游戏兼容，请始终确保它具有与当前 <code>stonehearth</code> 模组中相同的值，现在是 3。
+                        <img src="/images/common/row_alert2.png" alt="图标"/> "info" 部分的 <code>"version"</code> 键指的是游戏本身的模组 API 版本，而不是你的模组版本。它用于在 API 版本更改时自动使旧模组过时。要使你的模组与当前版本的游戏兼容，请始终确保它具有与当前 <code>stonehearth</code> 模组中相同的值，现在是 3。
                     </p>
                 </li>
                 <li>
@@ -104,7 +104,7 @@
      "medium_oak_tree" : "file(entities/trees/oak_tree/medium_oak_tree)"
   }
 </code></pre>
-            <p><a name="Filepaths"></a><img src="/modding_guide/images/common/gold.png" alt="图标"/>你可能已经注意到路径看起来有点奇怪。有几种方法可以指定路径。这些都是等效的：</p>
+            <p><a name="Filepaths"></a><img src="/images/common/gold.png" alt="图标"/>你可能已经注意到路径看起来有点奇怪。有几种方法可以指定路径。这些都是等效的：</p>
             <blockquote>
                 <pre><code> "medium_oak_tree" : "file(entities/trees/oak_tree/medium_oak_tree)"
  "medium_oak_tree" : "file(entities/trees/oak_tree/medium_oak_tree/medium_oak_tree.json)"
@@ -137,7 +137,7 @@
             <pre><code>  "dependencies" : [ "mod_a", "mod_b"]
 </code></pre>
             <p>这样，如果我们的模组覆盖了与 "mod_a" 或 "mod_b" 相同的文件，我们的覆盖将获胜，因为它们将最后加载。</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 这不会强制依赖关系，也不会在玩家缺少依赖关系时警告他们。模组制作者应该相互讨论以决定哪个模组应该添加依赖关系，并告诉玩家安装他们需要的模组。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 这不会强制依赖关系，也不会在玩家缺少依赖关系时警告他们。模组制作者应该相互讨论以决定哪个模组应该添加依赖关系，并告诉玩家安装他们需要的模组。</p>
             <p>基础模组将首先加载。在多人游戏中，仅限客户端的模组将单独排序，因为主机可能没有它们。"dependencies" 字段不会影响热加载的清单文件。</p>
             <p>如果游戏检测到循环依赖（如 mod_a 依赖于 mod_b，mod_b 依赖于 mod_c，mod_c 依赖于 mod_a），这些模组将被临时禁用（它不会影响 user_settings 禁用设置，也不会更改模组菜单中的复选框）。如果依赖关系可能导致游戏中的错误，它们将被禁用。模组加载后会出现一个弹出窗口，告知哪些模组具有循环依赖关系并将因此被禁用。</p>
             <p>同样，如果我们有一个具有依赖关系的模组，但所依赖的模组未安装或已禁用，游戏将忽略该依赖关系并像没有依赖关系一样加载该模组。</p>

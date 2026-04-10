@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>原点</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>原点</h1>
             <ul>
@@ -29,7 +29,7 @@
             <p>你可以使用 <strong>mob</strong> 组件定义对象的中心（原点）以及它们如何旋转。</p>
             <p>一般来说，模型的原点位于它们所附着表面的中心。对于家具，它们通常附着在地面上，所以原点在底部的中心。一些装饰品附着在墙上，所以它们的原点是附着到墙上的方块的中心。其他像武器和盔甲这样的物品有特殊的原点规则，因此这里不讨论。查看<a href="../../../basic/wearables/weapons/index.html">此页面</a>了解如何对齐它们。</p>
             <p>如果你已启用<a href="../../../essentials/debugtools/index.html#DebugKeys">调试键</a>，你可以按 F11 查看给定对象的轴。它们代表该模型在体素编辑器中的原点 (0,0,0) 的位置，对象在游戏中围绕其旋转的点，以及游戏认为实体所在的位置。这是一个桶图标，你可以看到原点来自底部的中间。
-                <img src="/modding_guide/images/intermediate/regions/barrel_iconic.png" alt="barrel_iconic"/>
+                <img src="/images/intermediate/regions/barrel_iconic.png" alt="barrel_iconic"/>
             </p>
             <h2><a name="ModelOrigin"></a>模型原点</h2>
             <p><strong>model_origin</strong> 是一个偏移量（根据世界轴坐标系定义），以便模型与世界良好对齐。它基于模型本身的原点（在 Qubicle/你的体素编辑器中定义）。</p>
@@ -44,7 +44,7 @@
                     <p>  有些模型的 X 和 Z 维度不能正好被 2 整除。设置它们的模型原点很容易，因为有一个单独的体素是模型的中心。</p>
                     <p>  当这种情况发生时，你将该维度设置为 0.05，以便它校正世界中的对齐。值应始终为 0 或 + 或 - 0.05（鉴于对象的默认<a href="../../../basic/adding_items/item_scale/index.html">缩放</a>为 0.1）。如果模型需要更大量的定位，那么你可以在体素编辑器中进行。</p>
                     <p>  例如，如果你在 Qubicle 中创建一个在 X 和 Z 方向上为 3x3 方块的对象，你需要将 model_origin 设置为类似 X 为 -0.05，Z 为 0.05。在 Entity editor 中尝试并点击 "Update" 应用更改，然后再次尝试旋转对象并观察模型是否移位。</p>
-                    <p>  <img src="/modding_guide/images/intermediate/regions/odd_sized.png" alt="odd_sized"/></p>
+                    <p>  <img src="/images/intermediate/regions/odd_sized.png" alt="odd_sized"/></p>
                     <p>  你对 X 或 Z 使用 -0.05 取决于你如何在 Qubicle 中围绕原点定向对象本身。在此示例中，中心体素放置在 X 和 Z 的正方向。X 设置为 -0.05，因为这是原点 (0,0,0) 与 Qubicle 中对象的实际中心 (0.05, 0, 0.05) 之间的差异。</p>
                     <p>  但为什么当 X 为 -0.05 时 Z 为 +0.05？如前所述，Qubicle 的坐标系与 Stonehearth 的坐标系不同。确切的差异是 Z 轴的方向。在 Qubicle 中，正 Z 轴指向对象的背面（或"北"）。在 Stonehearth 中，正 Z 轴指向对象的前面（或"南"）。所以你实际上想在 Z 轴上使用与 Qubicle 中模型位置相反的 adjustment。</p>
                 </li>
@@ -52,16 +52,16 @@
                     <p>偶数尺寸模型的模型原点：</p>
                     <p>  对于一个侧面之一或两者都是偶数的模型，你必须决定模型将围绕哪个偏离中心的点旋转。</p>
                     <p>  如果我们有一个宽和长为 2 个世界单位的对象，那么对象的真正中心是 4 个方块连接的地方，而不是一个的中心。例如，如果我们要对齐这个铁砧以占据 2x2 单位，中心将是黄色圆圈所在的位置：
-                        <img src="/modding_guide/images/intermediate/regions/suggested_origin.png" alt="suggested_origin"/>
+                        <img src="/images/intermediate/regions/suggested_origin.png" alt="suggested_origin"/>
                     </p>
                     <p>  任何网格方块 A、B、C 或 D 都可以作为旋转点。由于铁砧将是 2x2，让我们选择网格方块 A 作为旋转中心。我们必须手动将铁砧模型在 X 和 Z 方向移动半个方块，以便象限 A（轴所在的位置）在左后角。</p>
                     <p>  将模型原点设置为 (0.5, 0, 0.5) 会移动铁砧模型，以便在视觉上，模型的左后部在绿线上方。现在铁砧适合 2x2 网格，这正是我们想要的：
-                        <img src="/modding_guide/images/intermediate/regions/model_origin.png" alt="model_origin"/>
+                        <img src="/images/intermediate/regions/model_origin.png" alt="model_origin"/>
                     </p>
                     <p>  我们也可以将铁砧向其他方向移动以使其适合 2x2 网格，在这种情况下旋转点可能不在方块 A 中。</p>
                 </li>
             </ul>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你在 render_info 组件中修改了物品的缩放，原点的值可能不完全是 0.05 或 0.5，你必须尝试其他值直到感觉正确。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 如果你在 render_info 组件中修改了物品的缩放，原点的值可能不完全是 0.05 或 0.5，你必须尝试其他值直到感觉正确。</p>
             <h3><a name="AxisAlignment"></a>关于轴对齐标志</h3>
             <p>轴对齐标志是一种将模型对齐到网格的廉价方法，特别是如果它们是偶数边，但如果其中一个长度是奇数，则可能需要在 QB 文件中移动模型。如果对象有期望模型矩阵在特定位置的动画，则可能并不总是可以使用它们。</p>
             <p>在 stonehearth 模组中，它们通常用于窗户、门、一些容器和其他一些与世界具有 1:1 缩放的实体。你可以尝试在 Entity editor 中选中一个或两个，看看它们是否像你希望的那样将模型对齐到世界。</p>
@@ -82,7 +82,7 @@
        "region_origin" : { "x": 0.5, "y": 0, "z": 0.5 }
     }
 </code></pre>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 如果你的 region_origin 不正确，碰撞区域将不会与模型旋转时的位置匹配。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 如果你的 region_origin 不正确，碰撞区域将不会与模型旋转时的位置匹配。</p>
             <h2><a name="Files"></a>原点应该放在哪里</h2>
             <p>对象的原点信息应在可用时放入 ghost.json 文件。常规 JSON 文件从 ghost.json 文件混合信息，所以你不需要重复它。</p>
             <p>如果你的对象不能由玩家放置在世界上，那么它将没有 ghost.json 文件，只有在这种情况下你才将原点信息放在常规 json 文件中。如果不这样做会导致 ghost 对象和常规对象没有相同原点的情况，并且在放置物品时对象的位置会跳跃。</p>
@@ -94,7 +94,7 @@
             <pre><code>  "model_origin": { "x": 0, "y": -0.5, "z": -0.5 }
 </code></pre>
             <p>在 Qubicle 中，我们需要将将从墙上悬挂的模型部分与 (0,0,0) 对齐。它还应该在负 Z 空间中，以便以后更容易与墙壁对齐。一些可悬挂物品（如窗户的花盆）在 Qubicle 中可能没有像这样对齐。</p>
-            <p><img src="/modding_guide/images/intermediate/regions/hangable_items.png" alt="hangable_items"/></p>
+            <p><img src="/images/intermediate/regions/hangable_items.png" alt="hangable_items"/></p>
             <p>可悬挂物品的区域原点遵循与任何其他实体相同的规则。</p>
         </main>
     </body>

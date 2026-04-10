@@ -3,14 +3,14 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-		<link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-		<link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-		<link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+		<link href='/css/styles.css' rel='stylesheet' type='text/css'>
+		<link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+		<link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+		<link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
 		<title>For custom entities</title>
 	</head>
 	<body>
-		<script src="/modding_guide/menus.js"></script>
+		<script src="/menus.js"></script>
 		<main>
 			<h1>For custom entities</h1>
 			<p>Here we'll discuss how to create animations for custom entities (when we can't reuse an existing rig from the stonehearth mod) using the Blender add-on.</p>
@@ -32,12 +32,12 @@
 				<li>
 					<p>The origins/pivots of all the body parts will be in the wrong place so now we have to move them to the correct place.</p>
 					<p>  For our example here, we have a monster based on a cronut. When selecting its different body parts, all the origins are at (0, 0, 0) because that's where the origin is in Qubicle 1.
-						<img src="/modding_guide/images/art/vfx/blender_wrong_origins.png" alt="blender_wrong_origins"/>
+						<img src="/images/art/vfx/blender_wrong_origins.png" alt="blender_wrong_origins"/>
 					</p>
 					<ul>
 						<li>
 							<p><a name="MoreViews"></a>For this we'll need to show more than one view. To do so, click and drag the little triangle from the top right corner to the view, either to its left or down.
-								<img src="/modding_guide/images/art/vfx/blender_button_more_views.png" alt="blender_button_more_views"/>
+								<img src="/images/art/vfx/blender_button_more_views.png" alt="blender_button_more_views"/>
 							</p>
 						</li>
 						<li>
@@ -47,19 +47,19 @@
 							<p>There are several ways to move the cursor to where we want the pivot to be:</p>
 							<p> Move it by left clicking, but it will not stick at the exact place where we want it to be (look at the different views).
 								If you press <code>N</code> to open the hidden menu, there will be a 3D cursor section where you can manually set the position for the 3Dcursor. This will ensure it is right where we want it to be.
-								<img src="/modding_guide/images/art/vfx/blender_3d_cursor_menu.png" alt="blender_3d_cursor_menu"/>
+								<img src="/images/art/vfx/blender_3d_cursor_menu.png" alt="blender_3d_cursor_menu"/>
 								Alternatively, go to Edit mode, select a vertex, edge or face of the mesh with right-click, press <code>Shift+S</code> and click on 'Cursor to selected'; then go back to Object mode:
-								<img src="/modding_guide/images/art/vfx/blender_select_face_edit_mode.png" alt="blender_select_face_edit_mode"/>
+								<img src="/images/art/vfx/blender_select_face_edit_mode.png" alt="blender_select_face_edit_mode"/>
 							</p>
 						</li>
 						<li>
 							<p>Now go to the Tools tab on the menu at the left, and click on 'Set Origin'. Click on the 'Origin to 3D cursor' option. Alternatively, press <code>Shift+Ctrl+Alt+C</code> and the options will appear next to your mouse:
-								<img src="/modding_guide/images/art/vfx/blender_set_origin_menu.png" alt="blender_set_origin_menu"/>
+								<img src="/images/art/vfx/blender_set_origin_menu.png" alt="blender_set_origin_menu"/>
 							</p>
 						</li>
 						<li>
 							<p>The little orange dot for this body part should have moved from (0, 0, 0) to where the 3D cursor is. Try rotating that body part, it should use its new origin as a pivot:
-								<img src="/modding_guide/images/art/vfx/blender_correct_origin.png" alt="blender_correct_origin"/>
+								<img src="/images/art/vfx/blender_correct_origin.png" alt="blender_correct_origin"/>
 							</p>
 						</li>
 						<li>
@@ -72,20 +72,20 @@
 					<p>  To do so, check the 'Custom helper bones' checkbox in the Stonehearth UI section of the Scene menu.</p>
 					<p>  Type the name of the bone, and a size for it in X / Z. The head will be the depth of the bone in the front direction from its center, and the tail the same but facing the back (the tail normally needs to be a negative value). Then press 'Add/Adjust bone'.</p>
 					<p>  You can change the size of any helper bone by typing its name in this section of the add-on, editing the values and pressing the 'Add/Adjust Bone' button.</p>
-					<p>  <img src="/modding_guide/images/art/vfx/blender_custom_helper_bones.png" alt="blender_custom_helper_bones"/>
+					<p>  <img src="/images/art/vfx/blender_custom_helper_bones.png" alt="blender_custom_helper_bones"/>
 						Now you have to move the bone to its correct place. For <strong>"root"</strong>, it has to be the exact center at the base of the entity (the origin/pivot of "root" will be at the ground level, so half of it will be under the grid).
 						We can use the Transform menu to place it in the correct spot more accurately.
 					</p>
 				</li>
 				<li>
 					<p>Once all the origins are correct, go to 'File > Export > Stonehearth (.json)' and make sure to check "Skeleton" at the bottom left:
-						<img src="/modding_guide/images/art/vfx/blender_export_skeleton.png" alt="blender_export_skeleton"/>
+						<img src="/images/art/vfx/blender_export_skeleton.png" alt="blender_export_skeleton"/>
 						Give a name for the skeleton file and click on "Export File".
 					</p>
 				</li>
 				<li>
 					<p>Look for your skeleton file wherever you've saved it, and make sure to remove the invalid JSON and add the missing fields to point to the animations and effects folders, so that the game can load it correctly. The Blender add-on can work without those fields but the game won't be able to load the file if we leave it like this:
-						<img src="/modding_guide/images/art/vfx/exported_skeleton.png" alt="exported_skeleton"/>
+						<img src="/images/art/vfx/exported_skeleton.png" alt="exported_skeleton"/>
 					</p>
 				</li>
 			</ol>
@@ -107,13 +107,13 @@
 				<li>
 					<p>Now we need to define the hierarchy of the bones:</p>
 					<p>  To do so, first right-click on the child bone, then hold <code>Shift</code> and right-click on the parent bone, and then press <code>Ctrl+P</code> so that we see the 'Set Parent To' menu:
-						<img src="/modding_guide/images/art/vfx/blender_parenting_objects.png" alt="blender_parenting_objects"/>
+						<img src="/images/art/vfx/blender_parenting_objects.png" alt="blender_parenting_objects"/>
 						Then click in the 'Object' option. For example, we selected first the leg, then the body, and with both selected in that order we set the hierarchy. Now when we try to move the body, the leg will follow around. Make sure that ultimately, all the bones are descendants of <strong>"root"</strong> (directly or indirectly).
 					</p>
 				</li>
 				<li>
 					<p>Once all the hierarchies are correct, go to 'File > Export > Stonehearth (.json)' and make sure to check "Meta" at the bottom left:
-						<img src="/modding_guide/images/art/vfx/blender_export_meta.png" alt="blender_export_meta"/>
+						<img src="/images/art/vfx/blender_export_meta.png" alt="blender_export_meta"/>
 						Give a name for the meta file and click on "Export File".
 					</p>
 				</li>

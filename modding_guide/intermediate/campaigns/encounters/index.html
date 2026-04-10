@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>通用遭遇战</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>通用遭遇战</h1>
             <p>让我们来看看可用的遭遇战类型及其相关属性。它们的控制器可以在 <code>stonehearth/services/server/game_master/controllers/encounters</code> 中找到。</p>
@@ -246,7 +246,7 @@
                             <p><strong>"max_spawns"</strong> -- 可选字段。我们希望生成器触发边的最大次数（最小值为 <code>1</code>）。</p>
                             <p>如果我们同时指定 <strong>"min_spawns"</strong> 和 <strong>"max_spawns"</strong>，将在它们之间随机选择一个数字作为生成限制。</p>
                             <p>如果我们不包含其中任何一个，生成器将无限期地继续生成边（或者直到源实体被销毁，如果我们定义了该字段）。</p>
-                            <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>如果此生成器遭遇战也有输出边，它将在达到最大生成次数时触发（如果我们只定义了最小值则为最小值，如果我们同时定义了两者则为随机数）。</p>
+                            <p><img src="/images/common/edit_big.png" alt="icon"/>如果此生成器遭遇战也有输出边，它将在达到最大生成次数时触发（如果我们只定义了最小值则为最小值，如果我们同时定义了两者则为随机数）。</p>
                         </li>
                         <li>
                             <p><strong>"game_mode_tuning"</strong> -- 可选字段。一个布尔值，用于为此遭遇战的 <strong>"delay"</strong> 参数启用调优覆盖。您可以在 <code>stonehearth/data/game_mode/hard/hard.json</code> 的 <code>"encounter_tuning_overrides"</code> 部分中查看示例。在这种情况下，当玩家选择困难模式时会应用此修改器。</p>
@@ -341,7 +341,7 @@
                     </ul>
                 </li>
             </ul>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 不要将这些计数器与 <code>"counter"</code> <a href="#Counter">遭遇战</a>混淆。它们有不同的用途。</p>
+            <p><img src="/images/common/row_alert2.png" alt="icon"/> 不要将这些计数器与 <code>"counter"</code> <a href="#Counter">遭遇战</a>混淆。它们有不同的用途。</p>
             <h2><a name="UtilityEncounters"></a>工具类遭遇战</h2>
             <h3><a name="DestroyEntity"></a>销毁实体</h3>
             <p>一种销毁特定实体的遭遇战。</p>
@@ -403,7 +403,7 @@ return GoblinCampDepartsScript
                         </li>
                         <li>
                             <p><strong>"continue_on_disconnect"</strong> -- 可选字段。一个布尔值，用于在多人游戏中玩家（客户端）断开连接时继续运行此节点。默认为 <strong>false</strong>（暂停此遭遇战并在玩家重新连接后恢复）。</p>
-                            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>如果您不将 <strong>"continue_on_disconnect"</strong> 设置为 <strong>true</strong>，可能需要在自定义脚本中实现 <code>suspend()</code> 和 <code>continue()</code> 函数，以便游戏知道是否必须停止某个计时器、稍后恢复它等。它们将在玩家断开连接/重新连接时被调用。</p>
+                            <p><img src="/images/common/row_alert2.png" alt="icon"/>如果您不将 <strong>"continue_on_disconnect"</strong> 设置为 <strong>true</strong>，可能需要在自定义脚本中实现 <code>suspend()</code> 和 <code>continue()</code> 函数，以便游戏知道是否必须停止某个计时器、稍后恢复它等。它们将在玩家断开连接/重新连接时被调用。</p>
                         </li>
                     </ul>
                 </li>
@@ -525,7 +525,7 @@ return GoblinCampDepartsScript
  }
 </code></pre>
                                     <p>我们可以有 <strong>"next_node"</strong>，指向对话的另一个节点的键，或者 <strong>"out_edge"</strong>，它将结束对话并触发指定的<a href="../index.html#Edges">输出边</a>。</p>
-                                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，对于此遭遇战类型，我们通常没有在 JSON 文件中定义输出边，因为输出边是在对话选择中指定的，并且多个选择可以指向同一个输出边。</p>
+                                    <p><img src="/images/common/row_alert2.png" alt="icon"/>请注意，对于此遭遇战类型，我们通常没有在 JSON 文件中定义输出边，因为输出边是在对话选择中指定的，并且多个选择可以指向同一个输出边。</p>
                                 </li>
                             </ul>
                         </li>
@@ -644,7 +644,7 @@ return GoblinCampDepartsScript
                     <ul>
                         <li>
                             <p><strong>"out_edges" : {}</strong> -- 包含 3 个字段（<strong>"refuse"</strong>、<strong>"fail"</strong> 和 <strong>"success"</strong>），每个字段根据任务结果指向要触发的输出边。</p>
-                            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，通常我们不在此遭遇战的 JSON 文件中添加输出边，因为它将根据玩家的选择触发其中之一。</p>
+                            <p><img src="/images/common/row_alert2.png" alt="icon"/>请注意，通常我们不在此遭遇战的 JSON 文件中添加输出边，因为它将根据玩家的选择触发其中之一。</p>
                         </li>
                         <li>
                             <p><strong>"script"</strong> -- 确定请求哪些物品的脚本控制器的 URI（例如：<code>"stonehearth:game_master:script:collection_quest_shakedown"</code>）。如果您创建自己的脚本，请确保在清单的 <code>"controllers"</code> 下添加它。我们将在创建时将 <strong>"collection_quest_info"</strong> 下的数据传递给脚本。脚本必须有一个 <code>get_tribute_demand</code> 函数，返回一个包含物品 URI 指向四个字段（uri、count、icon 和 display_name）的对象（Lua 表）。查看 <code>collection_quest_shakedown.lua</code> 中的实现方式。</p>
@@ -654,7 +654,7 @@ return GoblinCampDepartsScript
                         </li>
                         <li>
                             <p><strong>"skip_return_trip"</strong> -- 可选字段（布尔值）。当为 <strong>true</strong> 时，遭遇战是一个简单的物品请求，因此将直接显示 "collection_due" 对话框。</p>
-                            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>使用此选项时存在一个已知问题，即即使没有所有物品，玩家也可以确认对话框（在这种情况下，只有可用物品将从库存中移除）。这意味着无法触发 "fail" 输出边，只能触发 "success" 和 "refuse" 输出边。如果您想使用此选项，您可能希望改用<a href="#DeliveryQuest">递送任务</a>遭遇战。</p>
+                            <p><img src="/images/common/row_alert2.png" alt="icon"/>使用此选项时存在一个已知问题，即即使没有所有物品，玩家也可以确认对话框（在这种情况下，只有可用物品将从库存中移除）。这意味着无法触发 "fail" 输出边，只能触发 "success" 和 "refuse" 输出边。如果您想使用此选项，您可能希望改用<a href="#DeliveryQuest">递送任务</a>遭遇战。</p>
                         </li>
                         <li>
                             <p><strong>"source_entity"</strong> -- 可选字段。对上下文注册路径的引用。如果此实体不存在，遭遇战将不会开始，如果实体在任务激活期间死亡，遭遇战将停止。</p>
@@ -796,7 +796,7 @@ return GoblinCampDepartsScript
                                 </li>
                                 <li>
                                     <p><strong>"out_edge"</strong> -- 当玩家选择此选项时要触发的输出边。它最终应该通向<a href="#TownUpgrade">城镇升级</a>类型的遭遇战，这将向玩家的城镇授予描述中提到的奖励。</p>
-                                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，通常我们不在此遭遇战的 JSON 文件中添加输出边，因为它将根据玩家的选择触发不同的输出边。</p>
+                                    <p><img src="/images/common/row_alert2.png" alt="icon"/>请注意，通常我们不在此遭遇战的 JSON 文件中添加输出边，因为它将根据玩家的选择触发不同的输出边。</p>
                                 </li>
                             </ul>
                         </li>
@@ -1026,7 +1026,7 @@ return false
             <h2><a name="CitizenEncounters"></a>市民遭遇战</h2>
             <h3><a name="AddCitizen"></a>添加市民</h3>
             <p>向城镇添加一个新市民，可以是玩家派系的或其他种族/派系的。他们将在城镇附近生成并首先走向旗帜。</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，一旦添加到玩家的城镇，您将无法通过代码检索市民的原始派系。他们将被视为与玩家的城镇具有相同的派系/阵营，即使他们的外观不同（例如，兔子、兽人）。</p>
+            <p><img src="/images/common/row_alert2.png" alt="icon"/>请注意，一旦添加到玩家的城镇，您将无法通过代码检索市民的原始派系。他们将被视为与玩家的城镇具有相同的派系/阵营，即使他们的外观不同（例如，兔子、兽人）。</p>
             <ul>
                 <li>
                     <p><strong>"encounter_type" : "add_citizen"</strong></p>

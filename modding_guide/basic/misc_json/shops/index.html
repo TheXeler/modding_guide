@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>负载和商店</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>负载和商店</h1>
          <ul>
@@ -83,7 +83,7 @@
          <p>我们在 <strong>"loadouts"</strong> 内添加一个具有自定义标识符的条目。这些属性是不言自明的。<strong>"splash"</strong> 和 <strong>"seal"</strong> 是当我们选择负载时出现在右侧的图像。<strong>"tooltip"</strong> 是出现在右侧选定负载底部的文本。</p>
          <p>如果我们想添加一定数量的金币，我们使用 <strong>"type" : "gold"</strong>，而不是 <strong>"type" : "entity"</strong>。</p>
          <p>有时物品的 <strong>"display_name"</strong> 会很长并且不适合 UI，因此我们可以在此处使用一些自定义缩写名称：
-            <img src="/modding_guide/images/basic/misc_json/loadouts.png" alt="loadouts"/>
+            <img src="/images/basic/misc_json/loadouts.png" alt="loadouts"/>
          </p>
          <p>要删除现有负载，请使用 <a href="../../../essentials/removing/index.html#MixintypeRemove">mixintypes</a>。</p>
          <p>来自社区成员添加了许多负载的示例 mod：<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1360030491">Specialized Loadouts</a></p>
@@ -244,12 +244,12 @@
                <p>首先确保您的城镇经历了旗帜庆典，以确保我们处于第 1 层。</p>
                <p>然后，打开<a href="../../../essentials/debugtools/debugtools_mod/index.html#CampaignBrowser">战役浏览器</a>，点击商人战役遭遇战的节点名称以打开小窗口，然后点击“立即触发”，直到您到达“生成商店”遭遇战。</p>
                <p>由于商店是随机的，并且我们为自定义商店使用了相同的权重，我们需要多次触发遭遇战并关闭其他商店，直到我们看到它出现：
-                  <img src="/modding_guide/images/basic/misc_json/trader_campaign.png" alt="trader_campaign"/>
-                  <img src="/modding_guide/images/basic/misc_json/shop_notification.png" alt="shop_notification"/>
+                  <img src="/images/basic/misc_json/trader_campaign.png" alt="trader_campaign"/>
+                  <img src="/images/basic/misc_json/shop_notification.png" alt="shop_notification"/>
                </p>
                <p>Rayya's children 有一个不同的商人战役，因此我们需要在他们的弧线中添加另一个 mixinto，以便也为他们包含我们的自定义商店。
                   Northern alliance 重用 Ascendancy 的战役。
-                  <img src="/modding_guide/images/basic/misc_json/custom_shop.png" alt="custom_shop"/>
+                  <img src="/images/basic/misc_json/custom_shop.png" alt="custom_shop"/>
                </p>
             </li>
          </ol>

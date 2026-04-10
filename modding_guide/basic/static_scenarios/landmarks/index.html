@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>地标</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>地标</h1>
          <p><a name="Landmarks"></a>地标是一种特殊类型的场景，允许我们通过 QB 文件向地图添加地形特征。它们是使用 <code>stonehearth/lib/landmark_lib.lua</code> 文件中的函数创建的。</p>
@@ -128,15 +128,15 @@
                <p><strong>"color_water"</strong> 用于将水填充到体素顶部 - 适用于您希望水在地标生成后立即流出的瀑布。<strong>"color_water_lowered"</strong> 用于有水盆的地方，其中有干石头（或者您只是不希望水将其所在的区域填充到边缘）。<br/>
                   一般来说，如果水要从盆地中流出，您希望使用"color_water"。如果水要结束在盆地中，请使用"color_water_lowered"。
                </p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>所有颜色的十六进制值必须为大写，否则它们将无法适应生物群落。</p>
+               <p><img src="/images/common/row_alert2.png" alt="icon"/>所有颜色的十六进制值必须为大写，否则它们将无法适应生物群落。</p>
                <p>使用未在 <code>landmark_blocks.json</code> 中定义的颜色将使它们无论地标在哪个生物群落中生成都显示相同的颜色。如果我们向 <code>terrain_blocks.json</code> 和/或 <code>landmark_blocks.json</code> 添加一些新的块类型，我们也可以在地标中使用它们。</p>
                <p>有许多地标在地下生成，除非玩家挖掘，否则他们看不到它们。我们可以通过使用 <strong>"null"</strong> 标签的颜色来创建地下洞穴，它将从与其相交的地形中移除方块。但它们应该尽可能短，否则如果玩家将他们的旗帜放置在洞穴上方，起始炉民可能会在其中生成，这会令人困惑。</p>
                <p>这是现有洞穴地标之一的模型，从下方查看：
-                  <img src="/modding_guide/images/basic/static_scenarios/cave_landmark.png" alt="cave_landmark"/>
+                  <img src="/images/basic/static_scenarios/cave_landmark.png" alt="cave_landmark"/>
                   当地标生成时，所有粉色都将从地形中移除（此场景的类别为 <strong>"terrain_feature_underground"</strong>）。如您所见，它只有 3 个方块高。
                </p>
                <p>在我们的示例中，我们使用颜色来生成一些植物和一个战利品箱：
-                  <img src="/modding_guide/images/basic/static_scenarios/landmark_model.png" alt="landmark_model"/>
+                  <img src="/images/basic/static_scenarios/landmark_model.png" alt="landmark_model"/>
                </p>
             </li>
             <li>
@@ -157,7 +157,7 @@
             </li>
             <li>
                <p>测试地标是否在我们定义的生物群落中生成。您可能需要调整值以获得更高的生成几率，甚至更改生境，因为有许多地标可供选择，可能需要多次尝试才能使其出现。
-                  <img src="/modding_guide/images/basic/static_scenarios/landmark_spawned.png" alt="landmark_spawned"/>
+                  <img src="/images/basic/static_scenarios/landmark_spawned.png" alt="landmark_spawned"/>
                </p>
             </li>
          </ol>

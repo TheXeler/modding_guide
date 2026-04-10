@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>添加战役</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>添加战役</h1>
          <p>game_master 服务负责管理玩家的不同战役。我们可以根据玩家选择的王国触发不同的战役，也可以根据生物群系、游戏模式等因素触发。</p>
@@ -35,7 +35,7 @@
          <p>例如，goblin 战役向玩家抛出越来越多的敌人，由三个弧线（开始、游击和 finale）以及几个基本通用遭遇的多个 goblin 特定实例（spawn camp、wait、city raid 等）组成。</p>
          <h2><a name="GMTree"></a>游戏主持者树</h2>
          <p>所有遭遇、弧线和战役都是节点（它们继承自 <code>stonehearth/services/server/game_master/controllers/node.lua</code>）并存在于树中，以 game master 控制器为根节点。你可以在 debugtools 的<a href="../../essentials/debugtools/debugtools_mod/index.html#CampaignBrowser">Campaign browser</a>中可视化它们：</p>
-         <p><img src="/modding_guide/images/intermediate/campaigns/campaign_browser_tree.png" alt="campaign_browser_tree"/></p>
+         <p><img src="/images/intermediate/campaigns/campaign_browser_tree.png" alt="campaign_browser_tree"/></p>
          <p>游戏主持者有战役（作为子节点），战役有弧线（Trigger、Challenge、Climax），弧线有遭遇。遭遇本身实际上使用可重用脚本（例如：<code>create_camp_encounter.lua</code>）和列在弧线索引文件中的特定节点的 JSON 数据（例如：<code>ambient_threats_arc.json</code>）来运行内容，以自定义遭遇参数。</p>
          <p>所有现有的战役、弧线和遭遇都可以在 <code>stonehearth/data/gm</code> 的子目录中找到。</p>
          <h2><a name="Edges"></a>入边和出边</h2>
@@ -43,7 +43,7 @@
          <p>这些用于塑造定义战役流的图或树。in_edge 是一个自定义标识符，通常与遭遇文件同名，以便不同的节点可以触发相同的遭遇。来自 <code>daily_report_encounter.json</code> 的示例：</p>
          <pre><code>  "in_edge": "daily_report_encounter",
 </code></pre>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 对于每个弧线的第一个遭遇，<strong>"in_edge"</strong> 必须是 <strong>"start"</strong>。每个弧线只能有一个具有此 in_edge 的遭遇。</p>
+         <p><img src="/images/common/row_alert2.png" alt="图标"/> 对于每个弧线的第一个遭遇，<strong>"in_edge"</strong> 必须是 <strong>"start"</strong>。每个弧线只能有一个具有此 in_edge 的遭遇。</p>
          <p><a name="OutEdge"></a>对于 out_edges，语法会有所不同。示例：</p>
          <ul>
             <li>
@@ -150,7 +150,7 @@
          <pre><code>  "out_edge" : "arc:finish"
 </code></pre>
          <p>此弧线的其他遭遇可能仍然存在，但它们应该自行解决。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 某些遭遇将在其 info 部分中定义它们的出边，以便它们可以根据遭遇如何结束来控制将生成哪个遭遇，因此它们在 JSON 的根级别不会有 <strong>"out_edge"</strong> 属性。</p>
+         <p><img src="/images/common/row_alert2.png" alt="图标"/> 某些遭遇将在其 info 部分中定义它们的出边，以便它们可以根据遭遇如何结束来控制将生成哪个遭遇，因此它们在 JSON 的根级别不会有 <strong>"out_edge"</strong> 属性。</p>
          <h2><a name="CanStart"></a>有条件地启动遭遇</h2>
          <p>有<a href="encounters/index.html#WaitForRequirementsMet">一些遭遇</a>用于检查条件本身，以便在满足条件时触发它们的出边。</p>
          <p>但我们也可以在任何遭遇 JSON 文件中添加检查，以允许仅在特定条件下启动遭遇。</p>
@@ -307,7 +307,7 @@
             </li>
             <li>
                <p><strong>"in_edge"</strong> -- 必需字段，这是此遭遇的标识符，通常与弧线索引中此文件的标识符匹配。</p>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 对于每个弧线，你应该有一个 in edge 名为 <strong>"start"</strong> 的遭遇。这将是弧线开始运行时触发的遭遇。</p>
+               <p>  <img src="/images/common/row_alert2.png" alt="图标"/> 对于每个弧线，你应该有一个 in edge 名为 <strong>"start"</strong> 的遭遇。这将是弧线开始运行时触发的遭遇。</p>
             </li>
             <li>
                <p><strong>"out_edge"</strong> -- 可选字段，如<a href="#OutEdge">之前</a>解释的出边。</p>
@@ -345,12 +345,12 @@
    "data:gm_index" : "file(data/gm/gm_index.json)"
 }
 </code></pre>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 别名必须完全是 <strong>"data:gm_index"</strong>，否则 SHED 将无法找到它。另外，记得向 stonehearth 的 gm_index 添加 mixinto，以便你可以在游戏中测试你的战役。</p>
+               <p>  <img src="/images/common/row_alert2.png" alt="图标"/> 别名必须完全是 <strong>"data:gm_index"</strong>，否则 SHED 将无法找到它。另外，记得向 stonehearth 的 gm_index 添加 mixinto，以便你可以在游戏中测试你的战役。</p>
             </li>
             <li>
                <p>打开 SHED 并点击 "Encounter Designer" 选项卡。</p>
                <p>  你应该看到一个列出你文件夹中准备好的所有模组的战役的树。点击其中一个战役，你应该在右侧看到一个显示战役样子的图表：</p>
-               <p>  <img src="/modding_guide/images/intermediate/campaigns/goblin_campaign.png" alt="goblin_campaign"/></p>
+               <p>  <img src="/images/intermediate/campaigns/goblin_campaign.png" alt="goblin_campaign"/></p>
                <p>  你可以使用鼠标滚轮放大/缩小图表，并可以使用第三个鼠标按钮在图表周围平移（按下鼠标滚轮，按住它，然后移动鼠标）。当你将鼠标悬停在子树上时，你可以看到它们在图表中被突出显示。</p>
                <p>  每当你更改节点时，记得保存更改并点击右上角的 "Refresh Encounters" 按钮，以便图表更新（例如，假设你创建了一个新遭遇/节点，它将未附加到图表。但如果你编辑另一个节点使其指向你的新节点作为 out_edge，那将不会反映在图表中，直到你重新加载/刷新）。有时它会自动刷新，例如删除节点时。</p>
             </li>
@@ -365,7 +365,7 @@
          <p>你应该在 JSON 编辑器上方的栏中看到几个选项。第一个是在默认文本编辑器中打开当前文件（对于 JSON 文件），第二个是打开此文件的包含文件夹，第三个是保存，最后一个是本地化文件（记住，有时本地化可能不起作用）。如果你添加了 mixins，带有 mixins 的预览按钮也应该出现在最后。</p>
          <p>保存时，如果你有一些不良缩进，JSON 将被很好地格式化。</p>
          <p>SHED 中的 JSON 编辑器支持遭遇的自动完成和提示，这非常有用。如果你没有得到属性的下拉列表，尝试删除直到属性名的所有内容，然后输入 ':' 看看它是否出现。使用箭头键浏览选项并按 Enter 或双击确认选项：</p>
-         <p><img src="/modding_guide/images/intermediate/campaigns/auto_complete.png" alt="auto_complete"/></p>
+         <p><img src="/images/intermediate/campaigns/auto_complete.png" alt="auto_complete"/></p>
          <p>如果文件左侧的颜色是绿色，一切正常。当它是红色时，SHED 不会让你保存文件（语法错误）。将鼠标悬停在左侧的箭头上将显示描述问题的工具提示。如果是橙色，可能缺少某些字段或 SHED 无法识别的一些数据，但会让你继续。当它是灰色时，意味着 SHED 没有检查此文件中的错误，因为它不知道它应该包含什么，所以你要对你写的内容负责。</p>
          <p>这些是你可以在图表中看到的不同节点类型及其含义：</p>
          <ul>

@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>Lua 脚本</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>Lua 脚本</h1>
             <p>在本节中，我们将讨论组件、组件渲染器、控制器和观察者。还将讨论保存变量以及这些脚本的生命周期。</p>
@@ -44,7 +44,7 @@
                 </li>
                 <li>
                     <p><strong>initialize()</strong> -- 此函数总是在 <code>__init</code> 之后调用。在 Lua 组件中，特殊的 <code>self._entity</code> 字段将被设置，您可以通过调用 <code>radiant.entities.get_json(self)</code> 获取组件的 JSON 数据。您不能在 <code>initialize()</code> 中访问服务或公共字段（如 <code>stonehearth.constants</code>），因为在恢复期间，它们可能尚不存在。</p>
-                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>重要提示：您必须在 <code>initialize()</code> 函数中声明所有<a href="#SV">保存变量</a>字段，包括 nil 变量。您可以在 initialize 中询问实体是否有其他组件，但请注意，那些其他组件可能尚未调用它们的 <code>initialize()</code>。</p>
+                    <p><img src="/images/common/row_alert2.png" alt="icon"/>重要提示：您必须在 <code>initialize()</code> 函数中声明所有<a href="#SV">保存变量</a>字段，包括 nil 变量。您可以在 initialize 中询问实体是否有其他组件，但请注意，那些其他组件可能尚未调用它们的 <code>initialize()</code>。</p>
                 </li>
                 <li>
                     <p><strong>create()</strong> -- 这在组件首次创建时调用一次，无论是在实体创建时还是动态添加时。对于控制器，create 函数可以接受从控制器创建者传入的参数。</p>

@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>组件</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>组件</h1>
             <p>正如<a href="../../../essentials/entities_components/index.html#Components">基础指南</a>中所述，组件是定义实体行为的可重用功能。您可以在 <code>stonehearth/components</code> 下找到 Lua 组件。</p>
@@ -60,7 +60,7 @@
 
   return MyComponent
 </code></pre>
-            <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>所有组件都有一个 <code>self._entity</code> 字段，它是创建组件的实体。我们可以在它们中使用<a href="../index.html#SV">保存变量</a>和<a href="../index.html#ControllerLifecycle">生命周期函数</a>。</p>
+            <p><img src="/images/common/edit_big.png" alt="icon"/>所有组件都有一个 <code>self._entity</code> 字段，它是创建组件的实体。我们可以在它们中使用<a href="../index.html#SV">保存变量</a>和<a href="../index.html#ControllerLifecycle">生命周期函数</a>。</p>
             <p>您可以通过在实体的 JSON 文件的 <strong>"components"</strong> 部分中提供组件的名称（以 mod 的命名空间加冒号为前缀）将 Lua 实现的组件添加到 JSON 文件中。例如，这是来自 <code>carpenter_workbench.json</code> 的工作坊组件（在 <code>workshop_component.lua</code> 中实现）：</p>
             <pre><code>  "components" : {
      "stonehearth:workshop": {

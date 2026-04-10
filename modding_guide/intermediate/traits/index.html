@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>Traits</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>Traits</h1>
             <p>Traits 组件保存实体所有 traits 的映射。对于 Hearthlings，它在 <code>base_human.json</code> mixin 中添加。</p>
@@ -86,7 +86,7 @@
                 <li>
                     <p><strong>"script_controller"</strong> -- 可选字段。将使用参数 entity、uri、parent、args 创建的控制器。脚本可用于创建与 trait 关联的自定义行为。</p>
                     <p>  例如，food_preference trait 脚本（<code>stonehearth/data/traits/food_preference/food_preference_script.lua</code>）从父 trait 获取数据（使用 uri 参数），并使用数据更改实体的消费偏好，并在实体吃不喜欢的食物时添加想法。</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 请记住，脚本控制器的别名必须添加到清单的 <strong>"controllers"</strong> 键中，而不是 "aliases" 键下。</p>
+                    <p>  <img src="/images/common/row_alert2.png" alt="图标"/> 请记住，脚本控制器的别名必须添加到清单的 <strong>"controllers"</strong> 键中，而不是 "aliases" 键下。</p>
                 </li>
                 <li>
                     <p><strong>"data"</strong> -- 可选字段。如果我们为 trait 定义了脚本控制器，我们可以在此字段中添加数据以从控制器中检索它。</p>
@@ -102,7 +102,7 @@
                     <p><strong>"properties"</strong> -- 可选字段。它是一个字符串数组，我们可以像自定义标签一样添加它们，并在 Lua 脚本中检查它们。详见<a href="#Properties">下文</a>。</p>
                 </li>
             </ul>
-            <p><img src="/modding_guide/images/common/gold.png" alt="图标"/> "magnificent_beard" trait 在 traits 索引中列出了一些属性。</p>
+            <p><img src="/images/common/gold.png" alt="图标"/> "magnificent_beard" trait 在 traits 索引中列出了一些属性。</p>
             <p><strong>"immigration_only" : true</strong> 属性将使此 trait 仅在 Hearthling 是移民时分配（因此它在登船期间的选择名册屏幕上永远不会随机出现）。</p>
             <p><strong>"gender" : "male"</strong> 属性将使只有男性 Hearthlings 才能获得此 trait。你可以单独使用此属性而不使用 "immigration_only"，但玩家仍然可以在名册屏幕上更改性别（这不会移除 trait）。</p>
             <p>此 trait 具有这两个属性，因为女性在自定义列表中没有面部毛发功能，所以为了防止登船期间出现错误，它被设置为 "immigration_only"。</p>
@@ -111,7 +111,7 @@
   remove_trait my_mod:traits:impatient
 </code></pre>
             <p>注意 URI 作为参数传递时不带引号。
-                <img src="/modding_guide/images/intermediate/traits/traits.png" alt="traits"/>
+                <img src="/images/intermediate/traits/traits.png" alt="traits"/>
             </p>
             <p>如果属性高于其正常值，它们将在 Attributes 选项卡中以绿色显示，如果低于正常值则以红色显示。它们的工具提示将显示导致值增加/减少的 buffs，但不会显示影响它们的 traits（不过你可以在 trait 描述中暗示这一点）。</p>
             <h3><a name="AttributeModifiers"></a>属性修饰符</h3>

@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>错误调试方法</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>错误调试方法</h1>
             <ul>
@@ -51,32 +51,32 @@
             </p>
             <h2><a name="DebuggingUI"></a>调试用户界面</h2>
             <p><strong>对于用户界面错误</strong>，通常出现在屏幕右侧，<strong>你必须始终重新加载用户界面</strong>（使用 F5 或错误对话框中的按钮）。它可能处于不一致状态，除非重新加载，否则你将无法继续使用它。如果你忘记查看错误对话框中的跟踪信息，你也可以查看 stonehearth.log（前提是你尚未重新启动游戏）。</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>重新加载用户界面将使任何非用户界面错误重新出现，即使你已经关闭了它们。如果你已经检查了所有错误，只需再次关闭它们即可。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/>重新加载用户界面将使任何非用户界面错误重新出现，即使你已经关闭了它们。如果你已经检查了所有错误，只需再次关闭它们即可。</p>
             <p>如果你制作与用户界面相关的模组，你可以使用 CEF 调试器，前提是你安装了 Google Chrome：</p>
             <ol>
                 <li>在游戏运行时，打开 Chrome。</li>
                 <li>在地址栏中输入 <strong>localhost:1338</strong> 并按 Enter 键。
-                    <img src="/modding_guide/images/essentials/debugging/ui_port.png" alt="ui_port"/>
+                    <img src="/images/essentials/debugging/ui_port.png" alt="ui_port"/>
                 </li>
                 <li>点击 "Stonehearth UI" 链接。如果你不在游戏中（例如，如果你在加载游戏），可能会出现其他链接。</li>
                 <li>当你需要重新加载调试器时，确保地址仅为 <strong>localhost:1338</strong>，因为浏览器会在使用时向其附加参数。</li>
                 <li>还要确保你只有一个 Stonehearth 实例在运行，否则端口可能会更改并且不响应你想要的实例。</li>
             </ol>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>浏览器应用了安全更新，禁止这种形式的调试。你可以使用旧版浏览器，其中尚未实施此类安全措施。已知 Chrome 68 版本是最后一个有效的版本。最好安装不同的浏览器品牌以避免与主浏览器冲突。模组制作者推荐的一款浏览器是：<a href="https://www.slimjetbrowser.com/release/archive/20.0.5.0/">Slimjet</a>，因为它使用 chromium 引擎版本 68</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/>浏览器应用了安全更新，禁止这种形式的调试。你可以使用旧版浏览器，其中尚未实施此类安全措施。已知 Chrome 68 版本是最后一个有效的版本。最好安装不同的浏览器品牌以避免与主浏览器冲突。模组制作者推荐的一款浏览器是：<a href="https://www.slimjetbrowser.com/release/archive/20.0.5.0/">Slimjet</a>，因为它使用 chromium 引擎版本 68</p>
             <p>使用示例：</p>
             <ol>
                 <li>你可以检查用户界面元素。点击"检查元素"工具，然后转到游戏，并将鼠标悬停在任何用户界面元素上。你可能需要在激活此工具之前打开要检查的用户界面视图。
-                    <img src="/modding_guide/images/essentials/debugging/inspect_element_tool.png" alt="inspect_element_tool"/>
+                    <img src="/images/essentials/debugging/inspect_element_tool.png" alt="inspect_element_tool"/>
                 </li>
                 <li>点击你要检查的元素，然后转到浏览器。它将在 HTML 中被选中，你可以检查其所有属性，临时调整其 CSS 等。
-                    <img src="/modding_guide/images/essentials/debugging/inspecting_element.png" alt="inspecting_element"/>
-                    <img src="/modding_guide/images/essentials/debugging/inspected_element.png" alt="inspected_element"/>
+                    <img src="/images/essentials/debugging/inspecting_element.png" alt="inspecting_element"/>
+                    <img src="/images/essentials/debugging/inspected_element.png" alt="inspected_element"/>
                 </li>
                 <li>你还可以在网络控制台中检查 Javascript 警告和错误。
-                    <img src="/modding_guide/images/essentials/debugging/web_console.png" alt="web_console"/>
+                    <img src="/images/essentials/debugging/web_console.png" alt="web_console"/>
                 </li>
                 <li>你可以使用 CEF 调试器调试你的 Javascript 代码。请注意，有时它可能会无响应，你可能需要重新加载它。
-                    <img src="/modding_guide/images/essentials/debugging/cef_debugger.png" alt="cef_debugger"/>
+                    <img src="/images/essentials/debugging/cef_debugger.png" alt="cef_debugger"/>
                 </li>
             </ol>
             <h2><a name="QuickTesting"></a>更快地测试你的模组</h2>
@@ -93,8 +93,8 @@
   }
 </code></pre>
             <p>你的设置中可能已经有这些 "mods" : { "stonehearth" : {} } 键，所以只需在相应级别粘贴 "world_generation" 节点（但记得在需要的地方添加逗号）。这将生成一个微型世界，因此加载它将花费更少的时间。
-                <img src="/modding_guide/images/essentials/debugging/tiny_world_ui.png" alt="tiny_world_ui"/>
-                <img src="/modding_guide/images/essentials/debugging/tiny_world_terrain.png" alt="tiny_world_terrain"/>
+                <img src="/images/essentials/debugging/tiny_world_ui.png" alt="tiny_world_ui"/>
+                <img src="/images/essentials/debugging/tiny_world_terrain.png" alt="tiny_world_terrain"/>
             </p>
             <h2><a name="Microworld"></a>微型世界（Microworld）</h2>
             <p>你还可以在此模组的帮助下创建自己的<a href="../../intermediate/testing/index.html">测试世界</a>。Microworld 一旦在你的 user_settings.json 中配置，将跳过主菜单并直接加载你的测试世界，这要快得多。</p>

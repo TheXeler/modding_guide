@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>添加命令</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>添加命令</h1>
             <ul>
@@ -30,10 +30,10 @@
             <h2><a name="Commands"></a>什么是命令？</h2>
             <p>命令是玩家可以在他们点击的实体上发出的指令。例如，宠物的 "Release Pet"（释放宠物），装饰品的 "Move Item"（移动物品），以及工作台和工匠的 "Workshop"（工作室）。它们通过 commands 组件进行管理。</p>
             <p>以下是 Hearthling 单位框架（显示有关 Hearthling 信息的 UI 栏）上的一些命令按钮：
-                <img src="/modding_guide/images/intermediate/commands/unit_frame.png" alt="unit_frame"/>
+                <img src="/images/intermediate/commands/unit_frame.png" alt="unit_frame"/>
             </p>
             <p>市民面板也列出了所选 Hearthling 可用的所有命令，以便我们可以从那里使用它们。
-                <img src="/modding_guide/images/intermediate/commands/citizens_panel.png" alt="citizens_panel"/>
+                <img src="/images/intermediate/commands/citizens_panel.png" alt="citizens_panel"/>
             </p>
             <p>它还添加了 "Change Jobs"（更换职业）按钮，这不被视为命令，它将直接调出晋升 UI。你也可以通过点击角色表内的职业图标来打开晋升树。</p>
             <h2><a name="AddingCommands"></a>向实体添加命令</h2>
@@ -144,7 +144,7 @@
 </code></pre>
             <p>在 <strong>"controller"</strong> 字段中，我们定义了 <code>use_consumable_on_town</code> 函数的代码实际所在的文件。通常它在 call handler 中（它们将在指南的高级部分中解释）。我们还必须定义 <strong>"endpoint"</strong> 是 <strong>"client"</strong> 还是 <strong>"server"</strong>，具体取决于函数应该在客户端还是服务器端执行。</p>
             <p>在我们命令的 JSON 文件中，我们有 <strong>"args"</strong> 数组来向函数传递参数（查看 <code>default_arrows.json</code> 和 <code>summon_titan_from_gong.json</code> 命令以获取示例）。</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/>请注意，即使我们将 "args" 数组留空，传递的第一个参数始终是执行此命令的实体。</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/>请注意，即使我们将 "args" 数组留空，传递的第一个参数始终是执行此命令的实体。</p>
             <h3><a name="CallObject"></a>调用对象（Call object）</h3>
             <p>如果我们添加 <strong>"object"</strong> 字段，我们可以在对象（如服务）上调用函数。例如：</p>
             <pre><code>  {
@@ -161,7 +161,7 @@
   }
 </code></pre>
             <p>这里 <code>restore_terrain_command</code> 函数的代码（注意它前面没有模组的命名空间！）在 building 服务（stonehearth.building）中定义，这是一个由游戏实例化的对象。请记住，"args" 数组的第一个对象将是执行此命令的实体。</p>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 要以这种方式在对象上调用函数，我们必须将它们添加到清单的 <strong>"object_commands"</strong> 部分（stonehearth 清单的简化示例）：</p>
+            <p><img src="/images/common/row_alert2.png" alt="图标"/> 要以这种方式在对象上调用函数，我们必须将它们添加到清单的 <strong>"object_commands"</strong> 部分（stonehearth 清单的简化示例）：</p>
             <pre><code>  "object_commands": {
      "building": [
         "restore_terrain_command"

@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>矿脉</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>矿脉</h1>
          <p><a name="OreVeins"></a>矿石和其他资源可以从采矿中掉落。我们可以创建自己的资源矿脉，它们将在地形中生成，并使它们掉落更多的特定资源。</p>
@@ -174,7 +174,7 @@
 }
 </code></pre>
                <p>我们为每个季节添加一个包含我们地形类型（terrain_blocks.json 中 <strong>"block_types"</strong> 内的主键）的条目，并将其链接到我们想要用于矿脉的十六进制格式的颜色。地形块不接受自定义渲染材质，它们都将使用相同的着色器（在 C++ 端硬编码）。水有一个单独的渲染器。</p>
-               <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> <a name="SafeMixintos"></a>即使玩家没有安装其他 mod，我们也可以向它们的文件添加 mixinto。那些文件无法找到的警告将写入 stonehearth.log，但不会在游戏中弹出。如果来自多个 mod 的警告太多，游戏可能需要更长的时间才能启动。</p>
+               <p><img src="/images/common/gold.png" alt="icon"/> <a name="SafeMixintos"></a>即使玩家没有安装其他 mod，我们也可以向它们的文件添加 mixinto。那些文件无法找到的警告将写入 stonehearth.log，但不会在游戏中弹出。如果来自多个 mod 的警告太多，游戏可能需要更长的时间才能启动。</p>
             </li>
             <li>
                <p>最后，我们可以创建我们的矿脉并将其添加为静态场景，以便它在地形中生成。</p>
@@ -233,7 +233,7 @@
             <li>
                <p>测试您的矿脉是否出现在地图中。</p>
                <p>这可能需要一段时间，因为放置是随机的。使用<a href="../../../essentials/debugtools/debugtools_mod/index.html">debugtools</a>提升一个战斗单位，并让他们沿着山脉的边缘奔跑，直到您发现您的资源矿脉。然后点击它以检查单位框架，并命令您的炉民挖掘它以查看您的资源是否正在掉落。还可以挖掘岩石或在采矿战利品表中使用的任何其他地形类型，并检查掉落是否正常工作。
-                  <img src="/modding_guide/images/basic/static_scenarios/ore_vein.png" alt="ore_vein"/>
+                  <img src="/images/basic/static_scenarios/ore_vein.png" alt="ore_vein"/>
                </p>
             </li>
          </ol>

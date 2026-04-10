@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>建筑部件</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>建筑部件</h1>
          <ul>
@@ -91,7 +91,7 @@
             </li>
             <li>
                <p>我们可以测试新的建筑资源是否出现在游戏中，以及炉民是否可以使用它进行建造：
-                  <img src="/modding_guide/images/intermediate/building_parts/building_resources.png" alt="building_resources"/>
+                  <img src="/images/intermediate/building_parts/building_resources.png" alt="building_resources"/>
                </p>
             </li>
          </ol>
@@ -120,13 +120,13 @@
          <p>地板图案列在 <strong>"pattern"</strong> 条目内，按建筑资源分组。在 <strong>"patterns"</strong> 键下，我们有图案的 URI 列表（URI 链接到 QB 模型），我们为 UI 定义 <strong>"icon"</strong>，为工具提示定义 <strong>"display_name"</strong>。</p>
          <p>与颜色一样，图案不能在不同资源之间重复，因此请确保没有为同一建筑资源或在不同资源之间重复的图案 URI。</p>
          <p>导入现有图案的 QB 模型以查看它们的设置方式。您可以在 <code>stonehearth/data/build/brushes/pattern</code> 中找到它们。地板图案不需要完全正方形，您可以制作矩形形状，甚至带有孔洞的形状。但它们必须只有 1 个体素高，因为地板和道路只有那么高。</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>还建议将您在图案中使用的颜色添加到相应资源的可用颜色列表中（如果尚未存在）。否则，它们在建筑成本列表中将被默认为木材。</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/>还建议将您在图案中使用的颜色添加到相应资源的可用颜色列表中（如果尚未存在）。否则，它们在建筑成本列表中将被默认为木材。</p>
          <p>不要忘记将图案的 URI 添加到您的清单中！</p>
          <pre><code>    "aliases" : {
        "build:brushes:pattern:green_cane_diagonal" : "file(data/build/brushes/pattern/green_cane_diagonal/green_cane_diagonal.qb)"
     }
 </code></pre>
-         <p><img src="/modding_guide/images/intermediate/building_parts/floor_pattern.png" alt="floor_pattern"/></p>
+         <p><img src="/images/intermediate/building_parts/floor_pattern.png" alt="floor_pattern"/></p>
          <h2><a name= "WallPatterns"></a>添加墙壁图案</h2>
          <p>与添加地板图案相同，但 mixinto 将它们包含在 <strong>"wall"</strong> 条目内：</p>
          <pre><code>    {
@@ -150,7 +150,7 @@
          <p>与地板图案非常相似，您可以为图案制作不同的形状，但墙壁应该只有 1 个体素厚，否则在使用建造者中的房间/墙壁工具时会出现意外结果。</p>
          <p>墙壁的 .qb 模型通常以 (0,0,0) 为中心，但您也可以将其制作在第一象限。如果您导入现有的墙壁图案（它们在 <code>stonehearth/data/build/brushes/wall</code> 内），您将看到可以使它们更短或更高，它们不需要具有游戏中的默认墙壁高度（6 个方块），建造者知道如何拉伸图案。它们也可以有不同的长度。</p>
          <p>确保您的图案的颜色也在相应资源的可用颜色列表中（注意不要添加重复项）。
-            <img src="/modding_guide/images/intermediate/building_parts/wall_pattern.png" alt="wall_pattern"/>
+            <img src="/images/intermediate/building_parts/wall_pattern.png" alt="wall_pattern"/>
          </p>
          <h2><a name="RoofPatterns"></a>添加屋顶图案</h2>
          <p>屋顶图案像地板/墙壁图案一样添加到 <code>building_brushes.json</code> 文件中：</p>
@@ -177,11 +177,11 @@
          <p>如果是 <strong>"flat"</strong>，屋顶模型将被视为 rayyas_children 屋顶（或城堡屋顶）：它们将保持平坦，我们只能改变它们面向的方向。</p>
          <p>屋顶只能作为图案添加，因为它们的 .qb 模型必须以特殊方式设置，以表示其不同部分，如内角/外角、侧面和中间。但玩家可以自由使用建筑编辑器中的方块工具创建更详细的屋顶或具有不同倾斜度的屋顶（例如，northern_alliance mod 中的屋顶就是使用方块工具制作的）。</p>
          <p>让我们看看屋顶的 QB 模型（您可以在 <code>stonehearth/data/build/brushes/roof</code> 中找到更多示例）。尖顶屋顶的设置为 9 网格：
-            <img src="/modding_guide/images/intermediate/building_parts/9_grid.png" alt="9_grid"/>
+            <img src="/images/intermediate/building_parts/9_grid.png" alt="9_grid"/>
          </p>
          <p>每个部分在不同的矩阵/层中。这些矩阵/层的名称是数字，必须与上图中的相同。由于部分在游戏中的放置和旋转方式，图案将根据倾斜度、大小等看起来不同，因此这是游戏中尖顶屋顶模型常用的大小。</p>
          <p>平顶屋顶的设置为 13 网格（也考虑内角）：
-            <img src="/modding_guide/images/intermediate/building_parts/13_grid.png" alt="13_grid"/>
+            <img src="/images/intermediate/building_parts/13_grid.png" alt="13_grid"/>
          </p>
          <p>请注意，内角的矩阵/层名称以 <strong>c</strong> 结尾，并基于其他角。我们需要在层中使用这些确切的名称。</p>
          <p>对于平顶屋顶，如果我们愿意，可以使它们更高一些（例如，用于城堡屋顶的城垛），并增加中间部分的大小以使其具有图案。还要注意粘土板条屋顶的设置方式。屋顶的边缘与 X/Z 轴对齐，而木制部分向外突出。</p>
@@ -192,7 +192,7 @@
     }
 </code></pre>
          <p>最后，在游戏中测试您的屋顶图案：
-            <img src="/modding_guide/images/intermediate/building_parts/roof_pattern.png" alt="roof_pattern"/>
+            <img src="/images/intermediate/building_parts/roof_pattern.png" alt="roof_pattern"/>
          </p>
          <h2><a name="Windows"></a>添加窗户</h2>
          <p>窗户和门有一个"切割器"，当您在设计建筑时将它们放置在墙壁中时，会自动为它们创建一个孔洞。</p>

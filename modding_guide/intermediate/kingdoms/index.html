@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>王国</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>王国</h1>
          <p>王国通过 population 服务、population 调用处理程序和 <code>population_faction.lua</code> 进行管理。要添加新的可玩王国，我们可以查看 rayyas_children 和 northern_alliance 模组。</p>
@@ -31,7 +31,7 @@
                   </li>
                   <li>
                      <p><strong>"favored_biome"</strong> -- 偏爱生物群系的 URI。通常，偏爱的生物群系为你的自定义王国的基础工匠职业提供足够的资源。当玩家选择在非偏爱生物群系中使用此王国游玩时，UI 中将出现警告。</p>
-                     <p> <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 警告仅在我们选择非偏爱的原版王国时出现。对于模组化生物群系，它不会出现。尽管如此，"(favored)" 文本将出现在生物群系名称旁边，以便玩家知道在该生物群系中他们将拥有此王国职业所需的所有资源。</p>
+                     <p> <img src="/images/common/row_alert2.png" alt="图标"/> 警告仅在我们选择非偏爱的原版王国时出现。对于模组化生物群系，它不会出现。尽管如此，"(favored)" 文本将出现在生物群系名称旁边，以便玩家知道在该生物群系中他们将拥有此王国职业所需的所有资源。</p>
                   </li>
                   <li>
                      <p><strong>"quote"</strong> -- 未使用的遗留字段。</p>
@@ -56,7 +56,7 @@
                   </li>
                   <li>
                      <p><strong>"job_index"</strong> -- 我们自定义王国的职业索引的 URI。查看如何创建职业以创建你自己的自定义职业。如果你愿意，你也可以重用 stonehearth 的职业。</p>
-                     <p> <img src="/modding_guide/images/common/gold.png" alt="图标"/> 我们可以向职业索引添加 <strong>"base_job"</strong> 字段以指定不同于 <code>"stonehearth:jobs:worker"</code> 的基础职业。你应该只有一个基础职业，因为原版游戏不支持多个。通常这是一个不需要护身符的职业，以防玩家因任何原因无法制作它。查看 Worker 职业的设置方式。</p>
+                     <p> <img src="/images/common/gold.png" alt="图标"/> 我们可以向职业索引添加 <strong>"base_job"</strong> 字段以指定不同于 <code>"stonehearth:jobs:worker"</code> 的基础职业。你应该只有一个基础职业，因为原版游戏不支持多个。通常这是一个不需要护身符的职业，以防玩家因任何原因无法制作它。查看 Worker 职业的设置方式。</p>
                   </li>
                   <li>
                      <p><strong>"inventory_capacity_equation"</strong> -- 计算库存容量应如何随时间增加的方程式。对于原版游戏，它基于 Hearthlings 的数量：<code>"math.max(num_citizens * 150, 1200)"</code>。</p>

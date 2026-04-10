@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>debugtools 模组</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>debugtools 模组</h1>
             <p><code>debugtools</code> 是开发者用于帮助调试游戏的模组。
@@ -25,27 +25,27 @@
                 <li>开始或加载游戏。</li>
             </ol>
             <p>Debugtools 是一组位于屏幕右上角的 10 个工具：
-                <img src="/modding_guide/images/essentials/debugtools/debugtools.png" alt="debugtools"/>
+                <img src="/images/essentials/debugtools/debugtools.png" alt="debugtools"/>
             </p>
             <p>一些通用信息：<br/>
-                <img src="/modding_guide/images/common/gold.png" alt="图标"/> 各种 debugtools 中的任何蓝色文本都是指向其他信息或触发某事的链接。<br/>
-                <img src="/modding_guide/images/common/gold.png" alt="图标"/> 你可以拖动这些工具的任何用户界面。<br/>
-                <img src="/modding_guide/images/common/gold.png" alt="图标"/> 如果在打开任何其他游戏内用户界面视图时打开了调试工具，该工具的用户界面可能会在屏幕上移动。一旦你关闭其他用户界面视图，它将返回到其原始位置。
+                <img src="/images/common/gold.png" alt="图标"/> 各种 debugtools 中的任何蓝色文本都是指向其他信息或触发某事的链接。<br/>
+                <img src="/images/common/gold.png" alt="图标"/> 你可以拖动这些工具的任何用户界面。<br/>
+                <img src="/images/common/gold.png" alt="图标"/> 如果在打开任何其他游戏内用户界面视图时打开了调试工具，该工具的用户界面可能会在屏幕上移动。一旦你关闭其他用户界面视图，它将返回到其原始位置。
             </p>
             <p>让我们逐一介绍它们：</p>
             <ul>
-                <li><img src="/modding_guide/images/essentials/debugtools/campaign_browser_icon.png" alt="图标"/><a href="#CampaignBrowser">战役浏览器</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/ai_inspector_icon.png" alt="图标"/><a href="#AIInspector">AI 检查器</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/object_browser_icon.png" alt="图标"/><a href="#ObjectBrowser">对象浏览器</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/perf_mon_icon.png" alt="图标"/><a href="#PerformanceMonitor">性能监视器</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/entity_editor_icon.png" alt="图标"/><a href="#EntityEditor">实体编辑器</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/job_monitor_icon.png" alt="图标"/><a href="#JobMonitor">职业监视器</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/trace_monitor_icon.png" alt="图标"/><a href="#TraceMonitor">跟踪监视器</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/item_stamper_icon.png" alt="图标"/><a href="#ItemStamper">物品生成器</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/lua_console_icon.png" alt="图标"/><a href="#LuaConsole">Lua 控制台</a></li>
-                <li><img src="/modding_guide/images/essentials/debugtools/time_slider_icon.png" alt="图标"/><a href="#DebuggingWeather">时间滑块</a></li>
+                <li><img src="/images/essentials/debugtools/campaign_browser_icon.png" alt="图标"/><a href="#CampaignBrowser">战役浏览器</a></li>
+                <li><img src="/images/essentials/debugtools/ai_inspector_icon.png" alt="图标"/><a href="#AIInspector">AI 检查器</a></li>
+                <li><img src="/images/essentials/debugtools/object_browser_icon.png" alt="图标"/><a href="#ObjectBrowser">对象浏览器</a></li>
+                <li><img src="/images/essentials/debugtools/perf_mon_icon.png" alt="图标"/><a href="#PerformanceMonitor">性能监视器</a></li>
+                <li><img src="/images/essentials/debugtools/entity_editor_icon.png" alt="图标"/><a href="#EntityEditor">实体编辑器</a></li>
+                <li><img src="/images/essentials/debugtools/job_monitor_icon.png" alt="图标"/><a href="#JobMonitor">职业监视器</a></li>
+                <li><img src="/images/essentials/debugtools/trace_monitor_icon.png" alt="图标"/><a href="#TraceMonitor">跟踪监视器</a></li>
+                <li><img src="/images/essentials/debugtools/item_stamper_icon.png" alt="图标"/><a href="#ItemStamper">物品生成器</a></li>
+                <li><img src="/images/essentials/debugtools/lua_console_icon.png" alt="图标"/><a href="#LuaConsole">Lua 控制台</a></li>
+                <li><img src="/images/essentials/debugtools/time_slider_icon.png" alt="图标"/><a href="#DebuggingWeather">时间滑块</a></li>
             </ul>
-            <h3><a name="CampaignBrowser"></a><img src="/modding_guide/images/essentials/debugtools/campaign_browser_icon.png" alt="图标"/>战役浏览器：</h3>
+            <h3><a name="CampaignBrowser"></a><img src="/images/essentials/debugtools/campaign_browser_icon.png" alt="图标"/>战役浏览器：</h3>
             <p>战役浏览器以带有节点的水平树形式显示游戏大师在战役方面的当前状态。你可以查看（并触发）遭遇战，并检查当前激活的遭遇战。你可以使用此工具调试你自己模组的战役，查看它们的流程是否正确，并在任何时候生成它们。</p>
             <p>使用战役浏览器的一些提示：</p>
             <ul>
@@ -54,23 +54,23 @@
                 </li>
                 <li>
                     <p>点击节点的名称以打开上下文菜单。如果遭遇战尚未触发，你将看到一个触发它的选项。点击蓝色文本来执行此操作：
-                        <img src="/modding_guide/images/essentials/debugtools/non_triggered.png" alt="non_triggered"/>
+                        <img src="/images/essentials/debugtools/non_triggered.png" alt="non_triggered"/>
                     </p>
                 </li>
                 <li>
                     <p>如果遭遇战已经触发，你将在上下文菜单中看到有关它的信息：
-                        <img src="/modding_guide/images/essentials/debugtools/already_triggered.png" alt="already_triggered"/>
+                        <img src="/images/essentials/debugtools/already_triggered.png" alt="already_triggered"/>
                     </p>
                 </li>
                 <li>
                     <p>上下文菜单中有几个按钮。一个是"切换原始视图"（齿轮图标），另一个是"切换私有变量视图"。点击它们将显示/隐藏上下文菜单中的额外信息（如果适用）（有时没有私有变量可显示）。
-                        <img src="/modding_guide/images/essentials/debugtools/raw_view.png" alt="raw_view"/>
-                        <img src="/modding_guide/images/essentials/debugtools/encounter_context.png" alt="encounter_context"/>
+                        <img src="/images/essentials/debugtools/raw_view.png" alt="raw_view"/>
+                        <img src="/images/essentials/debugtools/encounter_context.png" alt="encounter_context"/>
                     </p>
                 </li>
                 <li>
                     <p>如果遭遇战可以生成多个遭遇战，你将看到可用选项列表以及默认触发器。这很有用，因为我们可以直接触发我们想要调试的遭遇战，而不是随机选择的一个：
-                        <img src="/modding_guide/images/essentials/debugtools/trigger_one_of.png" alt="trigger_one_of"/>
+                        <img src="/images/essentials/debugtools/trigger_one_of.png" alt="trigger_one_of"/>
                     </p>
                 </li>
                 <li>
@@ -87,7 +87,7 @@
                 </li>
                 <li>
                     <p>如果你在尚未初始化游戏大师的测试世界中，还可以从战役浏览器中启动游戏大师。关闭按钮旁边有一个触发器：
-                        <img src="/modding_guide/images/essentials/debugtools/start_game_master.png" alt="start_game_master"/>
+                        <img src="/images/essentials/debugtools/start_game_master.png" alt="start_game_master"/>
                     </p>
                 </li>
                 <li>
@@ -97,12 +97,12 @@
                     <p>调试与战斗相关的内容时生成敌人的最快方法是从环境威胁战役中触发袭击队伍。如果你需要比初始袭击更强大的袭击，请使用其他调试工具增加你的净资产，或尝试其他方法（例如：使用 <a href="https://github.com/stonehearth/microworld">Microworld</a> 模组准备测试世界）。</p>
                 </li>
             </ul>
-            <h3><a name="AIInspector"></a><img src="/modding_guide/images/essentials/debugtools/ai_inspector_icon.png" alt="图标"/>AI 检查器：</h3>
+            <h3><a name="AIInspector"></a><img src="/images/essentials/debugtools/ai_inspector_icon.png" alt="图标"/>AI 检查器：</h3>
             <p>要使用 AI 检查器，从游戏中选择一个活体实体，然后点击它以打开 AI 检查器。它将显示当前正在考虑哪些行为以及当前正在运行哪个行为。
-                <img src="/modding_guide/images/essentials/debugtools/ai_inspector.png" alt="ai_inspector"/>
+                <img src="/images/essentials/debugtools/ai_inspector.png" alt="ai_inspector"/>
             </p>
             <p>它有一个搜索栏，将突出显示树中匹配的行为（它还将突出显示这些行为的父节点）。你可以点击行为旁边的破折号以折叠/展开节点。
-                <img src="/modding_guide/images/essentials/debugtools/ai_search_bar.png" alt="ai_search_bar"/>
+                <img src="/images/essentials/debugtools/ai_search_bar.png" alt="ai_search_bar"/>
             </p>
             <p>树将经常刷新（Hearthlings 和其他活体实体不断思考），所以你可能想暂停游戏以观察实体在给定时刻的状态。</p>
             <p>在工具顶部，有一个"固定到实体"选项。如果切换它，AI 检查器将继续显示该实体的 AI，即使你选择不同的实体或点击地形/用户界面。顶部还有其他调试选项。</p>
@@ -121,68 +121,68 @@
             <p>我们有活动，即可以有多种实现的行为，以及行为，即活动的特定实现。例如，如果"获取食物"是一个活动，"从储藏室获取食物"、"从背包获取食物"和"猎杀野生动物"都可能是"获取食物"活动的实现。</p>
             <p>每个行为可以是复合行为或叶行为。复合行为在 AI 检查器中标记为此类。它们由几个步骤组成，每个步骤都是一个行为。要使复合行为开始运行，实体必须确定其每个子行为可以按顺序运行。</p>
             <p>检查器还将在行为旁边显示参数值，这为我们提供了更多关于所选实体内部发生情况的信息。</p>
-            <h3><a name="ObjectBrowser"></a><img src="/modding_guide/images/essentials/debugtools/object_browser_icon.png" alt="图标"/>对象浏览器：</h3>
+            <h3><a name="ObjectBrowser"></a><img src="/images/essentials/debugtools/object_browser_icon.png" alt="图标"/>对象浏览器：</h3>
             <p>在游戏中选择一个实体并打开对象浏览器。你将看到实体拥有的所有组件，以及另外几个字段：
-                <img src="/modding_guide/images/essentials/debugtools/object_browser.png" alt="object_browser"/>
+                <img src="/images/essentials/debugtools/object_browser.png" alt="object_browser"/>
             </p>
             <p>你可以看到一些按钮（"切换原始视图"、"切换私有变量视图"），这些按钮在其他调试工具中重用，如战役浏览器的上下文菜单。折叠/展开和关闭按钮也在其他调试工具中重用。</p>
             <p>此工具中还有一个新图标（带 + 的放大镜，类似"放大"图标），它将把相机居中到对象浏览器显示的实体上，除非实体不在世界中（例如：在储物中等）。</p>
             <p>对象浏览器左上角有一个可以切换的"跟踪所选"图标。当它激活时（黄色），工具将在你选择不同实体时更新其内容。当它不是黄色时，选择新实体不会刷新其内容。这在你想要并排比较两个单独实体的组件时很有用。只需打开一个新的对象浏览器并选择不同的实体。</p>
             <p>顶部的栏指的是对象浏览器当前显示的对象。它将显示该对象的数字 ID。如果你知道某个对象的 ID，你可以手动在那里写入它以检查它。点击任何蓝色文本将导航到该组件的数据，显示所选实体具有的值。检查 "uri" 字段将显示该 URI 的 JSON 文件内容。</p>
             <p>使用此工具和切换私有变量视图的功能，我们可以检查未暴露给用户界面的值，例如消耗性资源的当前值等、私有存储的内容等。由于点击新链接会将我们带到不同的对象，我们可以使用"后退"和"前进"按钮导航到我们之前检查的对象。
-                <img src="/modding_guide/images/essentials/debugtools/inspecting_objects.png" alt="inspecting_objects"/>
-                <img src="/modding_guide/images/essentials/debugtools/inspecting_objects2.png" alt="inspecting_objects2"/>
+                <img src="/images/essentials/debugtools/inspecting_objects.png" alt="inspecting_objects"/>
+                <img src="/images/essentials/debugtools/inspecting_objects2.png" alt="inspecting_objects2"/>
             </p>
             <p>最后，"显示所有实体"按钮（看起来像 3 条水平线）将显示一个单独的窗口，其中包含当前游戏的所有现有实体及其数量的列表。此按钮也可能出现在其他调试工具中。
-                <img src="/modding_guide/images/essentials/debugtools/show_all_entities.png" alt="show_all_entities"/>
+                <img src="/images/essentials/debugtools/show_all_entities.png" alt="show_all_entities"/>
                 它有一个搜索栏，还将显示有错误/超出边界（在世界之外）的实体。"[no uri]" 实体是特殊实体，如地形。
             </p>
             <p>点击列表中的项目将打开一个新窗口，显示包含对该类型所有实体引用的数组（例如：所有浆果丛）。
-                <img src="/modding_guide/images/essentials/debugtools/all_entities_of_type.png" alt="all_entities_of_type"/>
+                <img src="/images/essentials/debugtools/all_entities_of_type.png" alt="all_entities_of_type"/>
             </p>
-            <h3><a name="PerformanceMonitor"></a><img src="/modding_guide/images/essentials/debugtools/perf_mon_icon.png" alt="图标"/>性能监视器：</h3>
+            <h3><a name="PerformanceMonitor"></a><img src="/images/essentials/debugtools/perf_mon_icon.png" alt="图标"/>性能监视器：</h3>
             <p>此工具用于测量一些性能值：
-                <img src="/modding_guide/images/essentials/debugtools/perf_mon.png" alt="perf_mon"/>
+                <img src="/images/essentials/debugtools/perf_mon.png" alt="perf_mon"/>
             </p>
             <p>你还可以借助 <a href="../../../intermediate/testing/index.html#LuaProfiler">Lua 分析器脚本</a> 进行一些分析。速度按钮旁边的栏也显示了几个后台任务的资源使用情况。如果你点击它，可以切换不同颜色的细分。
-                <img src="/modding_guide/images/essentials/debugtools/perf_bar.png" alt="perf_bar"/>
+                <img src="/images/essentials/debugtools/perf_bar.png" alt="perf_bar"/>
             </p>
             <p>开发团队还使用了不同的遥测工具来更详细地测量性能，但这些工具仍然可以显示任何明显的瓶颈或问题。</p>
-            <h3><a name="EntityEditor"></a><img src="/modding_guide/images/essentials/debugtools/entity_editor_icon.png" alt="图标"/>实体编辑器：</h3>
+            <h3><a name="EntityEditor"></a><img src="/images/essentials/debugtools/entity_editor_icon.png" alt="图标"/>实体编辑器：</h3>
             <p>实体编辑器允许我们调整实体的碰撞和目标区域。选择一个实体，然后点击此工具（或反之亦然）：
-                <img src="/modding_guide/images/essentials/debugtools/entity_editor.png" alt="entity_editor"/>
+                <img src="/images/essentials/debugtools/entity_editor.png" alt="entity_editor"/>
             </p>
             <p>然后你可以在游戏中直观地调整模型/区域原点和碰撞/目标区域。如果你打开区域菜单或其他激活地形网格的菜单，这将有所帮助，这样你可以更好地看到对齐：
-                <img src="/modding_guide/images/essentials/debugtools/destination_regions.png" alt="destination_regions"/>
+                <img src="/images/essentials/debugtools/destination_regions.png" alt="destination_regions"/>
                 标签有用的工具提示有助于解释不同的值。如果你需要更多信息，我们将在指南的<a href="../../../intermediate/regions/collision_destination/index.html">另一部分</a>中介绍这些区域。
             </p>
             <p>当你对区域满意时，你可以点击"显示 Json"按钮（卷轴），一个新窗口将打开并显示更新的值，以便你可以将它们复制粘贴到实体的 JSON 文件中：
-                <img src="/modding_guide/images/essentials/debugtools/show_json.png" alt="show_json"/>
+                <img src="/images/essentials/debugtools/show_json.png" alt="show_json"/>
             </p>
-            <h3><a name="JobMonitor"></a><img src="/modding_guide/images/essentials/debugtools/job_monitor_icon.png" alt="图标"/>职业监视器：</h3>
+            <h3><a name="JobMonitor"></a><img src="/images/essentials/debugtools/job_monitor_icon.png" alt="图标"/>职业监视器：</h3>
             <p>此工具监视 Hearthlings 的任务。它显示有关空闲 Hearthlings 和其他生物的信息：
-                <img src="/modding_guide/images/essentials/debugtools/job_monitor.png" alt="job_monitor"/>
+                <img src="/images/essentials/debugtools/job_monitor.png" alt="job_monitor"/>
             </p>
             <p>如果你点击一个 Hearthling，职业监视器将只显示有关该 Hearthling 的信息。如果你点击地形或取消选择任何实体，它将显示有关所有空闲实体的信息。</p>
             <p>它还显示其寻路器的状态，如果他们试图搜索非常远的东西，尽管它通常很快消失（除非游戏卡顿）。它将在实体名称旁边显示优先级、tick 数和 AI 旋转计数，以及他们在做什么：
-                <img src="/modding_guide/images/essentials/debugtools/idle_pathf.png" alt="idle_pathf"/>
+                <img src="/images/essentials/debugtools/idle_pathf.png" alt="idle_pathf"/>
             </p>
             <p>主要用于调查空闲的 Hearthlings。</p>
-            <h3><a name="TraceMonitor"></a><img src="/modding_guide/images/essentials/debugtools/trace_monitor_icon.png" alt="图标"/>跟踪监视器：</h3>
+            <h3><a name="TraceMonitor"></a><img src="/images/essentials/debugtools/trace_monitor_icon.png" alt="图标"/>跟踪监视器：</h3>
             <p>此工具用于跟踪用户界面的跟踪。如果你选择不同的实体，它将添加/删除列表中的一些对象。
-                <img src="/modding_guide/images/essentials/debugtools/trace_monitor.png" alt="trace_monitor"/>
+                <img src="/images/essentials/debugtools/trace_monitor.png" alt="trace_monitor"/>
             </p>
             <p>我们可以检查某些跟踪是否失败，以及哪些正在进行中。它列出了对象 ID，因此我们可以使用对象浏览器检查每个对象跟踪的对象（如果适用）。加载所有信息可能需要一些时间（如果对象太大，对象浏览器也是如此）。</p>
             <p>请注意，与其他调试工具不同，此工具的窗口无法拖动。</p>
-            <h3><a name="ItemStamper"></a><img src="/modding_guide/images/essentials/debugtools/item_stamper_icon.png" alt="图标"/>物品生成器：</h3>
+            <h3><a name="ItemStamper"></a><img src="/images/essentials/debugtools/item_stamper_icon.png" alt="图标"/>物品生成器：</h3>
             <p>这是 debugtools 模组中最常用的工具。物品生成器或物品放置器允许生成游戏中的任何实体。只需输入你要搜索的物品别名的一部分或全部，它将显示一个带有匹配物品列表的下拉菜单：
-                <img src="/modding_guide/images/essentials/debugtools/item_stamper_typing.png" alt="item_stamper_typing"/>
+                <img src="/images/essentials/debugtools/item_stamper_typing.png" alt="item_stamper_typing"/>
             </p>
             <p>你可以点击列表项以不必输入整个别名。然后，勾选"iconic"复选框以将物品生成为 iconic，或者如果不希望（或如果物品没有 iconic 形式）则不勾选。之后，点击地形以生成你想要的任意次数的物品，右键单击以退出放置模式：
-                <img src="/modding_guide/images/essentials/debugtools/item_stamper_stamped.png" alt="item_stamper_stamped"/>
+                <img src="/images/essentials/debugtools/item_stamper_stamped.png" alt="item_stamper_stamped"/>
             </p>
             <p>你可以通过点击"x9"复选框加快速度，它将一次点击生成 9 个实体：
-                <img src="/modding_guide/images/essentials/debugtools/item_stamper_x9.png" alt="item_stamper_x9"/>
+                <img src="/images/essentials/debugtools/item_stamper_x9.png" alt="item_stamper_x9"/>
             </p>
             <p>了解实体的实际 URI/别名会有所帮助，因为有时它与显示名称不匹配（例如，Mean Bed 的别名是 "stonehearth:furniture:not_much_of_a_bed"）。</p>
             <p>如果游戏暂停并且你生成了具有 AI 的实体或具有动画的实体，它可能会出现挤压，直到你取消暂停。</p>
@@ -190,18 +190,18 @@
                 要生成敌对敌人，你需要使用战役浏览器。
             </p>
             <p>物品生成器的用户界面有时有点小问题。它还可以列出不可放置的物品或非活体实体，它没有完全过滤游戏中的所有物品，如果太长可能不适合窗口。</p>
-            <h3><a name="LuaConsole"></a><img src="/modding_guide/images/essentials/debugtools/lua_console_icon.png" alt="图标"/>Lua 控制台</h3>
+            <h3><a name="LuaConsole"></a><img src="/images/essentials/debugtools/lua_console_icon.png" alt="图标"/>Lua 控制台</h3>
             <p>使用此控制台，我们可以执行游戏文件中可用的任何 Lua 函数，并检查私有变量的值。它对调试非常有用。</p>
             <p>我们可以从服务器端执行代码。如果我们选择一个实体，我们可以使用 "e" 从此控制台访问它。例如，这里我们选择了一个 Hearthling。我们将她存储在一个新变量中，并使用此变量执行代码使她饥饿：
-                <img src="/modding_guide/images/essentials/debugtools/lua_console_server.png" alt="lua_console_server"/>
-                <img src="/modding_guide/images/essentials/debugtools/lua_console_executed.png" alt="lua_console_executed"/>
+                <img src="/images/essentials/debugtools/lua_console_server.png" alt="lua_console_server"/>
+                <img src="/images/essentials/debugtools/lua_console_executed.png" alt="lua_console_executed"/>
             </p>
             <p>我们还可以在客户端执行代码（例如，如果我们要执行的函数在客户端服务中）。首先我们需要点击控制台顶部的"client"。在这张图片中，我们检索声音服务的私有变量的值：
-                <img src="/modding_guide/images/essentials/debugtools/lua_console_client.png" alt="lua_console_client"/>
+                <img src="/images/essentials/debugtools/lua_console_client.png" alt="lua_console_client"/>
             </p>
-            <h3><a name="DebuggingWeather"></a><img src="/modding_guide/images/essentials/debugtools/time_slider_icon.png" alt="图标"/>时间滑块</h3>
+            <h3><a name="DebuggingWeather"></a><img src="/images/essentials/debugtools/time_slider_icon.png" alt="图标"/>时间滑块</h3>
             <p>这是一个为测试天气内容而添加的工具。</p>
-            <p><img src="/modding_guide/images/essentials/debugtools/time_slider.png" alt="time_slider"/></p>
+            <p><img src="/images/essentials/debugtools/time_slider.png" alt="time_slider"/></p>
             <p>你可以前后拖动滑块以查看天空渐变变化。天气将在每天早上 4:30 变化（在编写本指南时）。</p>
             <p>尽管你可以在滑块中看到当前时间变化，但日期不会改变，直到所需的小时数过去。对于等待一定小时数后才生成遭遇战的游戏事件或战役也是如此，此滑块不会影响它们。</p>
             <p>如果你在游戏暂停时拖动滑块，天空将变化，但天气不会更新，直到你取消暂停。</p>

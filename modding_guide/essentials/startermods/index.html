@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-        <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-        <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+        <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+        <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
         <title>入门模组示例</title>
     </head>
     <body>
-        <script src="/modding_guide/menus.js"></script>
+        <script src="/menus.js"></script>
         <main>
             <h1>入门模组示例</h1>
             <p>
@@ -21,20 +21,20 @@
             <ol>
                 <li>从 Github 下载 <a href="https://github.com/stonehearth/startermod_basic">startermod_basic</a> 模组。</li>
                 <li>将其解压到你的 stonehearth 模组目录中，与 stonehearth.smod 和 radiant.smod 并列。<br/>
-                    <img src="/modding_guide/images/common/row_alert2.png" alt="图标"/> 某些压缩软件可能会创建一个同名的内部子文件夹。确保解压模组后，模组目录的结构为 <strong>mods/startermod_basic/&lt; 模组文件 ></strong>，而不是 mods/startermod_basic/startermod_basic/&lt; 模组文件 >。
+                    <img src="/images/common/row_alert2.png" alt="图标"/> 某些压缩软件可能会创建一个同名的内部子文件夹。确保解压模组后，模组目录的结构为 <strong>mods/startermod_basic/&lt; 模组文件 ></strong>，而不是 mods/startermod_basic/startermod_basic/&lt; 模组文件 >。
                 </li>
                 <li>在 startermod_basic 文件夹内，你应该看到几个文件夹和一些文件，其中一个名为 manifest.json。</li>
                 <li>启动游戏。在主菜单中，点击模组按钮。你应该在本地模组列表中看到 startermod_basic 模组并已启用。当我们在这里时，如果 debugtools 模组未启用，请启用它。</li>
             </ol>
             <p>该模组向世界添加了两个新对象，并为木匠添加了一个新配方，以便你至少可以看到世界中的一个对象。</p>
             <p>在深入探讨模组的文件之前，开始一个新游戏并制作一个木匠。你应该在他的配方列表中的"家具"类别下看到一个"Sample Recipe"（示例配方）。示例配方创建一个你可以放置在世界中的装饰对象。
-                <img src="/modding_guide/images/essentials/startermods/sample_recipe.png" alt="sample_recipe"/>
+                <img src="/images/essentials/startermods/sample_recipe.png" alt="sample_recipe"/>
             </p>
             <p>startermod_basic 还向世界添加了一个"Sample Object"（示例对象）。这个对象非常基础，在游戏中几乎没有用途。为了甚至看到它（因为它不参与任何配方），你必须打开物品生成器调试工具，并输入：</p>
             <pre><code>  startermod_basic:sample_object
 </code></pre>
             <p>按 Enter 键，然后点击游戏中的地面某处：
-                <img src="/modding_guide/images/essentials/startermods/sample_object.png" alt="sample_object"/>
+                <img src="/images/essentials/startermods/sample_object.png" alt="sample_object"/>
             </p>
             <p>现在你已经看到了 startermod_basic 向游戏添加的内容，你现在可以使用此模组向 Stonehearth 添加你自己的对象了。</p>
             <p>最简单的方法是用你自己的模型替换示例对象的模型文件（startermod_basic/entities/sample_object/sample.qb）。（要创建 stonehearth 模型，你需要一个可以保存 .qb 文件格式的体素编辑程序。前往指南的<a href="../tools/index.html">工具</a>或<a href="../../basic/art/index.html">美术部分</a>了解如何操作）。</p>

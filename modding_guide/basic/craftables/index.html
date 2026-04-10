@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>添加配方</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>添加配方</h1>
          <p>我们在<a href="../adding_items/index.html">之前的部分</a>中已经介绍了如何创建我们自己的物品。当然，您可以为这些物品添加任何您想要的组件，如果您从头创建模型，请确保查看<a href="../art/modeling/index.html">建模指南</a>和关于<a href="../../intermediate/regions/index.html">碰撞区域</a>的指南，以便您的模型正确导出并在世界中对齐。如果需要，这里还有<a href="../adding_items/item_scale/index.html">如何更改物品比例</a>的方法。</p>
@@ -98,7 +98,7 @@
                <p><strong>"workshop" : "uri_of_the_workbench"</strong>。这是制作者将用于制作物品的工作台的限定别名。我们只能指定一个别名。您可以在 stonehearth 清单中找到现有工作台的别名。记得在这里用定义它的 mod 的命名空间作为前缀（在这种情况下是 stonehearth）。</p>
             </li>
          </ul>
-         <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>如果我们不在配方文件中添加"workshop"字段，制作者将用手制作物品。这通常用于制作初始工作台。</p>
+         <p><img src="/images/common/edit_big.png" alt="icon"/>如果我们不在配方文件中添加"workshop"字段，制作者将用手制作物品。这通常用于制作初始工作台。</p>
          <ul>
             <li>
                <p><strong>"ingredients" : [{...}]</strong>。这是配方的原料列表。它是一个对象数组。您可以像在我们的自定义桌子配方中那样使用<a href="../generic_resources/index.html">通用资源</a>（使用资源的 entity_data 的材质标签），或使用特定的 URI 作为原料，如下所示：</p>
@@ -171,7 +171,7 @@
   }
   ...
 </code></pre>
-         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> 如果您添加<a href="../../intermediate/jobs/crafting_jobs/index.html">自定义制作职业</a>，其配方不需要通过 mixinto 添加，而是通过组件的属性添加。</p>
+         <p><img src="/images/common/gold.png" alt="icon"/> 如果您添加<a href="../../intermediate/jobs/crafting_jobs/index.html">自定义制作职业</a>，其配方不需要通过 mixinto 添加，而是通过组件的属性添加。</p>
          <p>最后，让我们测试石匠是否可以使用 debugtools 制作我们的配方：</p>
          <ul>
             <li>开始新游戏。</li>
@@ -179,20 +179,20 @@
             <li>打开默认控制台并输入 <strong>promote_to mason</strong>，然后按 Enter。</li>
             <li>使用物品印章生成石匠工作台和一些石块，或者只是让炉民采集一些石头。</li>
             <li>打开石匠工作台并检查配方是否存在并正确显示图像和文本：
-               <img src="/modding_guide/images/basic/craftables/recipe_added.png" alt="recipe_added"/>
+               <img src="/images/basic/craftables/recipe_added.png" alt="recipe_added"/>
             </li>
             <li>我们的石匠没有足够的等级来制作它，所以我们 shift+点击他，然后点击"Level Up"。
-               <img src="/modding_guide/images/basic/craftables/level_up.png" alt="level_up"/>
+               <img src="/images/basic/craftables/level_up.png" alt="level_up"/>
             </li>
             <li>现在我们可以命令制作我们的新物品并检查 iconic 是否正确生成。
-               <img src="/modding_guide/images/basic/craftables/testing_crafting.png" alt="level_up"/>
+               <img src="/images/basic/craftables/testing_crafting.png" alt="level_up"/>
             </li>
          </ul>
          <h2><a name="SHED"></a>使用 SHED 添加配方</h2>
          <p>正如在<a href="../adding_items/cloning_with_shed/index.html">创建物品部分</a>中解释的那样，我们可以一步创建物品及其配方。
             否则，我们可以取消选中克隆弹出窗口中我们不想要创建的任何不需要的文件，只保留配方文件被选中。
          </p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 在编写本指南时，克隆基础 mod 中现有职业的配方列表或单个配方不会使它们出现在我们 mod 的树视图中，我们需要在 SHED 之外编辑它们。当然，mixintos 也必须在 SHED 之外设置。如果我们用其生产的物品克隆配方，物品将显示在树视图中，因为将创建别名，因此我们将能够在 SHED 内编辑它。</p>
+         <p><img src="/images/common/row_alert2.png" alt="icon"/> 在编写本指南时，克隆基础 mod 中现有职业的配方列表或单个配方不会使它们出现在我们 mod 的树视图中，我们需要在 SHED 之外编辑它们。当然，mixintos 也必须在 SHED 之外设置。如果我们用其生产的物品克隆配方，物品将显示在树视图中，因为将创建别名，因此我们将能够在 SHED 内编辑它。</p>
       </main>
    </body>
 </html>

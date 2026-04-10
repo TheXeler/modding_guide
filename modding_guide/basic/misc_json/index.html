@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>杂项 JSON</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>杂项 JSON</h1>
          <p>以下是关于我们在 JSON 文件中的某些属性和组件中可以找到的一些表达式的解释：</p>
@@ -162,7 +162,7 @@
          <p>权重有点不同！权重仅仅说明某事相对于其他事情的可能性有多大。</p>
          <p>假设您希望 A 的掉落频率是 B 的 5 倍。B 的任意权重为 2。因此 A 的权重必须为 10，是 B 的 5 倍。所以目前，我们的总权重为 12。我们有 2/12 的机会看到 B，有 10/12 的机会看到 A。</p>
          <p>如果我们想添加权重为 8 的物品 C（比 B 常见 4 倍）怎么办？现在我们的总权重为 20，给予 10/20 的机会看到 A，2/20 的机会看到 B，8/20 的机会看到 C。每个物品掉落的相对几率保持不变，但 A 和 B 掉落的几率现在比以前少了。这很重要。</p>
-         <p><img src="/modding_guide/images/basic/misc_json/weights.png" alt="weights"/></p>
+         <p><img src="/images/basic/misc_json/weights.png" alt="weights"/></p>
          <p>在调整此权重之前，请检查您要 mixinto 的文件中的数字。如果您的数字太低，您的物品将不会掉落太多（如果有的话）。如果您的数字太高，它将超过所有其他物品，而其他任何东西都不会掉落！</p>
       </main>
    </body>

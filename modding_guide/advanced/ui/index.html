@@ -3,14 +3,14 @@
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href='/modding_guide/css/styles.css' rel='stylesheet' type='text/css'>
-      <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
-      <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
+      <link href='/css/styles.css' rel='stylesheet' type='text/css'>
+      <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
+      <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
       <title>UI</title>
    </head>
    <body>
-      <script src="/modding_guide/menus.js"></script>
+      <script src="/menus.js"></script>
       <main>
          <h1>UI</h1>
          <p>Stonehearth 使用 HTML、Javascript（JQuery）和 CSS（Less）来构建 UI。对于创建 UI 视图，我们使用 Ember 和 Handlebars 模板。游戏使用的 Ember 版本是 1.8，虽然有点过时，但也随着时间的推移针对游戏的特定问题进行了修补，因此升级它并不简单。</p>
@@ -84,7 +84,7 @@
             </li>
             <li>
                <p>编辑 Less 文件。现在，我们的 UI 视图看起来像这样：</p>
-               <p>  <img src="/modding_guide/images/advanced/ui/ui_view_no_css.png" alt="ui_view_no_css"/>
+               <p>  <img src="/images/advanced/ui/ui_view_no_css.png" alt="ui_view_no_css"/>
                   我们可以在 <code>custom_view.less</code> 文件中添加一些 CSS（Less）使其看起来更好：
                </p>
                <pre><code>.customWindow {
@@ -130,7 +130,7 @@
             </li>
          </ol>
          <p>现在它看起来像这样：</p>
-         <p><img src="/modding_guide/images/advanced/ui/ui_view_with_css.png" alt="ui_view_with_css"/></p>
+         <p><img src="/images/advanced/ui/ui_view_with_css.png" alt="ui_view_with_css"/></p>
          <p>您可以重用游戏 UI 中的任何图像用于您的视图，但在定义样式时要小心，因为它可能与其他游戏文件中的现有 CSS 类冲突，并应用于不应该应用的视图。</p>
          <h2><a name="ShowingUIConditionally"></a>条件显示视图</h2>
          <p>我们可以让视图保持隐藏，直到玩家在 UI 中点击某处（例如：我们从单位框架命令触发事件并对其做出反应）。</p>
