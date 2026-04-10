@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,36 +7,36 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Adding customizations</title>
+      <title>添加自定义</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Adding customizations</h1>
+         <h1>添加自定义</h1>
          <ul>
-            <li><a href="#BuildingColors">How to add building colors</a></li>
+            <li><a href="#BuildingColors">如何添加建筑颜色</a></li>
             <li>
-               <a href="#Customizations">How to add custom appearances</a>
+               <a href="#Customizations">如何添加自定义外观</a>
                <ul>
-                  <li><a href="#Hairstyles">Adding custom hairstyles</a></li>
-                  <li><a href="#CustomColors">Adding custom colors for skin, hair and eyes</a></li>
-                  <li><a href="#Lua">Using Lua to change customizations</a></li>
+                  <li><a href="#Hairstyles">添加自定义发型</a></li>
+                  <li><a href="#CustomColors">为皮肤、头发和眼睛添加自定义颜色</a></li>
+                  <li><a href="#Lua">使用 Lua 更改自定义</a></li>
                </ul>
             </li>
          </ul>
-         <h2><a name="BuildingColors"></a>How to add building colors</h2>
-         <p>How to add building patterns is explained <a href="../../intermediate/building_parts/index.html">here</a>.</p>
-         <p>Adding more colors to the building palette is easy:</p>
+         <h2><a name="BuildingColors"></a>如何添加建筑颜色</h2>
+         <p>如何添加建筑图案在<a href="../../intermediate/building_parts/index.html">这里</a>解释。</p>
+         <p>向建筑调色板添加更多颜色很容易：</p>
          <ol>
             <li>
-               <p>Add a mixinto to "stonehearth:build:brushes" in your manifest.</p>
+               <p>在您的清单中对"stonehearth:build:brushes"添加 mixinto。</p>
                <pre><code>"mixintos" : {
    "stonehearth:build:brushes" : "file(data/build/building_brushes.json)"
 }
 </code></pre>
             </li>
             <li>
-               <p>Your mixinto file should contain only the colors we want to add, inside the "always_available" keys for every material. For example, our mixinto would look like this if we were to add 2 custom colors for each of the stonehearth building resources:</p>
+               <p>您的 mixinto 文件应仅包含我们要添加的颜色，位于每种材质的"always_available"键内。例如，如果我们要为每个 stonehearth 建筑资源添加 2 种自定义颜色，我们的 mixinto 将如下所示：</p>
                <pre><code>{
    "always_available": {
        "wood resource": {
@@ -78,24 +78,24 @@
     }
 }
 </code></pre>
-               <p>  The keys inside <strong>"always_available"</strong> match material tags for the available resources. Here's <a href="../generic_resources/index.html#BuildingResources">how to add custom building resources</a> if you want to have your own custom resources for building.</p>
-               <p>  The colors we add here will be available for any of the building parts, except for roofs.</p>
-               <p>  Inside each key for the material tag, we have a <strong>"colors"</strong> entry which contains the list of colors. Each color is then expressed as a hexadecimal RGB color, starting with a hash symbol (#). As a convention, these colors are in uppercase. </p>
-               <p>  Each color entry has a <strong>"display_name"</strong>, which is a localized key for the name you want to show in the tooltip, and an ordinal to arrange the colors in the palette. The names for the existing colors in the game were obtained using <a href="http://www.color-blindness.com/color-name-hue/">this website</a>, but you can use any name you want.</p>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> It doesn't matter if we have duplicated ordinals in the list, but we can't have duplicated colors. This includes colors repeated on a different material entry. The game needs to associate a color with a certain resource material in order to calculate the building cost. So make sure that none of the colors you add has a duplicate in your mod nor in the stonehearth mod.</p>
+               <p><strong>"always_available"</strong> 内的键与可用资源的材质标签匹配。如果您想拥有自己的自定义建筑资源，这里是<a href="../generic_resources/index.html#BuildingResources">如何添加自定义建筑资源</a>的方法。</p>
+               <p>我们在此处添加的颜色将适用于任何建筑部件，屋顶除外。</p>
+               <p>在每个材质标签的键内，我们有一个包含颜色列表的 <strong>"colors"</strong> 条目。每种颜色都表示为以井号 (#) 开头的十六进制 RGB 颜色。按照惯例，这些颜色为大写。</p>
+               <p>每个颜色条目都有一个 <strong>"display_name"</strong>，这是您希望在工具提示中显示的名称的本地化键，以及一个用于在调色板中排列颜色的 ordinal。游戏中现有颜色的名称是使用<a href="http://www.color-blindness.com/color-name-hue/">此网站</a>获得的，但您可以使用任何您想要的名称。</p>
+               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 列表中是否有重复的 ordinals 并不重要，但我们不能有重复的颜色。这包括在不同材质条目中重复的颜色。游戏需要将颜色与特定的资源材质关联起来以计算建筑成本。因此，请确保您添加的颜色在您的 mod 或 stonehearth mod 中都没有重复。</p>
             </li>
             <li>
-               <p>Test your new colors in game (you can spawn the resources using the <a href="../../essentials/debugtools/debugtools_mod/index.html#ItemStamper">Item Stamper</a> from debugtools):
+               <p>在游戏中测试您的新颜色（您可以使用 debugtools 中的<a href="../../essentials/debugtools/debugtools_mod/index.html#ItemStamper">Item Stamper</a>生成资源）：
                   <img src="/modding_guide/images/basic/customization/building_colors.png" alt="building_colors"/>
                </p>
             </li>
          </ol>
-         <h2><a name="Customizations"></a>How to add custom appearances</h2>
-         <p>The customized appearance of hearthlings is controlled by the customization service and the customization component.</p>
-         <p>For hearthlings, they have it declared in the base_human.json mixin:</p>
+         <h2><a name="Customizations"></a>如何添加自定义外观</h2>
+         <p>炉民的自定义外观由 customization 服务和 customization 组件控制。</p>
+         <p>对于炉民，它们在 base_human.json mixin 中声明：</p>
          <pre><code>    "stonehearth:customization": {},
 </code></pre>
-         <p>Then, in the corresponding JSON files of the human entities (male_1.json, male_2.json, female_1.json, etc), they have the <strong>"stonehearth:customization_variants"</strong> inside the entity_data section:</p>
+         <p>然后，在人类实体的相应 JSON 文件（male_1.json、male_2.json、female_1.json 等）中，它们在 entity_data 部分内有 <strong>"stonehearth:customization_variants"</strong>：</p>
          <pre><code>  ...
   "entity_data": {
      "stonehearth:customization_variants": {
@@ -117,11 +117,11 @@
            "hair_and_skin_color": {
   ...
 </code></pre>
-         <p>Here we have <strong>"customization_options"</strong>, which points to a customization JSON file that contains all the possible styles that we can apply for this entity, <strong>"root"</strong> which defines <a href="../misc_json/index.html#WeightedSets">weights</a> for each package, and <strong>"packages"</strong>, which is a list containing only the customizations (as defined in the customization JSON file we linked) that we want to make available for this entity, also with weights.</p>
-         <p>The keys under "root" are identifiers (we can use any identifier here), and the keys inside "weights" are names of packages declared below.</p>
-         <p>We can find the customization files for the hearthlings in the same folder than their base JSON file, <code>stonehearth/entities/humans/male</code> and <code>stonehearth/entities/humans/female</code>.</p>
-         <p>These customization files are indexes that contain all the possible styles we want a hearthling to be able to have, then in the male_1.json (etc) files we can define a subset of them, so that when we create that entity it only chooses from those styles.</p>
-         <p>They contain <strong>"categories"</strong> and <strong>"styles"</strong>. The categories are defined like this:</p>
+         <p>这里有 <strong>"customization_options"</strong>，它指向一个包含我们可以应用于此实体的所有可能样式的 customization JSON 文件，<strong>"root"</strong> 它为每个包定义<a href="../misc_json/index.html#WeightedSets">权重</a>，以及 <strong>"packages"</strong>，这是一个仅包含我们希望可用于此实体的自定义（如在我们链接的 customization JSON 文件中定义）的列表，也带有权重。</p>
+         <p>"root"下的键是标识符（我们可以在此处使用任何标识符），"weights"内的键是下面声明的包的名称。</p>
+         <p>我们可以在与其基础 JSON 文件相同的文件夹中找到炉民的 customization 文件，即 <code>stonehearth/entities/humans/male</code> 和 <code>stonehearth/entities/humans/female</code>。</p>
+         <p>这些 customization 文件是索引，包含我们希望炉民能够拥有的所有可能样式，然后在 male_1.json（等）文件中，我们可以定义它们的子集，以便在创建该实体时仅从这些样式中选择。</p>
+         <p>它们包含 <strong>"categories"</strong> 和 <strong>"styles"</strong>。类别定义如下：</p>
          <pre><code>  "categories": {
      "head_hair": ["head_hair"],
      "face_hair": ["eyebrows", "facial_hair"],
@@ -130,21 +130,21 @@
      "hair_color": ["hair_color"]
   },
 </code></pre>
-         <p>On the left we have an identifier we made up, and on the right we have arrays of strings that match names of the styles defined below (or <strong>"[none]"</strong>, like for the "face_hair" category on the female_customizations.json).
-            These categories are used in the roster screen, to retrieve the indices for the styles and be able to cycle through them with the UI.
+         <p>左侧是我们编造的标识符，右侧是与下面定义的样式名称匹配的字符串数组（或 <strong>"[none]"</strong>，如 female_customizations.json 中的"face_hair"类别）。
+            这些类别在名册屏幕中使用，用于检索样式的索引并能够通过 UI 循环浏览它们。
          </p>
-         <p>The <strong>"styles"</strong> contain keys that we use as values for the categories and in our male_N.json / female_N.json files.</p>
-         <p>This way, we can add more categories and styles to the existing entities via a mixinto, and we can set up customization variants for our own modded entities.</p>
-         <h3><a name="Hairstyles"></a>Adding custom hairstyles</h3>
-         <p>Hairstyles are QB models with a default color palette, which is mapped in <code>stonehearth/data/materials/hair_color_map.json</code>. The game then applies different color palettes to the same model when we choose the appearance of the hearthlings in the roster screen.</p>
-         <p>You will need to reuse the colors from this color map when designing your own hairstyles, but it's also possible to add more colors and add mixintos to cover them in the color and material maps.</p>
-         <p>When copying an existing QB model of a hairstyle, notice that it is broken in 2 layers:
+         <p><strong>"styles"</strong> 包含我们用作类别值和 male_N.json / female_N.json 文件中的值的键。</p>
+         <p>这样，我们可以通过 mixinto 向现有实体添加更多类别和样式，并可以为我们的 modded 实体设置自定义变体。</p>
+         <h3><a name="Hairstyles"></a>添加自定义发型</h3>
+         <p>发型是具有默认调色板的 QB 模型，映射在 <code>stonehearth/data/materials/hair_color_map.json</code> 中。当我们在名册屏幕中选择炉民的外观时，游戏会将不同的调色板应用于同一模型。</p>
+         <p>在设计您自己的发型时，您需要重用此颜色图中的颜色，但也可以添加更多颜色并添加 mixintos 以在颜色和材质图中覆盖它们。</p>
+         <p>复制现有发型的 QB 模型时，请注意它分为 2 层：
             <img src="/modding_guide/images/basic/customization/hair_model.png" alt="hair_model"/>
          </p>
-         <p>The layer that corresponds to the upper part of the hair is named <strong>hat</strong> and the one for the lower part is named <strong>head</strong>. This separation is needed for implementing hats. Depending on the transparency setting you use for your headgear, the "hat" layer of the hair model will be hidden or not, when the hearthling equips the item.</p>
-         <p>So we have to make sure our layers are correctly named before exporting our model. Also notice that the male hearthlings are 1 voxel taller than the female ones, so it's always better to import an existing hairstyle so we can pick the colors with an eyedropper tool and know where to cut the hat part.</p>
-         <p>To add our custom hairstyle model we make a mixinto to the male/female_customizations.json file like explained above.</p>
-         <p>Our mixinto would look like this, for example:</p>
+         <p>对应于头发上部的层命名为 <strong>hat</strong>，下部的层命名为 <strong>head</strong>。这种分离是实现帽子所必需的。根据您为头饰使用的透明度设置，当炉民装备该物品时，头发模型的"hat"层将被隐藏或不隐藏。</p>
+         <p>因此，在导出模型之前，我们必须确保正确命名图层。还要注意，男性炉民比女性炉民高 1 个体素，因此最好导入现有发型，以便我们可以使用滴管工具选择颜色并知道在哪里切割帽子部分。</p>
+         <p>要添加我们的自定义发型模型，我们如上所述对 male/female_customizations.json 文件进行 mixinto。</p>
+         <p>例如，我们的 mixinto 将如下所示：</p>
          <pre><code>  {
      "styles": {
         "head_hair": {
@@ -158,25 +158,25 @@
      }
   }
 </code></pre>
-         <p>The <strong>"type"</strong> is <strong>"model"</strong>, so here we can reference a QB file.
-            Make sure to not have duplicate keys in the "values" list, otherwise those models will be overwritten in the game.
+         <p><strong>"type"</strong> 是 <strong>"model"</strong>，所以这里我们可以引用 QB 文件。
+            确保"values"列表中没有重复的键，否则这些模型将在游戏中被覆盖。
          </p>
-         <p>Finally, we can test our new model in the game and make sure it looks good:
+         <p>最后，我们可以在游戏中测试我们的新模型并确保它看起来不错：
             <img src="/modding_guide/images/basic/customization/custom_hair.png" alt="custom_hair"/>
          </p>
-         <h3><a name="CustomColors"></a>Adding custom colors for skin, hair and eyes</h3>
-         <p>The same way we added new hairstyles, we can make a mixinto to the customization files and add our own <a href="../color_maps/index.html#MaterialMap">material maps</a>.</p>
-         <p>The colors for the hearthlings' skin, hair and eyes are defined in a <a href="../color_maps/index.html#ColorMap">color_map</a>. It is <code>stonehearth/data/materials/color_maps/human_color_map.json</code>, which mixins 3 color maps (one for the skin, one for the eyes and one for the hair).</p>
-         <p>In these color maps we can see which colors were used for the default models and which keys do they use for the material maps.
-            So our custom material maps will have to match these keys.
+         <h3><a name="CustomColors"></a>为皮肤、头发和眼睛添加自定义颜色</h3>
+         <p>与我们添加新发型的方式相同，我们可以对 customization 文件进行 mixinto 并添加我们自己的<a href="../color_maps/index.html#MaterialMap">材质图</a>。</p>
+         <p>炉民的皮肤、头发和眼睛的颜色定义在 <a href="../color_maps/index.html#ColorMap">color_map</a> 中。它是 <code>stonehearth/data/materials/color_maps/human_color_map.json</code>，它 mixin 了 3 个颜色图（一个用于皮肤，一个用于眼睛，一个用于头发）。</p>
+         <p>在这些颜色图中，我们可以看到默认模型使用了哪些颜色以及它们为材质图使用了哪些键。
+            因此，我们的自定义材质图必须与这些键匹配。
          </p>
-         <p>In order to add a custom color (for example, for the hair), we have to create a mixinto for male_customizations.json (and another one for female_customizations.json, if we want to add the color to both of them):</p>
+         <p>为了添加自定义颜色（例如，用于头发），我们必须为 male_customizations.json 创建 mixinto（如果我们想将颜色添加到两者中，则为 female_customizations.json 创建另一个）：</p>
          <pre><code>  "mixintos" : {
      "stonehearth:humans:male:customizations" : "file(entities/humans/male/male_customizations.json)",
      "stonehearth:humans:female:customizations" : "file(entities/humans/female/female_customizations.json)"
   }
 </code></pre>
-         <p>We're going to add 1 custom hair color for the male in this example. This is the male_customizations.json mixinto:</p>
+         <p>在这个例子中，我们将为男性添加 1 种自定义头发颜色。这是 male_customizations.json mixinto：</p>
          <pre><code>  {
      "styles": {
         "hair_color": {
@@ -190,13 +190,13 @@
      }
   }
 </code></pre>
-         <p>Inside "hair_color" (which is the name of the package/category value), we have <strong>"type": "material_map"</strong>. This means we will apply a <a href="../color_maps/index.html#MaterialMap">material_map</a> that will change the colors of the model to the colors defined in this JSON file.
-            Inside <strong>"values"</strong>, we have a key to identify this custom style.
+         <p>在"hair_color"（这是包/类别值的名称）内，我们有 <strong>"type": "material_map"</strong>。这意味着我们将应用一个 <a href="../color_maps/index.html#MaterialMap">material_map</a>，它将模型的颜色更改为此 JSON 文件中定义的颜色。
+            在 <strong>"values"</strong> 内，我们有一个键来标识此自定义样式。
          </p>
-         <p>You can have the same key name for keys defined inside different categories, but make sure you're not duplicating keys with any of the existing styles, otherwise you'd be overwriting them with this mixinto.</p>
-         <p>The mixinto for female_customizations.json would look exactly the same in this case.</p>
-         <p>Now we can copy one of the existing material maps for hair, so that we get the correct keys for hair (for example, <code>stonehearth/data/material_maps/hair_red_material_map.json</code>), rename it and edit it.</p>
-         <p>This is how hair_blue_material_map.json looks like after editing it:</p>
+         <p>您可以在不同类别内定义的键具有相同的键名，但请确保不要与任何现有样式重复键，否则您将使用此 mixinto 覆盖它们。</p>
+         <p>在这种情况下，female_customizations.json 的 mixinto 看起来完全一样。</p>
+         <p>现在我们可以复制现有的头发材质图之一，以便获得正确的头发键（例如，<code>stonehearth/data/material_maps/hair_red_material_map.json</code>），重命名并编辑它。</p>
+         <p>这是编辑后的 hair_blue_material_map.json 的样子：</p>
          <pre><code>  {
      "stonehearth:hair:hilight" : {
         "color" : "#287ACB"
@@ -209,11 +209,11 @@
      }
   }
 </code></pre>
-         <p>And now we can test our new hair color in the game:
+         <p>现在我们可以测试游戏中的新头发颜色：
             <img src="/modding_guide/images/basic/customization/hair_colors.png" alt="hair_colors"/>
          </p>
-         <h3><a name="Lua"></a>Using Lua to change customizations</h3>
-         <p>We can find an example on how to change customizations using Lua in the customization component (<code>_add_style</code> and <code>_remove_style</code> functions):</p>
+         <h3><a name="Lua"></a>使用 Lua 更改自定义</h3>
+         <p>我们可以在 customization 组件（<code>_add_style</code> 和 <code>_remove_style</code> 函数）中找到如何使用 Lua 更改自定义的示例：</p>
          <pre><code>  self._entity:get_component('render_info'):add_material_map(file_path)
   self._entity:add_component('model_variants')
                 :get_variant('default')
@@ -226,8 +226,8 @@
                 :remove_model(file_path)
   self:_set_added_styles(subcategory, nil)
 </code></pre>
-         <p>We can add and remove material maps using the render_info component, and change the models using the model_variants component.</p>
-         <p>Some mods from community members already make use of customizations, like <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1366808772">Hearthlings of Many Faces</a>, or <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1364596242">Locks of Many Hair</a>.</p>
+         <p>我们可以使用 render_info 组件添加和移除材质图，并使用 model_variants 组件更改模型。</p>
+         <p>一些来自社区成员的 mod 已经使用了自定义，例如 <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1366808772">Hearthlings of Many Faces</a> 或 <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1364596242">Locks of Many Hair</a>。</p>
       </main>
    </body>
 </html>

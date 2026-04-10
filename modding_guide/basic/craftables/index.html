@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,40 +7,40 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Adding recipes</title>
+      <title>添加配方</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Adding recipes</h1>
-         <p>We've covered how to create our own items in <a href="../adding_items/index.html">this previous section</a>. Of course, you can add whichever components you want for those items and, if you create the models from scratch, make sure to check the <a href="../art/modeling/index.html">modeling guide</a> and the guide on <a href="../../intermediate/regions/index.html">collision regions</a> so that your models are correctly exported and aligned in the world. Here's <a href="../adding_items/item_scale/index.html">how to change the scale</a> of an item too, if you need it.</p>
-         <p>In this other <a href="../../intermediate/jobs/crafting_jobs/index.html">guide</a> we cover how to add your own crafting job to the game.</p>
+         <h1>添加配方</h1>
+         <p>我们在<a href="../adding_items/index.html">之前的部分</a>中已经介绍了如何创建我们自己的物品。当然，您可以为这些物品添加任何您想要的组件，如果您从头创建模型，请确保查看<a href="../art/modeling/index.html">建模指南</a>和关于<a href="../../intermediate/regions/index.html">碰撞区域</a>的指南，以便您的模型正确导出并在世界中对齐。如果需要，这里还有<a href="../adding_items/item_scale/index.html">如何更改物品比例</a>的方法。</p>
+         <p>在这篇<a href="../../intermediate/jobs/crafting_jobs/index.html">指南</a>中，我们介绍了如何向游戏中添加您自己的制作职业。</p>
          <ul>
-            <li><a href="#ForExistingCrafters">Steps to add a recipe to an existing crafter from the stonehearth mod</a></li>
-            <li><a href="#AnatomyOfRecipes">Anatomy of a recipe</a></li>
-            <li><a href="#RecipeList">Adding the recipe to the recipes list</a></li>
-            <li><a href="#SHED">Using SHED to add recipes</a></li>
+            <li><a href="#ForExistingCrafters">向 stonehearth mod 中的现有制作者添加配方的步骤</a></li>
+            <li><a href="#AnatomyOfRecipes">配方的结构</a></li>
+            <li><a href="#RecipeList">将配方添加到配方列表</a></li>
+            <li><a href="#SHED">使用 SHED 添加配方</a></li>
          </ul>
-         <h2><a name="ForExistingCrafters"></a>Steps to add a recipe to an existing crafter from the stonehearth mod</h2>
+         <h2><a name="ForExistingCrafters"></a>向 stonehearth mod 中的现有制作者添加配方的步骤</h2>
          <ol>
             <li>
-               <p>Decide which existing crafter will craft the item.</p>
+               <p>决定哪个现有制作者将制作该物品。</p>
             </li>
             <li>
-               <p>Create a recipe for the item.</p>
+               <p>为该物品创建配方。</p>
             </li>
             <li>
-               <p>Add a mixinto to integrate the new recipe in the recipes list of that crafter.</p>
+               <p>添加 mixinto 以将新配方集成到该制作者的配方列表中。</p>
             </li>
             <li>
-               <p>Test that the crafter can craft the item.</p>
+               <p>测试制作者是否可以制作该物品。</p>
             </li>
          </ol>
-         <p>Let's get started. We're going to add a recipe for the custom table that we created in a <a href="../adding_items/cloning_manually/index.html">previous example</a> in the startermod_basic mod.
-            We'll make the mason craft it.
+         <p>让我们开始吧。我们将为在 startermod_basic mod 的<a href="../adding_items/cloning_manually/index.html">先前示例</a>中创建的自定义桌子添加配方。
+            我们将让石匠制作它。
          </p>
-         <h2><a name="AnatomyOfRecipes"></a>Anatomy of a recipe</h2>
-         <p>Let's copy the recipe of the "table_for_one" of the carpenter and adjust its values to reference our custom table and our mod's localization file. It is located inside <code>stonehearth\jobs\carpenter\recipes</code>. We'll call our file <strong>custom_table_recipe.json</strong>. Let's also add some extra fields that we can encounter in recipes:</p>
+         <h2><a name="AnatomyOfRecipes"></a>配方的结构</h2>
+         <p>让我们复制木匠的"table_for_one"配方并调整其值以引用我们的自定义桌子和我们 mod 的本地化文件。它位于 <code>stonehearth\jobs\carpenter\recipes</code> 内。我们将我们的文件命名为 <strong>custom_table_recipe.json</strong>。让我们还添加一些可能在配方中遇到的额外字段：</p>
          <pre><code>  {
      "type": "recipe",
      "effort": 30,
@@ -64,44 +64,44 @@
      ]
   }
 </code></pre>
-         <p>Explanation of the fields:</p>
+         <p>字段解释：</p>
          <ul>
             <li>
-               <p><strong>"type" : "recipe"</strong>. With this we indicate that this JSON file represents a crafting recipe.</p>
+               <p><strong>"type" : "recipe"</strong>。通过此字段，我们指示此 JSON 文件代表一个制作配方。</p>
             </li>
             <li>
-               <p><strong>"work_units" : 3</strong>. This value is the number of times the crafting animation will be played. The higher, the more time it will take to craft the item.</p>
+               <p><strong>"work_units" : 3</strong>。此值是制作动画将播放的次数。数值越高，制作物品所需的时间越长。</p>
             </li>
             <li>
-               <p><strong>"effort" : 30</strong>. This is a numerical value for "effort based crafting". It represents number of in-game minutes that it takes to craft the item (as defined in constants.json).</p>
-               <p>  At the time this guide is released it might / might not be enabled yet (if you don't include it in your recipe, a default value will be used depending on the stonehearth crafter that has the recipe). Make sure to at least specify the "work_units", until this field is enabled in the game.</p>
-               <p>  Effort based crafting replaces "work_units" for crafting, to make the crafting speed not dependent of the length of the crafting animation. Some crafting animations are shorter than other ones, so for the same "work units" certain crafters take less time to craft the item.</p>
-               <p>  "Effort based crafting" not only removes the animation dependency, it also makes the crafting faster or slower depending on whether the crafter is tired (has the "Groggy" debuff), or happy / sad.</p>
-               <p>  You can find more info about this in <code>stonehearth/components/workshop/crafting_progress.lua</code>, and in <code>stonehearth/components/crafter/crafter_component.lua</code>.</p>
+               <p><strong>"effort" : 30</strong>。这是"基于努力的制作"的数值。它代表制作物品所需的游戏内分钟数（如 constants.json 中所定义）。</p>
+               <p>在本指南发布时，它可能已启用/可能尚未启用（如果您不在配方中包含它，将根据拥有该配方的 stonehearth 制作者使用默认值）。在此字段在游戏中启用之前，请确保至少指定"work_units"。</p>
+               <p>基于努力的制作替换了制作的"work_units"，使制作速度不依赖于制作动画的长度。某些制作动画比其他动画短，因此对于相同的"工作单位"，某些制作者制作物品所需的时间更少。</p>
+               <p>"基于努力的制作"不仅消除了动画依赖，它还根据制作者是否疲倦（具有"Groggy"减益效果）或高兴/悲伤而使制作更快或更慢。</p>
+               <p>您可以在 <code>stonehearth/components/workshop/crafting_progress.lua</code> 和 <code>stonehearth/components/crafter/crafter_component.lua</code> 中找到有关此的更多信息。</p>
             </li>
             <li>
-               <p><strong>"recipe_name" : "i18n(...)"</strong>. The name that will be displayed on the workshop UI for the recipe. Usuallythe same name than the produced item.</p>
+               <p><strong>"recipe_name" : "i18n(...)"</strong>。将在工作坊 UI 中显示的配方名称。通常与生产的物品名称相同。</p>
             </li>
             <li>
-               <p><strong>"description" : "i18n()"</strong>. The description that will be displayed on the workshop UI for the recipe.</p>
+               <p><strong>"description" : "i18n()"</strong>。将在工作坊 UI 中显示的配方描述。</p>
             </li>
             <li>
-               <p><strong>"flavor" : "i18n()"</strong>. The small text in italic that will be displayed on the workshop UI for the recipe. It is optional.</p>
+               <p><strong>"flavor" : "i18n()"</strong>。将在工作坊 UI 中显示的配方的小号斜体文本。它是可选的。</p>
             </li>
             <li>
-               <p><strong>"portrait" : "..."</strong>. The path to an image for the recipe. This image is usually in the item's folder, not in the recipe's folder, since it's also used as the icon for the unit frame.</p>
+               <p><strong>"portrait" : "..."</strong>。配方图像的路径。此图像通常在物品的文件夹中，而不是在配方的文件夹中，因为它也用作单位框架的图标。</p>
             </li>
             <li>
-               <p><strong>"level_requirement"</strong>. This is an optional field. The level that the crafter needs in order to unlock this recipe. Until he/she reaches this level, the recipe will appear grayed out in the workshop UI. All jobs start at level 1 (but workers don't level up, they're the basic job). If we don't add a level requirement, they'll be able to craft the item right away, if they have the required ingredients and the corresponding workbench placed.</p>
+               <p><strong>"level_requirement"</strong>。这是一个可选字段。制作者解锁此配方所需的等级。在他/她达到此等级之前，配方将在工作坊 UI 中显示为灰色。所有职业都从 1 级开始（但工人不会升级，他们是基本职业）。如果我们不添加等级要求，如果他们有所需的原料并放置了相应的工作台，他们将能够立即制作物品。</p>
             </li>
             <li>
-               <p><strong>"workshop" : "uri_of_the_workbench"</strong>. This is the qualified alias of the workbench that the crafter will be using in order to craft the item. We can only specify one alias. You can find the alias for the existing workbenches in the stonehearth manifest. Remember to prefix it here with the namespace of the mod that defines it (in this case, stonehearth).</p>
+               <p><strong>"workshop" : "uri_of_the_workbench"</strong>。这是制作者将用于制作物品的工作台的限定别名。我们只能指定一个别名。您可以在 stonehearth 清单中找到现有工作台的别名。记得在这里用定义它的 mod 的命名空间作为前缀（在这种情况下是 stonehearth）。</p>
             </li>
          </ul>
-         <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>If we don't add the "workshop" field to the recipe file, the crafter will craft the item with their hands instead. This is normally used to craft the initial workbenches.</p>
+         <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>如果我们不在配方文件中添加"workshop"字段，制作者将用手制作物品。这通常用于制作初始工作台。</p>
          <ul>
             <li>
-               <p><strong>"ingredients" : [{...}]</strong>. This is the list of ingredients for the recipe. It is an array of objects. You can use either <a href="../generic_resources/index.html">generic resources</a> like in our custom table recipe (with the material tags of the resource's entity_data), or specific URIs as ingredients, like this:</p>
+               <p><strong>"ingredients" : [{...}]</strong>。这是配方的原料列表。它是一个对象数组。您可以像在我们的自定义桌子配方中那样使用<a href="../generic_resources/index.html">通用资源</a>（使用资源的 entity_data 的材质标签），或使用特定的 URI 作为原料，如下所示：</p>
                <pre><code>"ingredients": [
    {
       "uri": "stonehearth:food:egg",
@@ -115,10 +115,10 @@
 </code></pre>
             </li>
          </ul>
-         <p>Using generic resources means that the crafter can use any item that counts as that resource (wood from any type of tree, for example). Remember to prefix the alias of the items with the namespace of the mod plus a colon. The <strong>"count"</strong> field of the ingredients is self-explanatory.</p>
+         <p>使用通用资源意味着制作者可以使用任何算作该资源的物品（例如，来自任何类型树木的木材）。记得用 mod 的命名空间加冒号作为物品别名的前缀。<strong>"count"</strong> 字段的原料是不言自明的。</p>
          <ul>
             <li>
-               <p><strong>"produces" : [{...}]</strong>. This is another array of objects. Here we put the outcome of the recipe. There's one difference with the previous array of objects though. If we want the recipe to produce more than one item, we can't use a "count" field here. We need to repeat the same "item" in different entries instead; like this:</p>
+               <p><strong>"produces" : [{...}]</strong>。这是另一个对象数组。这里我们放置配方的结果。不过与前一个对象数组有一个区别。如果我们希望配方生产多个物品，我们不能在这里使用"count"字段。我们需要在不同的条目中重复相同的"item"；如下所示：</p>
                <pre><code>"produces": [
    {
       "item": "startermod_basic:furniture:custom_table"
@@ -133,9 +133,9 @@
 </code></pre>
             </li>
          </ul>
-         <p>We can also make the recipe produce several different items with that method, simply writing different URIs.</p>
-         <h2><a name="RecipeList"></a>Adding the recipe to the recipes list</h2>
-         <p>We need to create a mixinto for the recipe list. We'll take the keys from the <code>stonehearth/jobs/mason/recipes/recipes.json</code> file:</p>
+         <p>我们也可以通过这种方法使配方生产几种不同的物品，只需编写不同的 URI。</p>
+         <h2><a name="RecipeList"></a>将配方添加到配方列表</h2>
+         <p>我们需要为配方列表创建一个 mixinto。我们将从 <code>stonehearth/jobs/mason/recipes/recipes.json</code> 文件中获取键：</p>
          <pre><code>  {
      "craftable_recipes" : {
         "furniture" : {
@@ -148,7 +148,7 @@
      }
   }
 </code></pre>
-         <p>In this case, we're reusing an existing category from the mason's recipes (furniture). If we wanted to add our recipes in a new category of our own (that will be displayed separately in the recipes list from the workshop's UI), we'd need to add two more fields to our mixinto. Example:</p>
+         <p>在这种情况下，我们重用了石匠配方中的现有类别（家具）。如果我们想在我们自己的新类别中添加我们的配方（这将在工作坊 UI 的配方列表中单独显示），我们需要在我们的 mixinto 中添加另外两个字段。示例：</p>
          <pre><code>  {
      "craftable_recipes" : {
         "custom_category" : {
@@ -163,36 +163,36 @@
      }
   }
 </code></pre>
-         <p>There, <strong>"custom_category"</strong> is an identifier for the recipes group. <strong>"ordinal"</strong> is a number used to order the groups in the UI, which ones will be before the other ones (if two categories have the same ordinal, the game will choose one of them to go first, it's not deterministic which one will win). And the <strong>"name"</strong> is a localized name for the group, which will be displayed in the workshop UI for that category.</p>
-         <p>Then, don't forget to add our mixinto to the mod's manifest (remember to add commas where needed):</p>
+         <p>那里，<strong>"custom_category"</strong> 是配方的组的标识符。<strong>"ordinal"</strong> 是一个用于在 UI 中对组进行排序的数字，哪些组将在其他组之前（如果两个类别具有相同的 ordinal，游戏将选择其中一个先出现，哪个获胜是不确定的）。<strong>"name"</strong> 是组的本地化名称，将在该类别的工作坊 UI 中显示。</p>
+         <p>然后，不要忘记将我们的 mixinto 添加到 mod 的清单中（记得在需要的地方添加逗号）：</p>
          <pre><code>  ...
   "mixintos" : {
      "stonehearth/jobs/mason/recipes/recipes.json" : "file(recipes/recipes.json)"
   }
   ...
 </code></pre>
-         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> If you add a <a href="../../intermediate/jobs/crafting_jobs/index.html">custom crafting job</a>, the recipes for it won't need to be added via a mixinto, but rather via a property of a component.</p>
-         <p>Lastly, let's test that the mason can craft our recipe using debugtools:</p>
+         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> 如果您添加<a href="../../intermediate/jobs/crafting_jobs/index.html">自定义制作职业</a>，其配方不需要通过 mixinto 添加，而是通过组件的属性添加。</p>
+         <p>最后，让我们测试石匠是否可以使用 debugtools 制作我们的配方：</p>
          <ul>
-            <li>Start a new game.</li>
-            <li>Select a hearthling.</li>
-            <li>Open the default console and type <strong>promote_to mason</strong>, then press Enter.</li>
-            <li>Use the item stamper to spawn a mason workbench and some hunks of stone, or simply let the hearthlings harvest some stone.</li>
-            <li>Open the mason workbench and check that the recipe is there and shows correctly the image and text:
+            <li>开始新游戏。</li>
+            <li>选择一个炉民。</li>
+            <li>打开默认控制台并输入 <strong>promote_to mason</strong>，然后按 Enter。</li>
+            <li>使用物品印章生成石匠工作台和一些石块，或者只是让炉民采集一些石头。</li>
+            <li>打开石匠工作台并检查配方是否存在并正确显示图像和文本：
                <img src="/modding_guide/images/basic/craftables/recipe_added.png" alt="recipe_added"/>
             </li>
-            <li>Our mason doesn't have enough level to craft it, so we shift-click on him, and click on "Level Up".
+            <li>我们的石匠没有足够的等级来制作它，所以我们 shift+点击他，然后点击"Level Up"。
                <img src="/modding_guide/images/basic/craftables/level_up.png" alt="level_up"/>
             </li>
-            <li>Now we can order to craft our new item and check that the iconic is generated correctly.
+            <li>现在我们可以命令制作我们的新物品并检查 iconic 是否正确生成。
                <img src="/modding_guide/images/basic/craftables/testing_crafting.png" alt="level_up"/>
             </li>
          </ul>
-         <h2><a name="SHED"></a>Using SHED to add recipes</h2>
-         <p>As explained in the <a href="../adding_items/cloning_with_shed/index.html">creating items section</a>, we can create an item and a recipe for it in one step.
-            Otherwise, we can uncheck any unwanted files that we don't want to create from the clone popup, leaving only the recipe file checked.
+         <h2><a name="SHED"></a>使用 SHED 添加配方</h2>
+         <p>正如在<a href="../adding_items/cloning_with_shed/index.html">创建物品部分</a>中解释的那样，我们可以一步创建物品及其配方。
+            否则，我们可以取消选中克隆弹出窗口中我们不想要创建的任何不需要的文件，只保留配方文件被选中。
          </p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> At the time this guide was written, cloning the recipes list or single recipes from an existing job from the base mods won't make them appear in the tree view for our mod, and we'll need to edit them outside of SHED. Of course, the mixintos also have to be set up outside of SHED. If we clone the recipe with the item that it produces, the item will be shown in the tree view since an alias will be created, so we'll be able to edit it within SHED.</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 在编写本指南时，克隆基础 mod 中现有职业的配方列表或单个配方不会使它们出现在我们 mod 的树视图中，我们需要在 SHED 之外编辑它们。当然，mixintos 也必须在 SHED 之外设置。如果我们用其生产的物品克隆配方，物品将显示在树视图中，因为将创建别名，因此我们将能够在 SHED 内编辑它。</p>
       </main>
    </body>
 </html>

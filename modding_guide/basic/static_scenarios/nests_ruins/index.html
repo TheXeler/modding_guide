@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,21 +7,21 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Critter nests and ruins</title>
+      <title>小动物巢穴和废墟</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Critter nests and ruins</h1>
+         <h1>小动物巢穴和废墟</h1>
          <p>
-         <h2><a name="CritterNests"></a> Critter nests</h2>
+         <h2><a name="CritterNests"></a> 小动物巢穴</h2>
          </p>
-         <p>It's very easy to add your own critter nest to the game.
-            This type of scenario is implemented inside <code>stonehearth/scenarios/static/critter_nest</code>, via a JSON file and a script.
+         <p>向游戏中添加您自己的小动物巢穴非常容易。
+            这种类型的场景在 <code>stonehearth/scenarios/static/critter_nest</code> 内实现，通过一个 JSON 文件和一个脚本。
          </p>
-         <p>Then, we reuse critter_nest.json as a mixin in other scenarios (beetle_nest, deer_nest, etc).</p>
-         <p>Let's copy <code>stonehearth/scenarios/static/ostrich_nest</code> to our mod and rename it.</p>
-         <p>Then we have to modify the JSON file:</p>
+         <p>然后，我们在其他场景（beetle_nest、deer_nest 等）中将 critter_nest.json 作为 mixin 重用。</p>
+         <p>让我们复制 <code>stonehearth/scenarios/static/ostrich_nest</code> 到我们的 mod 并重命名它。</p>
+         <p>然后我们必须修改 JSON 文件：</p>
          <pre><code>  {
      "mixins" : "stonehearth/scenarios/static/critter_nest/critter_nest.json",
      "name" : "jelly_nest",
@@ -39,44 +39,44 @@
 </code></pre>
          <ol>
             <li>
-               <p>Adjust the path to the critter mixin so that it's absolute, otherwise the game will try to find it inside your mod.</p>
+               <p>调整到小动物 mixin 的路径，使其为绝对路径，否则游戏将尝试在您的 mod 中查找它。</p>
             </li>
             <li>
-               <p>Give this scenario a <strong>"name"</strong>.</p>
+               <p>为此场景指定一个 <strong>"name"</strong>。</p>
             </li>
             <li>
-               <p>Inside the <strong>"habitat_types"</strong> array we can have one or more habitats where this scenario will spawn. The possible values are:</p>
+               <p>在 <strong>"habitat_types"</strong> 数组中，我们可以有一个或多个此场景将生成的生境。可能的值是：</p>
                <pre><code>"plains" / "foothills" / "forest" / "mountains" / "water"
 </code></pre>
             </li>
             <li>
-               <p>Optionally, we can specify the biomes where we want this scenario to spawn. If there's no <strong>"biomes"</strong> array, the critter nest will spawn in all the biomes, even the modded ones.  </p>
+               <p>可选地，我们可以指定我们希望此场景生成的生物群落。如果没有 <strong>"biomes"</strong> 数组，小动物巢穴将在所有生物群落中生成，甚至是修改过的生物群落。</p>
             </li>
             <li>
-               <p>There are more optional properties which have a default value in <code>critter_nest.json</code> in case we don't include them in our JSON file:</p>
+               <p>还有更多可选属性，如果我们不在 JSON 文件中包含它们，它们在 <code>critter_nest.json</code> 中有默认值：</p>
                <ul>
                   <li>
-                     <p><strong>"weight" : 10</strong> -- so that it can spawn more frequently than other critter nests.</p>
+                     <p><strong>"weight" : 10</strong> -- 以便它可以比其他小动物巢穴更频繁地生成。</p>
                   </li>
                   <li>
-                     <p><strong>"size" : { "width" : 16, "length" : 16 }</strong> -- the area that the critter nest will occupy.</p>
+                     <p><strong>"size" : { "width" : 16, "length" : 16 }</strong> -- 小动物巢穴将占据的区域。</p>
                   </li>
                   <li>
-                     <p><strong>"unique" : false</strong> -- more than one critter nest can spawn in the same map.</p>
+                     <p><strong>"unique" : false</strong> -- 同一地图中可以生成多个小动物巢穴。</p>
                   </li>
                   <li>
-                     <p>Inside <strong>"data"</strong>, the only mandatory property is the <strong>"critter_type"</strong> (an array with the aliases of our critters).</p>
-                     <p>  The <strong>"num_critters"</strong> has a default of <strong>"min" : 1</strong> / <strong>"max" : 3</strong>. There's also <strong>"critter_length" : 1</strong>, which is the default margin around the critters when they spawn, we can also tweak that value for our nest.</p>
+                     <p>在 <strong>"data"</strong> 内部，唯一必需的属性是 <strong>"critter_type"</strong>（一个包含我们小动物别名的数组）。</p>
+                     <p><strong>"num_critters"</strong> 的默认值为 <strong>"min" : 1</strong> / <strong>"max" : 3</strong>。还有 <strong>"critter_length" : 1</strong>，这是小动物生成时的默认边距，我们也可以为我们的巢穴调整该值。</p>
                   </li>
                </ul>
             </li>
             <li>
-               <p>Create a mixinto to scenario_index.json to add your critter nest:</p>
+               <p>创建对 scenario_index.json 的 mixinto 以添加您的小动物巢穴：</p>
                <pre><code>"mixintos" : {
    "stonehearth:scenarios:scenario_index" : "file(scenarios/scenario_index.json)"
 }
 </code></pre>
-               <p>  The mixinto will look like this for our example:</p>
+               <p>在我们的示例中，mixinto 将看起来像这样：</p>
                <pre><code>{
    "static" : {
       "scenarios" : [
@@ -87,15 +87,15 @@
 </code></pre>
             </li>
             <li>
-               <p>Test your critter nest. You might need to promote a combat unit to clear the fog of war faster. Since there are other critter nests, it might take a while until you find the one for your custom critters (you can increase the weight of the scenario for testing).
+               <p>测试您的小动物巢穴。您可能需要提升一个战斗单位以更快地清除战争迷雾。由于还有其他小动物巢穴，可能需要一段时间才能找到您自定义小动物的巢穴（您可以增加场景的权重以进行测试）。
                   <img src="/modding_guide/images/basic/static_scenarios/critter_nest.png" alt="critter_nest"/>
                </p>
             </li>
          </ol>
-         <p>You can remove the other default scenarios by using methods such as mixintypes, but mind that it might affect other biomes that players are using.</p>
-         <h2><a name="Ruins"></a>Ruins</h2>
-         <p>In the game the bunny statues spawn as static scenarios. We could also have added them in each of the biome files as part of the entities that spawn, but this way they can spawn in any biome automatically.</p>
-         <p>We can copy <code>stonehearth/scenarios/static/terrain/rabbit_clan_statue</code> to our mod and rename it.</p>
+         <p>您可以使用 mixintypes 等方法删除其他默认场景，但请注意，这可能会影响玩家正在使用的其他生物群落。</p>
+         <h2><a name="Ruins"></a>废墟</h2>
+         <p>在游戏中，兔子雕像作为静态场景生成。我们也可以将它们作为生成实体的一部分添加到每个生物群落文件中，但这种方式它们可以自动在任何生物群落中生成。</p>
+         <p>我们可以复制 <code>stonehearth/scenarios/static/terrain/rabbit_clan_statue</code> 到我们的 mod 并重命名它。</p>
          <pre><code>  {
      "mixins" : "stonehearth/scenarios/static/entity_cluster/entity_cluster.json",
      "name" : "bunny_altar",
@@ -118,33 +118,33 @@
      }
   }
 </code></pre>
-         <p>These are the properties we need to change:</p>
+         <p>这些是我们需要更改的属性：</p>
          <ol>
             <li>
-               <p>Make sure to edit the <strong>"mixins"</strong> changing the path to be absolute, otherwise the game will try to find <code>entity_cluster.json</code> inside our mod.</p>
+               <p>确保编辑 <strong>"mixins"</strong>，将路径更改为绝对路径，否则游戏将尝试在我们的 mod 中查找 <code>entity_cluster.json</code>。</p>
             </li>
             <li>
-               <p>Give the scenario a <strong>"name"</strong>. The properties are pretty similar to those of the <a href="#CritterNests">critter nest</a> scenarios.</p>
+               <p>为场景指定一个 <strong>"name"</strong>。这些属性与<a href="#CritterNests">小动物巢穴</a>场景的属性非常相似。</p>
             </li>
             <li>
-               <p>Change the <strong>"size"</strong> (by default it will be 16x16 if we don't include it).</p>
+               <p>更改 <strong>"size"</strong>（如果我们不包含它，默认情况下它将是 16x16）。</p>
             </li>
             <li>
-               <p>Optionally give it a <strong>"weight"</strong> (by default it will be 10), so that it has more priority over other "ruins" scenarios.</p>
+               <p>可选地为其指定一个 <strong>"weight"</strong>（默认情况下它将是 10），以便它在其他"ruins"场景上具有更高的优先级。</p>
             </li>
             <li>
-               <p>Edit the <strong>"habitat_types"</strong>, which can be <strong>"forest"</strong>, <strong>"plains"</strong>, <strong>"foothills"</strong>, <strong>"mountains"</strong> and/or <strong>"water"</strong>.</p>
+               <p>编辑 <strong>"habitat_types"</strong>，可以是 <strong>"forest"</strong>、<strong>"plains"</strong>、<strong>"foothills"</strong>、<strong>"mountains"</strong> 和/或 <strong>"water"</strong>。</p>
             </li>
             <li>
-               <p>Inside <strong>"data"</strong> (which will be used by the <code>entity_cluster.lua</code> script) we have an array with the <strong>"entity_type"</strong>, containing the alias of our ruin, an <strong>"entity_footprint_length"</strong> used to give a margin around our entity, and the <strong>"quantity"</strong> of entities to spawn.</p>
+               <p>在 <strong>"data"</strong> 内部（将由 <code>entity_cluster.lua</code> 脚本使用），我们有一个包含 <strong>"entity_type"</strong> 的数组，包含我们废墟的别名，一个用于在我们实体周围提供边距的 <strong>"entity_footprint_length"</strong>，以及要生成的实体的 <strong>"quantity"</strong>。</p>
             </li>
             <li>
-               <p>Then, add a mixinto to scenario_index.json to add your scenario:</p>
+               <p>然后，添加对 scenario_index.json 的 mixinto 以添加您的场景：</p>
                <pre><code>"mixintos" : {
    "stonehearth:scenarios:scenario_index" : "file(scenarios/scenario_index.json)"
 }
 </code></pre>
-               <p>  The mixinto will look like this for our example:</p>
+               <p>在我们的示例中，mixinto 将看起来像这样：</p>
                <pre><code>{
    "static" : {
       "scenarios" : [
@@ -155,12 +155,12 @@
 </code></pre>
             </li>
             <li>
-               <p>Finally, let's test that our ruins can appear in any biome (we can restrict in which biomes we want it to appear by using the <strong>"biomes"</strong> array).
+               <p>最后，让我们测试我们的废墟是否可以出现在任何生物群落中（我们可以通过使用 <strong>"biomes"</strong> 数组来限制我们希望它出现的生物群落）。
                   <img src="/modding_guide/images/basic/static_scenarios/ruins.png" alt="ruins"/>
                </p>
             </li>
          </ol>
-         <p>In the <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1357451622">Silent Woods</a> mod, a new category of scenario was added, and the entity_cluster script was reused to spawn the fireflies. They're only visible at night because they use the lamp component:
+         <p>在 <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1357451622">Silent Woods</a> mod 中，添加了一个新的场景类别，并重用了 entity_cluster 脚本来生成萤火虫。它们只在夜间可见，因为它们使用了 lamp 组件：
             <img src="/modding_guide/images/basic/static_scenarios/fireflies.png" alt="fireflies"/>
          </p>
       </main>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,67 +7,67 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Lua scripts</title>
+        <title>Lua 脚本</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Lua scripts</h1>
-            <p>In this section we'll talk about components, component renderers, controllers and observers. Also about saved variables and the lifetime cycle of these scripts.</p>
-            <p>Remember that in <code>radiant/modules/entities.lua</code> there are many utility functions that you can use in your scripts.</p>
+            <h1>Lua 脚本</h1>
+            <p>在本节中，我们将讨论组件、组件渲染器、控制器和观察者。还将讨论保存变量以及这些脚本的生命周期。</p>
+            <p>请记住，在 <code>radiant/modules/entities.lua</code> 中有许多您可以在脚本中使用的实用函数。</p>
             <ul>
-                <li><a href="components_renderers/index.html">Components</a></li>
-                <li><a href="controllers/index.html">Controllers</a></li>
+                <li><a href="components_renderers/index.html">组件</a></li>
+                <li><a href="controllers/index.html">控制器</a></li>
                 <li>
-                    <a href="#ControllerLifecycle">Lifecycle functions</a>
+                    <a href="#ControllerLifecycle">生命周期函数</a>
                     <ul>
-                        <li><a href="#LifecycleExample">Examples</a></li>
+                        <li><a href="#LifecycleExample">示例</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#SV">About saved variables</a>
+                    <a href="#SV">关于保存变量</a>
                     <ul>
-                        <li><a href="#SaveCompatibility">Maintaining save compatibility</a></li>
+                        <li><a href="#SaveCompatibility">维护存档兼容性</a></li>
                     </ul>
                 </li>
-                <li><a href="#Observers">About observers</a></li>
-                <li><a href="#Validators">About validators</a></li>
-                <li><a href="#StateMachines">About state machines</a></li>
-                <li><a href="#RequiringLua">Requiring files in Lua</a></li>
+                <li><a href="#Observers">关于观察者</a></li>
+                <li><a href="#Validators">关于验证器</a></li>
+                <li><a href="#StateMachines">关于状态机</a></li>
+                <li><a href="#RequiringLua">在 Lua 中引入文件</a></li>
             </ul>
-            <h2><a name="ControllerLifecycle"></a>Lifecycle functions</h2>
-            <p>Both components and controllers are classes and share the same similar properties and functions.</p>
-            <p>The special functions that can be implemented on each are:</p>
+            <h2><a name="ControllerLifecycle"></a>生命周期函数</h2>
+            <p>组件和控制器都是类，并共享类似的属性和函数。</p>
+            <p>可以在每个类上实现的特殊函数有：</p>
             <ul>
                 <li>
-                    <p><strong>__init()</strong> -- This is the default Lua constructor for a class. This will be called first ALWAYS. There will be no special variables or anything available during this constructor. It's advised to just not include it and instead put initialization information in the special <code>initialize()</code> function.</p>
+                    <p><strong>__init()</strong> -- 这是类的默认 Lua 构造函数。这将首先被调用，总是如此。在此构造函数期间，不会有特殊变量或任何可用的内容。建议不要包含它，而是将初始化信息放在特殊的 <code>initialize()</code> 函数中。</p>
                 </li>
                 <li>
-                    <p><strong>initialize()</strong> -- This function is always called after <code>__init</code>. In Lua components, the special <code>self._entity</code> field will be set and you can get the component's JSON data by calling <code>radiant.entities.get_json(self)</code>. You CANNOT access services or public fields (like <code>stonehearth.constants</code>) in <code>initialize()</code> because during restore, those might not exist yet.</p>
-                    <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Important: you must declare all <a href="#SV">saved variable</a> fields in the <code>initialize()</code> function, including nil variables. You can ask the entity if it has other components in the initialize, but note that those other components might not have had <code>initialize()</code> called on them yet.</p>
+                    <p><strong>initialize()</strong> -- 此函数总是在 <code>__init</code> 之后调用。在 Lua 组件中，特殊的 <code>self._entity</code> 字段将被设置，您可以通过调用 <code>radiant.entities.get_json(self)</code> 获取组件的 JSON 数据。您不能在 <code>initialize()</code> 中访问服务或公共字段（如 <code>stonehearth.constants</code>），因为在恢复期间，它们可能尚不存在。</p>
+                    <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>重要提示：您必须在 <code>initialize()</code> 函数中声明所有<a href="#SV">保存变量</a>字段，包括 nil 变量。您可以在 initialize 中询问实体是否有其他组件，但请注意，那些其他组件可能尚未调用它们的 <code>initialize()</code>。</p>
                 </li>
                 <li>
-                    <p><strong>create()</strong> -- This is called ONCE when the component is first created, either on entity creation or on dynamically added. For controllers, the create function can take arguments passed in from the controller creator.</p>
-                    <p>  For controllers, <code>create()</code> is called immediately after <code>initialize()</code>. For components specified via JSON, the <code>create()</code> is called after all other components on the entity have been <code>initialize</code>d.</p>
+                    <p><strong>create()</strong> -- 这在组件首次创建时调用一次，无论是在实体创建时还是动态添加时。对于控制器，create 函数可以接受从控制器创建者传入的参数。</p>
+                    <p>对于控制器，<code>create()</code> 在 <code>initialize()</code> 之后立即调用。对于通过 JSON 指定的组件，<code>create()</code> 在实体上的所有其他组件都已 <code>initialize</code>d 之后调用。</p>
                 </li>
                 <li>
-                    <p><strong>restore()</strong> -- This is called when the component/controller is loaded from a save game. It is called after <code>initialize()</code> and <code>fixup_post_load()</code>.</p>
+                    <p><strong>restore()</strong> -- 这在从存档游戏加载组件/控制器时调用。它在 <code>initialize()</code> 和 <code>fixup_post_load()</code> 之后调用。</p>
                 </li>
                 <li>
-                    <p><strong>activate()</strong> -- This is called every time. It is called after <code>create()</code> / <code>restore()</code>. For controllers on creation, this is called immediately after <code>create()</code>. For components on creation, this is called after all components have had <code>create()</code> called on them. For everything on load, this is called after all components/controllers have had <code>restore()</code> called on them.</p>
+                    <p><strong>activate()</strong> -- 这每次都会被调用。它在 <code>create()</code> / <code>restore()</code> 之后调用。对于创建时的控制器，这在 <code>create()</code> 之后立即调用。对于创建时的组件，这在所有组件都已调用 <code>create()</code> 之后调用。对于加载时的所有内容，这在所有组件/控制器都已调用 <code>restore()</code> 之后调用。</p>
                 </li>
                 <li>
-                    <p><strong>post_activate()</strong> -- This is called after all components/controllers have had <code>activate()</code> called on them. On an entity that has just been created, it will have all components specified in the entity's JSON get <code>activate</code>d before <code>post_activate()</code> is called on it. On a restore, EVERY component/controller in the world will get <code>activate()</code> called on them first before every component/controller in the world gets <code>post_activate()</code> called on them.</p>
+                    <p><strong>post_activate()</strong> -- 这在所有组件/控制器都已调用 <code>activate()</code> 之后调用。在刚刚创建的实体上，它将使实体 JSON 中指定的所有组件在调用其 <code>post_activate()</code> 之前先被 <code>activate</code>d。在恢复时，世界中的每个组件/控制器都将先被调用 <code>activate()</code>，然后世界中的每个组件/控制器才会被调用 <code>post_activate()</code>。</p>
                 </li>
                 <li>
-                    <p><strong>destroy()</strong> -- This is called when the entity gets destroyed. Here we usually add code to destroy listeners and any other variable that needs to be cleaned up safely.</p>
+                    <p><strong>destroy()</strong> -- 这在实体被销毁时调用。在这里，我们通常添加代码来销毁监听器和任何其他需要安全清理的变量。</p>
                 </li>
             </ul>
-            <p>To sum up, the call order for these functions goes:</p>
+            <p>总结一下，这些函数的调用顺序是：</p>
             <pre><code>  __init() -&gt; initialize() -&gt; {create(optional_controller_variables) OR restore()} -&gt; activate() -&gt; post_activate()
 </code></pre>
-            <h3><a name="LifecycleExample"></a>Examples</h3>
-            <p>Example of the lifecycle functions in a component:</p>
+            <h3><a name="LifecycleExample"></a>示例</h3>
+            <p>组件中生命周期函数的示例：</p>
             <pre><code>  local MyComponent = class()
 
   function MyComponent:initialize()
@@ -77,10 +77,9 @@
      self._sv._unremoted_save_variable = json.my_json_data_variable
      self._sv._created_linked_entity = nil
 
-     -- We don't know if this is a load or a new creation yet,
-     -- so self._sv will have the values set in initialize.
-     -- If this is a load, the self._sv variables will have
-     -- their loaded values by the restore function
+     -- 我们还不知道这是加载还是新创建，
+     -- 所以 self._sv 将具有在 initialize 中设置的值。
+     -- 如果这是加载，self._sv 变量将在 restore 函数中具有它们的加载值
   end
 
   function MyComponent:create()
@@ -88,8 +87,8 @@
   end
 
   function MyComponent:restore()
-     -- If this is loaded from a save game, variables in self._sv
-     -- will now have their saved values
+     -- 如果这是从存档游戏加载的，self._sv 中的变量
+     -- 现在将具有它们的保存值
   end
 
   function MyComponent:activate()
@@ -97,20 +96,20 @@
   end
 
   function MyComponent:post_activate()
-     -- Can access other components here and tell them to do stuff
+     -- 可以在此处访问其他组件并让它们执行操作
      local component2 = self._entity:get_component('stonehearth:my_component_2)
      component2:some_setter_function(self._sv._unremoted_save_variable)
   end
 
   return MyComponent
 </code></pre>
-            <p>Controllers and services can also make use of these functions.</p>
-            <h2><a name="SV"></a>About saved variables</h2>
-            <p><strong>saved_variables</strong> (actually the field <code>__saved_variables</code>) is an object that is present on every controller, component and service in Stonehearth's Lua code.</p>
-            <p>It is actually a C++ datastore, and serves two purposes: to be the place where persistent data can be stored/loaded, and as the means by which data is transferred from the server to the client.</p>
-            <p>Generally speaking, the only time you should ever need to access it directly is when you've changed some piece of data on the server, and now you need the client (or UI) to know you've made a change. In this case, you call <code>self.__saved_variables.mark_changed()</code>, and the changed data will be serialized over the wire to the client, and potentially trigger any event handlers you have installed there.</p>
-            <p>Fields of a datastore are 'diffed' before transferring to the client, so if you only change one field, you only need to pay for the transfer of that field.</p>
-            <p>In order to add a field that you want to save to a controller, component or service simply add it to the <code>._sv</code> field in your initialize Lua routine. As an illustrative example, consider the AI component:</p>
+            <p>控制器和服务也可以使用这些函数。</p>
+            <h2><a name="SV"></a>关于保存变量</h2>
+            <p><strong>saved_variables</strong>（实际上是字段 <code>__saved_variables</code>）是一个存在于 Stonehearth Lua 代码中每个控制器、组件和服务上的对象。</p>
+            <p>它实际上是一个 C++ 数据存储，有两个用途：作为存储/加载持久数据的地方，以及作为数据从服务器传输到客户端的手段。</p>
+            <p>一般来说，您唯一需要直接访问它的时候是当您在服务器上更改了一些数据，现在您需要客户端（或 UI）知道您已进行了更改。在这种情况下，您调用 <code>self.__saved_variables.mark_changed()</code>，更改的数据将被序列化并通过网络传输到客户端，并可能触发您在那里安装的任何事件处理程序。</p>
+            <p>数据存储的字段在传输到客户端之前会被"diffed"，因此如果您只更改一个字段，您只需支付该字段的传输费用。</p>
+            <p>要将要保存的字段添加到控制器、组件或服务，只需在您的 initialize Lua 例程中将其添加到 <code>._sv</code> 字段。作为一个说明性示例，考虑 AI 组件：</p>
             <pre><code>  function AIComponent:initialize()
      self._log = radiant.log.create_logger('ai.component')
                                 :set_entity(self._entity)
@@ -121,11 +120,11 @@
      self._num_unyielded_spins = 0
   end
 </code></pre>
-            <p>Here, we see a couple of fields added, some are to <code>self</code>, and the others are to <code>._sv</code>. Those directly on <code>self</code> will NOT be saved, and will NOT be transferred to the client. They are effectively private to the server's component. The fields added to <code>._sv</code> will be saved, as well as transferred to the client.</p>
-            <p>One more important feature is that if you name an <code>._sv</code> field starting with an underscore (<code>self._sv._foo</code>), while that field will be saved, it will NOT be transferred to the client. This is extremely useful when you have important persistable data that might also be very prohibitive over a network.</p>
-            <h3><a name="SaveCompatibility"></a>Maintaining save compatibility</h3>
-            <p>By default, <code>_sv</code>'s have a version on them that specifies the version of the data store that was saved. The version value is 0 by default. If you need to update the controller to a different version because you renamed a variable, added a variable that needs to be set in the <code>create()</code>, or anything else where older versions of the controller need to be fixed up, you can implement the version function on the controller/component to tell the persistence system that the version of the code has changed.</p>
-            <p>First add a <code>versions</code> variable to the controller/component so you can document what was added each version. Example from the job component:</p>
+            <p>在这里，我们看到添加了一些字段，一些添加到 <code>self</code>，其他添加到 <code>._sv</code>。直接在 <code>self</code> 上的字段将不会被保存，也不会被传输到客户端。它们实际上是服务器组件私有的。添加到 <code>._sv</code> 的字段将被保存，并传输到客户端。</p>
+            <p>另一个重要功能是，如果您命名一个以 underscore 开头的 <code>._sv</code> 字段（<code>self._sv._foo</code>），虽然该字段将被保存，但它不会被传输到客户端。当您有重要的可持久化数据但在网络上可能非常昂贵时，这非常有用。</p>
+            <h3><a name="SaveCompatibility"></a>维护存档兼容性</h3>
+            <p>默认情况下，<code>_sv</code> 有一个版本，指定保存的数据存储的版本。版本值默认为 0。如果您需要更新控制器到不同版本，因为您重命名了变量、添加了需要在 <code>create()</code> 中设置的变量，或者需要修复旧版本控制器的任何其他情况，您可以在控制器/组件上实现 version 函数，以告诉持久化系统代码版本已更改。</p>
+            <p>首先向控制器/组件添加一个 <code>versions</code> 变量，以便您可以记录每个版本添加的内容。来自 job 组件的示例：</p>
             <pre><code>  local VERSIONS = {
      ZERO = 0,
      CLEAN_UP_SAVED_FIELDS = 1,
@@ -133,13 +132,13 @@
      LEVEL_0_REMOVED = 3
   }
 </code></pre>
-            <p>Then implement the <code>get_version</code> function and have it point to the latest version:</p>
+            <p>然后实现 <code>get_version</code> 函数并使其指向最新版本：</p>
             <pre><code>  function JobComponent:get_version()
      return VERSIONS.LEVEL_0_REMOVED
   end
 </code></pre>
-            <p>And finally implement the <code>fixup_post_load</code> function. This function will only be called on load if the saved version does not match the current version, after <code>initialize</code> and before <code>restore</code>, (the variables in <code>_sv</code> will already have been populated). Then you can modify anything in the saved data.</p>
-            <p>For example, in the <code>CLEAN_UP_SAVED_FIELDS</code> version we renamed the the <code>_sv.equipment</code> variable to <code>_sv._job_equipment</code>. Notice that we can retrieve the saved data from the <code>old_save_data</code> parameter if we need to:</p>
+            <p>最后实现 <code>fixup_post_load</code> 函数。此函数仅在加载时调用，如果保存的版本与当前版本不匹配，在 <code>initialize</code> 之后和 <code>restore</code> 之前调用（<code>_sv</code> 中的变量已经被填充）。然后您可以修改保存数据中的任何内容。</p>
+            <p>例如，在 <code>CLEAN_UP_SAVED_FIELDS</code> 版本中，我们将 <code>_sv.equipment</code> 变量重命名为 <code>_sv._job_equipment</code>。请注意，如果需要，我们可以从 <code>old_save_data</code> 参数中检索保存的数据：</p>
             <pre><code>  function JobComponent:fixup_post_load(old_save_data)
      if old_save_data.version &lt; VERSIONS.CLEAN_UP_SAVED_FIELDS then
         self._sv._job_equipment = old_save_data.equipment
@@ -154,74 +153,74 @@
      end
   end
 </code></pre>
-            <p>In the later versions, we set up some flags so that we can use them in <code>restore</code>/<code>activate</code>/<code>post_activate</code> to patch the controller appropiately, so that players can keep playing their old savefiles with the new version of the mod.</p>
-            <h2><a name="Observers"></a>About observers</h2>
-            <p>An observer watches a variable on an entity and does stuff if that variable changes. It is sort of like a component, but it is passive instead of active. For example, see the sleep observer in <code>stonehearth\ai\observers</code>, which watches for sleepiness scores to decrease, and then triggers a bunch of actions.</p>
-            <p>If you want a controller to hold publicly accessible state, you usually will want a component. Observers are more useful when you have an item that needs to inject behavior onto an entity that can't be encapsulated by an action.</p>
-            <p>Generally, what you can do with an observer, you can do with a component. Components are preferred over observers because this is what we use across the codebase and their behavior is more predictable.</p>
-            <h2><a name="Validators"></a>About validators</h2>
-            <p>In <code>radiant/modules/validator.lua</code> we can find functions to validate parameters in our Lua code.</p>
-            <p>You'll see many places in the code where we get the validator at the top of the file:</p>
+            <p>在后续版本中，我们设置了一些标志，以便我们可以在 <code>restore</code>/<code>activate</code>/<code>post_activate</code> 中使用它们来适当修补控制器，使玩家可以使用新版 mod 继续玩他们的旧存档文件。</p>
+            <h2><a name="Observers"></a>关于观察者</h2>
+            <p>观察者监视实体上的变量，并在该变量更改时执行操作。它有点像组件，但它是被动的而不是主动的。例如，参见 <code>stonehearth\ai\observers</code> 中的睡眠观察者，它监视困倦分数的降低，然后触发一系列动作。</p>
+            <p>如果您希望控制器持有公开访问的状态，您通常需要组件。当您需要将行为注入到无法由动作封装的实体上时，观察者更有用。</p>
+            <p>一般来说，您可以使用观察者做的事情，也可以使用组件完成。组件比观察者更受欢迎，因为这是我们在整个代码库中使用的，并且它们的行为更可预测。</p>
+            <h2><a name="Validators"></a>关于验证器</h2>
+            <p>在 <code>radiant/modules/validator.lua</code> 中，我们可以找到验证 Lua 代码中参数的函数。</p>
+            <p>您会在代码中的许多地方看到我们在文件顶部获取验证器：</p>
             <pre><code>  local validator = radiant.validator
 </code></pre>
-            <p>And then right at the beginning of a function, call one of its functions to validate the parameters that were passed:</p>
+            <p>然后在函数的开头，调用其函数之一来验证传递的参数：</p>
             <pre><code>  function CatalogCallHandler:get_catalog_data(session, response, uri)
      validator.expect_argument_types({'string'}, uri)
      -- ...
   end
 </code></pre>
-            <p>This is useful to prevent bad data on multiplayer.</p>
-            <p>There's also some validation functions for the UI, in <code>stonehearth/ui/common/validator/validator.js</code>:</p>
+            <p>这对于防止多人游戏中的不良数据很有用。</p>
+            <p>在 <code>stonehearth/ui/common/validator/validator.js</code> 中也有一些用于 UI 的验证函数：</p>
             <pre><code>  var townName = App.stonehearth.validator.enforceStringLength(self.$('#name'), 28);
 </code></pre>
-            <h2><a name="StateMachines"></a>About state machines</h2>
-            <p>We can create <a href="https://en.wikipedia.org/wiki/Finite-state_machine">state machines</a> in our code too, using the <code>radiant/controllers/state_machine.lua</code> controller. The only example in the game that uses this is the incapacitation component, so check it to see how it's done.</p>
-            <h2><a name="RequiringLua"></a>Requiring files in Lua</h2>
-            <p>If we need to require a file in a Lua script to use functions or constants from it, we'd do it at the top of the script, before beginning our code:</p>
+            <h2><a name="StateMachines"></a>关于状态机</h2>
+            <p>我们也可以使用 <code>radiant/controllers/state_machine.lua</code> 控制器在我们的代码中创建<a href="https://en.wikipedia.org/wiki/Finite-state_machine">状态机</a>。游戏中使用此功能的唯一示例是无能力组件，因此请检查它以了解如何完成。</p>
+            <h2><a name="RequiringLua"></a>在 Lua 中引入文件</h2>
+            <p>如果我们需要在 Lua 脚本中引入文件以使用其中的函数或常量，我们会在脚本顶部、开始我们的代码之前执行此操作：</p>
             <pre><code>  local constants = require 'constants'
 </code></pre>
-            <p>However, make sure to prefix this by <code>mods.stonehearth</code> when requiring stonehearth files from your mod:</p>
+            <p>但是，在从您的 mod 引入 stonehearth 文件时，请确保在其前面加上 <code>mods.stonehearth</code>：</p>
             <pre><code>  local constants = require 'mods.stonehearth.constants'
 </code></pre>
-            <p>Otherwise the game won't know where to find that file. Normally the path is the directory names separated by dots.</p>
-            <p>For requiring C++ stuff we omit the <strong>require</strong> and the quotes:</p>
+            <p>否则游戏将不知道在哪里找到该文件。通常路径是用点分隔的目录名称。</p>
+            <p>对于引入 C++ 内容，我们省略 <strong>require</strong> 和引号：</p>
             <pre><code>  local Point2 = _radiant.csg.Point2
 </code></pre>
-            <p>We can also create shortcuts for services or other:</p>
+            <p>我们还可以为服务或其他内容创建快捷方式：</p>
             <pre><code>  local calendar = stonehearth.calendar
 </code></pre>
             <!--
-                ### Iterating Through _sv (Is this still valid?)
-                If you need to iterate through all the fields in an Sv Table for some reason, you cannot use the pairs() operator anymore. There are 2 special function called svpairs or expairs in sv_table.lua for iterating through all the keys in an Sv table. If you need only fields that are non-nil (this is the default behavior of pairs in lua), then use svpairs. If you want to know all declared fields in the Sv table, use expairs (ex stands for exist).
-                
-                Ex:
+                ### 遍历 _sv（这仍然有效吗？）
+                如果由于某种原因您需要遍历 Sv 表中的所有字段，您不能再使用 pairs() 运算符。sv_table.lua 中有两个特殊函数称为 svpairs 或 expairs，用于遍历 Sv 表中的所有键。如果您只需要非 nil 字段（这是 lua 中 pairs 的默认行为），则使用 svpairs。如果您想知道 Sv 表中声明的所有字段，请使用 expairs（ex 代表存在）。
+
+                示例：
                    local SvTable = require 'radiant.lib.sv_table'
                    for k in SvTable.svpairs(self._sv) do
-                      if self._sv[k] == 'some_compare' then 
+                      if self._sv[k] == 'some_compare' then
                          log:info('HELLO')
                       end
                    end
-                
-                IMPORTANT: do not modify the Sv Table while iterating through it. You will not get all the values. If you must modify sv while iterating, use the get_all_keys() function in sv_table.lua
-                
-                ### Dynamically Modified self._sv Tables (Is this still valid?)
-                By default, all fields in self._sv must be declared in the initialize() function of a component/controller. After initialize(), self._sv will become locked. This means that any additional attempts to assign to a variable in self._sv that wasn't declared will display a warning. The warning allows you to save your game, add the variable to self._sv in initialize(), and then load the game again. The saved game will load properly since the field now exists.
-                
-                If you want to be able to add whatever fields you want to self._sv, even after initialize(), it's probably easiest to add it as a variable within self._sv like self._sv._my_variables = {} and then add to that variable instead. However, if you MUST be able to dynamically add fields to self._sv, (this is only done very rarely, sometimes on client components and then on node contexts in game master, or on the time tracker controller for performance reasons), you can mark your component or controller as having a dynamic sv.
-                
-                This must be done as a function on your controller
-                
-                Ex:
-                
+
+                重要提示：不要在遍历时修改 Sv 表。您将不会获得所有值。如果必须在遍历时修改 sv，请使用 sv_table.lua 中的 get_all_keys() 函数
+
+                ### 动态修改的 self._sv 表（这仍然有效吗？）
+                默认情况下，self._sv 中的所有字段必须在组件/控制器的 initialize() 函数中声明。在 initialize() 之后，self._sv 将被锁定。这意味着任何尝试分配给未在 self._sv 中声明的变量的额外尝试将显示警告。该警告允许您保存游戏，在 initialize() 中将变量添加到 self._sv，然后再次加载游戏。保存的游戏将正确加载，因为该字段现在存在。
+
+                如果您希望能够向 self._sv 添加任何字段，即使在 initialize() 之后，最简单的方法是将其作为 self._sv 中的变量添加，如 self._sv._my_variables = {}，然后添加到该变量。但是，如果您必须能够动态地向 self._sv 添加字段（这很少见，有时在客户端组件和游戏大师中的节点上下文上，或者出于性能原因在时间跟踪器控制器上），您可以将组件或控制器标记为具有动态 sv。
+
+                这必须作为控制器上的函数完成
+
+                示例：
+
                       local TimeTracker = {}
-                
+
                       function TimeTracker:has_dynamic_sv()
-                         - Tells the persistence system to set our save data directly instead of using an sv table
-                         - This is done for performance reasons.
+                         - 告诉持久化系统直接设置我们的保存数据，而不是使用 sv 表
+                         - 这是出于性能原因完成的。
                          return true
                       end
-                
-                Dynamic sv variables will have their loaded save data completely override the existing self._sv and the sv variable will be a normal lua table instead of an Sv Table. So even if you declare variables in initialize on a dynamic table, those variables might be blown away after load. This makes it hard to maintain save compatibility, so if you need to add a new variable later on to the dynamic Sv table, be sure to add the field back in the restore as well. Fix up post load is never called for controllers that have dynamic sv, so be aware!
+
+                动态 sv 变量将使其加载的保存数据完全覆盖现有的 self._sv，并且 sv 变量将是普通的 lua 表而不是 Sv 表。因此，即使您在动态表的 initialize 中声明变量，这些变量也可能在加载后被清除。这使得维护存档兼容性变得困难，因此如果您以后需要向动态 Sv 表添加新变量，请务必也在 restore 中添加该字段。请注意，具有动态 sv 的控制器永远不会调用 fix up post load！
                 -->
         </main>
     </body>

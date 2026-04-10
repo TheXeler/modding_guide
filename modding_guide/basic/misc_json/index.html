@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,95 +7,95 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Miscellaneous JSON</title>
+      <title>杂项 JSON</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Miscellaneous JSON</h1>
-         <p>These are explanations about some expressions we can find for certain properties and components in the JSON files:</p>
+         <h1>杂项 JSON</h1>
+         <p>以下是关于我们在 JSON 文件中的某些属性和组件中可以找到的一些表达式的解释：</p>
          <ul>
-            <li><a href="#TimeExpressions">Time expressions</a></li>
-            <li><a href="#LootTables">Loot tables</a></li>
-            <li><a href="#WeightedSets">Weighted sets</a></li>
+            <li><a href="#TimeExpressions">时间表达式</a></li>
+            <li><a href="#LootTables">战利品表</a></li>
+            <li><a href="#WeightedSets">加权集</a></li>
          </ul>
-         <h2><a name="TimeExpressions"></a>Time expressions</h2>
-         <p>Along many of the guides you will encounter properties that will have time expressions as their value.</p>
-         <p>These time expressions are strings representing in-game time, which will be parsed by the code. Examples:</p>
+         <h2><a name="TimeExpressions"></a>时间表达式</h2>
+         <p>在许多指南中，您会遇到具有时间表达式作为值的属性。</p>
+         <p>这些时间表达式是表示游戏内时间的字符串，将由代码解析。示例：</p>
          <pre><code>  "duration" : "3d"
 </code></pre>
-         <p>Stands for 3 days.</p>
+         <p>代表 3 天。</p>
          <pre><code>  "duration" : "40h"
 </code></pre>
-         <p>Stands for 40 hours.</p>
+         <p>代表 40 小时。</p>
          <pre><code>  "duration" : "15m"
 </code></pre>
-         <p>Stands for 15 minutes.</p>
+         <p>代表 15 分钟。</p>
          <pre><code>  "duration" : "1s"
 </code></pre>
-         <p>Stands for 1 second.</p>
+         <p>代表 1 秒。</p>
          <pre><code>  "duration": "3d40h15m1s"
 </code></pre>
-         <p>Stands for 3 days plus 40 hours, 15 minutes and 1 second.</p>
-         <p>We can append extra time expressions to these times using "+", like this:</p>
+         <p>代表 3 天加上 40 小时、15 分钟和 1 秒。</p>
+         <p>我们可以使用"+"将这些时间表达式附加到这些时间上，如下所示：</p>
          <pre><code>  "delay" : "3d+40h"
 </code></pre>
-         <p>This means 'choose a random amount of time between "3 days" and "3 days and 40 hours"'.
-            We use this kind of expressions to add more randomness to the game. This way, events and encounters don't need to happen always at the same hour, which also helps with performance, since they're more distributed over time.
+         <p>这意味着“在'3 天’和'3 天 40 小时’之间选择一个随机时间量”。
+            我们使用这种类型的表达式为游戏增加更多的随机性。这样，事件和遭遇战不需要总是在同一时间发生，这也有助于性能，因为它们在时间上更加分散。
          </p>
-         <p>There are properties that will define times in a different way, such as:</p>
+         <p>有些属性将以不同的方式定义时间，例如：</p>
          <pre><code>  "time" : "6:00"
 </code></pre>
-         <p>to represent 6AM, or</p>
+         <p>代表早上 6 点，或</p>
          <pre><code>  "end_time" : 1200
 </code></pre>
-         <p>to represent an amount of realtime milliseconds (notice that this one is not a string).</p>
-         <p>When editing copied files from the stonehearth mod always make sure you're using the correct type of value for each field.</p>
-         <h2><a name="LootTables"></a>Loot tables</h2>
-         <p>The chance of getting anything when you kill, harvest or mine something is given by a loot table. Loot tables work based on something called a <a href="#WeightedSets">weight</a>.</p>
-         <p>The loot_drops component has these fields:</p>
+         <p>代表实时毫秒数（请注意，这不是一个字符串）。</p>
+         <p>在编辑从 stonehearth mod 复制的文件时，请始终确保您为每个字段使用正确类型的值。</p>
+         <h2><a name="LootTables"></a>战利品表</h2>
+         <p>当您杀死、收获或挖掘某物时获得任何东西的几率由战利品表给出。战利品表基于称为<a href="#WeightedSets">权重</a>的东西工作。</p>
+         <p>loot_drops 组件具有以下字段：</p>
          <ul>
             <li>
-               <p><strong>"force_auto_loot": true</strong> -- optional field that will mark the drop for auto loot regardless of the auto loot option from the game settings. It will only work if the drops have the correct player_id.</p>
+               <p><strong>"force_auto_loot": true</strong> -- 可选字段，将标记掉落物为自动拾取，无论游戏设置中的自动拾取选项如何。它仅在掉落物具有正确的 player_id 时才有效。</p>
             </li>
             <li>
-               <p><strong>"entries"</strong> -- a dictionary of one or more loot table entries (the entry names can be any string). Each entry has the following properties:</p>
+               <p><strong>"entries"</strong> -- 一个或多个战利品表条目的字典（条目名称可以是任何字符串）。每个条目具有以下属性：</p>
                <ul>
                   <li>
-                     <p><strong>"roll_type"</strong> : either <strong>"each_of"</strong> or <strong>"some_of"</strong>. Will default to "some_of" when omitted.</p>
+                     <p><strong>"roll_type"</strong>：要么是 <strong>"each_of"</strong>，要么是 <strong>"some_of"</strong>。如果省略，将默认为"some_of"。</p>
                      <ul>
-                        <li><strong>"each_of"</strong> will cause all entries and items below this point to be added to a list to give to the player as loot.</li>
-                        <li><strong>"some_of"</strong> will cause either single or multiple random entries or items listed in the entry to be added to a list to give to the player as loot based on the <strong>"num_rolls"</strong> value.   </li>
+                        <li><strong>"each_of"</strong> 将导致此点下方的所有条目和物品添加到列表中，作为战利品给予玩家。</li>
+                        <li><strong>"some_of"</strong> 将根据 <strong>"num_rolls"</strong> 值导致列出的单个或多个随机条目或物品添加到列表中，作为战利品给予玩家。</li>
                      </ul>
                   </li>
                   <li>
-                     <p><strong>"num_rolls"</strong> :</p>
+                     <p><strong>"num_rolls"</strong>：</p>
                      <ul>
-                        <li>Can be a table with keys <strong>"min"</strong> and <strong>"max"</strong></li>
-                        <li>Can be a number</li>
-                        <li>Can be omitted (which will default to 1)</li>
-                        <li>When the type "each_of" is used, this value applies to all # of drops per item within it.   </li>
+                        <li>可以是一个包含键 <strong>"min"</strong> 和 <strong>"max"</strong> 的表</li>
+                        <li>可以是一个数字</li>
+                        <li>可以省略（将默认为 1）</li>
+                        <li>当使用"each_of"类型时，此值适用于其中每个物品的掉落数量。</li>
                      </ul>
                   </li>
                   <li>
-                     <p><strong>"items"</strong> : dictionary mapping of unique string name (make something up!) to entries with keys <strong>"type"</strong>, <strong>"uri"</strong>, <strong>"weight"</strong>, and <strong>"num_rolls"</strong>.</p>
+                     <p><strong>"items"</strong>：将唯一字符串名称（编造一个！）映射到具有键 <strong>"type"</strong>、<strong>"uri"</strong>、<strong>"weight"</strong> 和 <strong>"num_rolls"</strong> 的条目的字典。</p>
                      <ul>
                         <li>
-                           <strong>"type"</strong> can be either <strong>"item"</strong> or <strong>"bag"</strong>. Defaults to "item" when omitted.
+                           <strong>"type"</strong> 可以是 <strong>"item"</strong> 或 <strong>"bag"</strong>。如果省略，默认为"item"。
                            <ul>
-                              <li><strong>"item"</strong> is a uri for an item (a chair, a bed, a weapon).</li>
-                              <li><strong>"bag"</strong> is a uri for another list of items/bags (another loot_table just like this one).</li>
+                              <li><strong>"item"</strong> 是物品的 uri（椅子、床、武器）。</li>
+                              <li><strong>"bag"</strong> 是另一个物品/袋子列表的 uri（就像这个一样的另一个战利品表）。</li>
                            </ul>
                         </li>
-                        <li>If unique string name is <strong>"none"</strong> or <strong>"uri"</strong> is an empty string, no drop is created if it is rolled.</li>
-                        <li>If <strong>"weight"</strong> is omitted, defaults to 1. Non-integer values are ok.</li>
-                        <li><strong>"num_rolls"</strong>: same possible values than explained above.</li>
+                        <li>如果唯一字符串名称是 <strong>"none"</strong> 或 <strong>"uri"</strong> 是空字符串，如果滚动到它，则不会创建掉落物。</li>
+                        <li>如果省略 <strong>"weight"</strong>，默认为 1。非整数值是可以的。</li>
+                        <li><strong>"num_rolls"</strong>：与上面解释的可能值相同。</li>
                      </ul>
                   </li>
                </ul>
             </li>
          </ul>
-         <p>Example from <code>entling.json</code>:</p>
+         <p>来自 <code>entling.json</code> 的示例：</p>
          <pre><code>  "stonehearth:loot_drops": {
    "entries": {
       "default": {
@@ -113,7 +113,7 @@
    }
 }
 </code></pre>
-         <p>Example from <code>goblin_tent.json</code>:</p>
+         <p>来自 <code>goblin_tent.json</code> 的示例：</p>
          <pre><code>  "stonehearth:loot_drops": {
      "force_auto_loot": true,
      "entries": {
@@ -129,8 +129,8 @@
      }
   }
 </code></pre>
-         <p>You can find a longer example inside <code>stonehearth/lib/loot_table/loot_table.lua</code>.</p>
-         <p>Other files also make use of the loot table syntax even if they're not using the loot_drops component. For example, we can find a field called "resource_loot_table" in <code>small_oak_tree.json</code>, for a chance to drop seeds in addition to the wood:</p>
+         <p>您可以在 <code>stonehearth/lib/loot_table/loot_table.lua</code> 中找到更长的示例。</p>
+         <p>其他文件即使不使用 loot_drops 组件也会使用战利品表语法。例如，我们可以在 <code>small_oak_tree.json</code> 中找到一个名为"resource_loot_table"的字段，用于除了木材之外还有几率掉落种子：</p>
          <pre><code>  "stonehearth:resource_node": {
      "durability": 6,
      "resource": "stonehearth:resources:wood:oak_log",
@@ -156,14 +156,14 @@
      }
   }
 </code></pre>
-         <h2><a name="WeightedSets"></a>Weighted sets</h2>
-         <p>We use weighted sets in many of the JSON files. With them we can give more priority or more chances for an entry to be chosen when we draw a random one (for example, choosing a random weather, a random encounter, random loot...).</p>
-         <p>Weights are a handy way to assign a probability of something without assigning a strict probability. A probability is a value between 0 (never happen) and 1 (always happens). So if you are using probability the numbers in your table have to add up to 1 always. So if you add something new or pull something out, you have to calculate your numbers all over again.</p>
-         <p>Weights are a bit different! A weight merely states how likely something is relative to something else.</p>
-         <p>Say you want A to drop 5 times as often as B. B has an arbitrary weight of 2. Therefore A must have a weight of 10, 5 times as much as B. So currently, we have a total weight of 12. 2/12 times we see B and 10/12 times we see A.</p>
-         <p>What if we want to add item C with a weight of 8 (4 times as common as B)? Now we have a total weight of 20, giving 10/20 times we'll see A, 2/20 times we'll see B and 8/20 times we'll see C. The relative chance of each item dropping is preserved, but the chance of A and B dropping is now less than it was before. This is important.</p>
+         <h2><a name="WeightedSets"></a>加权集</h2>
+         <p>我们在许多 JSON 文件中使用加权集。通过它们，当我们抽取随机条目时（例如，选择随机天气、随机遭遇战、随机战利品...），我们可以赋予某个条目更高的优先级或更多的被选中机会。</p>
+         <p>权重是一种分配某事概率的便捷方法，而无需分配严格的概率。概率是介于 0（从不发生）和 1（总是发生）之间的值。因此，如果您使用概率，表中的数字必须始终加起来为 1。因此，如果您添加新内容或删除某些内容，您必须重新计算您的数字。</p>
+         <p>权重有点不同！权重仅仅说明某事相对于其他事情的可能性有多大。</p>
+         <p>假设您希望 A 的掉落频率是 B 的 5 倍。B 的任意权重为 2。因此 A 的权重必须为 10，是 B 的 5 倍。所以目前，我们的总权重为 12。我们有 2/12 的机会看到 B，有 10/12 的机会看到 A。</p>
+         <p>如果我们想添加权重为 8 的物品 C（比 B 常见 4 倍）怎么办？现在我们的总权重为 20，给予 10/20 的机会看到 A，2/20 的机会看到 B，8/20 的机会看到 C。每个物品掉落的相对几率保持不变，但 A 和 B 掉落的几率现在比以前少了。这很重要。</p>
          <p><img src="/modding_guide/images/basic/misc_json/weights.png" alt="weights"/></p>
-         <p>Check the numbers in the file you're mixinto'ing to before adjusting this weight. If your number is too low, your item will not drop much (if at all). If your number is too high, it will outweight every other item and nothing else will drop!</p>
+         <p>在调整此权重之前，请检查您要 mixinto 的文件中的数字。如果您的数字太低，您的物品将不会掉落太多（如果有的话）。如果您的数字太高，它将超过所有其他物品，而其他任何东西都不会掉落！</p>
       </main>
    </body>
 </html>

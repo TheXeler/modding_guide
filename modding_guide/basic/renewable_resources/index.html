@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,34 +7,34 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Renewable resources</title>
+      <title>可再生资源</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Renewable resources</h1>
-         <p>By renewable resources we mean any item like the berry bushes or the sheep, which once harvested, will regrow after some time and we'll be able to harvest it again.</p>
+         <h1>可再生资源</h1>
+         <p>可再生资源是指任何像浆果丛或绵羊这样的物品，一旦收获，将在一段时间后重新生长，我们将能够再次收获它。</p>
          <ul>
-            <li><a href="#RenewableResources">Renewable resources</a></li>
-            <li><a href="#NonRenewableResources">Non-renewable resources</a></li>
-            <li><a href="#PlantableSeeds">Plantable seeds</a></li>
-            <li><a href="#Notes">Final notes</a></li>
+            <li><a href="#RenewableResources">可再生资源</a></li>
+            <li><a href="#NonRenewableResources">不可再生资源</a></li>
+            <li><a href="#PlantableSeeds">可种植的种子</a></li>
+            <li><a href="#Notes">最后说明</a></li>
          </ul>
-         <h2><a name="RenewableResources"></a>Creating a renewable resource</h2>
-         <p>This is how we made the bioluminescent mushroom ("Nightdew") from the <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1357451622">"Silent Woods" tutorial mod</a>:</p>
+         <h2><a name="RenewableResources"></a>创建可再生资源</h2>
+         <p>这是我们如何制作来自<a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1357451622">"Silent Woods"教程 mod</a>的生物发光蘑菇（"Nightdew"）：</p>
          <ol>
             <li>
-               <p>We copied an existing renewable resource (the berry bush) to our mod.</p>
+               <p>我们将现有的可再生资源（浆果丛）复制到我们的 mod 中。</p>
             </li>
             <li>
-               <p>We renamed the folders and files.</p>
+               <p>我们重命名了文件夹和文件。</p>
             </li>
             <li>
-               <p>We edited the QB models and reexported them.</p>
+               <p>我们编辑了 QB 模型并重新导出它们。</p>
             </li>
             <li>
-               <p>We edited the JSON files and added the localization strings to our locale file.
-                  These are the fields that we need to fill for the renewable_resource_node component in nightdew.json:
+               <p>我们编辑了 JSON 文件并将本地化字符串添加到我们的区域设置文件中。
+                  这些是我们在 nightdew.json 中需要为 renewable_resource_node 组件填写的字段：
                </p>
                <pre><code>...
 "stonehearth:renewable_resource_node": {
@@ -68,25 +68,25 @@
 </code></pre>
                <ul>
                   <li>
-                     <p><strong>"resource"</strong> : the full alias of the item that we want to spawn when we harvest this entity. It can be an item from your mod, or from another mod.</p>
+                     <p><strong>"resource"</strong>：我们收获此实体时要生成的物品的完整别名。它可以是您 mod 中的物品，也可以是另一个 mod 中的物品。</p>
                   </li>
                   <li>
-                     <p><strong>"category"</strong> : most of the time it will be "harvest", but you may want a different value for it. For example, for shearing sheep, the category is "herding". This makes it so that only the shepherd can harvest it (because only the shepherd has the herding task group for their AI, which allows to harvest renewable resources that have the "herding" category).</p>
+                     <p><strong>"category"</strong>：大多数情况下它将是"harvest"，但您可能希望为其使用不同的值。例如，对于剪羊毛，类别是"herding"。这使得只有牧羊人可以收获它（因为只有牧羊人的 AI 有 herding 任务组，这允许收获具有"herding"类别的可再生资源）。</p>
                   </li>
                   <li>
-                     <p><strong>"renewal_time"</strong> : how much time it takes for the resource to renew itself. Examples of <a href="../misc_json/index.html#TimeExpressions">time expressions</a>: "1d" (one day), "36h" (36 hours), "6m" (6 minutes), "22h+2h" (22 hours plus some random amount of time between 0 and 2 hours).</p>
+                     <p><strong>"renewal_time"</strong>：资源自我更新所需的时间。<a href="../misc_json/index.html#TimeExpressions">时间表达式</a>示例："1d"（一天）、"36h"（36 小时）、"6m"（6 分钟）、"22h+2h"（22 小时加上 0 到 2 小时之间的随机时间量）。</p>
                   </li>
                   <li>
-                     <p><strong>"unripe_description"</strong> : localized description that will appear in the unit frame after the entity has been harvested and until the resource is renewed.</p>
+                     <p><strong>"unripe_description"</strong>：本地化描述，将在实体被收获后直到资源更新之前出现在单位框架中。</p>
                   </li>
                   <li>
-                     <p><strong>"harvest_overlay_effect"</strong> : the full alias of the effect that plays while the entity is marked for harvesting. In this case we're reusing the harvest plant overlay effect from the stonehearth mod, which shows a little plant icon above the entity.</p>
+                     <p><strong>"harvest_overlay_effect"</strong>：当实体被标记为收获时播放的效果的完整别名。在这种情况下，我们重用了 stonehearth mod 中的收获植物覆盖效果，它在实体上方显示一个小植物图标。</p>
                   </li>
                   <li>
-                     <p><strong>"resource_loot_table"</strong> : this field is optional. We can use it to spawn other extra resources with a chance every time we spawn the main resource. Its value is a <a href="../misc_json/index.html#LootTables">loot table</a>.</p>
+                     <p><strong>"resource_loot_table"</strong>：此字段是可选的。我们可以使用它在每次生成主要资源时有几率生成其他额外资源。其值是一个<a href="../misc_json/index.html#LootTables">战利品表</a>。</p>
                   </li>
                </ul>
-               <p>  Also, we made sure to include a model variant called <strong>"depleted"</strong> in this file (the default model is declared in the JSON file for the ghost instead). Once the entity is harvested, its model will be automatically swapped to the depleted variant:</p>
+               <p>此外，我们确保在此文件中包含一个名为 <strong>"depleted"</strong> 的模型变体（默认模型在 ghost 的 JSON 文件中声明）。一旦实体被收获，其模型将自动交换为 depleted 变体：</p>
                <pre><code>"model_variants": {
    "depleted": {
       "models": [
@@ -95,41 +95,41 @@
    }
 }
 </code></pre>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>If we add a <strong>"durability"</strong> field to the renewable_resource_node component, we'll be able to harvest the entity N times, after which it will get destroyed. If we don't include it we'll be able to keep harvesting it indefinitely every time it regrows.</p>
+               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>如果我们在 renewable_resource_node 组件中添加 <strong>"durability"</strong> 字段，我们将能够收获实体 N 次，之后它将被销毁。如果我们不包含它，我们将能够在每次重新生长时无限期地继续收获它。</p>
             </li>
             <li>
-               <p>We added an alias for our mushroom in our mod's manifest:</p>
+               <p>我们在 mod 的清单中为我们的蘑菇添加了别名：</p>
                <pre><code>"plants:nightdew": "file(entities/plants/nightdew/nightdew.json)"
 </code></pre>
             </li>
             <li>
-               <p>We created the resource that it drops, by copying and editing an existing resource from <code>stonehearth/entities/resources</code>, and added the alias to our manifest:</p>
+               <p>我们通过复制和编辑 <code>stonehearth/entities/resources</code> 中的现有资源来创建它掉落的资源，并将别名添加到我们的清单中：</p>
                <pre><code>"resources:biolumin_essence:essence": "file(entities/resources/biolumin_essence/essence)"
 </code></pre>
             </li>
             <li>
-               <p>Finally, we added the plant to the biome (as seen <a href="../plants/index.html#Plants">here</a>. How to create your own biome is explained <a href="../../intermediate/biomes/index.html">here</a>) and included some <a href="../color_maps/index.html#RenderMaterials">material maps</a> so that the mushroom glows. Make sure to test that it can be correctly harvested and that it renews its resource.
+               <p>最后，我们将植物添加到生物群落中（如<a href="../plants/index.html#Plants">这里</a>所示。如何创建您自己的生物群落在<a href="../../intermediate/biomes/index.html">这里</a>解释），并包含一些<a href="../color_maps/index.html#RenderMaterials">材质映射</a>，以便蘑菇发光。确保测试它可以正确收获并且可以更新其资源。
                   <img src="/modding_guide/images/basic/color_maps/render_materials.png" alt="render_materials"/>
                </p>
             </li>
          </ol>
-         <h2><a name="NonRenewableResources"></a>Creating non-renewable resources</h2>
-         <p>We can also create items that do not renew their resource, and disappear once harvested (such as the trees, boulders, and some of the existing plants). To do that we'd use the <strong>resource_node component</strong> in our entity's JSON file, instead of the renewable_resource_node component. </p>
-         <p>Normally the non-renewable resources have a <strong>"durability"</strong> field, which is the times that it will be harvested before disappearing. Example from <code>small_oak_tree.json</code>:</p>
+         <h2><a name="NonRenewableResources"></a>创建不可再生资源</h2>
+         <p>我们还可以创建不会更新其资源并在收获后消失的物品（例如树木、巨石和一些现有植物）。为此，我们将在实体的 JSON 文件中使用 <strong>resource_node 组件</strong>，而不是 renewable_resource_node 组件。</p>
+         <p>通常，不可再生资源有一个 <strong>"durability"</strong> 字段，这是在消失之前将被收获的次数。来自 <code>small_oak_tree.json</code> 的示例：</p>
          <pre><code>  "stonehearth:resource_node": {
      "resource": "stonehearth:resources:wood:oak_log",
      "durability": 6
   }
 </code></pre>
-         <p>Trees reuse the <code>tree.json</code> mixin, which has these other fields for the resource_node component:</p>
+         <p>树木重用 <code>tree.json</code> mixin，它具有 resource_node 组件的这些其他字段：</p>
          <pre><code>  "stonehearth:resource_node": {
      "harvest_overlay_effect": "stonehearth:effects:chop_overlay_effect",
      "harvester_effect": "chop",
      "description": "chop_tree"
   }
 </code></pre>
-         <p>It includes a <strong>"harvest_overlay_effect"</strong> (same than for renewable resources), and a <strong>"harvester_effect"</strong> field, so that hearthlings play the chop animation when harvesting them. The <strong>"description"</strong> field is there for legacy reasons, so don't change its value.</p>
-         <p>We can also use the resource_loot_table for implementing the number of drops, instead of the durability. This is an example from <code>wintermoss.json</code>:</p>
+         <p>它包括一个 <strong>"harvest_overlay_effect"</strong>（与可再生资源相同），以及一个 <strong>"harvester_effect"</strong> 字段，以便炉民在收获它们时播放砍伐动画。<strong>"description"</strong> 字段出于遗留原因存在，因此不要更改其值。</p>
+         <p>我们还可以使用 resource_loot_table 来实现掉落数量，而不是 durability。这是来自 <code>wintermoss.json</code> 的示例：</p>
          <pre><code>  ...
   "stonehearth:resource_node": {
      "resource": "stonehearth:resources:fiber:wintermoss_bundle",
@@ -172,25 +172,25 @@
   },
   ...
 </code></pre>
-         <p>The resource <a href="../misc_json/index.html#LootTables">loot table</a> will drop 1 or 2 wintermoss bundles, and sometimes 1 seed, if we're lucky. After that, the wintermoss will disappear even though we only harvested it once.</p>
-         <h2><a name="PlantableSeeds"></a>Creating seeds for plants</h2>
-         <p>How to create seeds for crops is explained <a href="../crops/index.html#Seeds">here</a>.
-            Seeds for wild plants will have grow stages, similar to those of the crops. In the game, you can move seeds you just planted, but if they're seeds for trees or certain other plants, you won't be able to move them anymore once they grow for the first time. Of course, you can change this behavior in the components of your modded entities.
+         <p>资源<a href="../misc_json/index.html#LootTables">战利品表</a>将掉落 1 或 2 束 wintermoss，如果幸运的话，有时还会掉落 1 颗种子。之后，即使我们只收获了一次，wintermoss 也会消失。</p>
+         <h2><a name="PlantableSeeds"></a>为植物创建种子</h2>
+         <p>如何为作物创建种子在<a href="../crops/index.html#Seeds">这里</a>解释。
+            野生植物的种子将具有生长阶段，类似于作物的生长阶段。在游戏中，您可以移动刚种植的种子，但如果它们是树木或某些其他植物的种子，一旦它们第一次生长，您将无法再移动它们。当然，您可以在 modded 实体的组件中更改此行为。
          </p>
-         <p>Let's see how to create seeds. It involves many files depending on how many growing stages we want between the seed and the full grown plant, but they're just JSON and QB models, the process is exactly the same than with any other entity.</p>
-         <p>We'll use the wintermoss from the stonehearth mod as an example:</p>
+         <p>让我们看看如何创建种子。它涉及许多文件，具体取决于我们希望在种子和完全生长的植物之间有多少个生长阶段，但它们只是 JSON 和 QB 模型，过程与任何其他实体完全相同。</p>
+         <p>我们将使用 stonehearth mod 中的 wintermoss 作为示例：</p>
          <ol>
             <li>
-               <p>First we find an existing plant from which we want to copy the seeds. In this case, notice that we'll have 4 growing stages plus the ripe wintermoss:
+               <p>首先，我们找到我们要从中复制种子的现有植物。在这种情况下，请注意我们将有 4 个生长阶段加上成熟的 wintermoss：
                   <img src="/modding_guide/images/basic/renewable_resources/evolve_stages.png" alt="evolve_stages"/>
                </p>
             </li>
             <li>
-               <p>First let's modify the files inside the "seed" folder:
+               <p>首先让我们修改"seed"文件夹内的文件：
                   <img src="/modding_guide/images/basic/renewable_resources/seed_files.png" alt="seed_files"/>
-                  We rename them to reference our plant's name, leaving the suffix of the name untouched so we know what does each file reference.
+                  我们重命名它们以引用我们植物的名称，保持名称的后缀不变，以便我们知道每个文件引用什么。
                </p>
-               <p>  wintermoss_plant_seed_iconic.json :</p>
+               <p>wintermoss_plant_seed_iconic.json：</p>
                <pre><code>{
    "mixins": "stonehearth:mixins:item_properties",
    "type": "entity",
@@ -221,8 +221,8 @@
    }
 }
 </code></pre>
-               <p>  <a name="InitialDecay"></a>Here we reference the model for the iconic of the seeds, the material tags for storage filters, and a category for other uses. We also add <strong>"stonehearth:food_decay"</strong> data in the "entity_data" so that seeds that are not planted in a week are automatically destroyed (this is controlled by the food_decay service - the decay is calculated as a range between the "min" and "max" values, which are numbers that represent in-game hours, in this case 24h * 7d = 168).</p>
-               <p>  wintermoss_plant_seed_ghost.json :</p>
+               <p><a name="InitialDecay"></a>这里我们引用种子的图标模型、存储过滤器的材质标签以及其他用途的类别。我们还在"entity_data"中添加 <strong>"stonehearth:food_decay"</strong> 数据，以便未在一周内种植的种子会自动销毁（这由 food_decay 服务控制 - 腐烂计算为"min"和"max"值之间的范围，这些值是表示游戏内小时的数字，在本例中为 24h * 7d = 168）。</p>
+               <p>wintermoss_plant_seed_ghost.json：</p>
                <pre><code>{
    "mixins": "stonehearth:mixins:placed_object",
    "type": "entity",
@@ -257,8 +257,8 @@
    }
 }
 </code></pre>
-               <p>  Here we adjust the model for the ghost (we use the model of the full grown plant, so that we know how much space it will take when it finishes growing), the scale and model / region origins if needed, and the data for the catalog.</p>
-               <p>  wintermoss_plant_seed.json :</p>
+               <p>这里我们调整 ghost 的模型（我们使用完全生长植物的模型，以便我们知道它在完成生长时将占用多少空间）、比例和模型/区域原点（如果需要），以及目录的数据。</p>
+               <p>wintermoss_plant_seed.json：</p>
                <pre><code>{
    "type": "entity",
    "mixins": "stonehearth:mixins:placed_object",
@@ -318,24 +318,24 @@
    }
 }
 </code></pre>
-               <p>  This is the root form for the seeds. Most of these fields should be already familiar. Let's explain the new ones:</p>
+               <p>这是种子的根形态。这些字段中的大多数应该已经很熟悉了。让我们解释一下新的字段：</p>
                <ul>
                   <li>
-                     <p><strong>"stonehearth:evolve": {}"</strong> -- this component is in charge of growing the seeds into a plant, as well as growing a plant stage into the next stage. It has no properties, they're defined in the <strong>"stonehearth:evolve_data"</strong> section of the "entity_data" instead, because they're reusable for all the seeds of this type of plant.</p>
-                     <p> The properties for the evolve data are: <strong>"next_stage"</strong>, which points to the full alias of the next growth stage, in this case "stonehearth:plants:wintermoss:sprout", and <strong>"evolve_time"</strong>, which is a <a href="../misc_json/index.html#TimeExpressions">time expression</a> for how much time it takes for the seed to grow to the next stage once planted. Remember to add the aliases to your manifest if you haven't already.</p>
-                     <p> <img src="/modding_guide/images/common/gold.png" alt="icon"/>We can also specify an array of URIs for the <strong>"next_stage"</strong> property. This way the entity will randomly evolve to one of those entities, for example, an egg that can evolve to a poyo or to a dinosaur.</p>
+                     <p><strong>"stonehearth:evolve": {}"</strong> -- 此组件负责将种子生长为植物，以及将植物阶段生长为下一个阶段。它没有属性，它们是在"entity_data"的 <strong>"stonehearth:evolve_data"</strong> 部分中定义的，因为它们可重用于此类植物的所有种子。</p>
+                     <p>演化数据的属性是：<strong>"next_stage"</strong>，指向下一个生长阶段的完整别名，在本例中为"stonehearth:plants:wintermoss:sprout"，以及 <strong>"evolve_time"</strong>，这是一个<a href="../misc_json/index.html#TimeExpressions">时间表达式</a>，表示种子种植后生长到下一个阶段所需的时间。如果尚未添加别名，请记住将它们添加到您的清单中。</p>
+                     <p><img src="/modding_guide/images/common/gold.png" alt="icon"/>我们还可以为 <strong>"next_stage"</strong> 属性指定 URI 数组。这样实体将随机演化为这些实体之一，例如，可以演化为 poyo 或恐龙的蛋。</p>
                   </li>
                   <li>
-                     <p><strong>"stonehearth:entity_forms" : { ... }</strong> -- as a reminder, here we added two optional fields: <strong>"placeable_on_ground"</strong>, which allows this item to be placed on the ground, and <strong>"hide_undeploy_ui"</strong>, which will hide the undeploy button from the unit frame once the entity is placed down.</p>
+                     <p><strong>"stonehearth:entity_forms" : { ... }</strong> -- 提醒一下，这里我们添加了两个可选字段：<strong>"placeable_on_ground"</strong>，允许将此物品放置在地面上，以及 <strong>"hide_undeploy_ui"</strong>，这将在实体放置后从单位框架中隐藏取消部署按钮。</p>
                   </li>
                   <li>
-                     <p><strong>"mob" : { ... }</strong> -- the <strong>"mob_collision_type" : "clutter"</strong> means that this entity can overlap with other entities and hearthlings can walk through it.</p>
+                     <p><strong>"mob" : { ... }</strong> -- <strong>"mob_collision_type" : "clutter"</strong> 意味着此实体可以与其他实体重叠，炉民可以穿过它。</p>
                   </li>
                </ul>
             </li>
             <li>
-               <p>Once we finished with the seed files, we can do the same for the next growth/evolve stage, in this case, "sprout".</p>
-               <p>  As you can see, for the stages between seeds and full grown plant we only need one file, because the plant won't be undeployable while it's growing, so we don't need iconic / ghost files for it. So let's just change the fields we need to point to our files:</p>
+               <p>一旦我们完成了种子文件，我们可以对下一个生长/演化阶段执行相同的操作，在本例中为"sprout"。</p>
+               <p>如您所见，对于种子和完全生长植物之间的阶段，我们只需要一个文件，因为植物在生长过程中将无法取消部署，所以我们不需要为其提供图标/ghost 文件。所以让我们只更改我们需要指向我们文件的字段：</p>
                <pre><code>{
    "type": "entity",
    "mixins": "stonehearth:mixins:placed_object",
@@ -371,11 +371,11 @@
    }
 }
 </code></pre>
-               <p>  They are similar to those for the seed root form. We declare the alias for the next stage (remember to add it to your manifest).</p>
+               <p>它们类似于种子根形态的字段。我们声明下一个阶段的别名（记住将其添加到您的清单中）。</p>
             </li>
             <li>
-               <p>Repeat for the next stages, in this case "stem" and "bud".</p>
-               <p>  Bud will then point to the full alias of the grown wintermoss plant (wintermoss.json), completing the growth cycle:</p>
+               <p>对后续阶段重复此操作，在本例中为"stem"和"bud"。</p>
+               <p>Bud 然后将指向生长的 wintermoss 植物（wintermoss.json）的完整别名，完成生长周期：</p>
                <pre><code>...
 "stonehearth:evolve_data": {
    "next_stage": "stonehearth:plants:wintermoss",
@@ -385,8 +385,8 @@
 </code></pre>
             </li>
          </ol>
-         <h3><a name="Notes"></a>Final notes</h3>
-         <p>The evolve component and the decay service can be used for anything that needs to change after some time, for example poyos and sheep use the evolve component to grow after they're born:</p>
+         <h3><a name="Notes"></a>最后说明</h3>
+         <p>evolve 组件和 decay 服务可用于需要在一段时间后更改的任何内容，例如 poyos 和绵羊使用 evolve 组件在出生后生长：</p>
          <pre><code>  ...
   "stonehearth:evolve_data": {
      "current_stage": "young",
@@ -396,8 +396,8 @@
   },
   ...
 </code></pre>
-         <p>In this case we also specify a "current_stage" and an "evolve_effect", which are used in other Lua files.</p>
-         <p>The growing component is mostly used for <a href="../crops/index.html">crops</a> instead.</p>
+         <p>在这种情况下，我们还指定了"current_stage"和"evolve_effect"，它们在其他 Lua 文件中使用。</p>
+         <p>growing 组件主要用于<a href="../crops/index.html">作物</a>。</p>
       </main>
    </body>
 </html>

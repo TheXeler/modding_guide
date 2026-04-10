@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,24 +7,24 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Static scenarios</title>
+        <title>静态场景</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Static scenarios</h1>
-            <p>Static scenarios are static elements that appear on the map and are created at world generation time. They can be shown by default, or hidden until the hearthlings clear the fog of war. They're separate from the biome files.</p>
-            <p>They are managed in the <code>static_scenario_service.lua</code> file.</p>
-            <p>These are different types of static scenarios we can create with just data (you can also create your <a href="#CustomScenarios">own types</a> of static scenario, using custom scripts):</p>
+            <h1>静态场景</h1>
+            <p>静态场景是出现在地图上并在世界生成时创建的静态元素。它们可以默认显示，或者隐藏直到炉民清除战争迷雾。它们与生物群落文件是分开的。</p>
+            <p>它们在 <code>static_scenario_service.lua</code> 文件中管理。</p>
+            <p>以下是我们可以仅使用数据创建的不同类型的静态场景（您也可以使用自定义脚本创建您自己的<a href="#CustomScenarios">静态场景类型</a>）：</p>
             <ul>
-                <li><a href="ore_veins/index.html">Ore veins</a></li>
-                <li><a href="nests_ruins/index.html#Ruins">Ruins</a></li>
-                <li><a href="landmarks/index.html">Landmarks</a></li>
-                <li><a href="nests_ruins/index.html#CritterNests">Critter nests</a></li>
+                <li><a href="ore_veins/index.html">矿脉</a></li>
+                <li><a href="nests_ruins/index.html#Ruins">废墟</a></li>
+                <li><a href="landmarks/index.html">地标</a></li>
+                <li><a href="nests_ruins/index.html#CritterNests">小动物巢穴</a></li>
             </ul>
-            <p>Dynamic scenarios were deprecated a long time ago in favor of the game master's encounter system.</p>
-            <p>The starting tutorial that was made for the Ascendancy kingdom was also implemented using scenarios, most of its data is inside <code>stonehearth/data/tutorial</code>.</p>
-            <p>Inside <code>scenario_index.json</code> we can find the scenarios that are applied to the game. We'll also find the categories that we can use for each scenario, so we can create our own category by adding it to this section via a mixinto:</p>
+            <p>动态场景很久以前就被弃用，转而使用游戏大师的遭遇战系统。</p>
+            <p>为 Ascendancy 王国制作的起始教程也是使用场景实现的，其大部分数据位于 <code>stonehearth/data/tutorial</code> 内。</p>
+            <p>在 <code>scenario_index.json</code> 内，我们可以找到应用于游戏的场景。我们还会找到可以用于每个场景的类别，因此我们可以通过 mixinto 向此部分添加我们自己的类别：</p>
             <pre><code>  "categories" : {
      "terrain" : {
         "density" : 12,
@@ -34,14 +34,14 @@
      }
   }
 </code></pre>
-            <p>Each category has these fields:</p>
+            <p>每个类别都有这些字段：</p>
             <ul>
-                <li><strong>"density"</strong> -- scenarios are weighted by their volume so that a density of 1 means every cell is occupied. A 10x10 scenario takes up the same volume as 100 1x1 scenarios. For their densities to be equal, the 10x10 scenario should be selected 100x less frequently.</li>
-                <li><strong>"priority"</strong> -- so that some scenarios can spawn before other ones, they get ordered first by priority, then by area, then by weight.</li>
-                <li><strong>"location_type"</strong> -- either <strong>"surface"</strong> or <strong>"underground"</strong>.</li>
-                <li><strong>"activation_type"</strong> -- <strong>"immediate"</strong> will make the scenario appear during world generation, <strong>"revealed"</strong> will make it appear when the hearthlings clear the fog of war where it is located.</li>
+                <li><strong>"density"</strong> -- 场景按其体积加权，因此密度为 1 意味着每个单元格都被占用。一个 10x10 的场景占据的体积与 100 个 1x1 的场景相同。为了使它们的密度相等，10x10 的场景被选择的频率应该低 100 倍。</li>
+                <li><strong>"priority"</strong> -- 为了使某些场景在其他场景之前生成，它们首先按优先级排序，然后按面积排序，最后按权重排序。</li>
+                <li><strong>"location_type"</strong> -- 要么是 <strong>"surface"</strong>（地表），要么是 <strong>"underground"</strong>（地下）。</li>
+                <li><strong>"activation_type"</strong> -- <strong>"immediate"</strong> 将使场景在世界生成期间出现，<strong>"revealed"</strong> 将使其在炉民清除其所在位置的战争迷雾时出现。</li>
             </ul>
-            <p>For the landmark scenarios, we have other categories:</p>
+            <p>对于地标场景，我们有其他类别：</p>
             <pre><code>  "terrain_feature_common" : {
      "density" : 100,
      "max_count": [2,2,3,3,3,4,4],
@@ -51,26 +51,26 @@
      "activation_type" : "immediate"
   }
 </code></pre>
-            <p>They have a couple more properties:</p>
+            <p>它们还有几个额外的属性：</p>
             <ul>
                 <li>
-                    <p><strong>"density"</strong>, <strong>"location_type"</strong> and <strong>"activation_type"</strong> are the same than for the categories above.  </p>
+                    <p><strong>"density"</strong>、<strong>"location_type"</strong> 和 <strong>"activation_type"</strong> 与上面的类别相同。</p>
                 </li>
                 <li>
-                    <p><strong>"priority"</strong> is <strong>"random"</strong>, they are treated in a separate set from those that have a numerical priority, and will be chosen randomly.</p>
+                    <p><strong>"priority"</strong> 是 <strong>"random"</strong>，它们与具有数值优先级的场景分开处理，并将随机选择。</p>
                 </li>
                 <li>
-                    <p><strong>"max_count"</strong> is an array of numbers. A random number will be chosen from it to represent how many landmarks of this category to spawn on a map.  </p>
-                    <p>  In this example there's three 3's, and two 2's and 4's, which means 3 is more likely to be chosen, so there will be more times when 3 landmarks of this category will spawn in a map, other times there will be only 2, or 4.</p>
+                    <p><strong>"max_count"</strong> 是一个数字数组。将从中选择一个随机数来表示要在地图上生成多少个此类别的地标。</p>
+                    <p>在此示例中，有三个 3，以及两个 2 和 4，这意味着 3 更有可能被选择，因此在地图上生成 3 个此类别地标的次数会更多，有时只有 2 个或 4 个。</p>
                 </li>
                 <li>
-                    <p><strong>"prevents_categories_in_same_tile"</strong> is an array of other categories of scenarios that we don't want to appear in the same tile as this category.</p>
+                    <p><strong>"prevents_categories_in_same_tile"</strong> 是我们不希望与此类别出现在同一图块中的其他场景类别的数组。</p>
                 </li>
             </ul>
-            <h2><a name="CustomScenarios"></a>Custom static scenario types</h2>
-            <p>Scenarios can be implemented using a JSON file to hold the data, and a Lua script. Then we can reuse that JSON file as a mixin to implement different scenarios of that type (just like we do for ore veins, ruins, critter nests and landmarks).</p>
-            <p>The concrete JSON files will then be added to the scenario index, and the game will know how to spawn them.</p>
-            <p>If we want to create our own custom static scenario type, our JSON file will need to have these fields:</p>
+            <h2><a name="CustomScenarios"></a>自定义静态场景类型</h2>
+            <p>场景可以使用 JSON 文件来保存数据，并使用 Lua 脚本来实现。然后我们可以重用该 JSON 文件作为 mixin 来实现该类型的不同场景（就像我们对矿脉、废墟、小动物巢穴和地标所做的那样）。</p>
+            <p>具体的 JSON 文件将被添加到场景索引中，游戏将知道如何生成它们。</p>
+            <p>如果我们想创建我们自己的自定义静态场景类型，我们的 JSON 文件将需要具有以下字段：</p>
             <pre><code>  "name" : "my_custom_scenario",
   "size" : {
      "width" : 16,
@@ -87,28 +87,27 @@
      }
   }
 </code></pre>
-            <p>Then, our custom script should look like this:</p>
+            <p>然后，我们的自定义脚本应该看起来像这样：</p>
             <pre><code>  local MyCustomScenario = class()
 
   function MyCustomScenario:__init()
   end
 
   function MyCustomScenario:initialize(properties, context, services)
-     -- Here we can retrieve the data from the JSON's "data" block like this:
+     -- 在这里我们可以像这样从 JSON 的"data"块中检索数据：
      local data = properties.data
 
-     -- Here goes our custom code. We can use the parameter called services
-     -- to call functions from
-     -- stonehearth/services/server/static_scenario/scenario_modder_services.lua
+     -- 这里是我们的自定义代码。我们可以使用名为 services 的参数来调用
+     -- stonehearth/services/server/static_scenario/scenario_modder_services.lua 中的函数
   end
 
   return MyCustomScenario
 </code></pre>
-            <p><a name="RequiringFiles"></a>We can require any additional classes or Lua files, but if they're from the stonehearth mod, we need to prefix them by <code>stonehearth.</code>. For example, to require the same files than in the <code>qb_to_terrain.lua</code> script, we'd write this:</p>
+            <p><a name="RequiringFiles"></a>我们可以要求任何其他类或 Lua 文件，但如果它们来自 stonehearth mod，我们需要在其前面加上 <code>stonehearth.</code> 前缀。例如，要要求与 <code>qb_to_terrain.lua</code> 脚本中相同的文件，我们将这样写：</p>
             <pre><code>  local landmark_lib = require 'stonehearth.lib.landmark.landmark_lib'
   local Point3 = _radiant.csg.Point3
 </code></pre>
-            <p>And after that we'd declare the class for our scenario.</p>
+            <p>之后我们将为我们的场景声明类。</p>
         </main>
     </body>
 </html>

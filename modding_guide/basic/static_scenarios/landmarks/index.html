@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,21 +7,21 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Landmarks</title>
+      <title>地标</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Landmarks</h1>
-         <p><a name="Landmarks"></a>Landmarks are a special type of scenario that allows us to add terrain features to the map via QB files. They are created using functions from the <code>stonehearth/lib/landmark_lib.lua</code> file.</p>
-         <p>You can find a couple livestreams about landmarks <a href="https://www.youtube.com/watch?v=MGu1grG--So">here</a> and <a href="https://www.youtube.com/watch?v=sFi3tOdBCPM">here</a>.</p>
-         <p>Let's copy one and see how they work.</p>
+         <h1>地标</h1>
+         <p><a name="Landmarks"></a>地标是一种特殊类型的场景，允许我们通过 QB 文件向地图添加地形特征。它们是使用 <code>stonehearth/lib/landmark_lib.lua</code> 文件中的函数创建的。</p>
+         <p>您可以在<a href="https://www.youtube.com/watch?v=MGu1grG--So">这里</a>和<a href="https://www.youtube.com/watch?v=sFi3tOdBCPM">这里</a>找到关于地标的几个直播视频。</p>
+         <p>让我们复制一个并看看它们是如何工作的。</p>
          <ol>
             <li>
-               <p>Copy <code>stonehearth/scenarios/static/landmarks/128x_sacred_stone.json</code> to your mod and rename it.</p>
+               <p>复制 <code>stonehearth/scenarios/static/landmarks/128x_sacred_stone.json</code> 到您的 mod 并重命名它。</p>
             </li>
             <li>
-               <p>Open the JSON file for the landmark and modify it:</p>
+               <p>打开地标的 JSON 文件并修改它：</p>
                <pre><code>{
    "mixins": "stonehearth/scenarios/static/landmarks/qb_to_terrain.json",
    "biomes": ["stonehearth:biome:temperate","stonehearth:biome:arctic","stonehearth:biome:desert"],
@@ -41,37 +41,37 @@
    }
 }
 </code></pre>
-               <p>  The fields we edited are:</p>
+               <p>我们编辑的字段是：</p>
                <ul>
                   <li>
-                     <p><strong>"mixins"</strong> -- make sure that it points to the scenario file from the stonehearth mod.</p>
+                     <p><strong>"mixins"</strong> -- 确保它指向 stonehearth mod 中的场景文件。</p>
                   </li>
                   <li>
-                     <p><strong>"biomes"</strong> -- here we can restrict it to appear in certain biomes. If this field is omitted, it will spawn in any biome, even modded ones.</p>
+                     <p><strong>"biomes"</strong> -- 在这里我们可以限制它仅出现在某些生物群落中。如果省略此字段，它将在任何生物群落中生成，甚至是修改过的生物群落。</p>
                   </li>
                   <li>
-                     <p><strong>"name"</strong> -- give a unique name for our landmark.</p>
+                     <p><strong>"name"</strong> -- 为我们的地标指定一个唯一的名称。</p>
                   </li>
                   <li>
-                     <p><strong>"category"</strong> -- here we use one of the categories for the landmarks that are listed in scenario_index.json.</p>
+                     <p><strong>"category"</strong> -- 这里我们使用 scenario_index.json 中列出的地标类别之一。</p>
                   </li>
                   <li>
-                     <p><strong>"unique"</strong> -- we allowed this landmark to spawn more than once per map.</p>
+                     <p><strong>"unique"</strong> -- 我们允许此地标在每张地图上生成多次。</p>
                   </li>
                   <li>
-                     <p><strong>"size"</strong> -- the size in blocks that this scenario will take when calculating its spawn location.</p>
+                     <p><strong>"size"</strong> -- 此场景在计算其生成位置时将占用的方块大小。</p>
                   </li>
                   <li>
-                     <p><strong>"habitat_types"</strong> -- the habitats where this scenario can spawn. Possible values are "plains", "forest", "foothills", "mountains" and "water".</p>
+                     <p><strong>"habitat_types"</strong> -- 此场景可以生成的生境。可能的值是"plains"、"forest"、"foothills"、"mountains"和"water"。</p>
                   </li>
                   <li>
-                     <p><strong>"overwrite_occupied_size"</strong> -- our landmark will search within its "size" for block groups of up to this value to occupied size to overwrite. So a tree that has a 2x2 voxel base (4 voxels) would require a "overwrite_occupied_size" of 5 or more for a landmark to be placed on top. Don't go too high with this value though (after about 6 or so it's basically placing on top of everything).</p>
+                     <p><strong>"overwrite_occupied_size"</strong> -- 我们的地标将在其"size"内搜索最多为此值的占用大小的方块组以进行覆盖。因此，一棵具有 2x2 体素基础（4 个体素）的树将需要"overwrite_occupied_size"为 5 或更大才能在其上放置地标。不过不要将此值设置得太高（大约在 6 左右之后，它基本上会覆盖在所有东西之上）。</p>
                   </li>
                   <li>
-                     <p><strong>"weight"</strong> -- a <a href="../../misc_json/index.html#WeightedSets">weight</a> for calculating the chances to spawn together with the other existing landmarks.</p>
+                     <p><strong>"weight"</strong> -- 用于计算与其他现有地标一起生成几率的<a href="../../misc_json/index.html#WeightedSets">权重</a>。</p>
                   </li>
                   <li>
-                     <p><strong>"data"</strong> -- here we specify the <strong>"brush"</strong> (which is the QB model) and the <strong>"landmark_block_types"</strong> which by default will be "stonehearth:landmark_blocks". Optionally we can also specify a mask like this:</p>
+                     <p><strong>"data"</strong> -- 在这里我们指定 <strong>"brush"</strong>（即 QB 模型）和 <strong>"landmark_block_types"</strong>，默认情况下将是"stonehearth:landmark_blocks"。可选地，我们还可以像这样指定一个掩码：</p>
                      <pre><code>"data": {
    "brush" : "/stonehearth/data/models/landmark/128x_skeleton_caribou_arctic.qb",
    "brush_mask" : "/stonehearth/data/models/landmark/128x_skeleton_caribou_arctic_mask.qb",
@@ -80,11 +80,11 @@
 </code></pre>
                   </li>
                </ul>
-               <p>  The mask is a similar model, but with other colors from the possible landmark blocks. These colors represent what will drop from the landmark when we mine those blocks, no matter the color they have in the original model. In the example above, mining the skeleton of the caribou will drop bones, no matter if we mine its body or its horns (which have different colors each).</p>
+               <p>掩码是一个类似的模型，但使用了来自可能的地标块的其他颜色。这些颜色代表当我们挖掘这些块时将从地标掉落什么，无论它们在原始模型中具有什么颜色。在上面的示例中，挖掘驯鹿的骨架将掉落骨头，无论我们挖掘的是它的身体还是角（它们各自具有不同的颜色）。</p>
             </li>
             <li>
-               <p>Edit the QB model and export it. If it's too big, your voxel editor might be laggy or hang, be careful with that.</p>
-               <p>  We can use any color for the model of our landmark. But we need to take into account the landmark blocks defined in <code>stonehearth/data/terrain/landmark_blocks.json</code>:</p>
+               <p>编辑 QB 模型并导出它。如果它太大，您的体素编辑器可能会卡顿或挂起，请注意这一点。</p>
+               <p>我们可以为地标模型使用任何颜色。但我们需要考虑在 <code>stonehearth/data/terrain/landmark_blocks.json</code> 中定义的地标块：</p>
                <pre><code>"drop_chance_default": 0.04,
 "color_water": "#0000FF",
 "color_water_lowered": "#0001FF",
@@ -106,46 +106,46 @@
 },
 ...
 </code></pre>
-               <p>  We have different keys defined here. For the keys that represent hexadecimal colors we can:</p>
+               <p>我们在这里定义了不同的键。对于代表十六进制颜色的键，我们可以：</p>
                <ul>
-                  <li>Define a matching terrain tag (from terrain_blocks.json). When the landmark is loaded in the game, that voxel in the QB model will be replaced by 1 block of the terrain defined here.</li>
+                  <li>定义匹配的地形标签（来自 terrain_blocks.json）。当地标在游戏中加载时，QB 模型中的该体素将被替换为此处定义的地形的 1 个方块。</li>
                   <li>
-                     Define an item to replace that block inside the game. Mind that some items occupy more than 1 block in the game. There are different properties we can use here:
+                     定义一个物品来替换游戏中的该方块。请注意，某些物品在游戏中占据超过 1 个方块。我们可以在此处使用不同的属性：
                      <ul>
-                        <li><strong>"loot_bag"</strong> -- this is the URI of the item.</li>
-                        <li><strong>"facing"</strong> -- this is either <strong>"random"</strong> or a number representing a straight angle (0, 90, 180, 270).</li>
-                        <li><strong>"force_iconic"</strong> -- normally it will be <strong>false</strong> since we want to spawn the root form of the entity, but sometimes we might want it to be <strong>true</strong>.</li>
-                        <li><strong>"fill_voxel_with_water"</strong> -- this is only used for the wet stones.</li>
-                        <li><strong>"fill_voxel_with_low_water"</strong> -- this is only used for the dry stones.</li>
-                        <li><strong>"drop_chance"</strong> -- by default it will be 0.04 as defined above if we don't include it. This is the chance that the URI or resources will drop when the block is mined.</li>
-                        <li><strong>"placement_chance"</strong> -- a chance of placement for this item, so that sometimes nothing will be placed in this block. It is optional.</li>
-                        <li><strong>"owner"</strong> -- we can optionally define the owner for the items. For example, the landmark with the old farms has wheat piles with <strong>"owner" : ""</strong> which allows the player to loot them. The cemetery has their entities with <strong>"owner" : "undead"</strong> so they will be hostile and our combat units will automatically attack them.</li>
+                        <li><strong>"loot_bag"</strong> -- 这是物品的 URI。</li>
+                        <li><strong>"facing"</strong> -- 这要么是 <strong>"random"</strong>，要么是表示直角的数字（0、90、180、270）。</li>
+                        <li><strong>"force_iconic"</strong> -- 通常它将是 <strong>false</strong>，因为我们希望生成实体的根形态，但有时我们可能希望它为 <strong>true</strong>。</li>
+                        <li><strong>"fill_voxel_with_water"</strong> -- 这仅用于湿石头。</li>
+                        <li><strong>"fill_voxel_with_low_water"</strong> -- 这仅用于干石头。</li>
+                        <li><strong>"drop_chance"</strong> -- 如果我们不包含它，默认情况下它将如上所述为 0.04。这是当方块被挖掘时 URI 或资源掉落的几率。</li>
+                        <li><strong>"placement_chance"</strong> -- 此物品的放置几率，因此有时不会在此方块中放置任何物品。它是可选的。</li>
+                        <li><strong>"owner"</strong> -- 我们可以选择定义物品的所有者。例如，带有旧农场的地标有小麦堆，其 <strong>"owner" : ""</strong> 允许玩家掠夺它们。墓地有它们的实体，其 <strong>"owner" : "undead"</strong>，因此它们将是敌对的，我们的战斗单位将自动攻击它们。</li>
                      </ul>
                   </li>
                </ul>
-               <p>  If we use the <strong>"color_mimic_tag"</strong> color for our voxels, they will be colored as the terrain they spawn on (the color will be taken from the single block at the center location where the landmark spawns).</p>
-               <p>  The colors for the different terrain tags will also adapt to the biome they're on. For example, the color #82807B, which is mapped to rock_layer_3, will appear as gray in the temperate biome, but as pink in the desert biome, because that is the color of the third rock layer in that biome.</p>
-               <p>  The <strong>"color_water"</strong> is used to fill water up to the top of the voxel - good for waterfalls where you want water to be flowing out of the instant the landmark is spawned. <strong>"color_water_lowered"</strong> is used for water basins where there are dry stones (or where you just dont want the water to fill the area it is in up to the brim). <br/>
-                  In general, if water is going to pour out of a basin, you want to use the "color_water". If water is going to end in a basin, use "color_water_lowered".
+               <p>如果我们为我们的体素使用 <strong>"color_mimic_tag"</strong> 颜色，它们将被着色为它们生成的地形颜色（颜色将从地标生成的中心位置的单个方块获取）。</p>
+               <p>不同地形标签的颜色也将适应它们所在的生物群落。例如，映射到 rock_layer_3 的颜色 #82807B 将在温带生物群落中显示为灰色，但在沙漠生物群落中显示为粉色，因为那是该生物群落中第三岩石层的颜色。</p>
+               <p><strong>"color_water"</strong> 用于将水填充到体素顶部 - 适用于您希望水在地标生成后立即流出的瀑布。<strong>"color_water_lowered"</strong> 用于有水盆的地方，其中有干石头（或者您只是不希望水将其所在的区域填充到边缘）。<br/>
+                  一般来说，如果水要从盆地中流出，您希望使用"color_water"。如果水要结束在盆地中，请使用"color_water_lowered"。
                </p>
-               <p>  <img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>All the colors hexadecimal value must be in uppercase, otherwise they won't adapt to the biomes.</p>
-               <p>  Using colors not defined in <code>landmark_blocks.json</code> will make them appear the same color no matter the biome where the landmark is spawned. If we add some new block types to <code>terrain_blocks.json</code> and / or to <code>landmark_blocks.json</code>, we can also use them in landmarks.</p>
-               <p>  There are many landmarks that spawn underground and players can't see them unless they mine. We can create underground caves by using the color for the <strong>"null"</strong> tag, it will remove blocks from the terrain it intersects with. But they should be as short as possible, otherwise if the player places their banner on top of a cave, the starting hearthlings might spawn inside of it, which is confusing.</p>
-               <p>  This is the model for one of the existing cave landmarks, seen from below:
+               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>所有颜色的十六进制值必须为大写，否则它们将无法适应生物群落。</p>
+               <p>使用未在 <code>landmark_blocks.json</code> 中定义的颜色将使它们无论地标在哪个生物群落中生成都显示相同的颜色。如果我们向 <code>terrain_blocks.json</code> 和/或 <code>landmark_blocks.json</code> 添加一些新的块类型，我们也可以在地标中使用它们。</p>
+               <p>有许多地标在地下生成，除非玩家挖掘，否则他们看不到它们。我们可以通过使用 <strong>"null"</strong> 标签的颜色来创建地下洞穴，它将从与其相交的地形中移除方块。但它们应该尽可能短，否则如果玩家将他们的旗帜放置在洞穴上方，起始炉民可能会在其中生成，这会令人困惑。</p>
+               <p>这是现有洞穴地标之一的模型，从下方查看：
                   <img src="/modding_guide/images/basic/static_scenarios/cave_landmark.png" alt="cave_landmark"/>
-                  All the pink will be removed from the terrain when this landmark spawns (this scenario has a category of <strong>"terrain_feature_underground"</strong>). As you can see, it's only 3 blocks tall.
+                  当地标生成时，所有粉色都将从地形中移除（此场景的类别为 <strong>"terrain_feature_underground"</strong>）。如您所见，它只有 3 个方块高。
                </p>
-               <p>  For our example we used colors to spawn some plants and a loot chest:
+               <p>在我们的示例中，我们使用颜色来生成一些植物和一个战利品箱：
                   <img src="/modding_guide/images/basic/static_scenarios/landmark_model.png" alt="landmark_model"/>
                </p>
             </li>
             <li>
-               <p>Add a mixinto to the scenario index in your manifest:</p>
+               <p>在您的清单中向场景索引添加 mixinto：</p>
                <pre><code>"mixintos" : {
    "stonehearth:scenarios:scenario_index" : "file(scenarios/scenario_index.json)"
 }
 </code></pre>
-               <p>  Our mixinto looks like this:</p>
+               <p>我们的 mixinto 看起来像这样：</p>
                <pre><code>{
    "static" : {
       "scenarios" : [
@@ -156,7 +156,7 @@
 </code></pre>
             </li>
             <li>
-               <p>Test that the landmark spawns in the biomes we defined. You might need to tweak the values to have a higher chance to spawn, or even change the habitats, since there are many landmarks to choose from and it can take many attempts to get it to appear.
+               <p>测试地标是否在我们定义的生物群落中生成。您可能需要调整值以获得更高的生成几率，甚至更改生境，因为有许多地标可供选择，可能需要多次尝试才能使其出现。
                   <img src="/modding_guide/images/basic/static_scenarios/landmark_spawned.png" alt="landmark_spawned"/>
                </p>
             </li>

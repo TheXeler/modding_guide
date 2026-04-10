@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,47 +7,46 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Components</title>
+        <title>组件</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Components</h1>
-            <p>As explained in the <a href="../../../essentials/entities_components/index.html#Components">essentials guide</a>, components are reusable functionality that defines behaviors for entities. You can find the Lua components under <code>stonehearth/components</code>.</p>
+            <h1>组件</h1>
+            <p>正如<a href="../../../essentials/entities_components/index.html#Components">基础指南</a>中所述，组件是定义实体行为的可重用功能。您可以在 <code>stonehearth/components</code> 下找到 Lua 组件。</p>
             <ul>
-                <li><a href="#Design">Designing a component</a></li>
-                <li><a href="#AddingComponents">Adding new components</a></li>
+                <li><a href="#Design">设计组件</a></li>
+                <li><a href="#AddingComponents">添加新组件</a></li>
                 <li>
-                    <a href="#UsingComponents">Using components</a>
+                    <a href="#UsingComponents">使用组件</a>
                     <ul>
-                        <li><a href="#AddOrGet">When to use "get_component" vs "add_component"</a></li>
+                        <li><a href="#AddOrGet">何时使用"get_component"与"add_component"</a></li>
                     </ul>
                 </li>
-                <li><a href="#ComponentRenderers">Component renderers</a></li>
+                <li><a href="#ComponentRenderers">组件渲染器</a></li>
             </ul>
-            <h2><a name="Design"></a>Designing a component</h2>
-            <p>Components should ideally be collections of re-usable functionality. When deciding how to structure functionality associated with an entity, keep some things in mind:</p>
+            <h2><a name="Design"></a>设计组件</h2>
+            <p>理想情况下，组件应该是可重用功能的集合。在决定如何构建与实体关联的功能时，请记住以下几点：</p>
             <ul>
                 <li>
-                    <p>Can this component be made more generic? For example, both beds and firepit seats require a reservation mechanism, so only one person can use each piece of furniture at a time. Instead of creating a bed reservation component and a firepit seat reservation component, we create one lease component shared amongst all lease-able things.</p>
+                    <p>这个组件可以变得更通用吗？例如，床和火坑座位都需要预订机制，因此一次只能有一个人使用每件家具。与其创建床预订组件和火坑座位预订组件，不如创建一个在所有可租赁物品之间共享的租赁组件。</p>
                 </li>
                 <li>
-                    <p>Is this component containing only read-only data? If so, consider putting some of that into "entity_data", instead of "components". You can access that data from inside the component later, for example:</p>
+                    <p>这个组件只包含只读数据吗？如果是这样，请考虑将其中一些数据放入"entity_data"而不是"components"中。您可以稍后从组件内部访问该数据，例如：</p>
                     <pre><code>local foo = radiant.entities.get_entity_data(chair, "stonehearth:appeal").appeal
 </code></pre>
                 </li>
             </ul>
-            <h2><a name="AddingComponents"></a>Adding new components</h2>
-            <p>All Lua components are classes, and look something like this:</p>
+            <h2><a name="AddingComponents"></a>添加新组件</h2>
+            <p>所有 Lua 组件都是类，看起来像这样：</p>
             <pre><code>  local MyComponent = class()
 
-  -- The initialize function is always called
+  -- initialize 函数总是被调用
   function MyComponent:initialize()
-    -- The json variable will contain the associated component data 
-    -- from the entity's .json file
+    -- json 变量将包含来自实体 .json 文件的关联组件数据
     local json = radiant.entities.get_json(self)
-    -- The saved variables on the component must be declared
-    -- in the initialize function. Even nil variables!
+    -- 组件上的保存变量必须在 initialize 函数中声明
+    -- 即使是 nil 变量！
     self._sv.first_saved_variable = nil
     self._sv.second_saved_variable = 'test string'
     self._sv._unremoted_save_variable = json.my_json_data_variable
@@ -61,45 +60,45 @@
 
   return MyComponent
 </code></pre>
-            <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>All components have a <code>self._entity</code> field that is the entity that the component is created on. We can use <a href="../index.html#SV">saved variables</a> and <a href="../index.html#ControllerLifecycle">lifecycle functions</a> in them.</p>
-            <p>You can add Lua implemented components to JSON files by giving the name of the component (prefixed by the mod's namespace plus a colon) to the <strong>"components"</strong> section of the entity's JSON file. For example, this is the workshop component (implemented in <code>workshop_component.lua</code>) from <code>carpenter_workbench.json</code>:</p>
+            <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/>所有组件都有一个 <code>self._entity</code> 字段，它是创建组件的实体。我们可以在它们中使用<a href="../index.html#SV">保存变量</a>和<a href="../index.html#ControllerLifecycle">生命周期函数</a>。</p>
+            <p>您可以通过在实体的 JSON 文件的 <strong>"components"</strong> 部分中提供组件的名称（以 mod 的命名空间加冒号为前缀）将 Lua 实现的组件添加到 JSON 文件中。例如，这是来自 <code>carpenter_workbench.json</code> 的工作坊组件（在 <code>workshop_component.lua</code> 中实现）：</p>
             <pre><code>  "components" : {
      "stonehearth:workshop": {
         "job_alias": "stonehearth:jobs:carpenter"
      }
   }
 </code></pre>
-            <p>Any data that is given to the component in the JSON file can be retrieved using the call <code>radiant.entities.get_json(self)</code>.</p>
-            <p>Finally, to access the component, it must be referenced in your mod's manifest, inside the <strong>"components"</strong> section (which is at the same level than "aliases", "mixintos", etc). For example:</p>
+            <p>可以使用调用 <code>radiant.entities.get_json(self)</code> 检索在 JSON 文件中提供给组件的任何数据。</p>
+            <p>最后，要访问组件，必须在 mod 清单的 <strong>"components"</strong> 部分（与"aliases"、"mixintos"等同级）中引用它。例如：</p>
             <pre><code>  "components" :  {
      "workshop" : "file(components/workshop_component.lua)",
      "crafter"  : "file(components/crafter_component.lua)"
   }
 </code></pre>
-            <p>We can also create client components, which are treated like <a href="../controllers/index.html#ClientControllers">client controllers</a>. We'll declare them under <strong>"client_components"</strong> in the manifest, instead.</p>
-            <h2><a name="UsingComponents"></a>Using components</h2>
-            <p>Once you have a reference to an entity, usually generated by the creation of the entity, you can then access its components through:</p>
+            <p>我们还可以创建客户端组件，它们被视为<a href="../controllers/index.html#ClientControllers">客户端控制器</a>。我们将在清单中的 <strong>"client_components"</strong> 下声明它们。</p>
+            <h2><a name="UsingComponents"></a>使用组件</h2>
+            <p>一旦您有了对实体的引用（通常由实体的创建生成），您就可以通过以下方式访问其组件：</p>
             <pre><code>  local comp = entity:get_component('stonehearth:workshop')
 </code></pre>
-            <p>For the Lua components, the name that we pass will be the namespace of the mod, a colon, and the component's name as defined in the manifest (same structure than in the entities JSON files). Note that the C++ components are used without a namespace (for example the <code>mob</code> and <code>render_info</code> components).</p>
-            <p>You can then perform any actions on the <code>comp</code> variable that are implemented on that object. For example:</p>
+            <p>对于 Lua 组件，我们传递的名称将是 mod 的命名空间、一个冒号，以及在清单中定义的组件名称（与实体 JSON 文件中的结构相同）。请注意，C++ 组件的使用不带命名空间（例如 <code>mob</code> 和 <code>render_info</code> 组件）。</p>
+            <p>然后，您可以对该对象上实现的 <code>comp</code> 变量执行任何操作。例如：</p>
             <pre><code>  local workbench = comp:get_entity()
   comp:start_crafting_progress(order)
 </code></pre>
-            <h3><a name="AddOrGet"></a>When to use "get_component" vs "add_component"</h3>
-            <p>Use <code>get_component()</code> when you need to test for the presence of a component. This is typically used to see if an entity plays a certain role. For example, the entity is used as a mining zone if this returns a non-nil value:</p>
+            <h3><a name="AddOrGet"></a>何时使用"get_component"与"add_component"</h3>
+            <p>当您需要测试组件是否存在时使用 <code>get_component()</code>。这通常用于查看实体是否扮演某个角色。例如，如果此返回非 nil 值，则实体用作采矿区：</p>
             <pre><code>  entity:get_component('stonehearth:mining_zone')
 </code></pre>
-            <p>Use <code>add_component()</code> when the component must exist and it will be created if necessary:</p>
+            <p>当组件必须存在并在必要时创建时使用 <code>add_component()</code>：</p>
             <pre><code>  entity:add_component('stonehearth:mining_zone'):get_region()
 </code></pre>
-            <h2><a name="ComponentRenderers"></a>Component renderers</h2>
-            <p>A component renderer is what you would use to create some kind of visual representation related to a component.</p>
-            <p>Stonehearth doesn't really render entities per se, because entities aren't really anything per se - they're bags of components (data and functionality). So, if you want something visual to show up, you need a renderer (or two!) attached to that object, and that means a component renderer.</p>
-            <p>(Caveat: hearthlings and goblins and deer and etc. don't appear to have renderers associated with them, but really they do - they're in C++, though, not Lua. They're added by virtue of those entities having <strong>render_info</strong> components added to them).</p>
-            <p>A component renderer will get initialized on the client with the owning entity and component; it's then up to the component to figure out what it wants to render and how. A good example of a simple component renderer can be found in <code>stonehearth/renderers/stockpile/stockpile_renderer.lua</code>. There, we take information about the stockpile from the stockpile component (the size of it, as well as the items inside it), and use that to construct the 2D stockpile area that's visible in stockpile placement mode.</p>
-            <p>A more complicated example would be <code>structure_renderer.lua</code>, which deals with the various rpg/cutaway vision modes for building, constructing multiple renderable things for both the visual of the structure, as well as its shadow volume (so that even buildings with walls cut away cast appropriate shadows).</p>
-            <p>Component renderers are declared under <strong>"component_renderers"</strong> in your manifest (same level than "aliases", "components", etc). They have the same name than the component they render. For instance:</p>
+            <h2><a name="ComponentRenderers"></a>组件渲染器</h2>
+            <p>组件渲染器是您用来创建与组件相关的某种视觉表示的东西。</p>
+            <p>Stonehearth 实际上并不渲染实体本身，因为实体本身并不是任何东西——它们是组件（数据和功能）的集合。因此，如果您想要显示某些视觉内容，您需要将该对象附加一个（或两个！）渲染器，这意味着需要一个组件渲染器。</p>
+            <p>（注意：炉民、哥布林、鹿等似乎没有与之关联的渲染器，但实际上它们有——它们在 C++ 中，而不是 Lua 中。它们是通过将这些实体的 <strong>render_info</strong> 组件添加到它们身上而添加的）。</p>
+            <p>组件渲染器将在客户端使用拥有实体和组件进行初始化；然后由组件来决定它想要渲染什么以及如何渲染。一个简单的组件渲染器的良好示例可以在 <code>stonehearth/renderers/stockpile/stockpile_renderer.lua</code> 中找到。在那里，我们从库存组件获取有关库存的信息（其大小以及其中的物品），并使用这些信息构建在库存放置模式下可见的 2D 库存区域。</p>
+            <p>更复杂的示例是 <code>structure_renderer.lua</code>，它处理建筑物的各种 RPG/剖面视图模式，为建筑物的视觉效果及其阴影体积构建多个可渲染事物（因此即使墙壁被剖开的建筑物也能投射适当的阴影）。</p>
+            <p>组件渲染器在清单的 <strong>"component_renderers"</strong> 下声明（与"aliases"、"components"等同级）。它们具有与它们渲染的组件相同的名称。例如：</p>
             <pre><code>  "components" : {
      "stockpile" : "stockpile": "file(components/stockpile/stockpile_component.lua)"
   },
@@ -107,7 +106,7 @@
      "stockpile": "file(renderers/stockpile/stockpile_renderer.lua)"
   }
 </code></pre>
-            <p><a name="InvariantRenderers"></a>You might also see a section in the stonehearth manifest called <strong>"invariant_renderers"</strong>, but modders don't need to worry about it.</p>
+            <p><a name="InvariantRenderers"></a>您可能还会在 stonehearth 清单中看到一个名为 <strong>"invariant_renderers"</strong> 的部分，但 modder 无需担心它。</p>
         </main>
     </body>
 </html>

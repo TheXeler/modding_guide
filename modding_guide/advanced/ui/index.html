@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,21 +13,21 @@
       <script src="/modding_guide/menus.js"></script>
       <main>
          <h1>UI</h1>
-         <p>Stonehearth uses HTML, Javascript (JQuery) and CSS (Less) for the UI. For creating UI views we use Ember and Handlebars templates. The version of Ember that the game uses is 1.8, which is a bit outdated, but was also patched over time for specific issues of the game so upgrading it is not straightforward.</p>
-         <p>You can find the existing UI views and all the related files inside <code>stonehearth/ui</code>.</p>
+         <p>Stonehearth 使用 HTML、Javascript（JQuery）和 CSS（Less）来构建 UI。对于创建 UI 视图，我们使用 Ember 和 Handlebars 模板。游戏使用的 Ember 版本是 1.8，虽然有点过时，但也随着时间的推移针对游戏的特定问题进行了修补，因此升级它并不简单。</p>
+         <p>您可以在 <code>stonehearth/ui</code> 中找到现有的 UI 视图和所有相关文件。</p>
          <ul>
-            <li><a href="#AddingUIView">Adding a simple UI view</a></li>
-            <li><a href="#ShowingUIConditionally">Showing views conditionally</a></li>
-            <li><a href="#AddingToExistingViews">Adding to existing views</a></li>
-            <li><a href="#Overriding">Overriding UI files</a></li>
-            <li><a href="#MoreAboutUI">More about UI</a></li>
-            <li><a href="#LocVariables">About variables inside localization strings</a></li>
+            <li><a href="#AddingUIView">添加简单的 UI 视图</a></li>
+            <li><a href="#ShowingUIConditionally">条件显示视图</a></li>
+            <li><a href="#AddingToExistingViews">添加到现有视图</a></li>
+            <li><a href="#Overriding">覆盖 UI 文件</a></li>
+            <li><a href="#MoreAboutUI">更多关于 UI</a></li>
+            <li><a href="#LocVariables">关于本地化字符串中的变量</a></li>
          </ul>
-         <h2><a name="AddingUIView"></a>Adding a simple UI view</h2>
-         <p>We'll add a small UI view to explain how are the files structured in the mod.</p>
+         <h2><a name="AddingUIView"></a>添加简单的 UI 视图</h2>
+         <p>我们将添加一个小型 UI 视图来解释 mod 中文件的结构。</p>
          <ol>
             <li>
-               <p>In your manifest.json, add the <strong>"ui"</strong> section (at the same level than "aliases" or "mixintos"). Inside it, add the HTML, Javascript and Less files inside the corresponding arrays:</p>
+               <p>在您的 manifest.json 中，添加 <strong>"ui"</strong> 部分（与"aliases"或"mixintos"同级）。在其中，将 HTML、Javascript 和 Less 文件添加到相应的数组中：</p>
                <pre><code>"ui" : {
    "html" : [
       "file(ui/custom_view/custom_view.html)"
@@ -40,14 +40,14 @@
    ]
 }
 </code></pre>
-               <p>  Just with this, the game will already load our UI files. But we need to define some HTML and Javascript for them to actually show something in the screen.</p>
+               <p>仅凭这一点，游戏就已经加载了我们的 UI 文件。但我们需要定义一些 HTML 和 Javascript，以便它们实际上在屏幕上显示内容。</p>
             </li>
             <li>
-               <p><a name="HandlebarsTemplate"></a>Edit the HTML file. As mentioned above, Stonehearth uses Ember with <a href="https://guides.emberjs.com/v1.10.0/templates/handlebars-basics/">handlebars templates</a>. So usually your HTML file will look something like this:</p>
+               <p><a name="HandlebarsTemplate"></a>编辑 HTML 文件。如上所述，Stonehearth 使用带有 <a href="https://guides.emberjs.com/v1.10.0/templates/handlebars-basics/">Handlebars 模板</a>的 Ember。因此，通常您的 HTML 文件看起来像这样：</p>
                <pre><code>&lt;script type="text/x-handlebars" data-template-name="customView"&gt;
 &lt;/script&gt;
 </code></pre>
-               <p>  Inside the script tag we'll add our HTML, and we can use Handlebars expressions:</p>
+               <p>在 script 标签内，我们将添加我们的 HTML，并且可以使用 Handlebars 表达式：</p>
                <pre><code>&lt;script type="text/x-handlebars" data-template-name="customView"&gt;
    &lt;div id="customWindow" class="customWindow"&gt;
       &lt;div class="customTitle"&gt;
@@ -58,7 +58,7 @@
 </code></pre>
             </li>
             <li>
-               <p>Edit the Javascript file. In <code>custom_view.js</code> we need to define a view. In general, we extend <code>App.View</code>, but you can extend any other in game view (for example, to create a custom dialog you can extend any of the existing dialogs, that way you'll inherit some functionality).</p>
+               <p>编辑 Javascript 文件。在 <code>custom_view.js</code> 中，我们需要定义一个视图。通常，我们扩展 <code>App.View</code>，但您也可以扩展游戏中的任何其他视图（例如，要创建自定义对话框，您可以扩展现有的任何对话框，这样您将继承一些功能）。</p>
                <pre><code>$(document).ready(function() {
    $(top).on('stonehearthReady', function (_, e) {
       var view = App.gameView.addView(App.UIModCustomView);
@@ -73,19 +73,19 @@
     didInsertElement: function() {
        var self = this;
        self.set('title', 'A new beginning');
-       // Add this line if you want your UI view to be draggable
+       // 如果您希望 UI 视图可拖动，请添加此行
        self.$().draggable();
     }
  });
 </code></pre>
-               <p>  First we wait until the game is loaded, and call <code>App.gameView.addView</code> to add our view to the UI. Notice that at this point, our view is permanently visible, but the images from the main menu, embark screens and loading screen are covering it.</p>
-               <p>  We define our view by extending <code>App.View</code>, add the <strong>templateName</strong> property and give it the name of our Handlebars template as value.</p>
-               <p>  Then in <code>didInsertElement</code> we set the <code>title</code> property, so that it has a value when we display it in our example template.</p>
+               <p>首先，我们等待游戏加载完成，然后调用 <code>App.gameView.addView</code> 将我们的视图添加到 UI 中。请注意，此时我们的视图是永久可见的，但主菜单、登船屏幕和加载屏幕的图像覆盖了它。</p>
+               <p>我们通过扩展 <code>App.View</code> 定义我们的视图，添加 <strong>templateName</strong> 属性并将其值设置为我们的 Handlebars 模板的名称。</p>
+               <p>然后在 <code>didInsertElement</code> 中设置 <code>title</code> 属性，以便在我们示例模板中显示时它具有值。</p>
             </li>
             <li>
-               <p>Edit the Less file. Right now, our UI view looks like this:</p>
+               <p>编辑 Less 文件。现在，我们的 UI 视图看起来像这样：</p>
                <p>  <img src="/modding_guide/images/advanced/ui/ui_view_no_css.png" alt="ui_view_no_css"/>
-                  We can add some CSS (Less) in the <code>custom_view.less</code> file to make it look better:
+                  我们可以在 <code>custom_view.less</code> 文件中添加一些 CSS（Less）使其看起来更好：
                </p>
                <pre><code>.customWindow {
     background-position: center;
@@ -129,17 +129,17 @@
 </code></pre>
             </li>
          </ol>
-         <p>Now it looks like this:</p>
+         <p>现在它看起来像这样：</p>
          <p><img src="/modding_guide/images/advanced/ui/ui_view_with_css.png" alt="ui_view_with_css"/></p>
-         <p>You can reuse any image from the game UI for your views, but be careful when defining your styles since it may conflict with existing CSS classes from other game files and get applied to views that it shouldn't.</p>
-         <h2><a name="ShowingUIConditionally"></a>Showing views conditionally</h2>
-         <p>We can have our view hidden until the player clicks somewhere in the UI (e.g.: we fire an event from a unit frame command and react to it).</p>
-         <p>For instance, the workshop UI can be shown by clicking in the unit frame command (triggers <code>radiant_show_workshop</code> event) or by directly calling <code>App.workshopManager.toggleWorkshop()</code> (see <code>stonehearth/ui/game/start_menu/start_menu.js</code>).</p>
-         <p>From <code>stonehearth/ui/game/show_workshop/show_team_workshop.js</code>:</p>
+         <p>您可以重用游戏 UI 中的任何图像用于您的视图，但在定义样式时要小心，因为它可能与其他游戏文件中的现有 CSS 类冲突，并应用于不应该应用的视图。</p>
+         <h2><a name="ShowingUIConditionally"></a>条件显示视图</h2>
+         <p>我们可以让视图保持隐藏，直到玩家在 UI 中点击某处（例如：我们从单位框架命令触发事件并对其做出反应）。</p>
+         <p>例如，可以通过点击单位框架命令（触发 <code>radiant_show_workshop</code> 事件）或直接调用 <code>App.workshopManager.toggleWorkshop()</code> 来显示工作坊 UI（参见 <code>stonehearth/ui/game/start_menu/start_menu.js</code>）。</p>
+         <p>来自 <code>stonehearth/ui/game/show_workshop/show_team_workshop.js</code>：</p>
          <pre><code>  $(document).ready(function () {
      App.workshopManager.init();
 
-     // Show the crafting UI from the workshops, and from the crafter.
+     // 从工作坊和工匠显示制作 UI。
      $(top).on("radiant_show_workshop", function (_, e) {
         App.workshopManager.toggleWorkshop(e.event_data.crafter_type);
      });
@@ -148,10 +148,10 @@
      });
   });
 </code></pre>
-         <h2><a name="AddingToExistingViews"></a>Adding to existing views</h2>
-         <p>All the actions from the start menu are executed from <code>start_menu.js</code>. So if we mixinto a new menu or submenu to it, how can we add a new action to the JS file?</p>
-         <p>Well, Ember allows to <a href="https://guides.emberjs.com/v1.10.0/object-model/reopening-classes-and-instances/">reopen</a> an instance to modify it from other files.
-            From one of our <strong>.js</strong> files we'd do:
+         <h2><a name="AddingToExistingViews"></a>添加到现有视图</h2>
+         <p>开始菜单中的所有操作都是从 <code>start_menu.js</code> 执行的。那么，如果我们 mixinto 一个新菜单或子菜单，如何向 JS 文件添加新操作呢？</p>
+         <p>嗯，Ember 允许<a href="https://guides.emberjs.com/v1.10.0/object-model/reopening-classes-and-instances/">重新打开</a>实例以从其他文件修改它。
+            从我们的一个 <strong>.js</strong> 文件中，我们会这样做：
          </p>
          <pre><code>  App.StonehearthStartMenuView.reopen({
      init: function() {
@@ -166,16 +166,16 @@
 
      createCustomZone : function() {
         var self = this;
-        // Do something
+        // 做一些事情
      }
   });
 </code></pre>
-         <h2><a name="Overriding"></a>Overriding UI files</h2>
-         <p>Sometimes we really need to overwrite a Javascript file from the base game. In that case, we'll use an override in the <strong>"overrides"</strong> section of the manifest.</p>
-         <p>Be careful since it may break compatibility with other mods.</p>
-         <h2><a name="MoreAboutUI"></a>More about UI</h2>
-         <p>With Ember we can <a href="https://guides.emberjs.com/v1.10.0/object-model/observers/">observe changes</a> on properties and automatically update the UI based on them.</p>
-         <p>A short example can be seen in <code>stonehearth/ui/game/character_sheets/pet_character_sheet/pet_character_sheet.js</code>. This view is created in <code>stonehearth_client.js</code> and we pass a reference of the pet to it:</p>
+         <h2><a name="Overriding"></a>覆盖 UI 文件</h2>
+         <p>有时我们确实需要覆盖基础游戏中的 Javascript 文件。在这种情况下，我们将在清单的 <strong>"overrides"</strong> 部分中使用覆盖。</p>
+         <p>请小心，因为它可能会破坏与其他 mod 的兼容性。</p>
+         <h2><a name="MoreAboutUI"></a>更多关于 UI</h2>
+         <p>使用 Ember，我们可以<a href="https://guides.emberjs.com/v1.10.0/object-model/observers/">观察属性的变化</a>并根据它们自动更新 UI。</p>
+         <p>在 <code>stonehearth/ui/game/character_sheets/pet_character_sheet/pet_character_sheet.js</code> 中可以看到一个简短的示例。此视图在 <code>stonehearth_client.js</code> 中创建，我们向其传递宠物的引用：</p>
          <pre><code>  _petCharacterSheet: null,
   showPetCharacterSheet: function(entity) {
      if (this._characterSheet != null &amp;&amp; !this._characterSheet.isDestroyed) {
@@ -190,7 +190,7 @@
      }
   },
 </code></pre>
-         <p>The function above is called from <code>stonehearth/ui/unit_frame/unit_frame.js</code>:</p>
+         <p>上面的函数从 <code>stonehearth/ui/unit_frame/unit_frame.js</code> 调用：</p>
          <pre><code>  this.$('#nametag').click(function() {
      if ($(this).hasClass('clickable')) {
         var isPet = self.get('model.stonehearth:pet');
@@ -200,7 +200,7 @@
      }
   });
 </code></pre>
-         <p><a name="SettingURI"></a>The unit frame listens to the <code>radiant_selection_changed</code> event (it's triggered from the C++ side and returns the selected entity):</p>
+         <p><a name="SettingURI"></a>单位框架监听 <code>radiant_selection_changed</code> 事件（它从 C++ 端触发并返回选定的实体）：</p>
          <pre><code>  var updateUnitFrame = function(data) {
      if (!App.gameView) {
         return;
@@ -223,7 +223,7 @@
      });
   });
 </code></pre>
-         <p>and then it sets the <code>'uri'</code> property to the selected entity, for us to use in other views. So we can pass the 'uri' property to <code>pet_character_sheet.js</code> and update variables from the Handlebars template depending on it:</p>
+         <p>然后将 <code>'uri'</code> 属性设置为选定的实体，以便我们在其他视图中使用。因此，我们可以将 'uri' 属性传递给 <code>pet_character_sheet.js</code> 并根据它更新 Handlebars 模板中的变量：</p>
          <pre><code>  _updateNameAndDescription: function() {
      var alias = this.get('model.uri');
 
@@ -250,7 +250,7 @@
      this.set('description', description);
   }.observes('model.uri'),
 </code></pre>
-         <p><a name="ObservingComponents"></a>We can also define a <code>"components"</code> variable, listing components that we'll find in pets:</p>
+         <p><a name="ObservingComponents"></a>我们还可以定义一个 <code>"components"</code> 变量，列出我们将在宠物中找到的组件：</p>
          <pre><code>  components: {
      'stonehearth:unit_info': {},
      'stonehearth:attributes' : {},
@@ -259,38 +259,38 @@
      }
   }
 </code></pre>
-         <p>and observe changes in them to update our UI view's values:</p>
+         <p>并观察它们的变化以更新我们的 UI 视图的值：</p>
          <pre><code>  _onNameChanged: function() {
      this._updateNameAndDescription();
   }.observes('model.stonehearth:unit_info'),
 </code></pre>
-         <p><a name="HandlebarsActions"></a>We can also use <a href="https://guides.emberjs.com/v1.10.0/templates/actions/">actions</a> in our Handlebars templates.</p>
-         <p><a name="ReadingJSON"></a>To retrieve the information from a text file (be it a JSON file, HTML, etc), we can do this:</p>
+         <p><a name="HandlebarsActions"></a>我们还可以在我们的 Handlebars 模板中使用<a href="https://guides.emberjs.com/v1.10.0/templates/actions/">动作</a>。</p>
+         <p><a name="ReadingJSON"></a>要从文本文件（无论是 JSON 文件、HTML 等）检索信息，我们可以这样做：</p>
          <pre><code>  $.get('/stonehearth/data/calendar/calendar_constants.json')
      .done(function(json) {
-        // Do something
+        // 做一些事情
      });
 </code></pre>
-         <h2><a name="LocVariables"></a>About variables inside localization strings</h2>
-         <p>As explained <a href="../../intermediate/campaigns/encounters/index.html#I18nData">before</a>, if a string for the UI needs variables, use <code>[str(my_var_path.my_variable_name)]</code>:</p>
+         <h2><a name="LocVariables"></a>关于本地化字符串中的变量</h2>
+         <p>如<a href="../../intermediate/campaigns/encounters/index.html#I18nData">之前</a>所述，如果 UI 字符串需要变量，请使用 <code>[str(my_var_path.my_variable_name)]</code>：</p>
          <pre><code>  "bulletin_title": "Hello [str(town_name)]!"
 </code></pre>
-         <p>Then, when you display the bulletin, you need to supply a variable with a town_name in it. Example for Javascript code:</p>
+         <p>然后，当您显示公告时，您需要提供一个包含 town_name 的变量。Javascript 代码示例：</p>
          <pre><code>  i18n.t("stonehearth:bulletin_title", {town_name: App.stonehearthClient.settlementName()}).
 </code></pre>
-         <p>In Lua we can also pass variables when updating text for the UI:</p>
+         <p>在 Lua 中，我们也可以在更新 UI 文本时传递变量：</p>
          <pre><code>  ai:set_status_text_key('stonehearth:ai.actions.status_text.chase_entity', { target = args.target })
 </code></pre>
-         <p>All strings are displayed and localized in the UI (Javascript), so you need to know what variables your string needs when being displayed and pass those variables into your string when calling i18n.</p>
-         <p>Example from an HTML file -- this is how <code>unit_frame.html</code> displays the name of an entity:</p>
+         <p>所有字符串都在 UI（Javascript）中显示和本地化，因此您需要知道显示时字符串需要哪些变量，并在调用 i18n 时将那些变量传递到您的字符串中。</p>
+         <p>HTML 文件示例——这是 <code>unit_frame.html</code> 显示实体名称的方式：</p>
          <pre><code>  {{i18n_key view.display_name self=view.model}}
 </code></pre>
-         <p><code>i18n_key</code> is a new Ember helper that will resolve the first parameter into a string key (so it knows the first parameter is not a flat string, but a variable), and all optional parameters passed in via the <strong>param_name=param_value</strong> are the variables that the string will use.</p>
-         <p>In this case, to display a unit's name, we pass in <code>self=this</code>, which says the parameter "self" is the entity we're tracing. That way, we can make a unit's display_name look like: <code>"Chieftan [str(self.stonehearth:unit_info.custom_name)]"</code>, which will display the entity's randomly generated custom name with a Chieftan title around it. Use cached off display names for displaying the name of an entity if that entity can die (e.g.: for boss names in boss death dialogs).</p>
-         <p>To pass in the <code>self</code> parameter in Javascript, do:</p>
+         <p><code>i18n_key</code> 是一个新的 Ember 助手，它将第一个参数解析为字符串键（因此它知道第一个参数不是平铺字符串，而是变量），所有通过 <strong>param_name=param_value</strong> 传递的可选参数都是字符串将使用的变量。</p>
+         <p>在这种情况下，要显示单位的名称，我们传入 <code>self=this</code>，这表示参数"self"是我们正在追踪的实体。这样，我们可以使单位的 display_name 看起来像：<code>"Chieftan [str(self.stonehearth:unit_info.custom_name)]"</code>，这将显示实体的随机生成的自定义名称，周围有 Chieftan 头衔。如果实体可能死亡（例如：用于 boss 死亡对话框中的 boss 名称），请使用缓存的显示名称来显示实体的名称。</p>
+         <p>要在 Javascript 中传入 <code>self</code> 参数，请执行：</p>
          <pre><code>  i18n.t(this.get('unit_info.display_name'), {self: this});
 </code></pre>
-         <p><a name="NestingLocalization"></a>If your string needs a substring that needs to be localized, use <code>i18n(stonehearth:my.loc.var.path)</code> in the <code>en.json</code>:</p>
+         <p><a name="NestingLocalization"></a>如果您的字符串需要需要本地化的子字符串，请在 <code>en.json</code> 中使用 <code>i18n(stonehearth:my.loc.var.path)</code>：</p>
          <pre><code>  "bulletin_message": "I would like to give you a i18n(stonehearth:entities.food.corn.corn_basket.display_name)!"
 </code></pre>
       </main>

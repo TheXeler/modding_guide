@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,44 +7,44 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Color and material maps</title>
+      <title>颜色和材质图</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Color and material maps</h1>
-         <p><strong>Color maps</strong> are something that we can use for adding color variety to our items. They are used together with <strong>material maps</strong>. The existing color maps and material maps can be found inside <code>stonehearth/data/materials</code>.</p>
-         <p>These maps can be used to apply color palettes or rendering materials to a QB model or to parts of it, either via JSON or dinamically in a Lua script.</p>
+         <h1>颜色和材质图</h1>
+         <p><strong>颜色图</strong>是我们可以用来为物品添加颜色多样性的东西。它们与<strong>材质图</strong>一起使用。现有的颜色图和材质图可以在 <code>stonehearth/data/materials</code> 内找到。</p>
+         <p>这些图可用于将调色板或渲染材质应用于 QB 模型或其部分，可以通过 JSON 或在 Lua 脚本中动态应用。</p>
          <blockquote>
-            <p><strong>Some context:</strong> Objects look for a default "stonehearth:render_materials" material in their entity_data when being created (see the <code>item_properties.json</code> mixin for an example). We can change this default material with a mixinto so that the item has a custom default material, or we can use a material map to apply different materials and shaders to it.</p>
+            <p><strong>一些背景：</strong>对象在创建时会在其 entity_data 中查找默认的"stonehearth:render_materials"材质（参见 <code>item_properties.json</code> mixin 示例）。我们可以通过 mixinto 更改此默认材质，以便物品具有自定义默认材质，或者我们可以使用材质图为其应用不同的材质和着色器。</p>
          </blockquote>
          <ul>
-            <li><a href="#ColorMaps">Randomizing colors</a></li>
-            <li><a href="#RenderMaterials">Applying render materials</a></li>
-            <li><a href="shaders/index.html#RenderMaterials">Render materials and shaders</a></li>
+            <li><a href="#ColorMaps">随机化颜色</a></li>
+            <li><a href="#RenderMaterials">应用渲染材质</a></li>
+            <li><a href="shaders/index.html#RenderMaterials">渲染材质和着色器</a></li>
          </ul>
-         <h2><a name="ColorMaps"></a>Randomizing colors</h2>
-         <p>One of the uses of the color maps is to allow for the same .qb model to have random colors every time we spawn it in the game (this can also be achieved by using different .qb models instead).</p>
+         <h2><a name="ColorMaps"></a>随机化颜色</h2>
+         <p>颜色图的用途之一是允许相同的 .qb 模型每次在游戏中生成时具有随机颜色（这也可以通过使用不同的 .qb 模型来实现）。</p>
          <ol>
             <li>
-               <p>Let's start by creating a color_map and adding an alias for it into our manifest:</p>
+               <p>让我们从创建一个 color_map 开始并为其在清单中添加别名：</p>
                <pre><code>"aliases" : {
    "color_map:flower" : "file(data/materials/color_maps/flower_color_map.json)"
 }
 </code></pre>
-               <p><a name="ColorMap"></a>The <code>flower_color_map.json</code> file looks like this:</p>
+               <p><a name="ColorMap"></a><code>flower_color_map.json</code> 文件如下所示：</p>
                <pre><code>{
    "#FC6EFE" : "silent_woods:flower:hilight",
    "#A438A5" : "silent_woods:flower:midtone",
    "#761B76" : "silent_woods:flower:shadows"
 }
 </code></pre>
-               <p>The JSON keys refer to the colors from our QB model in hexadecimal format. You can add as many keys as you need, but if you later modify the model, make sure to update the color entries here too, otherwise the color map won't take effect.</p>
-               <p>The values for the keys inside the color_map can be named anything. We usually write them like URIs, prefixed by the name of our mod, but they are just identifiers that we will be using in the material maps. If you don't want to apply a random color to a certain part of your model, simply don't add the color of that part to your color map.</p>
-               <p>It doesn't matter which colors the QB model has, because we'll be remapping them with this. For example, the models for the different hairstyles of the hearthlings are purple and pink, but you won't see those colors inside the game, because a color palette is applied to them.</p>
+               <p>JSON 键以十六进制格式引用我们 QB 模型中的颜色。您可以根据需要添加任意数量的键，但如果您稍后修改模型，请确保也更新此处的颜色条目，否则颜色图将不生效。</p>
+               <p>color_map 内键的值可以命名为任何名称。我们通常将它们写为 URI，以 mod 的名称为前缀，但它们只是我们将在材质图中使用的标识符。如果您不想对模型的某些部分应用随机颜色，只需不要将该部分的颜色添加到您的颜色图中即可。</p>
+               <p>QB 模型具有什么颜色并不重要，因为我们将用此重新映射它们。例如，炉民不同发型的模型是紫色和粉色的，但您不会在游戏中看到这些颜色，因为会对其应用调色板。</p>
             </li>
             <li>
-               <p><a name="MaterialMap"></a>Now let's create a material map that maps these color zones to other colors. Let's call this file <code>flower_red_material_map.json</code>, for example:</p>
+               <p><a name="MaterialMap"></a>现在让我们创建一个将这些颜色区域映射到其他颜色的材质图。让我们将此文件命名为 <code>flower_red_material_map.json</code>，例如：</p>
                <pre><code>{
    "silent_woods:flower:hilight" : {
       "color" : "#DB6D5C"
@@ -57,12 +57,12 @@
    }
 }
 </code></pre>
-               <p>Here we change the color tagged with <code>"silent_woods:flower:hilight"</code> ("#FC6EFE") to "#DB6D5C". Same for the other colors.
-                  Let's create a copy of this file, name it <code>flower_blue_material_map.json</code>, and assign different colors to each entry.
+               <p>这里我们将标记为 <code>"silent_woods:flower:hilight"</code>（"#FC6EFE"）的颜色更改为"#DB6D5C"。其他颜色也是如此。
+                  让我们复制此文件，将其命名为 <code>flower_blue_material_map.json</code>，并为每个条目分配不同的颜色。
                </p>
             </li>
             <li>
-               <p>Lastly, let's assign the color and material maps to our entity. To do that, in our entity <strong>ghost</strong> JSON file, we add them to the render_info component (it could also be in the JSON file for the iconic, or wherever you declare the QB model that you want to alter):</p>
+               <p>最后，让我们将颜色和材质图分配给我们的实体。为此，在我们的实体 <strong>ghost</strong> JSON 文件中，我们将它们添加到 render_info 组件（它也可以在 iconic 的 JSON 文件中，或在您声明要更改的 QB 模型的任何位置）：</p>
                <pre><code>...
 "components": {
    "render_info": {
@@ -81,25 +81,25 @@
 },
 ...
 </code></pre>
-               <p>With <strong>"type" : "one_of"</strong>, only one of the material maps will be chosen. This way, whenever we spawn our flower in the game, it will either be red or blue, and not the original colors of the QB model.</p>
-               <p>Once the flower is spawned, it will keep the chosen color even if we move it or undeploy it. For ghosts though, they will have a different random color each time (since a new ghost is generated every time we move or place the item). You can, however, apply one material map to the ghost and a different material map to the entity, that way you can control which colors will be applied on every situation.</p>
+               <p>使用 <strong>"type" : "one_of"</strong>，将只选择其中一个材质图。这样，每当我们在游戏中生成我们的花时，它将是红色或蓝色，而不是 QB 模型的原始颜色。</p>
+               <p>一旦花生成，即使我们移动它或取消部署它，它也将保持选择的颜色。但是对于 ghosts，它们每次都会有不同的随机颜色（因为每次我们移动或放置物品时都会生成一个新的 ghost）。但是，您可以将一个材质图应用于 ghost，将另一个材质图应用于实体，这样您就可以控制在每种情况下将应用哪些颜色。</p>
             </li>
          </ol>
          <blockquote>
-            <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> The "one_of" type can also be used for randomizing QB models. </p>
+            <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> "one_of"类型也可用于随机化 QB 模型。</p>
          </blockquote>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> When testing, if you notice that no matter how many times you spawn the item, it always has the same color, try adding this inside the "render_info" component where you declared the color / material maps:</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 在测试时，如果您注意到无论您生成物品多少次，它总是具有相同的颜色，请尝试在您声明颜色/材质图的"render_info"组件内添加以下内容：</p>
          <pre><code>    "cache_model_geometry": false
 </code></pre>
          <p>
-            Model geometry is cached by default for performance reasons, but there are some places in Lua files where we disable it, so for some entities the random color will work even if they don't have "cache_model_geometry" set to false in their JSON files. <!-- For example, on fixup post load of population_faction.lua it loads the json without caching.-->
+            出于性能原因，默认情况下会缓存模型几何体，但在 Lua 文件中的某些地方我们禁用了它，因此对于某些实体，即使它们的 JSON 文件中没有将"cache_model_geometry"设置为 false，随机颜色也会起作用。<!-- 例如，在 population_faction.lua 的 fixup post load 中，它加载 json 时不进行缓存。-->
             <img src="/modding_guide/images/basic/color_maps/color_maps.png" alt="color_maps"/>
          </p>
-         <h2><a name="RenderMaterials"></a>Applying render_materials</h2>
-         <p>We can also apply a different render material using material maps. It will make the color be rendered differently, for example to make it shiny, semi-transparent, or emissive. You can use existing materials from the stonehearth mod before trying to make your own ones.</p>
+         <h2><a name="RenderMaterials"></a>应用渲染材质</h2>
+         <p>我们还可以使用材质图应用不同的渲染材质。它将使颜色以不同方式渲染，例如使其闪亮、半透明或发光。在尝试制作自己的材质之前，您可以使用 stonehearth mod 中的现有材质。</p>
          <ol>
             <li>
-               <p>First, let's make a color map like we did before. But this time let's reuse an entry from an existing material map. This is <code>silent_woods/data/materials/color_maps/nightdew_color_map.json</code>:</p>
+               <p>首先，让我们像以前一样制作一个颜色图。但这次让我们重用现有材质图中的条目。这是 <code>silent_woods/data/materials/color_maps/nightdew_color_map.json</code>：</p>
                <pre><code>{
    "#204C7A": "stonehearth:glowing",
    "#20598D": "stonehearth:glowing",
@@ -107,10 +107,10 @@
    "#8895AE": "stonehearth:glowing"
 }
 </code></pre>
-               <p>  The <strong>"stonehearth:glowing"</strong> makes reference to an entry in <code>stonehearth/data/materials/material_maps/mob_material_map.json</code> and in <code>stonehearth/data/materials/material_maps/natural_material_map.json</code>.</p>
+               <p><strong>"stonehearth:glowing"</strong> 引用了 <code>stonehearth/data/materials/material_maps/mob_material_map.json</code> 和 <code>stonehearth/data/materials/material_maps/natural_material_map.json</code> 中的条目。</p>
             </li>
             <li>
-               <p>Now we add our color map and a matching material map to our entity. So, inside <code>nightdew_ghost.json</code> we have the render_info like this:</p>
+               <p>现在我们将颜色图和匹配的材质图添加到我们的实体。因此，在 <code>nightdew_ghost.json</code> 内，我们有这样的 render_info：</p>
                <pre><code>"render_info": {
    "scale": 0.15,
    "color_map": "stonehearth:color_map:natural",
@@ -119,8 +119,8 @@
    ]
 },
 </code></pre>
-               <p>  Notice that the "material_maps" array contains just entries, and not an object like in the previous example of randomizing colors. We can add several material maps this way, if we want all of them to be applied (for example, if our color map's entries are in different material maps).</p>
-               <p>  Let's take a look at <code>natural_material_map.json</code>:</p>
+               <p>注意"material_maps"数组仅包含条目，而不是像前面随机化颜色示例中的对象。如果我们希望应用所有材质图，我们可以以这种方式添加多个材质图（例如，如果我们的颜色图的条目在不同的材质图中）。</p>
+               <p>让我们看看 <code>natural_material_map.json</code>：</p>
                <pre><code>{
    "stonehearth:glowing" : {
       "render_material" : "materials/glowy_voxel.material.json"
@@ -136,20 +136,20 @@
    }
 }
 </code></pre>
-               <p>  Here we have the <strong>"stonehearth:glowing"</strong> entry at the top. Instead of pointing to a color, it points to a render material. There are other entries here, so if we had used them for some entry in our color map, they would have been applied for those colors too.</p>
-               <p>  The path defined in <strong>"render_material"</strong> points to a file inside <code>stonehearth/data/horde</code>. Even if we used our own material map file inside our mod, the game will read the material file from the stonehearth mod if we declare it like this:</p>
+               <p>这里我们在顶部有 <strong>"stonehearth:glowing"</strong> 条目。它不是指向颜色，而是指向渲染材质。这里还有其他条目，因此如果我们在颜色图的某个条目中使用它们，它们也将应用于这些颜色。</p>
+               <p><strong>"render_material"</strong> 中定义的路径指向 <code>stonehearth/data/horde</code> 内的文件。即使我们在我们的 mod 中使用了自己的材质图文件，如果我们这样声明，游戏将从 stonehearth mod 中读取材质文件：</p>
                <pre><code>"render_material" : "materials/glowy_voxel.material.json"
 </code></pre>
-               <p>  If we want the game to read a material file from inside our mod, we'd have to write the full path like this:</p>
+               <p>如果我们希望游戏从我们的 mod 中读取材质文件，我们必须这样编写完整路径：</p>
                <pre><code>"render_material" : "/silent_woods/data/horde/materials/glowy_voxel.material.json"
 </code></pre>
             </li>
             <li>
-               <p>Let's test that the render material is applied to our entity (if there's some problem with it, a message will appear in the stonehearth.log informing that the game couldn't load the material):</p>
+               <p>让我们测试渲染材质是否应用于我们的实体（如果存在任何问题，stonehearth.log 中将出现一条消息，通知游戏无法加载材质）：</p>
             </li>
          </ol>
          <p><img src="/modding_guide/images/basic/color_maps/render_materials.png" alt="render_materials"/></p>
-         <p>You can read more about render materials and shaders <a href="shaders/index.html">here</a>.</p>
+         <p>您可以在此处阅读更多关于<a href="shaders/index.html">渲染材质和着色器</a>的信息。</p>
       </main>
    </body>
 </html>

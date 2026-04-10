@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,37 +7,37 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>C++ functions</title>
+        <title>C++ 函数</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>C++ functions</h1>
-            <p>You can find a list of the existing C++ functions that we can call from Lua/Javascript here: <a href="/modding_guide/files/CppReference.pdf">PDF</a>.</p>
-            <p>Most don't include the possible parameters, but try calling them and the possible signatures should appear in an error message.</p>
+            <h1>C++ 函数</h1>
+            <p>您可以在此处找到我们可以从 Lua/Javascript 调用的现有 C++ 函数列表：<a href="/modding_guide/files/CppReference.pdf">PDF</a>。</p>
+            <p>大多数函数不包含可能的参数，但尝试调用它们，可能的签名应该会出现在错误消息中。</p>
             <ul>
-                <li><a href="#CppFromJS">Calling C++ functions from Javascript</a></li>
-                <li><a href="#CppFromLua">Calling C++ functions from Lua</a></li>
+                <li><a href="#CppFromJS">从 Javascript 调用 C++ 函数</a></li>
+                <li><a href="#CppFromLua">从 Lua 调用 C++ 函数</a></li>
             </ul>
-            <h2><a name="CppFromJS"></a>Calling C++ functions from Javascript</h2>
-            <p>We can call client functions from Javascript, using <code>radiant:call</code> with the route name and the args we want to pass in:</p>
+            <h2><a name="CppFromJS"></a>从 Javascript 调用 C++ 函数</h2>
+            <p>我们可以使用 <code>radiant:call</code> 以及路由名称和我们要传入的参数从 Javascript 调用客户端函数：</p>
             <pre><code>  radiant.call('radiant:route_name', arg1, arg2, {arg3: {'x':1}{'y':2}{'z':3}} );
 </code></pre>
-            <p>For instance:</p>
+            <p>例如：</p>
             <pre><code>  radiant.call('radiant:play_sound', {'track' : 'stonehearth:sounds:ui:action_click' });
 </code></pre>
-            <h2><a name="CppFromLua"></a>Calling C++ functions from Lua</h2>
-            <p>If a function has been made available to Javascript, it can be called from Lua also. Use this syntax:</p>
+            <h2><a name="CppFromLua"></a>从 Lua 调用 C++ 函数</h2>
+            <p>如果某个函数已对 Javascript 可用，也可以从 Lua 调用它。使用以下语法：</p>
             <pre><code>  _radiant.call('radiant:game:get_game_speed')
      :done(function(r)
-         -- Do something
+         -- 做一些事情
       end)
 </code></pre>
-            <p>We can access the C++ components too and use the functions listed in the PDF:</p>
+            <p>我们也可以访问 C++ 组件并使用 PDF 中列出的函数：</p>
             <pre><code>  local mob = entity:get_component('mob')
   local facing = mob and mob:get_facing()
 </code></pre>
-            <p>Calling the functions from the Open Lua functions list from the PDF would be like this:</p>
+            <p>调用 PDF 中 Open Lua 函数列表中的函数将是这样的：</p>
             <pre><code>  _radiant.sim.topology.are_connected(entity, pt)
 </code></pre>
         </main>

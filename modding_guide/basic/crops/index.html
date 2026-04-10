@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,72 +7,72 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Adding crops</title>
+        <title>添加作物</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Adding crops</h1>
-            <p>In the stonehearth mod there are crops that produce edible items, tree saplings (which are placeable items), herbs and fiber resources (which are used as ingredients for crafting recipes). But you can make them produce other type of items, if you want.</p>
+            <h1>添加作物</h1>
+            <p>在 stonehearth mod 中，有生产可食用物品的作物、树苗（可放置物品）、草药和纤维资源（用作制作配方的原料）。但如果您愿意，您可以让它们生产其他类型的物品。</p>
             <ul>
-                <li><a href="#CreatingCrops">Creating the crop</a></li>
+                <li><a href="#CreatingCrops">创建作物</a></li>
                 <li>
-                    <a href="#FoodContainers">Creating the ripe product</a>
+                    <a href="#FoodContainers">创建成熟产物</a>
                     <ul>
-                        <li><a href="#Servings">Creating a serving</a></li>
+                        <li><a href="#Servings">创建一份食物</a></li>
                     </ul>
                 </li>
-                <li><a href="#CropsList">Adding our crop to the list of available crops</a></li>
-                <li><a href="#UnlockingCrops">Unlocking crops</a></li>
-                <li><a href="#SHED">Creating a crop with SHED</a></li>
+                <li><a href="#CropsList">将我们的作物添加到可用作物列表</a></li>
+                <li><a href="#UnlockingCrops">解锁作物</a></li>
+                <li><a href="#SHED">使用 SHED 创建作物</a></li>
             </ul>
-            <h2><a name="CreatingCrops"></a>Creating the crop</h2>
+            <h2><a name="CreatingCrops"></a>创建作物</h2>
             <ol>
                 <li>
-                    <p>First let's copy an existing crop from the stonehearth mod to our mod. For this example, we'll copy the turnip crop. We can find all the crops inside the <code>stonehearth/entities/crops</code> directory.</p>
+                    <p>首先让我们从 stonehearth mod 复制一个现有作物到我们的 mod。对于此示例，我们将复制芜菁作物。我们可以在 <code>stonehearth/entities/crops</code> 目录中找到所有作物。</p>
                 </li>
                 <li>
-                    <p>Now we rename our copied files and directories as always. We're going to make a tomato crop for this example.</p>
+                    <p>现在像往常一样重命名我们复制的文件和目录。我们将为此示例制作一个番茄作物。</p>
                 </li>
                 <li>
-                    <p>Then we modify the files. The crop's JSON file defines an entity and must have the following components: </p>
+                    <p>然后我们修改文件。作物的 JSON 文件定义了一个实体，并且必须具有以下组件：</p>
                     <ul>
                         <li>
-                            <p><strong>"model_variants" : {}</strong> -- each entry here describes the model to use at a stage of the crop's existence. They can range from tiny to fully grown, to wilted. The name you use for the variant here will be used later in the file. We also define a "default" variant that can be used by other scripts that don't care about the stages of the crop.</p>
+                            <p><strong>"model_variants" : {}</strong> -- 这里的每个条目描述了在作物存在阶段使用的模型。它们可以范围从微小到完全生长，再到枯萎。您在此处为变体使用的名称将在文件的后面部分使用。我们还定义了一个"default"变体，可以被不关心作物阶段的其他脚本使用。</p>
                         </li>
                         <li>
-                            <p><strong>"mob" : {}</strong> -- the mob component, here we define the <strong>"model_origin"</strong> to center the model over the fallow field, and <strong>"mob_collision_type"</strong> of "clutter" so that hearthlings can clip through them.</p>
+                            <p><strong>"mob" : {}</strong> -- mob 组件，这里我们定义 <strong>"model_origin"</strong> 以将模型居中于休耕田地上方，以及 <strong>"mob_collision_type"</strong> 为"clutter"，以便炉民可以穿过它们。</p>
                         </li>
                         <li>
-                            <p><strong>"stonehearth:crop"</strong> -- this is the crop component. It needs the following data:</p>
+                            <p><strong>"stonehearth:crop"</strong> -- 这是作物组件。它需要以下数据：</p>
                             <ul>
-                                <li><strong>"resource_pairings" : {}</strong> -- takes names of stages and maps them to the output if the crop is harvested at that stage. We map the model variant name of the full grown crop to the alias of the output item and the name of the rotten variant to an empty string, so that when harvested it just gets destroyed.</li>
-                                <li><strong>"harvest_threshhold"</strong> -- defines what stage the crop must get to before is is automatically harvested by the farmers.</li>
-                                <li><strong>"plant_overlay_effect"</strong> -- deprecated field that is no longer in use by the crop component, it can be ignored.</li>
+                                <li><strong>"resource_pairings" : {}</strong> -- 获取阶段名称并将它们映射到如果在该阶段收获作物时的输出。我们将完全生长作物的模型变体名称映射到输出物品的别名，并将腐烂变体的名称映射到空字符串，以便在收获时它只是被销毁。</li>
+                                <li><strong>"harvest_threshhold"</strong> -- 定义作物在农民自动收获之前必须达到的阶段。</li>
+                                <li><strong>"plant_overlay_effect"</strong> -- 已弃用的字段，作物组件不再使用，可以忽略。</li>
                             </ul>
                         </li>
                         <li>
-                            <p><strong>"stonehearth:growing"</strong> -- this defines how often growth happens (moving the crop from one stage to the next) and what to change the description/model to at each stage.</p>
+                            <p><strong>"stonehearth:growing"</strong> -- 这定义了生长发生的频率（将作物从一个阶段移动到下一个阶段）以及在每个阶段要更改的描述/模型。</p>
                             <ul>
-                                <li><strong>"growth_period"</strong> -- amount of time that must elapse between growth stages. Defined by Xn, where X is a number and n is a m for minutes, h for hours, and d for days (in-game time).</li>
-                                <li><strong>"preferred_seasons" : {}</strong> -- list of the crop preferred growing seasons for each biome. The key is the biome alias and the value is an array of strings that contains only the preferred seasons' names from that biome for our crop. Planting crops in their non-preferred seasons will make them grow more slowly.          </li>
-                                <li><strong>"growth_stages"</strong> -- an array of JSON objects, each containing 3 properties describing each growth stage: <strong>"model_name"</strong> (which references a model variant defined above), <strong>"name"</strong> and <strong>"description"</strong> (localized strings that will appear in the unit frame when we click on the crop model). <br/>
-                                    Notice the empty objects ( <strong>{ }</strong> ) between the ripe stage and the rotten stage. They are used to wait N times * growth_period in the ripe stage, so you have enough time to harvest them before they rot. You can add / remove as many of them as you want.
+                                <li><strong>"growth_period"</strong> -- 生长阶段之间必须经过的时间量。由 Xn 定义，其中 X 是数字，n 是 m 表示分钟，h 表示小时，d 表示天（游戏内时间）。</li>
+                                <li><strong>"preferred_seasons" : {}</strong> -- 每个生物群落的作物首选生长季节列表。键是生物群落别名，值是包含我们作物在该生物群落中的首选季节名称的字符串数组。在非首选季节种植作物会使它们生长得更慢。</li>
+                                <li><strong>"growth_stages"</strong> -- 一个 JSON 对象数组，每个对象包含描述每个生长阶段的 3 个属性：<strong>"model_name"</strong>（引用上面定义的模型变体）、<strong>"name"</strong> 和 <strong>"description"</strong>（当我们点击作物模型时将在单位框架中出现的本地化字符串）。<br/>
+                                    注意成熟阶段和腐烂阶段之间的空对象（<strong>{ }</strong>）。它们用于在成熟阶段等待 N 次 * growth_period，因此您有足够的时间在它们腐烂之前收获它们。您可以根据需要添加/移除任意数量的它们。
                                 </li>
-                                <li><strong>"growth_check_script"</strong> -- defines an optional file (e.g.: "file(corn.lua)") containing a "growth_check" function that can be called on reaching each stage of growth to see if we are capable of going on to the next stage. Just create a Lua script that contains a class with a function with this signature <code>growth_check(entity, target_growth_stage, growth_attempts)</code> and that returns a number representing a stage (check the growing component's <code>_grow</code> function to see how this is used). <br/>
-                                    Nowadays no crop in the game makes use of this field, since there are many other places where crop growth can be affected (weather / seasons, town bonuses...) so this option adds micromanagement and it's hard to balance, but it can be used to implement things like soil fertility (producing better crops, adding another resource_pairing), crops that only grow at night, etc.
+                                <li><strong>"growth_check_script"</strong> -- 定义一个可选文件（例如："file(corn.lua)"），其中包含"growth_check"函数，可以在达到每个生长阶段时调用该函数以查看我们是否能够进入下一个阶段。只需创建一个包含具有此签名的函数的类的 Lua 脚本 <code>growth_check(entity, target_growth_stage, growth_attempts)</code> 并返回一个表示阶段的数字（检查 growing 组件的 <code>_grow</code> 函数以了解如何使用）。<br/>
+                                    如今，游戏中没有作物使用此字段，因为有许多其他地方可以影响作物生长（天气/季节、城镇奖励...），因此此选项增加了微管理并且难以平衡，但它可以用于实现诸如土壤肥力（生产更好的作物、添加另一个 resource_pairing）、只在夜间生长的作物等。
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                    <p>  For the "entity_data", we'll leave the <strong>"net_worth"</strong> as is, because this file represents the crop while it's in the farming field (not "buyable" / "sellable"), and the <strong>"value_in_gold"</strong> will count for the agriculture score of our town's net worth, so we'll leave it at 1 (otherwise the net worth might increase too fast, since each crop adds to the score).</p>
-                    <p>  For the catalog, we'll make sure the localization strings for the name and description point to our mod (this is the name and description that will appear on the farmer's crops list when selecting a farm field), and that the material tags include "crop".</p>
+                    <p>对于"entity_data"，我们将保留 <strong>"net_worth"</strong> 不变，因为此文件代表作物在农田中时（不可"购买"/"出售"），并且 <strong>"value_in_gold"</strong> 将计入我们城镇净值的农业分数，因此我们将其保留为 1（否则净值可能会增加得太快，因为每个作物都会增加分数）。</p>
+                    <p>对于目录，我们将确保名称和本地化字符串的描述指向我们的 mod（这是在选择农场田地时出现在农民作物列表中的名称和描述），并且材质标签包括"crop"。</p>
                 </li>
                 <li>
-                    <p>We edit our QB models according to the number of stages we want our crop to have and take a screenshot for the icon, which will be shown in the crops list in the UI.</p>
+                    <p>我们根据希望作物拥有的阶段数量编辑我们的 QB 模型，并为图标截图，该图标将显示在 UI 的作物列表中。</p>
                 </li>
                 <li>
-                    <p>Finally, we add an alias for our crop in our manifest:</p>
+                    <p>最后，我们在清单中为我们的作物添加别名：</p>
                     <pre><code>...
 "aliases": {
    "crops:tomato_crop": "file(entities/crops/tomato_crop)"
@@ -81,90 +81,90 @@
 </code></pre>
                 </li>
             </ol>
-            <h2><a name="FoodContainers"></a>Creating the ripe product</h2>
-            <p>Crops produce different items when they are harvested, based on what is specified in the "resource_pairings" map.</p>
-            <p>Since we're adding a tomato crop in our example, now we'll create its output, a basket of tomatoes.</p>
+            <h2><a name="FoodContainers"></a>创建成熟产物</h2>
+            <p>作物在收获时会根据"resource_pairings"映射中指定的内容生产不同的物品。</p>
+            <p>由于我们在示例中添加的是番茄作物，现在我们将创建其产物，一篮番茄。</p>
             <ol>
                 <li>
-                    <p>We'll copy the turnip food item. All the edibles are inside <code>stonehearth/entities/food</code>.</p>
+                    <p>我们将复制芜菁食物物品。所有可食用物品都在 <code>stonehearth/entities/food</code> 内。</p>
                 </li>
                 <li>
-                    <p>As always, we'll rename the files, edit the QB models and take a screenshot for the icon for the UI.</p>
+                    <p>像往常一样，我们将重命名文件，编辑 QB 模型并为 UI 图标截图。</p>
                 </li>
                 <li>
-                    <p>Let's check the tomato_basket.json file:</p>
+                    <p>让我们检查 tomato_basket.json 文件：</p>
                     <ul>
                         <li>
-                            <p>It has a <strong>mixin</strong> (<code>"mixins": "stonehearth:mixins:food_decay"</code>). The properties inside this mixin will be used by the food_decay service to make the basket rot after some time (and eventually disappear).</p>
+                            <p>它有一个 <strong>mixin</strong>（<code>"mixins": "stonehearth:mixins:food_decay"</code>）。此 mixin 内的属性将被 food_decay 服务使用，使篮子在一段时间后腐烂（并最终消失）。</p>
                         </li>
                         <li>
-                            <p>It has two <strong>model_variants</strong>, one for the normal basket and another one for when the basket rots. Optionally there's a <strong>"mob"</strong> component if we need to adjust the model origin.</p>
+                            <p>它有两个 <strong>model_variants</strong>，一个用于正常篮子，另一个用于篮子腐烂时。如果需要调整模型原点，可以选择性地添加 <strong>"mob"</strong> 组件。</p>
                         </li>
                         <li>
-                            <p>It has a <strong>stacks</strong> component:</p>
+                            <p>它有一个 <strong>stacks</strong> 组件：</p>
                             <pre><code>"stonehearth:stacks": {
    "max_stacks": 10
 }
 </code></pre>
-                            <p>This is how many crops must be put into the basket before it is ready to be carried to a stockpile for consumption. In this case, hearthlings will harvest 10 tomato crops (when possible) before dropping the basket. <br/>
-                                The number of stacks doesn't apply for crafting. In crafting ingredients, it's the quantity of items what matters.
+                            <p>这是在篮子准备好被携带到堆放处供消费之前必须放入篮子的作物数量。在这种情况下，炉民将在放下篮子之前收获 10 个番茄作物（如果可能）。<br/>
+                                堆叠数不适用于制作。在制作原料中，重要的是物品的数量。
                             </p>
                         </li>
                         <li>
-                            <p>In the <strong>entity_data</strong>, we have the <strong>net_worth</strong> data as always, and a neutral <strong>appeal</strong> (0).</p>
+                            <p>在 <strong>entity_data</strong> 中，我们像往常一样有 <strong>net_worth</strong> 数据，以及中性的 <strong>appeal</strong>（0）。</p>
                         </li>
                         <li>
-                            <p>The <strong>catalog</strong> includes <strong>"is_item"</strong>, a <strong>"category"</strong>, many <strong>"material_tags"</strong> so we make sure it is properly tagged and restocked, and an extra key, <strong>"subject_override"</strong>.</p>
-                            <p><a name="SubjectOverrides"></a>This key points to an alias that will be used when hearthlings talk. It will make it so that instead of talking about a basket of tomatoes, they will talk about the tomato crop (a picture of a tomato crop will appear in the thought bubble, instead of a picture of a tomato basket).</p>
-                            <p>We edit the localization keys, the material tags and the subject override to point to our mod.</p>
+                            <p><strong>catalog</strong> 包括 <strong>"is_item"</strong>、一个 <strong>"category"</strong>、许多 <strong>"material_tags"</strong> 以确保正确标记和补货，以及一个额外的键 <strong>"subject_override"</strong>。</p>
+                            <p><a name="SubjectOverrides"></a>此键指向一个将在炉民交谈时使用的别名。它将使他们不是谈论一篮番茄，而是谈论番茄作物（思想气泡中将出现番茄作物的图片，而不是番茄篮子的图片）。</p>
+                            <p>我们编辑本地化键、材质标签和 subject override 以指向我们的 mod。</p>
                         </li>
                         <li>
-                            <p>Then we have the <strong>"stonehearth:food_container"</strong> info, because this item is a food container: </p>
+                            <p>然后我们有 <strong>"stonehearth:food_container"</strong> 信息，因为此物品是一个食物容器：</p>
                             <ul>
-                                <li><strong>"effect"</strong> points to the name of an effect file that will be played when retrieving items from the basket.</li>
-                                <li><strong>"food"</strong> points to the alias of the serving's JSON file (see below).</li>
-                                <li><strong>"stacks_per_serving"</strong> is the number of stacks that will decrease from the basket whenever we get a serving from it to eat. If the remaining stacks are 0 or less, the basket will disappear.</li>
+                                <li><strong>"effect"</strong> 指向从篮子中检索物品时将播放的效果文件的名称。</li>
+                                <li><strong>"food"</strong> 指向 serving 的 JSON 文件的别名（见下文）。</li>
+                                <li><strong>"stacks_per_serving"</strong> 是每当我们从中获取一份食物食用时将从篮子中减少的堆叠数。如果剩余堆叠数为 0 或更少，篮子将消失。</li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p>Finally, don't forget to add an alias for our tomato basket in our manifest:</p>
+                    <p>最后，不要忘记在清单中为我们的番茄篮子添加别名：</p>
                     <pre><code>"aliases": {
    "crops:tomato_crop": "file(entities/crops/tomato_crop)",
    "food:tomato:tomato_basket" : "file(entities/food/tomato/tomato_basket)"
 },
 </code></pre>
-                    <p>  The alias must match what we added for the resource_pairings in our crop's json file.</p>
+                    <p>别名必须与我们在作物 json 文件中为 resource_pairings 添加的内容匹配。</p>
                 </li>
             </ol>
-            <h3><a name="Servings"></a>Creating a serving</h3>
-            <p>Usually, crops produce baskets of food that are then used as serving containers for meals.
-                Any food item that can be eaten (not just a cooking ingredient) must have a serving entity associated with it (defined in the entity_data's "stonehearth:food_container" section).
+            <h3><a name="Servings"></a>创建一份食物</h3>
+            <p>通常，作物生产的食物篮子随后用作餐点的服务容器。
+                任何可以食用的食物物品（不仅仅是烹饪原料）必须有一个与之关联的 serving 实体（在 entity_data 的"stonehearth:food_container"部分中定义）。
             </p>
             <ol>
                 <li>
-                    <p>We already copied the serving files when we copied the <code>stonehearth/entities/food/turnip</code> folder. Now we'll do the usual renaming and editing.</p>
-                    <p>  <a name="DestroyOnUncarry"></a>The tomato_serving.json file doesn't have many properties, these are the new ones that haven't been explained before, under <strong>"entity_data"</strong>:</p>
+                    <p>当我们复制 <code>stonehearth/entities/food/turnip</code> 文件夹时，我们已经复制了 serving 文件。现在我们将进行通常的重命名和编辑。</p>
+                    <p><a name="DestroyOnUncarry"></a>tomato_serving.json 文件没有很多属性，这些是在 <strong>"entity_data"</strong> 下之前未解释过的新属性：</p>
                     <ul>
                         <li>
-                            <strong>"stonehearth:item"</strong> -- this data is used in a couple of places like the inventory controller, resource call handler, and the carry block component. It has a couple of properties:
+                            <strong>"stonehearth:item"</strong> -- 此数据在几个地方使用，如库存控制器、资源调用处理程序和 carry block 组件。它有几个属性：
                             <ul>
-                                <li>The <strong>"category"</strong> field is not really used, since "category" is nowadays part of the catalog data.</li>
-                                <li>The <strong>"destroy_on_uncarry"</strong> flag, which determines that this item will be destroyed if it gets dropped to the ground.</li>
+                                <li><strong>"category"</strong> 字段实际上并未使用，因为"category"现在是目录数据的一部分。</li>
+                                <li><strong>"destroy_on_uncarry"</strong> 标志，确定如果此物品掉落到地面将被销毁。</li>
                             </ul>
                         </li>
                         <li>
-                            <strong>"stonehearth:food"</strong> -- here we have read-only data for the serving:
+                            <strong>"stonehearth:food"</strong> -- 这里我们有 serving 的只读数据：
                             <ul>
-                                <li><strong>"stonehearth:sitting_on_chair"</strong> and <strong>"default"</strong> -- inside them we have a number for the <strong>"satisfaction"</strong>, which is how much the serving will fill the hearthling's stomach (calories) when they're sitting on a chair and when they're sitting on the ground.</li>
-                                <li><strong>"eating_effect"</strong> -- optional field. We can declare a custom effect here (if we don't, hearthlings will use the "eat" effect by default). Useful if we want to define a different animation, for example for drinks.</li>
+                                <li><strong>"stonehearth:sitting_on_chair"</strong> 和 <strong>"default"</strong> -- 在它们内部，我们有一个 <strong>"satisfaction"</strong> 的数字，这是当炉民坐在椅子上和坐在地上时，serving 将填满炉民胃部的程度（卡路里）。</li>
+                                <li><strong>"eating_effect"</strong> -- 可选字段。我们可以在此声明自定义效果（如果我们不这样做，炉民将默认使用"eat"效果）。如果我们想定义不同的动画，例如用于饮料，则很有用。</li>
                             </ul>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p>We add an alias for our serving in our manifest, so that we can use it in the basket's JSON file. Now the aliases section looks like this:</p>
+                    <p>我们在清单中为我们的 serving 添加别名，以便我们可以在篮子的 JSON 文件中使用它。现在 aliases 部分看起来像这样：</p>
                     <pre><code>"aliases": {
    "crops:tomato_crop": "file(entities/crops/tomato_crop)",
    "food:tomato:tomato_basket" : "file(entities/food/tomato/tomato_basket)",
@@ -173,15 +173,15 @@
 </code></pre>
                 </li>
             </ol>
-            <h2><a name="CropsList"></a>Adding our crop to the list of available crops</h2>
+            <h2><a name="CropsList"></a>将我们的作物添加到可用作物列表</h2>
             <ol>
                 <li>
-                    <p>Add a mixinto to the all_crops.json file:</p>
+                    <p>对 all_crops.json 文件添加 mixinto：</p>
                     <pre><code>"mixintos": {
    "stonehearth/services/server/farming/data/all_crops.json" : "file(services/server/farming/data/all_crops.json)"
 }
 </code></pre>
-                    <p>  The mixinto looks like this:</p>
+                    <p>mixinto 看起来像这样：</p>
                     <pre><code>{
    "crops": {
       "tomato": {
@@ -192,16 +192,16 @@
    }
 }
 </code></pre>
-                    <p>  We add the alias of our new crop, an ordinal for the list of crops, and a level requirement for the farmer in order to unlock our crop. In this example we used level requirement of 1 so it will be unlocked by default.</p>
+                    <p>我们添加新作物的别名、作物列表的 ordinal，以及农民解锁我们作物所需的等级要求。在此示例中，我们使用了等级要求 1，因此它将默认解锁。</p>
                 </li>
                 <li>
-                    <p>We add a mixinto to the <code>services/server/farming/data/initial_crops.json</code>:</p>
+                    <p>我们对 <code>services/server/farming/data/initial_crops.json</code> 添加 mixinto：</p>
                     <pre><code>"mixintos": {
    "stonehearth:farmer:all_crops" : "file(services/server/farming/data/all_crops.json)",
    "stonehearth:farmer:initial_crops" : "file(services/server/farming/data/initial_crops.json)"
 }
 </code></pre>
-                    <p>  The mixinto looks like this:</p>
+                    <p>mixinto 看起来像这样：</p>
                     <pre><code>{
    "crops_by_kingdom": {
       "stonehearth:kingdoms:ascendancy": {
@@ -219,44 +219,44 @@
    }
 }
 </code></pre>
-                    <p>  We can add it for any kingdoms we want to, even if players might not have installed the mods that add them. It will be applied when the kingdom is chosen, so here we can decide whether our crop will be in the crop list by default or if that kingdom will have to unlock it with seeds, etc.</p>
-                    <p>  If we don't add this mixinto, we'll have to provide other way for the players to unlock our crop.</p>
+                    <p>我们可以为我们想要的任何王国添加它，即使玩家可能没有安装添加它们的 mod。它将在选择王国时应用，因此在这里我们可以决定我们的作物是否默认在作物列表中，或者该王国是否必须用种子解锁它等。</p>
+                    <p>如果我们不添加此 mixinto，我们将必须提供其他方式让玩家解锁我们的作物。</p>
                 </li>
                 <li>
-                    <p>Finally, let's test that our crop can be planted, that it grows and that it can be correctly harvested (and eaten, if it's an edible crop).</p>
-                    <p>  For faster testing, we can select a hearthling and use the <strong>promote_to farmer</strong> command in the <a href="../../essentials/debugtools/default_console/index.html">default console</a>. </p>
-                    <p>  If we have the <a href="../../essentials/debugtools/debugtools_mod/index.html">debugtools</a> mod enabled, we can also shift+click on the hearthling and click on "Make Hungry" so that they try to eat from our basket. We can also force grow a crop by holding shift and clicking on it, then clicking on "grow".
+                    <p>最后，让我们测试我们的作物是否可以种植，它是否生长，以及是否可以正确收获（如果是可食用作物，还可以食用）。</p>
+                    <p>为了更快的测试，我们可以选择一个炉民并在<a href="../../essentials/debugtools/default_console/index.html">默认控制台</a>中使用 <strong>promote_to farmer</strong> 命令。</p>
+                    <p>如果我们启用了 <a href="../../essentials/debugtools/debugtools_mod/index.html">debugtools</a> mod，我们还可以 shift+点击炉民并点击"Make Hungry"，以便他们尝试从我们的篮子中吃东西。我们还可以通过按住 shift 并点击作物，然后点击"grow"来强制作物生长。
                         <img src="/modding_guide/images/basic/crops/crop_list.png" alt="crop_list"/>
                         <img src="/modding_guide/images/basic/crops/testing_crops.png" alt="testing_crops"/>
                     </p>
                 </li>
             </ol>
-            <h2><a name="UnlockingCrops"></a>Unlocking crops</h2>
-            <p>There are several ways to manually unlock crops when we don't add them to the initial_crops list, although the code used underneath is mostly the same.</p>
+            <h2><a name="UnlockingCrops"></a>解锁作物</h2>
+            <p>当我们不将作物添加到 initial_crops 列表时，有几种方法可以手动解锁作物，尽管底层使用的代码基本相同。</p>
             <ul>
                 <li>
-                    <p>Unlock a crop via an encounter. The example would be the heirloom crop from the Amberstone campaign. It is an encounter of type "script", we unlock the crop in that script. You can reuse it if you need. The code just retrieves the job info controller of the farmer and calls its <code>manually_unlock_crop</code> function:</p>
+                    <p>通过遭遇战解锁作物。示例将是 Amberstone 战役中的传家宝作物。它是一个类型为"script"的遭遇战，我们在该脚本中解锁作物。如果需要，您可以重用它。代码只是检索农民的 job info controller 并调用其 <code>manually_unlock_crop</code> 函数：</p>
                     <pre><code>local farmer_job = stonehearth.job:get_job_info(player_id, "stonehearth:jobs:farmer")
 farmer_job:manually_unlock_crop("crop_id_from_all_crops_list")
 </code></pre>
                 </li>
                 <li>
-                    <p><a name="Seeds"></a>Unlock the crop via a consumable. These consumables have a command in the unit frame to use them. In the case of crop seeds, they will add the crop to the list of crops and the box of seeds will disappear. The code that the command uses to unlock a crop is the same used for the encounter above, but with different parameters since it's a function that's also called for other types of consumables, so it has to share the same name and parameters.</p>
-                    <p>  We can create a box of seeds by copying one from <code>stonehearth/entities/consumables/seeds</code> and modifying the files. In the JSON file of the root entity there's this part in "entity_data" where we can declare the crop to unlock:</p>
+                    <p><a name="Seeds"></a>通过消耗品解锁作物。这些消耗品在单位框架中有一个命令来使用它们。在作物种子的情况下，它们会将作物添加到作物列表中，种子盒将消失。命令用于解锁作物的代码与上述遭遇战使用的代码相同，但参数不同，因为它也是一个为其他类型的消耗品调用的函数，因此它必须共享相同的名称和参数。</p>
+                    <p>我们可以通过从 <code>stonehearth/entities/consumables/seeds</code> 复制一个并修改文件来创建一盒种子。在根实体的 JSON 文件中，"entity_data"中有这部分，我们可以声明要解锁的作物：</p>
                     <pre><code>"stonehearth:consumable": {
    "script": "stonehearth:consumables:scripts:unlock_crop",
    "crop": "tomato"
 }
 </code></pre>
-                    <p>  Then we would give the box of seeds to the player via an encounter, loot, or by making a recipe for them, etc.</p>
-                    <p>  If we want to add them to the possible rewards from the foreign crops trader, we can add a mixinto to <code>stonehearth/data/gm/campaigns/trader/arcs/encounters/returning_crop_trader_encounter.json</code> (this file is a different one in the rayyas_children mod, so we can add another mixinto to it too).</p>
+                    <p>然后我们将通过遭遇战、战利品或为其制作配方等方式将种子盒交给玩家。</p>
+                    <p>如果我们想将它们添加到外国作物商人的可能奖励中，我们可以对 <code>stonehearth/data/gm/campaigns/trader/arcs/encounters/returning_crop_trader_encounter.json</code> 添加 mixinto（此文件在 rayyas_children mod 中是不同的，因此我们也可以对其添加另一个 mixinto）。</p>
                 </li>
                 <li>
-                    <p>Unlock the crop by calling the <code>add_crop_type</code> function in the farming service in a custom Lua script (passing the session and the alias of the crop as arguments). This forceful way of adding crops is not recommended. The game does not use it, it's only used in autotests for quick testing.</p>
+                    <p>通过在自定义 Lua 脚本中调用 farming 服务中的 <code>add_crop_type</code> 函数（传递会话和作物的别名作为参数）来解锁作物。这种强制添加作物的方式不推荐。游戏不使用它，它仅用于自动测试以进行快速测试。</p>
                 </li>
             </ul>
-            <h2><a name="SHED"></a>Creating a crop with SHED</h2>
-            <p>The steps are the same than when cloning any other entity. You'll need to clone the crop, basket and serving entities separately in SHED, and later add the mixinto to the crops list manually.</p>
+            <h2><a name="SHED"></a>使用 SHED 创建作物</h2>
+            <p>步骤与克隆任何其他实体时相同。您需要在 SHED 中分别克隆作物、篮子和 serving 实体，然后手动添加 mixinto 到作物列表。</p>
         </main>
     </body>
 </html>

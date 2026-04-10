@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,64 +7,64 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Adding equipment</title>
+        <title>添加装备</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Adding equipment</h1>
-            <p>For how to create your own combat job, refer to this <a href="../../intermediate/jobs/combat_jobs/index.html">section of the guide</a>.</p>
+            <h1>添加装备</h1>
+            <p>有关如何创建您自己的战斗职业，请参阅本指南的<a href="../../intermediate/jobs/combat_jobs/index.html">这一部分</a>。</p>
             <ul>
                 <li>
-                    <a href="#EquipmentPieces">About equipment pieces</a>
+                    <a href="#EquipmentPieces">关于装备部件</a>
                     <ul>
-                        <li><a href="#AddingGear">General steps for adding outfits and gear</a></li>
+                        <li><a href="#AddingGear">添加服装和装备的一般步骤</a></li>
                     </ul>
                 </li>
-                <li><a href="armor/index.html">Creating armor and outfits</a></li>
-                <li><a href="weapons/index.html">Creating weapons</a></li>
-                <li><a href="#Buffs">Injecting buffs</a></li>
-                <li><a href="#Commands">Injecting commands</a></li>
-                <li><a href="#AI">Injecting AI</a></li>
-                <li><a href="#Lua">Equipping items in Lua</a></li>
-                <li><a href="#SHED">Using SHED</a></li>
+                <li><a href="armor/index.html">创建护甲和服装</a></li>
+                <li><a href="weapons/index.html">创建武器</a></li>
+                <li><a href="#Buffs">注入增益效果</a></li>
+                <li><a href="#Commands">注入命令</a></li>
+                <li><a href="#AI">注入 AI</a></li>
+                <li><a href="#Lua">在 Lua 中装备物品</a></li>
+                <li><a href="#SHED">使用 SHED</a></li>
             </ul>
-            <h2><a name="EquipmentPieces"></a>About equipment pieces</h2>
-            <p>We can create many types of wearables, such as armor, helmets, outfits, swords, shields, bows, etc. To control them, we have the <strong>equipment</strong> component in the entities that wear them. And each of these wearable items has the <strong>equipment_piece</strong> component. There are certain equipment pieces that are actually invisible, such as the collars we use to designate that an animal is a pet, some of the job abilities, or the weapons that wolves use.</p>
-            <p>With the equipment_piece component we not only can make an item be equipped by a hearthling (or any other living creature), but also inject buffs and AI actions that will activate once the item is equipped.</p>
-            <p>In order for entities to be able to wear items, they need to have</p>
+            <h2><a name="EquipmentPieces"></a>关于装备部件</h2>
+            <p>我们可以创建许多类型的可穿戴物品，例如护甲、头盔、服装、剑、盾牌、弓等。为了控制它们，我们在穿戴它们的实体上拥有 <strong>equipment</strong> 组件。而这些可穿戴物品中的每一个都有 <strong>equipment_piece</strong> 组件。某些装备部件实际上是隐形的，例如我们用于指定动物为宠物的项圈、一些职业能力，或狼使用的武器。</p>
+            <p>通过 equipment_piece 组件，我们不仅可以让炉民（或任何其他生物）装备物品，还可以注入一旦装备该物品就会激活的增益效果和 AI 动作。</p>
+            <p>为了使实体能够穿戴物品，它们需要在它们的组件中具有</p>
             <pre><code>  "stonehearth:equipment": {}
 </code></pre>
-            <p>in their components (for hearthlings it is added in the <code>base_human.json</code> mixin). They also need to have the <code>upgrade_equipment</code> AI pack to be able to find the wearables and equip them (see the entity_data of base_human.json).</p>
-            <h3><a name="AddingGear"></a>General steps for adding outfits and gear</h3>
+            <p>（对于炉民，这是在 <code>base_human.json</code> mixin 中添加的）。它们还需要具有 <code>upgrade_equipment</code> AI 包才能找到并装备可穿戴物品（参见 base_human.json 的 entity_data）。</p>
+            <h3><a name="AddingGear"></a>添加服装和装备的一般步骤</h3>
             <ol>
                 <li>
-                    <p>Think which jobs are going to be able to equip the item, and optionally the level they must be in order to equip it.</p>
+                    <p>考虑哪些职业将能够装备该物品，以及可选地，他们必须达到的等级才能装备它。</p>
                 </li>
                 <li>
-                    <p>Copy an existing equipment piece from the stonehearth mod, do the usual renaming of files and create the QB model for your item.</p>
+                    <p>从 stonehearth mod 复制现有的装备部件，执行通常的文件重命名操作，并为您的物品创建 QB 模型。</p>
                 </li>
                 <li>
-                    <p>Edit the JSON files of your item. These are the most common properties inside the <strong>"stonehearth:equipment_piece"</strong> component:</p>
+                    <p>编辑物品的 JSON 文件。以下是 <strong>"stonehearth:equipment_piece"</strong> 组件中最常见的属性：</p>
                     <ul>
                         <li>
-                            <p><strong>"slot"</strong> -- this is where do we want to attach / merge our equipment. They work like the equipment slots from any other games. Its value is a string.</p>
-                            <p>These are the slots used by the equipment pieces from the stonehearth mod:</p>
+                            <p><strong>"slot"</strong> -- 这是我们想要附加/合并装备的位置。它们的工作方式类似于其他游戏中的装备槽。其值是一个字符串。</p>
+                            <p>以下是 stonehearth mod 中装备部件使用的槽位：</p>
                             <pre><code>"helmet" / "torso" / "mainhand" / "offhand" / "leftArm" / "accessory"
 </code></pre>
-                            <p>Using them will guarantee that they can be replaced by newer/better items that are also for those slots (careful with the uppercase in "leftArm", it must be written exactly like that).</p>
-                            <p>Some equipment pieces don't have this property, for example if they're just used to inject buffs, commands or AI actions; in that case they get automatically named as "no_slot_N" internally.</p>
-                            <p>Equipped items will be shown in the Equipment tab of the character sheet in the UI, as long as they have a render_type.</p>
+                            <p>使用它们将保证它们可以被同样用于这些槽位的更新/更好的物品替换（注意"leftArm"中的大写，必须完全那样书写）。</p>
+                            <p>某些装备部件没有此属性，例如如果它们仅用于注入增益效果、命令或 AI 动作；在这种情况下，它们在内部会自动命名为"no_slot_N"。</p>
+                            <p>只要它们具有 render_type，装备的物品就会显示在 UI 中角色表的 Equipment 选项卡中。</p>
                         </li>
                         <li>
-                            <p><strong>"render_type"</strong> -- there are two possible values:</p>
+                            <p><strong>"render_type"</strong> -- 有两个可能的值：</p>
                             <ul>
                                 <li>
-                                    <p>If the "render_type" is <strong>"merge_with_model"</strong>, the item will be merged with the parts of the hearthling regardless of the slot we used, as long as the matrices/layers of its QB model <a href="../art/modeling/index.html#LayerNames">are named the same</a> as the hearthling's bones that they try to replace. This is normally used for armor, together with transparency options in the model variants.</p>
+                                    <p>如果"render_type"是 <strong>"merge_with_model"</strong>，无论我们使用哪个槽位，物品都将与炉民的部分合并，只要其 QB 模型的矩阵/层<a href="../art/modeling/index.html#LayerNames">命名相同</a>于它们试图替换的炉民骨骼。这通常用于护甲，结合模型变体中的透明度选项。</p>
                                 </li>
                                 <li>
-                                    <p>If the "render_type" is <strong>"attach_to_bone"</strong>, it will get attached to the bone declared in the "slot" property, regardless of the matrices/layers names (so usually weapons only have one layer in their QB model).</p>
-                                    <p>This bone MUST be mapped to the slot in <code>stonehearth/data/constants.json</code>. Right now, we only use "mainHand", "offHand" and "leftArm" with this render type, but if you want to attach an entity to any other bone, you must make a mixinto for constants.json. For example:</p>
+                                    <p>如果"render_type"是 <strong>"attach_to_bone"</strong>，它将附加到"slot"属性中声明的骨骼上，无论矩阵/层名称如何（因此通常武器在其 QB 模型中只有一层）。</p>
+                                    <p>此骨骼必须在 <code>stonehearth/data/constants.json</code> 中映射到槽位。目前，我们仅将此渲染类型用于"mainHand"、"offHand"和"leftArm"，但如果您想将实体附加到任何其他骨骼，您必须为 constants.json 制作 mixinto。例如：</p>
                                     <pre><code>{
    "constants": {
       "equipment": {
@@ -75,54 +75,54 @@
    }
 }
 </code></pre>
-                                    <p>The default bones are defined in the skeleton files (in the <code>stonehearth/data/rigs</code> subfolders). For the male hearthling, this file is <code>stonehearth/data/rigs/entities/humans/skeletons/male.json</code>.</p>
+                                    <p>默认骨骼在骨架文件中定义（在 <code>stonehearth/data/rigs</code> 子文件夹中）。对于男性炉民，此文件是 <code>stonehearth/data/rigs/entities/humans/skeletons/male.json</code>。</p>
                                     <ul>
                                         <li>
-                                            <p>The bones named "ATTOVERCOG", "bodyPosition" and "root" have their own purpose, so avoid using them for equipment pieces.</p>
+                                            <p>名为"ATTOVERCOG"、"bodyPosition"和"root"的骨骼有其自己的用途，因此避免将它们用于装备部件。</p>
                                         </li>
                                         <li>
-                                            <p>The bones named "carry", "mainHand" and "offHand" are helper bones that don't match any matrix name from the hearthling model, and are used to attach items to them in certain animations.</p>
+                                            <p>名为"carry"、"mainHand"和"offHand"的骨骼是不匹配炉民模型中任何矩阵名称的帮助骨骼，用于在某些动画中将物品附加到它们上面。</p>
                                         </li>
                                     </ul>
-                                    <p>We can also create new slots for already mapped bones in the "SLOT_TO_BONE_MAP", so that we can equip more than one item in that part of the hearthling model. Any slots added there will also appear in the Equipment tab of the character sheet.</p>
-                                    <p>These new slots are meant to be used with the "attach_to_bone" render type, since "merge_with_model" will only care about the model layers names.</p>
+                                    <p>我们还可以在"SLOT_TO_BONE_MAP"中为已映射的骨骼创建新槽位，以便我们可以在炉民模型的那部分装备多个物品。那里添加的任何槽位也将出现在角色表的 Equipment 选项卡中。</p>
+                                    <p>这些新槽位旨在与"attach_to_bone"渲染类型一起使用，因为"merge_with_model"只关心模型层名称。</p>
                                 </li>
                                 <li>
-                                    <p>You may also use <strong>"none"</strong> as a value for this property if the equipment piece doesn't have a model / isn't meant to be rendered, or just don't include it in the JSON.</p>
+                                    <p>如果装备部件没有模型/不打算渲染，您也可以对此属性使用 <strong>"none"</strong> 作为值，或者干脆不在 JSON 中包含它。</p>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <p><strong>"ilevel"</strong> -- this is an arbitrary number that works in conjunction with the slots. The hearthlings will automatically equip items that have higher ilevel than the ones they have already equipped for the corresponding slot.</p>
-                            <p>This property is also optional, for example the job outfits are automatically equipped so they don't need an ilevel, or any item that is meant to be equipped from a Lua script, rather than automatically by the AI.</p>
+                            <p><strong>"ilevel"</strong> -- 这是一个与槽位结合使用的任意数字。炉民将自动装备具有比他们已经装备的相应槽位物品更高 ilevel 的物品。</p>
+                            <p>此属性也是可选的，例如职业服装是自动装备的，因此它们不需要 ilevel，或者任何意在从 Lua 脚本而不是由 AI 自动装备的物品。</p>
                         </li>
                         <li>
-                            <p><strong>"roles"</strong> -- a string of roles separated by spaces OR an array of strings (which is better for mod compatibility).</p>
-                            <p>Only hearthlings whose job's description JSON file has one or more of these roles will be able to equip this item (their job icon will appear in the unit frame when we select the item, as well as in the crafting recipe if we make one). So we have to make sure that this property is correctly setup, otherwise nobody will equip the item.</p>
-                            <p>Similarly to the "ilevel" property, the roles are optional if we intend to equip this item manually.</p>
+                            <p><strong>"roles"</strong> -- 以空格分隔的角色字符串或字符串数组（后者更有利于 mod 兼容性）。</p>
+                            <p>只有其职业描述 JSON 文件中具有这些角色之一或多个的炉民才能装备此物品（当我们选择物品时，他们的职业图标将出现在单位框架中，以及如果我们制作制作配方时也会出现）。因此，我们必须确保正确设置此属性，否则没有人会装备该物品。</p>
+                            <p>与"ilevel"属性类似，如果我们打算手动装备此物品，则角色是可选的。</p>
                         </li>
                         <li>
-                            <p><strong>"required_job_level"</strong> -- if we set up the "roles" property, we can optionally require a level in the jobs that fulfill those roles in order to be able to equip this item. Workers can't level up in the vanilla game, so we wouldn't use this property in outfits for them, for example.</p>
-                            <p>Don't confuse this required level with the "ilevel" property nor with the level required to craft this item, they are different things.</p>
+                            <p><strong>"required_job_level"</strong> -- 如果我们设置了"roles"属性，我们可以选择要求满足这些角色的职业达到一定等级才能装备此物品。工人在原版游戏中无法升级，因此例如我们不会在工人的服装中使用此属性。</p>
+                            <p>不要将此所需等级与"ilevel"属性或制作此物品所需的等级混淆，它们是不同的东西。</p>
                         </li>
                         <li>
-                            <p><strong>"equip_effect"</strong> -- URI of the effect that we want to play when the item is being equipped. Make sure the effect is not looped, otherwise it will never finish. This field is also optional.</p>
+                            <p><strong>"equip_effect"</strong> -- 我们想要在装备物品时播放的效果的 URI。确保效果不是循环的，否则它将永远不会完成。此字段也是可选的。</p>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p>Create any other optional files that you need (for example, for injecting custom <a href="#Buffs">buffs</a>, custom <a href="#Commands">commands</a>, custom <a href="#AI">AI</a>).</p>
+                    <p>创建您需要的任何其他可选文件（例如，用于注入自定义<a href="#Buffs">增益效果</a>、自定义<a href="#Commands">命令</a>、自定义<a href="#AI">AI</a>）。</p>
                 </li>
                 <li>
-                    <p>Make the item obtainable in the game (e.g.: through a <a href="../craftables/index.html">recipe</a>, <a href="../misc_json/index.html#LootTables">loot</a>, etc).</p>
+                    <p>使物品在游戏中可获得（例如：通过<a href="../craftables/index.html">配方</a>、<a href="../misc_json/index.html#LootTables">战利品</a>等）。</p>
                 </li>
                 <li>
-                    <p>Test that the item can be obtained, restocked, equipped, that it applies whatever abilities / buffs you added to it, as well as that they get removed when the item is unequipped.</p>
+                    <p>测试物品是否可以获得、补货、装备，是否应用了您添加到其中的任何能力/增益效果，以及在卸下物品时它们是否被移除。</p>
                 </li>
             </ol>
-            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Note that for equipment, if you add a <a href="../color_maps/index.html">color map</a> to it in order to make it glow or the like, it won't be correctly applied if it's setup as "merge_with_model". In order to fix this, apply the color map to the base_human.json mixin through a mixinto.</p>
-            <h2><a name="Buffs"></a>Injecting buffs</h2>
-            <p>Injecting buffs, commands and AI is done through arrays inside the "stonehearth:equipment_piece" component:</p>
+            <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，对于装备，如果您向其添加<a href="../color_maps/index.html">颜色映射</a>以使其发光或类似效果，如果设置为"merge_with_model"，它将不会被正确应用。为了解决这个问题，请通过 mixinto 将颜色映射应用到 base_human.json mixin。</p>
+            <h2><a name="Buffs"></a>注入增益效果</h2>
+            <p>注入增益效果、命令和 AI 是通过"stonehearth:equipment_piece"组件内的数组完成的：</p>
             <pre><code>  "stonehearth:equipment_piece": {
      "render_type": "merge_with_model",
      "slot": "torso",
@@ -135,19 +135,19 @@
      ]
   }
 </code></pre>
-            <p>Here we add an <strong>"injected_buffs"</strong> array that contains aliases of buffs.</p>
-            <p>The "stonehearth:buffs:devoted" is a permanent buff used in <code>stonehearth/jobs/worker/mixins/worker_outfit_2.json</code> and in other outfits of the game.</p>
-            <p>You can find most of the existing buffs inside <code>stonehearth/data/buffs</code>.</p>
-            <h2><a name="Commands"></a>Injecting commands</h2>
-            <p>Let's check <code>stonehearth/entities/critters/collars/pet_collar.json</code>. This is an equipment piece that we equip to a critter when we convert it to a pet.</p>
-            <p>Inside of the "stonehearth:equipment_piece" component, we have the <strong>"injected_commands"</strong> array:</p>
+            <p>在这里，我们添加了一个包含增益效果别名的 <strong>"injected_buffs"</strong> 数组。</p>
+            <p>"stonehearth:buffs:devoted"是一个永久增益效果，用于 <code>stonehearth/jobs/worker/mixins/worker_outfit_2.json</code> 和游戏中的其他服装中。</p>
+            <p>您可以在 <code>stonehearth/data/buffs</code> 中找到大多数现有增益效果。</p>
+            <h2><a name="Commands"></a>注入命令</h2>
+            <p>让我们检查 <code>stonehearth/entities/critters/collars/pet_collar.json</code>。这是我们在将小动物转换为宠物时装备给它的装备部件。</p>
+            <p>在"stonehearth:equipment_piece"组件内部，我们有 <strong>"injected_commands"</strong> 数组：</p>
             <pre><code>  "injected_commands": [
      "stonehearth:commands:release_pet"
   ]
 </code></pre>
-            <p>When this item is equipped, it will inject the release_pet command to the critter. Existing commands can be found in <code>stonehearth/data/commands</code>.</p>
-            <h2><a name="AI"></a>Injecting AI</h2>
-            <p>Again, we can see an example in the "stonehearth:equipment_piece" component of <code>pet_collar.json</code>:</p>
+            <p>当此物品被装备时，它将向小动物注入 release_pet 命令。现有命令可以在 <code>stonehearth/data/commands</code> 中找到。</p>
+            <h2><a name="AI"></a>注入 AI</h2>
+            <p>同样，我们可以在 <code>pet_collar.json</code> 的"stonehearth:equipment_piece"组件中看到一个示例：</p>
             <pre><code>  "injected_ai": {
      "actions": [
         "stonehearth:actions:sit_on_ground",
@@ -184,13 +184,13 @@
      ]
   }
 </code></pre>
-            <p>These AI packs, AI actions, observers and components will be injected when the critter equips the collar, and will be removed when we release the pet.</p>
-            <p>With this, we can make the same enemies have different abilities. It is also used for adding the different job abilities when we promote someone to a specific class.</p>
-            <p><a name="Score"></a>If the job should add to the military score, you can add this inside the equipment component of an equipment piece that has no slot (so that it will only get removed on demotion). Example from <code>cleric_abilities.json</code>:</p>
+            <p>当小动物装备项圈时，这些 AI 包、AI 动作、观察者和组件将被注入，并在我们释放宠物时被移除。</p>
+            <p>通过这种方式，我们可以使相同的敌人具有不同的能力。它也用于在将某人晋升为特定职业时添加不同的职业能力。</p>
+            <p><a name="Score"></a>如果职业应该增加军事分数，您可以在没有槽位的装备部件的装备组件内添加此项（以便它仅在降职时被移除）。来自 <code>cleric_abilities.json</code> 的示例：</p>
             <pre><code>  "military_score": 10
 </code></pre>
-            <h2><a name="Lua"></a>Equipping items in Lua</h2>
-            <p>We can also equip / unequip items in Lua (example from <code>pet_component.lua</code>):</p>
+            <h2><a name="Lua"></a>在 Lua 中装备物品</h2>
+            <p>我们也可以在 Lua 中装备/卸下物品（来自 <code>pet_component.lua</code> 的示例）：</p>
             <pre><code>  local pet_collar = radiant.entities.create_entity('stonehearth:pet_collar')
   local equipment = self._entity:add_component('stonehearth:equipment')
   equipment:equip_item(pet_collar)
@@ -200,10 +200,10 @@
      local outfit = equipment:unequip_item('stonehearth:pet_collar')
   end
 </code></pre>
-            <p>When creating JSON files for raid encounters and the like, it is possible to declare the equipment that we want the enemies to have using tuning files (which are also in JSON), so we don't need to create a custom script for that.</p>
-            <h2><a name="SHED"></a>Using SHED</h2>
-            <p>For creating wearables in SHED the steps are the same than for creating other types of <a href="../adding_items/cloning_with_shed/index.html">items</a>.</p>
-            <p>In the Entity Stats Browser, there are tabs for Weapons and Defensive Items, you can compare their stats and iLevel there more easily.</p>
+            <p>在为袭击遭遇战等创建 JSON 文件时，可以使用调整文件（也是 JSON）声明我们希望敌人拥有的装备，因此我们不需要为此创建自定义脚本。</p>
+            <h2><a name="SHED"></a>使用 SHED</h2>
+            <p>在 SHED 中创建可穿戴物品的步骤与创建其他类型的<a href="../adding_items/cloning_with_shed/index.html">物品</a>相同。</p>
+            <p>在 Entity Stats Browser 中，有 Weapons 和 Defensive Items 选项卡，您可以更容易地比较它们的统计数据和 iLevel。</p>
         </main>
     </body>
 </html>

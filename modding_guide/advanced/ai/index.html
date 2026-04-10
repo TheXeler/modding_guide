@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,86 +7,80 @@
 		<link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
 		<link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
 		<link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-		<title>AI actions</title>
+		<title>AI 动作</title>
 	</head>
 	<body>
 		<script src="/modding_guide/menus.js"></script>
 		<main>
-			<h1>AI actions</h1>
-			<p>You can find all the information from this page in this <a href="/modding_guide/files/AI.pdf">PDF</a>.</p>
-			<p>There's also the old notes about AI in this other <a href="/modding_guide/files/Stonehearth_AI_old_notes.pdf">PDF</a>. They're still mostly valid, and might help you understand how the AI works with a practical/visual example.</p>
+			<h1>AI 动作</h1>
+			<p>您可以在此 <a href="/modding_guide/files/AI.pdf">PDF</a> 中找到本页的所有信息。</p>
+			<p>还有另一份关于 AI 的旧笔记 <a href="/modding_guide/files/Stonehearth_AI_old_notes.pdf">PDF</a>。它们仍然大部分有效，并且可能通过实际/可视化示例帮助您理解 AI 的工作原理。</p>
 			<ul>
-				<li><a href="#Overview">Overview of the AI system</a></li>
+				<li><a href="#Overview">AI 系统概述</a></li>
 				<li>
-					<a href="#WritingActions">Writing actions</a>
+					<a href="#WritingActions">编写动作</a>
 					<ul>
-						<li><a href="#LeafAction">Leaf action example</a></li>
-						<li><a href="#CompoundAction">Compound action example</a></li>
-						<li><a href="#TaskGroup">Task group example</a></li>
+						<li><a href="#LeafAction">叶子动作示例</a></li>
+						<li><a href="#CompoundAction">复合动作示例</a></li>
+						<li><a href="#TaskGroup">任务组示例</a></li>
 					</ul>
 				</li>
-				<li><a href="#AIContexts">AI contexts</a></li>
-				<li><a href="#Utility">Utility</a></li>
-				<li><a href="#InjectingActions">Injecting actions</a></li>
+				<li><a href="#AIContexts">AI 上下文</a></li>
+				<li><a href="#Utility">效用值</a></li>
+				<li><a href="#InjectingActions">注入动作</a></li>
 				<li>
-					<a href="#Tasks">Tasks</a>
+					<a href="#Tasks">任务</a>
 					<ul>
-						<li><a href="#PersonalTaskGroups">Personal task groups</a></li>
-						<li><a href="#TownTaskGroups">Town task groups</a></li>
-						<li><a href="#AdHocTaskGroups">Ad hoc task groups</a></li>
-						<li><a href="#IssuingTasks">Issuing tasks</a></li>
+						<li><a href="#PersonalTaskGroups">个人任务组</a></li>
+						<li><a href="#TownTaskGroups">城镇任务组</a></li>
+						<li><a href="#AdHocTaskGroups">临时任务组</a></li>
+						<li><a href="#IssuingTasks">发布任务</a></li>
 					</ul>
 				</li>
-				<li><a href="#Persistence">Persistence</a></li>
+				<li><a href="#Persistence">持久化</a></li>
 			</ul>
-			<h2><a name="Overview"></a>Overview of the AI system</h2>
-			<p>Intelligent entities in Stonehearth run a <a href="https://en.wikipedia.org/wiki/Hierarchical_task_network">hierarchical task network</a> to perform activities by making, comparing, and executing plans made up of actions. Many potential plans are typically being considered at a time, most of which are not ready to execute, or are suboptimal, and the AI constantly selects the one best plan to execute at any given time.</p>
-			<p>Let's unpack that formal definition and map it to the terms used in the implementation:</p>
+			<h2><a name="Overview"></a>AI 系统概述</h2>
+			<p>Stonehearth 中的智能实体运行<a href="https://en.wikipedia.org/wiki/Hierarchical_task_network">分层任务网络</a>，通过制定、比较和执行由动作组成的计划来执行活动。通常会同时考虑许多潜在的计划，其中大多数尚未准备好执行或不是最优的，AI 会不断选择在任何给定时间执行的最佳计划。</p>
+			<p>让我们 unpack 这个正式定义并将其映射到实现中使用的术语：</p>
 			<ul>
 				<li>
-					<p><strong>Intelligent entity</strong> -- An entity that has a <strong>stonehearth:ai</strong> component. This component runs a Lua thread (a coroutine managed by the thread class), which continuously evaluates a tree of plans and executes a branch of it. Intelligent entities include hearthlings, enemy mobs, pets, critters, and even turrets, although the rest of this page uses "character" to refer to any of these entities.</p>
+					<p><strong>智能实体</strong> -- 具有 <strong>stonehearth:ai</strong> 组件的实体。此组件运行一个 Lua 线程（由线程类管理的协程），它持续评估计划树并执行其中的一个分支。智能实体包括炉民、敌对生物、宠物、小动物，甚至炮塔，尽管本页面其余部分使用"角色"来指代这些实体中的任何一个。</p>
 				</li>
 				<li>
-					<p><strong>Activity</strong> -- A behavior that can have multiple implementations. For example, if "get food" is an activity, "get food from stockpile", "get food from backpack", and "hunt wild animal" may all be implementations of the "get food" activity. Activities are represented as strings, conventionally in the form <code>mod_name:verb</code>, e.g. <code>stonehearth:get_food</code>. A not-necessarily-up-to-date list of activities can be found in <code>stonehearth/ai/activities.lua</code>. An activity can take arguments. E.g. the <code>stonehearth:find_path_to_entity</code> activity takes the entity to path to as an argument. At its core, all the AI component does is to continuously try to perform the <code>stonehearth:top</code> activity.</p>
+					<p><strong>活动</strong> -- 可以有多种实现的行为。例如，如果"获取食物"是一项活动，"从库存区获取食物"、"从背包获取食物"和"狩猎野生动物"都可能是"获取食物"活动的实现。活动表示为字符串，通常采用 <code>mod_name:verb</code> 的形式，例如 <code>stonehearth:get_food</code>。可以在 <code>stonehearth/ai/activities.lua</code> 中找到不一定最新的活动列表。活动可以接受参数。例如，<code>stonehearth:find_path_to_entity</code> 活动将要寻路的实体作为参数。核心来说，AI 组件所做的就是不断尝试执行 <code>stonehearth:top</code> 活动。</p>
 				</li>
 				<li>
-					<p><strong>Action</strong> -- A specific implementation of an activity. In the code we express this by saying that the action "does" the given activity string. An action is responsible for telling the AI system (1) its "utility", i.e. how good it is, (2) how to "think" it, i.e. decide whether it is
-						ready to be executed and what relevant state it expects to change if executed, (3) and how to "run" it, i.e. actually execute it in real time. There are several types of actions:
-					</p>
+					<p><strong>动作</strong> -- 活动的特定实现。在代码中，我们通过说动作"执行"给定的活动字符串来表达这一点。动作负责告诉 AI 系统 (1) 其"效用值"，即它有多好，(2) 如何"思考"它，即决定它是否准备好执行以及如果执行它期望改变哪些相关状态，(3) 以及如何"运行"它，即实际实时执行它。有几种类型的动作：</p>
 					<ul>
-						<li><strong>Leaf action</strong> -- The simplest type of action. A Lua file that has a <code>run()</code> method that executes the action's logic. E.g. <code>heal_entity_adjacent_action</code>.</li>
-						<li><strong>Compound action</strong> -- An action that is composed of a list of steps, each of which is an activity with optional argument bindings. Executing a compound action involves finding a valid action that performs each step's activity and executing all these actions in order. E.g. <code>heal_self_action</code> consists of (1) getting a healing item (a <code>stonehearth:goto_item_made_of</code> activity with a material argument set to <code>"healing_item"</code>), (2) reserving that item so other characters don't grab it (a <code>stonehearth:reserve_entity</code> activity with the item selected in the previous step passed as an argument), and finally (3) self-healing with that item (a <code>stonehearth:heal_entity_adjacent</code> activity with the entity itself as the target and the item reserved in the previous step as the item to apply).</li>
-						<li><strong>Task group action</strong> -- An action that runs one of a list of declared tasks (activities). Systems outside the AI control which of these tasks are active at a given time, and task groups allow these systems to ask multiple characters to perform some action. This is the only place where different activities compete with each other, so the task group declaration allows you to remap their utility values or ranges. E.g. <code>farming_task_group</code> involves tilling (<code>stonehearth:till_entire_field</code>), planting (<code>stonehearth:plant_crop</code>), or harvesting (<code>stonehearth:harvest_field</code>), and specifies how these three activities compete against each other in terms of utility (see "comparing plans" below).</li>
-						<li><strong>Task action</strong> -- An action which runs each task instance in a task group. This is an implementation detail, and there's only one <code>TaskAction</code> class, so it can mostly be ignored.</li>
+						<li><strong>叶子动作</strong> -- 最简单的动作类型。一个具有执行动作逻辑的 <code>run()</code> 方法的 Lua 文件。例如 <code>heal_entity_adjacent_action</code>。</li>
+						<li><strong>复合动作</strong> -- 由步骤列表组成的动作，每个步骤都是具有可选参数绑定的活动。执行复合动作涉及找到执行每个步骤活动的有效动作并按顺序执行所有这些动作。例如，<code>heal_self_action</code> 包括 (1) 获取治疗物品（一个 <code>stonehearth:goto_item_made_of</code> 活动，材料参数设置为 <code>"healing_item"</code>），(2) 保留该物品以便其他角色不会拿走它（一个 <code>stonehearth:reserve_entity</code> 活动，将上一步选择的物品作为参数传递），最后 (3) 使用该物品自我治疗（一个 <code>stonehearth:heal_entity_adjacent</code> 活动，将实体本身作为目标，将上一步保留的物品作为要应用的物品）。</li>
+						<li><strong>任务组动作</strong> -- 运行声明的任务（活动）列表之一的动作。AI 控制之外的系统决定在给定时间哪些任务处于活动状态，任务组允许这些系统要求多个角色执行某些操作。这是不同活动相互竞争的唯一地方，因此任务组声明允许您重新映射它们的效用值或范围。例如，<code>farming_task_group</code> 涉及耕作（<code>stonehearth:till_entire_field</code>）、种植（<code>stonehearth:plant_crop</code>）或收获（<code>stonehearth:harvest_field</code>），并指定这三种活动在效用方面如何相互竞争（参见下面的"比较计划"）。</li>
+						<li><strong>任务动作</strong> -- 运行任务组中每个任务实例的动作。这是一个实现细节，只有一个 <code>TaskAction</code> 类，因此基本上可以忽略它。</li>
 					</ul>
-					<p>  Character behavior is generally configured by the set of actions that they "know", specified through "AI packs", described in more detail <a href="#InjectingActions">later in this guide</a>.</p>
+					<p>角色行为通常由他们"知道"的动作集配置，通过"AI 包"指定，在本指南的<a href="#InjectingActions">后面部分</a>中有更详细的描述。</p>
 				</li>
 				<li>
-					<p><strong>Making plans</strong> -- Deciding whether an action is ready to run. This is called "thinking" in the code. When the AI component wants to perform an activity, it asks all the actions that implement that activity to start thinking. Each action can then (often asynchronously) decide when it is ready to run, and provide "think output" that can be used as input to later steps if this action is performing a part of a sequence (i.e. it's performing a step in a compound action). E.g. <code>find_path_to_entity</code> starts an asynchronous pathfinder and when a valid path is found, declares that it's ready with the path as its think output; this path is often passed as an argument to a subsequent <code>follow_path</code> activity). For compound actions, which consist of multiple steps, each of the steps is "think"ed in order, and all of them have to declare themselves ready before the compound action itself is
-						considered ready. It is important to note that actions are not rethinked unless the branch they are in has finished executing (or got aborted), so action writers should not rely on thinking being restarted at any guaranteed time and if the action's validity should change in response to world state, the action should listen to events while thinking and adjust its validity in response.
-					</p>
+					<p><strong>制定计划</strong> -- 决定动作是否准备好运行。这在代码中称为"思考"。当 AI 组件想要执行活动时，它会询问所有实现该活动的动作开始思考。然后，每个动作可以（通常是异步地）决定何时准备好运行，并提供"思考输出"，如果此动作正在执行序列的一部分（即它正在执行复合动作中的一个步骤），则可以将其用作后续步骤的输入。例如，<code>find_path_to_entity</code> 启动异步寻路器，当找到有效路径时，声明它已准备好并将路径作为其思考输出；此路径通常作为参数传递给后续的 <code>follow_path</code> 活动）。对于由多个步骤组成的复合动作，每个步骤按顺序"思考"，并且所有步骤都必须声明自己准备好后，复合动作本身才被视为准备好。重要的是要注意，除非它们所在的分支已完成执行（或被中止），否则不会重新思考动作，因此动作编写者不应依赖于保证在任何时间重新启动思考，如果动作的有效性应响应世界状态而变化，动作应在思考时监听事件并相应调整其有效性。</p>
 				</li>
 				<li>
-					<p><strong>Comparing plans</strong> -- Selecting an action to perform an activity from all the available actions. Actions tell the AI system how good they are by announcing their <a href="#Utility">"utility"</a>. This can either be a static value that is always the same for all instances of the action, or it can be a range, and the action instance specifies where it is within that range while thinking or running. Note that the selection happens locally for each activity that has more than one implementation, and it happens instantly. All implementations of an activity start thinking at the same time, and do so concurrently (well, asynchronously), and whenever an action becomes ready, if its utility is higher than the currently selected "best" action for the activity, it replaces that action. If an action has been running, its utility gets a "sunk cost" boost to reduce interruptions, but if it's still lower than the newly-ready action, it gets interrupted and the new action starts.</p>
-					<p>  For example, <code>healing_task_group</code> performs the <code>stonehearth:work</code> activity and has a constant utility of 0.87; <code>crafting_task_group</code> also performs
-						the <code>stonehearth:work</code> activity but has a constant utility of 0.81, because we want healing to be prioritized over crafting. So when a herbalist decides to work, they will start thinking about both healing (by looking for hurt citizens) and crafting (by looking at any available herbalist crafting tasks). If they start crafting but later find a hurt citizen, they will interrupt the crafting task group action, and instead start performing the healing task group.
-					</p>
+					<p><strong>比较计划</strong> -- 从所有可用动作中选择要执行活动的动作。动作通过宣布其<a href="#Utility">"效用值"</a>告诉 AI 系统它们有多好。这可以是一个对所有动作实例始终相同的静态值，也可以是一个范围，动作实例在思考或运行时指定它在该范围内的位置。请注意，选择是针对每个有多个实现的活动本地发生的，并且是即时发生的。活动的所有实现同时开始思考，并并发地进行（嗯，异步地），每当动作准备好时，如果其效用值高于当前为该活动选择的"最佳"动作，它将替换该动作。如果动作一直在运行，其效用值会获得"沉没成本"提升以减少中断，但如果它仍然低于新准备好的动作，它会被中断并且新动作开始。</p>
+					<p>例如，<code>healing_task_group</code> 执行 <code>stonehearth:work</code> 活动并具有 0.87 的恒定效用值；<code>crafting_task_group</code> 也执行 <code>stonehearth:work</code> 活动但具有 0.81 的恒定效用值，因为我们希望治疗优先于制作。因此，当草药师决定工作时，他们将开始考虑治疗（通过寻找受伤的市民）和制作（通过查看任何可用的草药师制作任务）。如果他们开始制作但后来发现受伤的市民，他们将中断制作任务组动作，转而开始执行治疗任务组。</p>
 				</li>
 				<li>
-					<p><strong>Executing plans</strong> -- Calling <code>run()</code> on the best ready action that performs <code>stonehearth:top</code>. This is almost always a compound action, so executing it involves calling <code>run()</code> on each action within its sequence, many of which will themselves be compound or task group actions, so eventually it consists of running a sequence of leaf actions in order.</p>
+					<p><strong>执行计划</strong> -- 在执行 <code>stonehearth:top</code> 的最佳准备好动作上调用 <code>run()</code>。这几乎总是一个复合动作，因此执行它涉及调用其序列中每个动作的 <code>run()</code>，其中许多本身将是复合或任务组动作，因此最终它包括按顺序运行一系列叶子动作。</p>
 				</li>
 			</ul>
-			<p>Below is a screenshot of how a typical AI tree looks in the AI inspector. Activities (=frames) are presented in angle brackets. The rest of the nodes are actions. Leaf nodes are Leaf Actions. Inner nodes are compound, task group, or task actions. The root is always the <code>stonehearth:top</code> activity.</p>
+			<p>以下是 AI 检查器中典型 AI 树的外观截图。活动（=帧）以尖括号呈现。其余节点是动作。叶节点是叶子动作。内部节点是复合、任务组或任务动作。根始终是 <code>stonehearth:top</code> 活动。</p>
 			<p><img src="/modding_guide/images/essentials/debugtools/ai_inspector.png" alt="ai_inspector"/></p>
-			<h2><a name="WritingActions"></a>Writing actions</h2>
-			<p>Actions are Lua scripts registered in the mod's manifest and "injected" into a character's AI. This section explores how to declare actions. The <a href="#InjectingActions">next section</a> explores how to inject actions into into a character's AI.</p>
-			<h3><a name="LeafAction"></a>Leaf action example</h3>
-			<p>(hypothetical) <code>draw_animal_action.lua</code></p>
+			<h2><a name="WritingActions"></a>编写动作</h2>
+			<p>动作是在 mod 清单中注册并"注入"到角色 AI 中的 Lua 脚本。本节探讨如何声明动作。<a href="#InjectingActions">下一节</a>探讨如何将动作注入到角色的 AI 中。</p>
+			<h3><a name="LeafAction"></a>叶子动作示例</h3>
+			<p>（假设的）<code>draw_animal_action.lua</code></p>
 			<pre><code>  local DrawAnimalAction = class()
 
-  DrawAnimalAction.name = 'draw an animal' -- required
-  DrawAnimalAction.does = 'stonehearth:paint' -- required
-  DrawAnimalAction.args = { -- required
+  DrawAnimalAction.name = 'draw an animal' -- 必需
+  DrawAnimalAction.does = 'stonehearth:paint' -- 必需
+  DrawAnimalAction.args = { -- 必需
      subject = Entity,
      effect_name = {
         type = 'string',
@@ -94,7 +88,7 @@
      }
   }
   DrawAnimalAction.think_output = {}
-  DrawAnimalAction.priority = {0.2, 0.4} -- required
+  DrawAnimalAction.priority = {0.2, 0.4} -- 必需
   DrawAnimalAction.sunk_cost_boost = 0.2
   DrawAnimalAction.weight = 1
   DrawAnimalAction.scheduler_priority = 4
@@ -143,93 +137,91 @@
 
   return DrawAnimalAction
 </code></pre>
-			<p>Let's take a look at each part of that action:</p>
+			<p>让我们看看该动作的每个部分：</p>
 			<ul>
 				<li>
-					<p><a name="Metadata"></a><strong>Metadata</strong></p>
+					<p><a name="Metadata"></a><strong>元数据</strong></p>
 					<ul>
 						<li>
-							<p><strong>name</strong> -- The name under which the action appears in debugging tools.</p>
+							<p><strong>name</strong> -- 动作在调试工具中显示的名称。</p>
 						</li>
 						<li>
-							<p><strong>does</strong> -- The activity that this action performs.</p>
-							<p> In this case, our action is one way to perform <code>stonehearth:paint</code>.</p>
+							<p><strong>does</strong> -- 此动作执行的活动。</p>
+							<p>在这种情况下，我们的动作是执行 <code>stonehearth:paint</code> 的一种方式。</p>
 						</li>
 						<li>
-							<p><strong>args</strong> -- The argument types to this activity; all actions that perform the same activity must take the same args. If an argument is optional, it should declare a default value. This is often empty.</p>
-							<p> In this case, we're taking the subject to paint as an argument, which might come from a previous step in a compound action, or from a task, as well as an optional effect name argument, in case we want to play a different animation while drawing.</p>
+							<p><strong>args</strong> -- 此活动的参数类型；所有执行相同活动的动作必须采用相同的参数。如果参数是可选的，它应该声明一个默认值。这通常为空。</p>
+							<p>在这种情况下，我们将要绘制的主体作为参数，这可能来自复合动作中的前一步骤或任务，以及一个可选的效果名称参数，以防我们想在绘制时播放不同的动画。</p>
 						</li>
 						<li>
-							<p><strong>think_output</strong> -- optional. The format of the object passed to <code>set_think_output()</code>. If no object or an empty object is passed, this doesn't need to be declared.</p>
-							<p> In this case, we have no think output.</p>
+							<p><strong>think_output</strong> -- 可选。传递给 <code>set_think_output()</code> 的对象的格式。如果没有传递对象或传递空对象，则不需要声明此项。</p>
+							<p>在这种情况下，我们没有思考输出。</p>
 						</li>
 						<li>
-							<p><strong>priority</strong> -- The action's utility, i.e. how good this action is at performing the activity, from 0.0 to 1.0. This can be a number if the action always has the same utility, or a range like {0.2, 0.6} if the action will at some point change its utility depending on state or input by calling <code>ai:set_utility()</code>. The utility of an action is used to select the best action to perform the activity among the ones that
-								are ready.
-							</p>
-							<p> In this case, we are specifying that we will set the utility dynamically, and that the value which we'll pass to <code>set_utility()</code> should be remapped linearly to the {0.2, 0.4} range, so 0 will be remapped to 0.2, 0.5 to 0.3, 1.0 to 0.4, etc.</p>
+							<p><strong>priority</strong> -- 动作的效用值，即此动作执行活动的效果如何，从 0.0 到 1.0。如果动作始终具有相同的效用值，这可以是一个数字，或者如果动作将根据状态或输入通过调用 <code>ai:set_utility()</code> 更改其效用值，则可以是一个范围，如 {0.2, 0.6}。动作的效用值用于在准备好的动作中选择执行活动的最佳动作。</p>
+							<p>在这种情况下，我们指定将动态设置效用值，并且我们传递给 <code>set_utility()</code> 的值应线性重新映射到 {0.2, 0.4} 范围，因此 0 将重新映射到 0.2，0.5 到 0.3，1.0 到 0.4，等等。</p>
 						</li>
 						<li>
-							<p><strong>sunk_cost_boost</strong> -- optional, rare. An override on the amount added to the utility of an action once it has been running for a while. This controls how easy it is to interrupt the action. The default is 0.05. A value of 1.0 means that no action that fulfills the same activity can interrupt it (but a compound action which is running this action as a step can still be interrupted).</p>
-							<p> In this case, we've specified 0.2, which means that for another painting task to interrupt this, it would have to have a utility more than 0.2 greater than our utility.</p>
+							<p><strong>sunk_cost_boost</strong> -- 可选，罕见。对动作运行一段时间后添加到其效用值的量的覆盖。这控制了动作被中断的难易程度。默认值为 0.05。值为 1.0 意味着没有执行相同活动的动作可以中断它（但将此动作作为步骤运行的复合动作仍然可以被中断）。</p>
+							<p>在这种情况下，我们指定了 0.2，这意味着要使另一个绘画任务中断此任务，它的效用值必须比我们的效用值高 0.2 以上。</p>
 						</li>
 						<li>
-							<p><strong>weight</strong> -- optional, rare. For actions that have the same utility, weights are used to randomize which will run.</p>
-							<p> In this case, we've specified 1, which is the default, so this does nothing and is just for illustration purposes.</p>
+							<p><strong>weight</strong> -- 可选，罕见。对于具有相同效用值的动作，权重用于随机化哪个将运行。</p>
+							<p>在这种情况下，我们指定了 1，这是默认值，所以这什么都不做，仅用于说明目的。</p>
 						</li>
 						<li>
-							<p><strong>scheduler_priority</strong> -- optional, rare. A multiplier on the amount of pathfinding, etc. resources that this entity is allocated while running this action. As of September 2017, this is only used to help idling characters find other actions.</p>
-							<p> In this case we specified 4, which we had no good reason to do, except to demonstrate the existence of this option.</p>
+							<p><strong>scheduler_priority</strong> -- 可选，罕见。运行此动作时为此实体分配的寻路等资源量的乘数。截至 2017 年 9 月，这仅用于帮助空闲角色找到其他动作。</p>
+							<p>在这种情况下，我们指定了 4，我们没有充分的理由这样做，只是为了演示此选项的存在。</p>
 						</li>
 						<li>
-							<p><strong>status_text_key</strong> -- optional. An i18n key that is used to look up a user-facing description of this action. This is displayed in the citizens menu to describe what a given character is doing. This can also be set by calling <code>ai:set_status_text_key()</code> in the action's <code>run()</code> method.</p>
-							<p> In this case, we specified a key that might translate to "Painting an animal".</p>
+							<p><strong>status_text_key</strong> -- 可选。用于查找面向用户的此动作描述的 i18n 键。这在市民菜单中显示以描述给定角色正在做什么。这也可以通过在动作的 <code>run()</code> 方法中调用 <code>ai:set_status_text_key()</code> 来设置。</p>
+							<p>在这种情况下，我们指定了一个可能翻译为"正在绘制动物"的键。</p>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<p><a name="Methods"></a><strong>Methods</strong></p>
+					<p><a name="Methods"></a><strong>方法</strong></p>
 					<ul>
 						<li>
-							<p><strong>NOTE</strong>: All the methods in the Action interface take the same arguments:</p>
+							<p><strong>注意</strong>：Action 接口中的所有方法都采用相同的参数：</p>
 							<ul>
-								<li><strong>ai</strong> -- An <a href="#AIContexts">AIContext</a> object used to communicate back to the AI system about the current action.</li>
-								<li><strong>entity</strong> -- The entity on which the action is thinking or running. Note that every entity that "knows" an action has their own instance of it.</li>
-								<li><strong>args</strong> -- The arguments that were passed into the activity.</li>
+								<li><strong>ai</strong> -- 一个<a href="#AIContexts">AIContext</a>对象，用于与 AI 系统通信关于当前动作的信息。</li>
+								<li><strong>entity</strong> -- 正在思考或运行动作的实体。请注意，每个"知道"动作的实体都有自己的实例。</li>
+								<li><strong>args</strong> -- 传递给活动的参数。</li>
 							</ul>
 						</li>
 						<li>
-							<p><a name="StartThinking"></a><strong>start_thinking()</strong> -- When the AI system starts planning an activity (e.g. prompted by a compound or task group action), all actions that perform that activity will receive a call to this method. An action is only considered ready once it calls <code>ai:set_think_output()</code> (or if it has not <code>start_thinking()</code> method). This can either happen synchronously while <code>start_thinking()</code> is running, or it can happen at a later time as a result of an event - in which case <code>start_thinking()</code> is the place to start listening for that event.</p>
-							<p> In this case, we look at the subject argument. If it isn't an animal, we immediately reject with an explanation. Otherwise we update our utility based on how photogenic the animal is (so e.g. if there's a draw_landscape_behind_subject action that "does" <code>stonehearth:paint</code> at constant priority 0.3, only the more photogenic animals will be preferred over the landscape). Next, we set up a listener to wait until the animal is ready to pose, and when it is, we call <code>set_think_output()</code> to mark this action as ready to run.</p>
+							<p><a name="StartThinking"></a><strong>start_thinking()</strong> -- 当 AI 系统开始规划活动（例如，由复合或任务组动作提示）时，所有执行该活动的动作都将收到对此方法的调用。只有在调用 <code>ai:set_think_output()</code> 后（或者如果没有 <code>start_thinking()</code> 方法），动作才被视为准备好。这可以在 <code>start_thinking()</code> 运行时同步发生，也可以作为事件的结果在稍后时间发生——在这种情况下，<code>start_thinking()</code> 是开始监听该事件的地方。</p>
+							<p>在这种情况下，我们查看主体参数。如果它不是动物，我们立即拒绝并给出解释。否则，我们根据动物的上镜程度更新我们的效用值（因此，例如，如果有一个 draw_landscape_behind_subject 动作在恒定优先级 0.3 下"执行" <code>stonehearth:paint</code>，只有更上镜的动物才会优于风景）。接下来，我们设置一个监听器以等待动物准备好摆姿势，当它准备好时，我们调用 <code>set_think_output()</code> 将此动作标记为准备好运行。</p>
 						</li>
 						<li>
-							<p><a name="StopThinking"></a><strong>stop_thinking()</strong> -- Whenever the AI system decides to stop planning this action, this method is called to clean up any setup done in <code>start_thinking()</code>, such as destroying event listeners and traces. This happens if the action has successfully finished planning (i.e. it called <code>set_think_output()</code>, in which case this is called after <code>start()</code>, so the action state can be used to avoid cleaning up things needed for running the action), or if the AI decided not to do the action (e.g. if a strictly higher-priority action became ready, or if the AI finished what it was doing and is now restarting all planning). It is guaranteed that if an action received a call to <code>start_thinking()</code>, it will receive a call to <code>stop_thinking()</code> before any of the other Action interface methods.</p>
-							<p> In this case, we destroy the listener that we created in <code>start_thinking()</code>.</p>
+							<p><a name="StopThinking"></a><strong>stop_thinking()</strong> -- 每当 AI 系统决定停止规划此动作时，都会调用此方法来清理在 <code>start_thinking()</code> 中完成的任何设置，例如销毁事件监听器和跟踪。如果动作已成功完成规划（即它调用了 <code>set_think_output()</code>，在这种情况下，这是在 <code>start()</code> 之后调用的，因此可以使用动作状态来避免清理事运行动作所需的内容），或者如果 AI 决定不执行该动作（例如，如果更高优先级的动作已准备好，或者如果 AI 完成了它正在做的事情并现在重新启动所有规划），就会发生这种情况。保证如果动作收到了对 <code>start_thinking()</code> 的调用，它将在任何其他 Action 接口方法之前收到对 <code>stop_thinking()</code> 的调用。</p>
+							<p>在这种情况下，我们销毁了在 <code>start_thinking()</code> 中创建的监听器。</p>
 						</li>
 						<li>
-							<p><a name="ShouldStartThinking"></a><strong>should_start_thinking()</strong> -- Called before <code>start_thinking()</code> on each action that performs an activity, and allows the action to decide whether this activity is allowed to run at all. If any action that performs an activity returns false from <code>should_start_thinking()</code>, all the actions for this activity are prevented from thinking or running. This is very rarely used, and when it is, usually for specific "filter" actions, that don't do anything themselves, but just block the activity from running in certain situations. For example, to prevent carpenters from building non-wooden structures, we give all characters the generic fabricate_structure action, which does <code>stonehearth:fabricate_structure</code>, but give only carpenters the <code>fabricate_wooden_structure</code> filter action, which also does <code>stonehearth:fabricate_structure</code>. So if the structure is not wooden, the carpenter won't be allowed to start to their regular fabricate action because the filter will return false.</p>
-							<p> In this case, we do not need this method.</p>
+							<p><a name="ShouldStartThinking"></a><strong>should_start_thinking()</strong> -- 在执行活动的每个动作上的 <code>start_thinking()</code> 之前调用，并允许动作决定此活动是否允许运行。如果执行活动的任何动作从 <code>should_start_thinking()</code> 返回 false，则该活动的所有动作都被阻止思考或运行。这很少使用，当使用时，通常用于特定的"过滤"动作，它们自己不执行任何操作，只是在某些情况下阻止活动运行。例如，为了防止木匠建造非木制结构，我们给所有角色通用的 fabricate_structure 动作，它执行 <code>stonehearth:fabricate_structure</code>，但只给木匠 <code>fabricate_wooden_structure</code> 过滤动作，它也执行 <code>stonehearth:fabricate_structure</code>。因此，如果结构不是木制的，木匠将不允许开始他们的常规制造动作，因为过滤器将返回 false。</p>
+							<p>在这种情况下，我们不需要此方法。</p>
 						</li>
 						<li>
-							<p><a name="Start"></a><strong>start()</strong> -- When an action is selected for running, this method is called. Usually, you can do anything you might do here at the beginning of <code>run()</code>, but it's useful in 2 cases: (1) for compound actions, which themselves do not have a <code>run()</code> method, they can do initialization in <code>start()</code>, and (2) when an action is itself a step in a compound action, <code>start()</code> is called on each action in the sequence before any of the <code>run()</code> methods, so they can do sanity checks there before starting execution (although they would probably need to repeat them in <code>run()</code>, since time will have passed).</p>
-							<p> In this case we check that the animal hasn't stopped being ready to pose between the time we finished thinking and the time the action actually started.</p>
+							<p><a name="Start"></a><strong>start()</strong> -- 当选择动作用于运行时，调用此方法。通常，您可以在 <code>run()</code> 的开头执行您可能在此处执行的任何操作，但在两种情况下很有用：(1) 对于复合动作，它们自己没有 <code>run()</code> 方法，它们可以在 <code>start()</code> 中进行初始化，(2) 当动作本身是复合动作中的步骤时，在任何 <code>run()</code> 方法之前对序列中的每个动作调用 <code>start()</code>，因此它们可以在开始执行之前在那里进行健全性检查（尽管它们可能需要在 <code>run()</code> 中重复它们，因为时间已经过去）。</p>
+							<p>在这种情况下，我们检查动物在我们完成思考和动作实际开始之间是否不再准备好摆姿势。</p>
 						</li>
 						<li>
-							<p><a name="Run"></a><strong>run()</strong> -- This is the method that actually implements what it means to execute this action. <strong>Unlike all the other Action methods it can yield/suspend the thread and should not return until the action is finished</strong>. The classic example of this in use is the <code>run_effect</code> action, which plays an effect (typically an animation) and yields the thread for the duration of the effect, only resuming and returning once the effect has finished. If at some point the action determines that it cannot finish successfully, it can call <code>ai:abort()</code>, which will cancel the current plan (stopping all in progress actions) and restart planning from scratch.</p>
-							<p> In this case we repeat the check we had in <code>start()</code> (which may have been long ago, if this action is a late step within a compound action). Then we freeze the animal, and call <code>ai:execute()</code>, which immediately thinks and runs an action that performs a given activity (the thinking must be synchronous, or we hang the character's AI thread while it's thinking). In this case we execute run_effect, which plays the requested animation effect (<code>draw_in_notebook</code>), and once finished resumes the thread and returns control to us. Finally we add a thought about animal drawing, and return, which tells the AI system that we have successfully finished running this action and may proceed to the next step (or finish the current plan, if there are no more steps).</p>
+							<p><a name="Run"></a><strong>run()</strong> -- 这是实际实现执行此动作含义的方法。<strong>与所有其他 Action 方法不同，它可以 yield/suspend 线程，并且在动作完成之前不应返回</strong>。使用中的经典示例是 <code>run_effect</code> 动作，它播放效果（通常是动画）并在效果持续期间 yield 线程，仅在效果完成后恢复并返回。如果在某个时刻动作确定它无法成功完成，它可以调用 <code>ai:abort()</code>，这将取消当前计划（停止所有进行中的动作）并从头开始重新启动规划。</p>
+							<p>在这种情况下，我们重复在 <code>start()</code> 中的检查（如果此动作是复合动作中的后期步骤，这可能是很久以前）。然后我们冻结动物，并调用 <code>ai:execute()</code>，它立即思考并运行执行给定活动的动作（思考必须是同步的，否则我们会在思考时挂起角色的 AI 线程）。在这种情况下，我们执行 run_effect，它播放请求的动画效果（<code>draw_in_notebook</code>），一旦完成就恢复线程并将控制权返回给我们。最后，我们添加一个关于绘制动物的想法，并返回，这告诉 AI 系统我们已经成功完成运行此动作，可以继续下一步（如果没有更多步骤，则完成当前计划）。</p>
 						</li>
 						<li>
-							<p><a name="Stop"></a><strong>stop()</strong> -- Whenever the action is stopped, this method is called. This can be by having finished its <code>run()</code>, being aborted, or being interrupted by a higher utility action. It is guaranteed that if an action received a call to <code>start()</code>, it will receive a call to <code>stop()</code>. The method should be used to clean up any state or resources set up in <code>start()</code> or <code>run()</code>. Like <code>start()</code>, if this action is a step in a compound action, its <code>stop()</code> method will be called after all the steps have finished running (along with the <code>stop()</code> methods of the other steps, in order).</p>
-							<p> In this case, we unfreeze the animal that we may have frozen during <code>run()</code>.</p>
+							<p><a name="Stop"></a><strong>stop()</strong> -- 每当动作停止时，都会调用此方法。这可以通过完成其 <code>run()</code>、被中止或被更高效用值的动作中断来实现。保证如果动作收到了对 <code>start()</code> 的调用，它将收到对 <code>stop()</code> 的调用。该方法应用于清理在 <code>start()</code> 或 <code>run()</code> 中设置的任何状态或资源。与 <code>start()</code> 一样，如果此动作是复合动作中的步骤，其 <code>stop()</code> 方法将在所有步骤完成运行后调用（以及其他步骤的 <code>stop()</code> 方法，按顺序）。</p>
+							<p>在这种情况下，我们解冻我们在 <code>run()</code> 期间可能冻结的动物。</p>
 						</li>
 					</ul>
 				</li>
 			</ul>
-			<p><a name="AIStateMachine"></a>Here's a simplified diagram of the state machine of an AI action:
+			<p><a name="AIStateMachine"></a>以下是 AI 动作状态机的简化图：
 				<img src="/modding_guide/images/advanced/ai/ai_state_machine.png" alt="ai_state_machine"/>
 			</p>
-			<h3><a name="CompoundAction"></a>Compound action example</h3>
-			<p>(hypothetical) <code>find_and_paint_subject_action.lua</code></p>
+			<h3><a name="CompoundAction"></a>复合动作示例</h3>
+			<p>（假设的）<code>find_and_paint_subject_action.lua</code></p>
 			<pre><code>  local FindAndPaintSubjectAction = class()
 
   FindAndPaintSubjectAction.name = 'find and paint subject'
@@ -260,83 +252,83 @@
 
   return FindAndPaintSubjectAction
 </code></pre>
-			<p>Let's take a look at each part of that action:</p>
+			<p>让我们看看该动作的每个部分：</p>
 			<ul>
 				<li>
-					<p><a name="CompoundMetadata"></a><strong>Metadata</strong></p>
+					<p><a name="CompoundMetadata"></a><strong>元数据</strong></p>
 					<ul>
-						<li>All the metadata for compound actions is <a href="#Metadata">the same as for leaf actions</a>.</li>
+						<li>复合动作的所有元数据与<a href="#Metadata">叶子动作相同</a>。</li>
 					</ul>
 				</li>
 				<li>
-					<p><a name="CompoundMethods"></a><strong>Methods</strong></p>
+					<p><a name="CompoundMethods"></a><strong>方法</strong></p>
 					<ul>
 						<li>
-							<p>Compound actions have all the methods <a href="#Methods">that leaf actions have</a>, with 2 exceptions:</p>
+							<p>复合动作具有<a href="#Methods">叶子动作具有的所有方法</a>，但有 2 个例外：</p>
 							<ul>
 								<li>
-									<p>Compound actions do not have a <code>run()</code> method. Their <code>run()</code> implicitly consists of calling <code>run()</code> of each of the steps.</p>
+									<p>复合动作没有 <code>run()</code> 方法。它们的 <code>run()</code> 隐式包括调用每个步骤的 <code>run()</code>。</p>
 								</li>
 								<li>
-									<p>Compound actions can declare a <code>compose_utility()</code> method to derive their utility from the utility of its steps. This method is called whenever the utility of any of the steps changes, or when we transition from one step to another while running. Unlike the other methods, it has a different set of arguments (the entity, the utility of the compound action as set by <code>set_utility()</code>, an access for the utility of the action's steps, and the name of the current activity being run, if any).</p>
-									<p>In this example, this action's utility which we set in <code>start_thinking()</code> is augmented with the utility of the paint step (which in the Leaf Action example we saw represented the subject's photogenicity), as well as the utility of the path following step (which represents the distance). Perhaps a better way to implement it would have been to have the <code>stonehearth:find_willing_painting_subject</code> activity always select the best possible subject and have its utility represent how good of a subject it is.</p>
+									<p>复合动作可以声明一个 <code>compose_utility()</code> 方法，从其步骤的效用值派生其效用值。每当任何步骤的效用值发生变化，或者我们在运行时从一个步骤转换到另一个步骤时，都会调用此方法。与其他方法不同，它有一组不同的参数（实体、由 <code>set_utility()</code> 设置的复合动作的效用值、动作步骤效用值的访问器，以及当前正在运行的活动的名称，如果有）。</p>
+									<p>在此示例中，我们在 <code>start_thinking()</code> 中设置的此动作的效用值增加了绘画步骤的效用值（在叶子动作示例中，我们看到它代表了主体的上镜程度），以及路径跟随步骤的效用值（代表距离）。也许更好的实现方式是让 <code>stonehearth:find_willing_painting_subject</code> 活动始终选择最佳可能的主体，并使其效用值代表主体有多好。</p>
 								</li>
 							</ul>
-							<p> Note that the compound action's thinking is done before any of the steps', and the steps are asked to think (in order) only after the compound action has successfully finished its thinking. Its <code>start()</code> happens before any of the steps' <code>start()</code>, and its <code>stop()</code> happens after all of the steps' <code>stop()</code>.</p>
-							<p> In this example, we only use <code>start_thinking()</code> to make this action much more likely to run if the entity has the hypothetical artist trait.</p>
+							<p>请注意，复合动作的思考在任何步骤之前完成，并且只有在复合动作成功完成其思考后，步骤才会按顺序被要求思考。其 <code>start()</code> 发生在任何步骤的 <code>start()</code> 之前，其 <code>stop()</code> 发生在所有步骤的 <code>stop()</code> 之后。</p>
+							<p>在此示例中，我们仅使用 <code>start_thinking()</code> 使此动作在实体具有假设的艺术家特性时更有可能运行。</p>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<p><a name="CompoundPlaceholders"></a><strong>Step declarations</strong></p>
+					<p><a name="CompoundPlaceholders"></a><strong>步骤声明</strong></p>
 					<ul>
 						<li>
-							<p>Compound actions declare the steps of which they consist by calling <code>execute()</code> on the object returned by <code>create_compound_action()</code>. Note that this is unrelated to the <code>ai:execute()</code> methods mentioned earlier. The steps are activities that will be performed, in order, to run the action. Each step can specify arguments to pass to the activity. The arguments can be regular values, or "placeholders" which are ways to dynamically refer to the context of the running action or to the results of previous steps. As of September 2017, the supported placeholders are:</p>
+							<p>复合动作通过在 <code>create_compound_action()</code> 返回的对象上调用 <code>execute()</code> 来声明它们由哪些步骤组成。请注意，这与前面提到的 <code>ai:execute()</code> 方法无关。步骤是将按顺序执行以运行动作的活动。每个步骤可以指定要传递给活动的参数。参数可以是常规值，也可以是"占位符"，它们是动态引用运行动作的上下文或前一步骤结果的方式。截至 2017 年 9 月，支持的占位符是：</p>
 							<ul>
 								<li>
-									<p><strong>ai.ENTITY</strong> -- The entity running the action.</p>
+									<p><strong>ai.ENTITY</strong> -- 运行动作的实体。</p>
 								</li>
 								<li>
-									<p><strong>ai.ARGS.foo</strong> -- One of the arguments of the compound action, in this case <code>foo</code>.</p>
+									<p><strong>ai.ARGS.foo</strong> -- 复合动作的参数之一，在这种情况下是 <code>foo</code>。</p>
 								</li>
 								<li>
-									<p><strong>ai.CALL(fn, ai.XXX, ai, ai.YYY)</strong> -- This evaluates all the arguments as placeholders, then calls the function specified in the first argument passing the other arguments, and its return value is the result of this placeholder's evaluation. In this case it will call <code>fn()</code> with two arguments, the results of evaluating <code>ai.XXX</code> and <code>ai.YYY</code> and use its return value as the result.</p>
+									<p><strong>ai.CALL(fn, ai.XXX, ai, ai.YYY)</strong> -- 这将所有参数评估为占位符，然后调用第一个参数中指定的函数，传递其他参数，其返回值是此占位符评估的结果。在这种情况下，它将使用两个参数调用 <code>fn()</code>，即评估 <code>ai.XXX</code> 和 <code>ai.YYY</code> 的结果，并使用其返回值作为结果。</p>
 								</li>
 								<li>
-									<p><strong>ai.PREV.foo</strong> -- One of the fields of the "think output" of the previous step. E.g. in this case, the <code>foo</code> field of whatever object the previous step passed to its <code>set_think_output()</code> call.</p>
+									<p><strong>ai.PREV.foo</strong> -- 前一步骤的"思考输出"的字段之一。例如，在这种情况下，前一步骤传递给其 <code>set_think_output()</code> 调用的任何对象的 <code>foo</code> 字段。</p>
 								</li>
 								<li>
-									<p><strong>ai.BACK(n).foo</strong> -- One of the fields of the "think output" of the n<sup>th</sup> previous step. E.g. in this case, the <code>foo</code> field of whatever object the previous step N steps ago. <code>ai.BACK(1)</code> is equivalent to <code>ai.PREV</code>.</p>
+									<p><strong>ai.BACK(n).foo</strong> -- 第 n 个前步骤的"思考输出"的字段之一。例如，在这种情况下，N 步之前的前一步骤的任何对象的 <code>foo</code> 字段。<code>ai.BACK(1)</code> 等同于 <code>ai.PREV</code>。</p>
 								</li>
 								<li>
-									<p><strong>ai.NOT(...)</strong> -- Evaluates its argument and negates it. E.g. <code>ai.NOT(ai.ARGS.foo)</code> is the opposite of whatever the value of the <code>foo</code> argument was when this action started thinking.</p>
+									<p><strong>ai.NOT(...)</strong> -- 评估其参数并否定它。例如，<code>ai.NOT(ai.ARGS.foo)</code> 与此动作开始思考时 <code>foo</code> 参数的值的相反。</p>
 								</li>
 								<li>
-									<p><strong>ai.CURRENT</strong> -- The "expected state" of the entity running this action. This one is a bit tricky, and is the fallback for when none of the other placeholders are sufficient for your needs. Any action can write <code>ai.CURRENT</code> entries (by setting <code>ai.CURRENT.foo = value</code>) while they are thinking to represent what they think the state of the entity will be after the action runs, and actions that appear as steps afterwards will get that modified object. This is useful e.g. if a pickup action modifies the expected state of the character's backpack, and later actions want to examine what the character has in their backpack to decide if or how they should run. Here are the supported entries in <code>ai.CURRENT</code>:</p>
+									<p><strong>ai.CURRENT</strong> -- 运行此动作的实体的"预期状态"。这个有点棘手，是当其他占位符都不足以满足您的需求时的回退。任何动作都可以在思考时写入 <code>ai.CURRENT</code> 条目（通过设置 <code>ai.CURRENT.foo = value</code>），以表示他们认为动作运行后实体的状态将会是什么，随后作为步骤出现的动作将获得该修改后的对象。例如，如果拾取动作修改了角色背包的预期状态，而后续动作想要检查角色背包中有什么以决定他们是否或应该如何运行，这就很有用。以下是 <code>ai.CURRENT</code> 中支持的条目：</p>
 									<ul>
-										<li><strong>location</strong> -- The X,Y,Z location of the character. Various path following and chasing actions modify this.</li>
-										<li><strong>carrying</strong> -- The item that the character is carrying.</li>
-										<li><strong>storage</strong> -- The contents of the character's backpack. Has an <code>items</code> property which is a table from entity ID to entity, a <code>full</code> property to indicate whether the backpack is full, and <code>add_item</code> and <code>remove_item</code> methods.</li>
-										<li><strong>self_reserved</strong> -- The objects reserved by preceding <code>reserve_entity</code> actions, a table from entity ID to entity.</li>
-										<li><strong>self_region_reserved</strong> -- The objects reserved by preceding <code>reserve_entity_destination</code> actions, a table from entity ID to a table from offset key to XYZ offset.</li>
-										<li><strong>location_changed</strong> -- A read-only flag indicating if <code>ai.CURRENT.location</code> has changed at any point in the AI branch so far.</li>
-										<li><strong>carrying_changed</strong> -- A read-only flag indicating if <code>ai.CURRENT.carrying</code> has changed at any point in the AI branch so far.</li>
+										<li><strong>location</strong> -- 角色的 X,Y,Z 位置。各种路径跟随和追逐动作会修改此项。</li>
+										<li><strong>carrying</strong> -- 角色携带的物品。</li>
+										<li><strong>storage</strong> -- 角色背包的内容。具有一个 <code>items</code> 属性，它是从实体 ID 到实体的表，一个 <code>full</code> 属性指示背包是否已满，以及 <code>add_item</code> 和 <code>remove_item</code> 方法。</li>
+										<li><strong>self_reserved</strong> -- 由前面的 <code>reserve_entity</code> 动作保留的对象，从实体 ID 到实体的表。</li>
+										<li><strong>self_region_reserved</strong> -- 由前面的 <code>reserve_entity_destination</code> 动作保留的对象，从实体 ID 到从偏移键到 XYZ 偏移的表的表。</li>
+										<li><strong>location_changed</strong> -- 一个只读标志，指示 <code>ai.CURRENT.location</code> 是否在 AI 分支中的任何点发生了变化。</li>
+										<li><strong>carrying_changed</strong> -- 一个只读标志，指示 <code>ai.CURRENT.carrying</code> 是否在 AI 分支中的任何点发生了变化。</li>
 									</ul>
 								</li>
 							</ul>
-							<p> Note that the <code>start()</code> method of each step is run in order before the <code>run()</code> method of the first step is executed, and the <code>stop()</code> method of each step is run in order after the <code>run()</code> method of the last step returns. This means that if, e.g., you're writing a compound action that wants to create a critter, walk the character to the critter, and then destroy the critter, you can call destroy in the stop function of the create action and it will execute only after the walking happens.</p>
-							<p> In this example, our steps are as follows:</p>
+							<p>请注意，每个步骤的 <code>start()</code> 方法在执行第一个步骤的 <code>run()</code> 方法之前按顺序运行，每个步骤的 <code>stop()</code> 方法在最后一个步骤的 <code>run()</code> 方法返回后按顺序运行。这意味着，例如，如果您正在编写一个想要创建小动物、将角色走到小动物面前然后销毁小动物的复合动作，您可以在创建动作的 stop 函数中调用销毁，它将仅在行走发生后执行。</p>
+							<p>在此示例中，我们的步骤如下：</p>
 							<ul>
-								<li>First, find a willing subject to paint.</li>
-								<li>Next, find a path to reach that subject. Here we use the placeholders to pass the subject found in the previous step as the destination to find a path to.</li>
-								<li>Then, actually follow the path (again, we use placeholders to pass the path found in the previous step to this activity).</li>
-								<li>Finally, actually paint the subject (we use the <code>ai.BACK</code> placeholder to refer all the way back to the subject found by the first step). This may run the <code>draw_animal</code> action described above, or another one that performs <code>stonehearth:paint</code>, e.g. <code>draw_human</code>, or <code>draw_building</code>, depending on what entity was chosen in the first step, and depending on what the utility of each of those actions are (the highest utility action is always selected).</li>
+								<li>首先，找到一个愿意被绘制的主体。</li>
+								<li>接下来，找到到达该主体的路径。在这里，我们使用占位符将前一步骤中找到的主体作为目的地传递以找到路径。</li>
+								<li>然后，实际跟随路径（同样，我们使用占位符将前一步骤中找到的路径传递给此活动）。</li>
+								<li>最后，实际绘制主体（我们使用 <code>ai.BACK</code> 占位符一直回溯到第一步中找到的主体）。这可能会运行上面描述的 <code>draw_animal</code> 动作，或另一个执行 <code>stonehearth:paint</code> 的动作，例如 <code>draw_human</code> 或 <code>draw_building</code>，具体取决于第一步中选择了什么实体，以及每个动作的效用值是多少（始终选择最高效用值的动作）。</li>
 							</ul>
 						</li>
 					</ul>
 				</li>
 			</ul>
-			<h3><a name="TaskGroup"></a>Task group example</h3>
+			<h3><a name="TaskGroup"></a>任务组示例</h3>
 			<p><code>solo_basic_needs_task_group.lua</code></p>
 			<pre><code>  local SoloBasicNeedsTaskGroup = class()
 
@@ -349,112 +341,112 @@
                           :declare_multiple_tasks('stonehearth:eat', {0.4, 1.0})
                           :declare_permanent_task('stonehearth:rest_when_injured', {}, 0.2)
 </code></pre>
-			<p>Let's take a look at each part of that action:</p>
+			<p>让我们看看该动作的每个部分：</p>
 			<ul>
 				<li>
-					<p><a name="TaskGroupMetadata"></a><strong>Metadata</strong></p>
+					<p><a name="TaskGroupMetadata"></a><strong>元数据</strong></p>
 					<ul>
-						<li>All the metadata for task group actions is <a href="#Metadata">the same as for leaf actions</a>, except that they cannot have arguments (only due to lack of use case).</li>
+						<li>任务组动作的所有元数据与<a href="#Metadata">叶子动作相同</a>，除了它们不能有参数（仅由于缺乏用例）。</li>
 					</ul>
 				</li>
 				<li>
-					<p><a name="TaskGroupMethods"></a><strong>Methods</strong></p>
+					<p><a name="TaskGroupMethods"></a><strong>方法</strong></p>
 					<ul>
 						<li>
-							<p>Task group actions only support one optional method, <code>compose_utility()</code>, which allows you to have custom logic to derive the utility of the group from the utility of the task that it's considering or running, instead of the default which just remaps the declared task utility (see below) to the range declared for the task group action (if it's a range rather than a static number). Unlike the other methods, it has a different set of arguments (the entity, and the utility of the task).</p>
-							<p> In this case we don't need any custom utility calculation logic, so we do not declare <code>compose_utility()</code>.</p>
+							<p>任务组动作仅支持一种可选方法 <code>compose_utility()</code>，它允许您拥有自定义逻辑以从它正在考虑或运行的任务的效用值派生组的效用值，而不是默认只是将声明的任务效用值（见下文）重新映射到为任务组动作声明的范围（如果它是一个范围而不是静态数字）。与其他方法不同，它有一组不同的参数（实体和任务的效用值）。</p>
+							<p>在这种情况下，我们不需要任何自定义效用值计算逻辑，因此我们不声明 <code>compose_utility()</code>。</p>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<p><a name="TaskGroupTaskDeclarations"></a><strong>Task declarations</strong></p>
+					<p><a name="TaskGroupTaskDeclarations"></a><strong>任务声明</strong></p>
 					<ul>
 						<li>
-							<p>The purpose of a task groups is two-fold: (1) allow code outside the AI system to control which activities are active at a given time, what arguments they should use, and which characters should perform them; and (2) select the best of a set of possible activities to run. The first purpose is explored <a href="#Tasks">later in this page</a>, but the second is what concerns us in the context of AI.</p>
+							<p>任务组的目的有两个：(1) 允许 AI 系统外部的代码控制在给定时间哪些活动处于活动状态，它们应该使用什么参数，以及哪些角色应该执行它们；(2) 从一组可能的活动中选择最佳活动来运行。第一个目的在本页的<a href="#Tasks">后面部分</a>中探讨，但第二个是我们在 AI 上下文中关注的。</p>
 						</li>
 						<li>
-							<p>Task groups declare which activities they can run, and whether there can be multiple instances of that activity trying to run (e.g. I might want two "attack target" tasks with different targets that compete). Tasks can be declared by calling methods on the object returned from <code>create_task_group()</code>. There are 3 variations:</p>
+							<p>任务组声明它们可以运行哪些活动，以及是否可以有多个该活动的实例尝试运行（例如，我可能想要两个具有不同目标且相互竞争的"攻击目标"任务）。任务可以通过调用从 <code>create_task_group()</code> 返回的对象上的方法来声明。有 3 种变体：</p>
 							<ul>
 								<li>
-									<p><strong>declare_task()</strong> -- This declares that whoever is managing the task group can create at most one task (at a time) that tries to do the specified activity (with arguments specified at runtime). The first argument is the activity that this task will try to do. The second is the utility of the task. This second argument can be a number, which means that the task ignores the utility of whatever action is doing the activity, and always considers the task to have the specified utility value in the context of the task group. Alternatively, it can be a range like {0.2, 0.7}, which means that the utility of the action performing the requested activity is linearly remapped from its 0 to 1 range to the specified range.</p>
-									<p>   Keep in mind that these task utility declarations are in the context of the task group action, which means that they are used to select which of the tasks within the task group to do. The utility of the task group itself in the context of its activity (the "does" it declares in its metadata) is computed from this task utility by remapping it again to the range specified in the task group's metadata (passing it through <code>compose_utility()</code> if that is declared).</p>
+									<p><strong>declare_task()</strong> -- 这声明管理任务组的人最多可以创建一个（一次）尝试执行指定活动（参数在运行时指定）的任务。第一个参数是此任务将尝试执行的活动。第二个是任务的效用值。第二个参数可以是一个数字，这意味着任务忽略执行活动的动作的效用值，并且始终认为任务在任务组的上下文中具有指定的效用值。或者，它可以是一个范围，如 {0.2, 0.7}，这意味着执行请求活动的动作的效用值将从其 0 到 1 的范围线性重新映射到指定范围。</p>
+									<p>请记住，这些任务效用值声明是在任务组动作的上下文中，这意味着它们用于选择任务组内的哪些任务要执行。任务组本身在其活动上下文中的效用值（其在元数据中声明的"does"）是通过将此任务效用值再次重新映射到任务组元数据中指定的范围（如果声明了则通过 <code>compose_utility()</code>）来计算的。</p>
 								</li>
 								<li>
-									<p><strong>declare_multiple_tasks()</strong> -- This is similar to <code>declare_task()</code>, except it allows many instances of the same task to be created (potentially with different arguments).</p>
+									<p><strong>declare_multiple_tasks()</strong> -- 这类似于 <code>declare_task()</code>，除了它允许创建同一任务的多个实例（可能具有不同的参数）。</p>
 								</li>
 								<li>
-									<p><strong>declare_permanent_task()</strong> -- This is similar to <code>declare_task()</code>, except it takes a set of arguments, and creates that task as soon as the task group is created, rather than waiting for some external code to create that task.</p>
+									<p><strong>declare_permanent_task()</strong> -- 这类似于 <code>declare_task()</code>，除了它接受一组参数，并在创建任务组时立即创建该任务，而不是等待某些外部代码创建该任务。</p>
 								</li>
 							</ul>
 						</li>
 						<li>
-							<p>In this example, we are declaring a "basic needs" task group that handles a hearthling's eating, sleeping, and recovery tasks. (Note that this is the earliest, simplest version of this task group, and will probably not be what we the game is using by the time you read this).</p>
+							<p>在此示例中，我们声明一个处理炉民饮食、睡眠和恢复任务的"基本需求"任务组。（请注意，这是此任务组的最早、最简单版本，到您阅读此时可能不是游戏正在使用的版本）。</p>
 							<ul>
-								<li>We declare a <code>stonehearth:sleep</code> task, with a constant utility of 0.6. This means that some external system (in this case, the <code>sleepiness_observer</code>) will at some point ask the AI to start considering sleeping. We are also saying that we do not care about the utility of the action that performs the sleep activity, and will always consider that task to have the utility of 0.6, relative to sleeping and recovery. Remember that the utility of the <strong>task group</strong> itself is the utility of the task, remapped to the task group's declared utility range. So since this task has a constant utility of 0.6, and the task group declares its utility range to be {0, 0.3}, if the sleep task is selected, the utility of the task group is 0 + (0.6 * (0.3 - 0)) = 0.18.</li>
-								<li>We declare a <code>stonehearth:eat</code> task, with a utility range of {0.4, 1.0}, and allow multiple eat tasks to be created by some external system (in this case, the consumption component). Since we specified a utility range, we will use the utility of the action that performs <code>stonehearth:eat</code>, and remap it to this range. So if our eat action says that its utility is 0.7 (e.g. based on hunger or food quality), the utility of the task is 0.4 + (0.7 * (1.0 - 0.4)) = 0.82, when compared to sleeping, recovering, and other eat tasks within the group. If that task is selected, the utility of the task group would be 0 + (0.82 * (0.3 - 0)) = 0.246.</li>
-								<li>We declare a permanent <code>stonehearth:rest_when_injured</code> task, with an empty argument list, and a utility of 0.2. This means that a character that has this task group will always have this task, and its utility will always be 0.2 relative to eating, sleeping, and recovery, making it the least important. If that task is selected, the utility of the task group would be 0 + (0.2 * (0.3 - 0)) = 0.06.</li>
+								<li>我们声明一个 <code>stonehearth:sleep</code> 任务，具有 0.6 的恒定效用值。这意味着某些外部系统（在这种情况下是 <code>sleepiness_observer</code>）将在某个时候要求 AI 开始考虑睡眠。我们还表示我们不关心执行睡眠活动的动作的效用值，并且将始终认为该任务相对于睡眠和恢复具有 0.6 的效用值。请记住，<strong>任务组</strong>本身的效用值是任务的效用值，重新映射到任务组声明的效用值范围。因此，由于此任务具有 0.6 的恒定效用值，并且任务组声明其效用值范围为 {0, 0.3}，如果选择了睡眠任务，任务组的效用值为 0 + (0.6 * (0.3 - 0)) = 0.18。</li>
+								<li>我们声明一个 <code>stonehearth:eat</code> 任务，效用值范围为 {0.4, 1.0}，并允许由某些外部系统（在这种情况下是消费组件）创建多个进食任务。由于我们指定了效用值范围，我们将使用执行 <code>stonehearth:eat</code> 的动作的效用值，并将其重新映射到此范围。因此，如果我们的进食动作说其效用值为 0.7（例如，基于饥饿度或食物质量），则任务的效用值为 0.4 + (0.7 * (1.0 - 0.4)) = 0.82，与组内的睡眠、恢复和其他进食任务相比。如果选择了该任务，任务组的效用值将为 0 + (0.82 * (0.3 - 0)) = 0.246。</li>
+								<li>我们声明一个永久的 <code>stonehearth:rest_when_injured</code> 任务，具有空参数列表和 0.2 的效用值。这意味着具有此任务组的角色将始终拥有此任务，并且其效用值相对于进食、睡眠和恢复将始终为 0.2，使其成为最不重要的。如果选择了该任务，任务组的效用值将为 0 + (0.2 * (0.3 - 0)) = 0.06。</li>
 							</ul>
 						</li>
 					</ul>
 				</li>
 			</ul>
-			<h2><a name="AIContexts"></a>AI contexts</h2>
-			<p>All Action methods get passed an "AI Context" as described above, which is used to communicate with the AI system about that action. Here are the methods available on AI Contexts:</p>
+			<h2><a name="AIContexts"></a>AI 上下文</h2>
+			<p>如上所述，所有 Action 方法都传递一个"AI 上下文"，用于与该动作的 AI 系统通信。以下是 AI 上下文上可用的方法：</p>
 			<ul>
 				<li>
-					<p><a name="ContextCommonMethods"></a><strong>Common methods</strong></p>
+					<p><a name="ContextCommonMethods"></a><strong>常用方法</strong></p>
 					<ul>
-						<li><strong>set_think_output()</strong> -- Must be called while the action is thinking to mark the action as ready, and set the "think output" of the action, which is a table that any following steps in a compound action sequence can access. An example would be the <code>find_path_to_entity</code> action setting the calculated path as "think output", so that it can be used together with the <code>follow_path</code> action within a compound action step sequence. If no argument is passed to <code>set_think_output()</code>, the think output defaults to the action's original arguments. Note that it is not valid to call <code>set_think_output()</code> in any state other than thinking (e.g. when already ready).</li>
-						<li><strong>clear_think_output()</strong> -- Reverts the effect of <code>set_think_output()</code>. Use this to mark an action as no longer ready, returning it to the thinking state.</li>
-						<li><strong>set_utility()</strong> -- Updates the action's utility. Takes a number between 0 and 1, linearly remaps it to the action's declared utility range, and sets the action's utility to that. This can be called both when thinking and when running, but the action must have declared a utility range rather than a static utility value.</li>
-						<li><strong>abort()</strong> -- Used to announce that the action has gotten into an unrecoverable state, typically while running. E.g. it was running to an item and that item has since been destroyed. This forces the AI to cancel the current action, and recalculate a new plan from scratch. This should only be used in extreme situations, since it can force the character to stutter or rapidly switch plans as it reconsiders everything from scratch. If the AI keeps selecting an action and it keeps aborting, it will eventually (currently after 10 consecutive aborts) give up and kill the character's AI thread. This method takes a string explaining the reason for the cancellation, which is surfaced in the AI inspector and in error messages.</li>
-						<li><strong>execute()</strong> -- Immediately thinks and runs an action that performs a given activity (the thinking must be synchronous, or we hang the character's AI thread while it's thinking). In general, if you find yourself using this, consider whether your action should be a compound action with this as a step. That allows thinking to be asynchronous and also makes the activity to be executed show up in the AI inspector even when the action isn't running.</li>
+						<li><strong>set_think_output()</strong> -- 必须在动作思考时调用以将动作标记为准备好，并设置动作的"思考输出"，这是一个表，复合动作序列中的任何后续步骤都可以访问。一个例子是 <code>find_path_to_entity</code> 动作将计算的路径设置为"思考输出"，以便它可以在复合动作步骤序列中与 <code>follow_path</code> 动作一起使用。如果没有参数传递给 <code>set_think_output()</code>，思考输出默认为动作的原始参数。请注意，在任何其他状态（例如，已经准备好）下调用 <code>set_think_output()</code> 是无效的。</li>
+						<li><strong>clear_think_output()</strong> -- 撤销 <code>set_think_output()</code> 的效果。使用此方法将动作标记为不再准备好，将其返回到思考状态。</li>
+						<li><strong>set_utility()</strong> -- 更新动作的效用值。接受 0 到 1 之间的数字，将其线性重新映射到动作声明的效用值范围，并将动作的效用值设置为该值。这可以在思考和运行时调用，但动作必须声明效用值范围而不是静态效用值。</li>
+						<li><strong>abort()</strong> -- 用于宣布动作已进入不可恢复的状态，通常在运行时。例如，它正在运行到一个物品，但该物品已被销毁。这迫使 AI 取消当前动作，并从头开始重新计算新计划。这应该仅在极端情况下使用，因为它可能导致角色结巴或快速切换计划，因为它从头开始重新考虑一切。如果 AI 继续选择一个动作并且它不断中止，它最终（目前在连续 10 次中止后）将放弃并杀死角色的 AI 线程。此方法接受一个字符串解释取消的原因，该原因显示在 AI 检查器和错误消息中。</li>
+						<li><strong>execute()</strong> -- 立即思考并运行执行给定活动的动作（思考必须是同步的，否则我们会在思考时挂起角色的 AI 线程）。一般来说，如果您发现自己使用此方法，请考虑您的动作是否应该是将此作为步骤的复合动作。这允许思考是异步的，并且使要执行的活动即使在动作未运行时也显示在 AI 检查器中。</li>
 					</ul>
 				</li>
 				<li>
-					<p><a name="ContextUncommonMethods"></a><strong>Uncommon methods</strong></p>
+					<p><a name="ContextUncommonMethods"></a><strong>不常用方法</strong></p>
 					<ul>
-						<li><strong>set_status_text_key()</strong> -- Sets an i18n key and arguments that is used to look up and render a user-facing description of this action, which is displayed in the citizens menu to describe what a given character is doing. This should only be used if you need to change the text dynamically or pass arguments. Otherwise just declare it as the <code>status_text_key</code> metadata field.</li>
-						<li><strong>reject()</strong> -- Signals that the action received arguments which are no longer valid. This one is tricky! If all actions that perform a given activity reject, and the activity is part of a compound action, that compound action will (after a 20ms delay) rethink itself. This means that <code>reject()</code> should only be called if the caller expects to be a step in a compound action rethinking which will now choose different arguments. The classic example of this is the <code>reserve_entity</code> action - if its target has already been reserved by the time it starts thinking, it rejects to ask the parent action to re-evaluate the choice of entities (it assumes that they will check reservations). On the other hand, if you call <code>reject()</code> when rethinking its parent action does not change its arguments, this will cause an infinite loop of rejecting, rethinking, rejecting, and so on, so this is dangerous and highly context-sensitive.</li>
-						<li><strong>suspend()</strong> -- Pauses the entity's AI thread until resumed, and can only be called while running. Used almost exclusively to wait on an effect in actions like <code>run_effect</code>. If you suspend the AI thread, you must later call <code>resume()</code> from the same action (on another thread; typically within a callback); otherwise the thread may hang forever.</li>
-						<li><strong>resume()</strong> -- Resumes the AI thread. Should only be called while running, if this same action previously called <code>suspend()</code>.</li>
-						<li><strong>protect_argument()</strong> -- Marks an entity as protected. If that entity is destroyed while this action is thinking, its thinking is canceled. By default, all arguments passed to the action are protected, so this is only useful if you need to protect some other entities relevant to your action.</li>
-						<li><strong>unprotect_argument()</strong> -- Undoes the protection set by <code>protect_argument()</code>, meaning that destroying the given entity no longer stops the action thinking. This is used e.g. if you need to destroy an entity passed as an argument to the action (or previously protected) as part of your action.</li>
+						<li><strong>set_status_text_key()</strong> -- 设置 i18n 键和参数，用于查找和渲染此动作的面向用户描述，该描述显示在市民菜单中以描述给定角色正在做什么。这应该仅在您需要动态更改文本或传递参数时使用。否则，只需将其声明为 <code>status_text_key</code> 元数据字段。</li>
+						<li><strong>reject()</strong> -- 信号表明动作收到的参数不再有效。这个有点棘手！如果执行给定活动的所有动作都拒绝，并且该活动是复合动作的一部分，则该复合动作将在（20ms 延迟后）重新思考自己。这意味着 <code>reject()</code> 应该仅在调用者期望成为复合动作中重新思考的步骤时调用，该步骤现在将选择不同的参数。经典的例子是 <code>reserve_entity</code> 动作——如果其目标在开始思考时已被保留，它会拒绝以要求父动作重新评估实体的选择（它假设它们将检查保留）。另一方面，如果您在重新思考其父动作不更改其参数时调用 <code>reject()</code>，这将导致无限循环的拒绝、重新思考、拒绝等，因此这是危险且高度依赖上下文的。</li>
+						<li><strong>suspend()</strong> -- 暂停实体的 AI 线程直到恢复，并且只能在运行时调用。几乎专门用于在 <code>run_effect</code> 等动作中等待效果。如果您暂停 AI 线程，您必须稍后从同一动作（在另一个线程上；通常在回调中）调用 <code>resume()</code>；否则线程可能会永远挂起。</li>
+						<li><strong>resume()</strong> -- 恢复 AI 线程。应该仅在运行时调用，如果此同一动作之前调用了 <code>suspend()</code>。</li>
+						<li><strong>protect_argument()</strong> -- 将实体标记为受保护。如果在此动作思考时该实体被销毁，其思考将被取消。默认情况下，传递给动作的所有参数都受保护，因此这仅在您需要保护与您的动作相关的其他实体时有用。</li>
+						<li><strong>unprotect_argument()</strong> -- 撤销由 <code>protect_argument()</code> 设置的保护，意味着销毁给定实体不再停止动作思考。例如，如果您需要销毁作为参数传递给动作（或之前受保护）的实体作为您动作的一部分，则使用此方法。</li>
 					</ul>
 				</li>
 				<li>
-					<p><a name="ContextDebuggingMethods"></a><strong>Debugging methods</strong></p>
+					<p><a name="ContextDebuggingMethods"></a><strong>调试方法</strong></p>
 					<ul>
-						<li><strong>set_debug_progress()</strong> -- Sets a string to show in the AI inspector describing what the current state of the action is. E.g. a "find item" action can show what item it selected.</li>
-						<li><strong>get_log()</strong> -- Returns a (created on demand) logger configured to print extra context info about this action (entity and debug route). This is just a shortcut.</li>
-						<li><strong>get_debug_info_datastore()</strong> -- Returns a datastore that contains debugging metadata about this action. Can be used to add your own debugging metadata, but should generally be avoided.</li>
+						<li><strong>set_debug_progress()</strong> -- 设置在 AI 检查器中显示的字符串，描述动作的当前状态。例如，"查找物品"动作可以显示它选择了什么物品。</li>
+						<li><strong>get_log()</strong> -- 返回一个（按需创建）配置为打印有关此动作的额外上下文信息（实体和调试路由）的记录器。这只是一个快捷方式。</li>
+						<li><strong>get_debug_info_datastore()</strong> -- 返回包含有关此动作的调试元数据的数据存储。可用于添加您自己的调试元数据，但通常应避免使用。</li>
 					</ul>
 				</li>
 				<li>
-					<p><a name="ContextExoticMethods"></a><strong>Exotic methods</strong></p>
+					<p><a name="ContextExoticMethods"></a><strong>特殊方法</strong></p>
 					<ul>
-						<li><strong>spawn()</strong>: Creates a new execution frame that manages thinking and running a given activity. The caller is responsible to managing the returned frame, calling its methods at the right time, etc. This is only used to implement low-level AI system features and is not generally useful.</li>
-						<li><strong>get_parent_node()</strong>: Returns the parent node of this action in the AI graph, which may be an action, an execution frame, or an AI context. This is only used to implement low-level AI system features and is not generally useful.</li>
+						<li><strong>spawn()</strong>：创建一个新的执行帧，用于管理和运行给定活动。调用者负责管理返回的帧，在正确的时间调用其方法等。这仅用于实现低级 AI 系统功能，通常没有用处。</li>
+						<li><strong>get_parent_node()</strong>：返回此动作在 AI 图中的父节点，可能是动作、执行帧或 AI 上下文。这仅用于实现低级 AI 系统功能，通常没有用处。</li>
 					</ul>
 				</li>
 			</ul>
-			<h2><a name="Utility"></a>Utility</h2>
-			<p>When deciding which action to select to perform a given activity or task group, the actions are judged by comparing their utility, a value between 0 and 1, which represents how good that action is at performing its activity in the current situation.</p>
-			<p>Actions can specify their utility as a number if the action always has the same utility, or as a range like {0.2, 0.6} if the action will at some point change its utility depending on state or input. In the latter case, the minimum is assumed by default, and the action can adjust it while thinking or running by calling <code>ai:set_utility()</code> with a number from 0 to 1 (which will be rescaled to the declared range), or for compound and task group actions by returning the new utility value from their <code>compose_utility()</code> method as explained above.</p>
-			<p>Note that an action's utility value is only meaningful in the context of its activity. The utility values of actions that perform different activities cannot be compared directly.</p>
-			<p>In addition to the utility that the action reports, we also have a "sunk cost boost" feature, which increases the utility of an action after it has run for some time. By default, it takes the game time equivalent of 500ms of real time before it kicks in, and by default it adds 0.05 utility, though the latter number can be overridden by the action's metadata.</p>
-			<h2><a name="InjectingActions"></a>Injecting actions</h2>
-			<p>Even after an action is written and registered in the manifest in the <strong>"aliases"</strong> section, it is of no use if no character in the game "knows" that action. For a character to "know" an action, it has to be injected into their AI using an <strong>AI pack</strong>. AI packs are JSON files, usually under <code>stonehearth/ai/packs</code>, which have <strong>"type" : "ai_pack"</strong> and contain lists of:</p>
+			<h2><a name="Utility"></a>效用值</h2>
+			<p>在决定选择哪个动作来执行给定活动或任务组时，通过比较它们的效用值来判断动作，效用值是 0 到 1 之间的值，表示该动作在当前情况下执行其活动的效果如何。</p>
+			<p>如果动作始终具有相同的效用值，动作可以将效用值指定为数字，或者如果动作将根据状态或输入在某个时刻更改其效用值，则指定为范围，如 {0.2, 0.6}。在后一种情况下，默认假设为最小值，动作可以在思考或运行时通过调用 <code>ai:set_utility()</code> 并使用 0 到 1 之间的数字（将重新缩放到声明的范围）来调整它，或者对于复合和任务组动作，通过从其 <code>compose_utility()</code> 方法返回新的效用值，如上所述。</p>
+			<p>请注意，动作的效用值仅在其活动上下文中才有意义。执行不同活动的动作的效用值不能直接比较。</p>
+			<p>除了动作报告的效用值外，我们还有一个"沉没成本提升"功能，它在动作运行一段时间后增加其效用值。默认情况下，它需要相当于真实时间 500ms 的游戏时间才能生效，默认情况下它增加 0.05 效用值，尽管后者数字可以被动作的元数据覆盖。</p>
+			<h2><a name="InjectingActions"></a>注入动作</h2>
+			<p>即使动作已编写并在清单的 <strong>"aliases"</strong> 部分中注册，如果游戏中没有角色"知道"该动作，它也没有用处。为了让角色"知道"动作，必须使用 <strong>AI 包</strong>将其注入到他们的 AI 中。AI 包是 JSON 文件，通常在 <code>stonehearth/ai/packs</code> 下，具有 <strong>"type" : "ai_pack"</strong> 并包含以下列表：</p>
 			<ul>
 				<li>
-					<p>Actions, which have been explained above, and <a href="../components_controllers/components_renderers/index.html">components</a>.</p>
+					<p>动作，上面已经解释过，以及<a href="../components_controllers/components_renderers/index.html">组件</a>。</p>
 				</li>
 				<li>
-					<p><a href="../components_controllers/index.html#Observers">Observers</a>, which are component-like objects that are typically used to create tasks when some conditions are satisfied, and are mostly being phased out in favor of the actions themselves waiting for conditions during their thinking.</p>
-					<p>  You can see an example of actions, observers and components in <code>pet_collar.json</code>, see link below.</p>
+					<p><a href="../components_controllers/index.html#Observers">观察者</a>，它们是类似组件的对象，通常用于在满足某些条件时创建任务，并且大多正在被淘汰， favoring 动作本身在思考期间等待条件。</p>
+					<p>您可以在 <code>pet_collar.json</code> 中看到动作、观察者和组件的示例，请参见下面的链接。</p>
 				</li>
 				<li>
-					<p>Personal task groups, which are task group actions for groups that only contain this character. The above basic needs task group is an example of this. See below for more on task groups. The syntax would be like this (example from <code>celebration_ai_pack.json</code>):</p>
+					<p>个人任务组，它们是仅包含此角色的组的任务组动作。上述基本需求任务组就是一个例子。下面有关任务组的更多信息。语法将是这样的（来自 <code>celebration_ai_pack.json</code> 的示例）：</p>
 					<pre><code>"task_groups": [
    "stonehearth:task_groups:solo:celebration",
    "stonehearth:task_groups:solo:building_celebration",
@@ -463,63 +455,63 @@
 </code></pre>
 				</li>
 				<li>
-					<p>References to other AI packs which they require as dependencies. These are traversed recursively.</p>
+					<p>对它们作为依赖项需要的其他 AI 包的引用。这些是递归遍历的。</p>
 				</li>
 			</ul>
-			<p>Sometimes the AI Packs are inlined in other JSON files instead of being referenced.</p>
-			<p>Entities inject AI packs in several different ways:</p>
+			<p>有时 AI 包内联在其他 JSON 文件中而不是被引用。</p>
+			<p>实体以几种不同的方式注入 AI 包：</p>
 			<ul>
 				<li>
-					<p>An entity can specify a list of AI packs under <code>stonehearth:ai_packs</code> in their entity_data. E.g. in <code>base_human.json</code>, the base mixin for hearthlings.</p>
+					<p>实体可以在其 entity_data 中的 <code>stonehearth:ai_packs</code> 下指定 AI 包列表。例如，在 <code>base_human.json</code> 中，炉民的基础 mixin。</p>
 				</li>
 				<li>
-					<p>Items with an equipment_piece component can include an inlined AI pack under <code>injected_ai</code>. E.g. in <code>pet_collar.json</code>, an item given to all pets, we have <a href="../../basic/wearables/index.html#AI">this injected AI</a>.</p>
-					<p>  Jobs also use this path by having an "abilities" item given to characters that gain the job. E.g. in <code>trapper_abilities.json</code>.</p>
+					<p>具有 equipment_piece 组件的物品可以在 <code>injected_ai</code> 下包含内联 AI 包。例如，在 <code>pet_collar.json</code> 中，给予所有宠物的物品，我们有<a href="../../basic/wearables/index.html#AI">这个注入的 AI</a>。</p>
+					<p>职业也通过使用这条路径，通过向获得职业的角色提供"abilities"物品。例如，在 <code>trapper_abilities.json</code> 中。</p>
 				</li>
 				<li>
-					<p>Buffs can contain an inlined AI pack under <code>injected_ai</code>. E.g. in <code>snared_buff.json</code>, the debuff applied by snare abilities.</p>
+					<p>增益效果可以在 <code>injected_ai</code> 下包含内联 AI 包。例如，在 <code>snared_buff.json</code> 中，由 snare 能力应用的减益效果。</p>
 				</li>
 			</ul>
-			<p>So after you create an action, you should add it to an AI pack and make sure the characters who should know this action have that AI pack injected somewhere.</p>
-			<h2><a name="Tasks"></a>Tasks</h2>
-			<p>While the simplest way to get a character to perform some behavior is to create an action, add it to an AI pack, and have it fulfill the top level activity, <code>stonehearth:top</code>, that does have a few limitations:</p>
+			<p>因此，在您创建动作后，您应该将其添加到 AI 包中，并确保应该知道此动作的角色在某处注入了该 AI 包。</p>
+			<h2><a name="Tasks"></a>任务</h2>
+			<p>虽然让角色执行某些行为的最简单方法是创建动作，将其添加到 AI 包中，并让它履行顶级活动 <code>stonehearth:top</code>，但这确实有一些限制：</p>
 			<ul>
-				<li>The action will always be considered as an option.</li>
-				<li>Actions always run independently on every character that knows that action.</li>
-				<li>It's impossible to assign behaviors to people who aren't in the game yet (for them to do as soon as they enter the game).</li>
+				<li>动作将始终被视为一个选项。</li>
+				<li>动作总是在知道该动作的每个角色上独立运行。</li>
+				<li>无法将行为分配给尚未在游戏中的人（让他们在进入游戏后立即执行）。</li>
 			</ul>
-			<p>Tasks are how you surpass these limitations. A task is a structure that schedules an activity; think of it as a personal assistant whose sole job is to nag someone (or a group of someones) to do something.</p>
-			<p>In order to match tasks up with people, we house tasks inside <a href="#TaskGroup">Task Groups</a>. A task group instance contains a set of pending tasks, and a set of people to give those tasks to. Each task belongs to exactly one task group, while each character can belong to any number of task groups. When a character is added to a task group, its Task Group Action is injected into their AI. When a new task is created, the Task Action is injected into the AI of every character belonging to the group, and runs under the group's Task Group Action.</p>
-			<h3><a name="PersonalTaskGroups"></a>Personal task groups</h3>
-			<p>Each character can (and usually does) have "personal" task groups that only include the character themself. For example, this is used to issue basic need tasks (eating / sleeping / recovery) as shown above, or to issue move orders to military units. By convention, task groups that are intended to be personal are prefixed with "solo".</p>
-			<p>Personal task groups are declared in AI packs, as described above, and are accessed from the <code>stonehearth:ai</code> component via its <code>get_task_group()</code> method.</p>
-			<h3><a name="TownTaskGroups"></a>Town task groups</h3>
-			<p>In addition to personal task groups, there are task groups managed by the town, which potentially include multiple characters. Building and farming task groups are examples of this. Other systems can get these task groups from the town and issue tasks in them. These task groups are declared in a task groups JSON file (e.g. <code>player_task_groups.json</code>) and referenced in the population faction JSON (e.g. <code>ascendancy_population.json</code>). Characters are added to these task groups if their job description specifies the group under <code>task_groups</code> (e.g. <code>farmer_description.json</code>).</p>
-			<h3><a name="AdHocTaskGroups"></a>Ad hoc task groups</h3>
-			<p>Certain systems create temporary task groups to dispatch tasks to temporary groupings of hearthlings. An example for this is combat parties, which creates a task group to dispatch commands to everyone in the party.</p>
-			<h2><a name="IssuingTasks"></a>Issuing tasks</h2>
-			<p>Systems that want to issue tasks need to get the task group (a personal one from the AI component, a town one from <code>Town</code>, or an ad hoc one created elsewhere), then call <code>create_task()</code>, passing the activity and arguments. Only activities declared by that task group action (as described earlier in this page) are allowed, and if the task group does not declare the task as a "multiple", only one instance of the task can be issued at a time. When a task is created, it starts off in a paused state, and the caller can configure it before calling <code>start()</code>, which dispatches it to the characters belonging to its group. Configuration methods include:</p>
+			<p>任务是您超越这些限制的方式。任务是一种调度活动的结构；将其视为个人助手，其唯一工作就是催促某人（或一群人）做某事。</p>
+			<p>为了将任务与人匹配，我们将任务 housed 在<a href="#TaskGroup">任务组</a>中。任务组实例包含一组待处理任务和一组要将这些任务给予的人。每个任务恰好属于一个任务组，而每个角色可以属于任意数量的任务组。当角色被添加到任务组时，其任务组动作被注入到他们的 AI 中。当创建新任务时，任务动作被注入到属于该组的每个角色的 AI 中，并在组的任务组动作下运行。</p>
+			<h3><a name="PersonalTaskGroups"></a>个人任务组</h3>
+			<p>每个角色可以（并且通常确实）有仅包括角色自己的"个人"任务组。例如，这用于发布基本需求任务（饮食/睡眠/恢复），如上所示，或向军事单位发布移动命令。按照惯例，旨在成为个人的任务组以"solo"为前缀。</p>
+			<p>个人任务组在 AI 包中声明，如上所述，并通过 <code>stonehearth:ai</code> 组件的 <code>get_task_group()</code> 方法访问。</p>
+			<h3><a name="TownTaskGroups"></a>城镇任务组</h3>
+			<p>除了个人任务组外，还有由城镇管理的任务组，可能包括多个角色。建筑和农场任务组就是这方面的例子。其他系统可以从城镇获取这些任务组并在其中发布任务。这些任务组在任务组 JSON 文件（例如 <code>player_task_groups.json</code>）中声明，并在人口派系 JSON（例如 <code>ascendancy_population.json</code>）中引用。如果角色的职业描述在 <code>task_groups</code> 下指定了组（例如 <code>farmer_description.json</code>），则角色会被添加到这些任务组中。</p>
+			<h3><a name="AdHocTaskGroups"></a>临时任务组</h3>
+			<p>某些系统创建临时任务组以将任务分派给炉民的临时分组。这方面的一个例子是战斗小队，它创建一个任务组以向小队中的每个人分派命令。</p>
+			<h2><a name="IssuingTasks"></a>发布任务</h2>
+			<p>想要发布任务的系统需要获取任务组（来自 AI 组件的个人任务组、来自 <code>Town</code> 的城镇任务组，或在其他地方创建的临时任务组），然后调用 <code>create_task()</code>，传递活动和参数。仅允许该任务组动作声明的活动（如本页前面所述），如果任务组未将任务声明为"multiple"，则一次只能发布一个任务实例。当创建任务时，它以暂停状态开始，调用者可以在调用 <code>start()</code> 之前配置它，这将把它分派给属于其组的角色。配置方法包括：</p>
 			<ul>
-				<li><strong>times(n)</strong> -- Specifies that the task should be finished this many times before being considered done. By default, tasks will continue being performed indefinitely.</li>
-				<li><strong>once()</strong> -- A shorthand for times(1).</li>
-				<li><strong>set_annotation(text)</strong> -- Specifies text associated with the task for debugging.</li>
-				<li><strong>set_source(object)</strong> -- Specifies an object considered the source of the task for debugging.</li>
-				<li><strong>notify_completed(cb)</strong>, <strong>notify_interrupted(cb)</strong>, <strong>notify_destroyed(cb)</strong> -- Adds a callback for when the task is completed, interrupted, or destroyed, respectively.</li>
+				<li><strong>times(n)</strong> -- 指定任务在完成之前应完成这么多次。默认情况下，任务将无限期地继续执行。</li>
+				<li><strong>once()</strong> -- times(1) 的简写。</li>
+				<li><strong>set_annotation(text)</strong> -- 指定与任务关联的文本用于调试。</li>
+				<li><strong>set_source(object)</strong> -- 指定被认为是任务源的对象用于调试。</li>
+				<li><strong>notify_completed(cb)</strong>、<strong>notify_interrupted(cb)</strong>、<strong>notify_destroyed(cb)</strong> -- 分别为任务完成、中断或销毁时添加回调。</li>
 			</ul>
-			<p>Tasks can be added to task groups at any time, even when the task group doesn't have people in it yet.</p>
-			<p>For example, the shepherd pasture component will create a task for all shepherds in the town to feed animals when the animals become hungry. From <code>shepherd_pasture_component.lua</code>:</p>
+			<p>任务可以随时添加到任务组中，即使任务组中还没有人。</p>
+			<p>例如，牧羊人牧场组件将为城镇中的所有牧羊人创建一个任务，当动物变得饥饿时喂养动物。来自 <code>shepherd_pasture_component.lua</code>：</p>
 			<pre><code>  local feed_task = town:get_task_group('stonehearth:task_groups:herding')
                           :create_task('stonehearth:feed_pasture_animals', {pasture = self._entity})
                           :set_source(self._entity)
                           :start()
 </code></pre>
-			<p>Remember to declare your task groups in the <strong>"aliases"</strong> sections of your manifest.</p>
-			<h2><a name="Persistence"></a>Persistence</h2>
-			<p>None of the AI state is persisted into savegames, which means several things, including:</p>
+			<p>请记住在清单的 <strong>"aliases"</strong> 部分中声明您的任务组。</p>
+			<h2><a name="Persistence"></a>持久化</h2>
+			<p>没有任何 AI 状态被持久化到存档游戏中，这意味着几件事，包括：</p>
 			<ul>
-				<li>Characters will not resume what they were doing when you reload a savegame.</li>
-				<li>If an AI thread got into a bad state, it will be reset on reload (good for playing, bad for debugging).</li>
-				<li>When reloading, you are responsible for recreating any <a href="#Tasks">tasks</a> that were active when the game was saved.</li>
+				<li>角色在您重新加载存档游戏时不会恢复他们正在做的事情。</li>
+				<li>如果 AI 线程进入不良状态，它将在重新加载时重置（对玩游戏有利，对调试不利）。</li>
+				<li>重新加载时，您负责重新创建游戏保存时处于活动状态的任何<a href="#Tasks">任务</a>。</li>
 			</ul>
 		</main>
 	</body>

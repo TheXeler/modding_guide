@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,82 +7,82 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Events</title>
+      <title>事件</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Events</h1>
+         <h1>事件</h1>
          <ul>
-            <li><a href="#Events">What are events?</a></li>
-            <li><a href="#Triggering">Firing an event</a></li>
-            <li><a href="#Listening">Listening to an event</a></li>
-            <li><a href="#Unlistening">Unlistening to events</a></li>
+            <li><a href="#Events">什么是事件？</a></li>
+            <li><a href="#Triggering">触发事件</a></li>
+            <li><a href="#Listening">监听事件</a></li>
+            <li><a href="#Unlistening">取消监听事件</a></li>
          </ul>
-         <h2><a name="Events"></a>What are events?</h2>
-         <p>Events are essentially messages broadcast to all Lua classes in the game. They are triggered when key things happen in the game. A mod can listen to game events to have behavior happen at appropriate moments.</p>
-         <p>Events have a target object and a target identifier key since all items of a certain class may want to listen on events relevant to that class, but only actually respond to events involving themselves or their children.</p>
-         <p>You can listen to events triggered from the vanilla mods, or trigger your own custom events from your code and listen to them.</p>
-         <h2><a name="Triggering"></a>Firing an event</h2>
-         <p>To trigger an event, call <code>radiant.events.trigger_async()</code> and pass in an identifying object (usually the entity that the event concerns; if it's a general event, sometimes the service that relates to that event), the name of the event (namespaced to the mod in question) and an optional set of arguments:</p>
+         <h2><a name="Events"></a>什么是事件？</h2>
+         <p>事件本质上是广播给游戏中所有 Lua 类的消息。当游戏中发生关键事情时，它们会被触发。mod 可以监听游戏事件，以便在适当的时刻执行行为。</p>
+         <p>事件有一个目标对象和一个目标标识符键，因为某个类的所有项目可能都希望监听与该类相关的事件，但只实际响应涉及它们自己或其子项的事件。</p>
+         <p>您可以监听来自原版 mod 触发的事件，或者从您的代码中触发自定义事件并监听它们。</p>
+         <h2><a name="Triggering"></a>触发事件</h2>
+         <p>要触发事件，请调用 <code>radiant.events.trigger_async()</code> 并传入一个标识对象（通常是事件所关注的实体；如果是通用事件，有时是与该事件相关的服务）、事件的名称（命名空间到相关的 mod）和一组可选参数：</p>
          <pre><code>  radiant.events.trigger_async(entity, 'stonehearth:admiring_fire', {})
 </code></pre>
-         <p>Note that the above function triggers events asynchronously. So when you catch the event, you should confirm the worldstate. You cannot, for example, assume that objects that existed when the event was fired still exist in the world. There's also <code>radiant.events.trigger_sync()</code> but firing the event as async is better for performance.</p>
-         <h2><a name="Listening"></a>Listening to an event</h2>
-         <p>If a class wishes to receive an event, it registers to listen on the identifying object/string key pair, and specifies the function to call when the event is fired.</p>
-         <p>To listen on an event, call <code>radiant.events.listen()</code> and pass in an identifying object (should match the one that was passed into the trigger), the name of the event, and a function that should receive the arguments and be called when the event is triggered. For example:</p>
+         <p>请注意，上述函数异步触发事件。因此，当您捕获事件时，您应该确认世界状态。例如，您不能假设在触发事件时存在的对象仍然存在于世界中。还有 <code>radiant.events.trigger_sync()</code>，但异步触发事件对性能更好。</p>
+         <h2><a name="Listening"></a>监听事件</h2>
+         <p>如果一个类希望接收事件，它会注册以监听标识对象/字符串键对，并指定在触发事件时要调用的函数。</p>
+         <p>要监听事件，请调用 <code>radiant.events.listen()</code> 并传入一个标识对象（应与传递给触发器的对象匹配）、事件的名称，以及一个应接收参数并在触发事件时被调用的函数。例如：</p>
          <pre><code>  radiant.events.listen(entity, 'stonehearth:buff_added', function(e)
-        --e has the arguments passed into the trigger
+        --e 包含传递给触发器的参数
         if e.uri == uri then
-           -- do stuff
+           -- 做一些事情
         end
      end)
 </code></pre>
-         <p>Or you can pass in a function that exists elsewhere in the class:</p>
+         <p>或者您可以传入类中其他地方存在的函数：</p>
          <pre><code>  self._attribute_listener = radiant.events.listen(entity, 'stonehearth:foo_event', self, self._on_attribute_changed)
 
   function ClassName:_on_attribute_changed(e)
-     --do stuff
+     --做一些事情
   end
 </code></pre>
-         <h2><a name="Unlistening"></a>Unlistening to events</h2>
-         <p>Destroy an event listener when you know it's no longer relevant, to save traffic on the event pipeline and prevent errors. Refer to it by the name you used to save it.</p>
-         <p>If you no longer want to listen to an event, you can either return <strong>radiant.events.UNLISTEN</strong> in the callback function, or you can save the event and destroy it later:</p>
+         <h2><a name="Unlistening"></a>取消监听事件</h2>
+         <p>当您知道事件监听器不再相关时，请销毁它以节省事件管道上的流量并防止错误。通过您用于保存它的名称来引用它。</p>
+         <p>如果您不再想监听事件，您可以在回调函数中返回 <strong>radiant.events.UNLISTEN</strong>，或者您可以保存事件并在以后销毁它：</p>
          <ul>
             <li>
-               <p>If you want to unlisten on the event that just fired, your function should just return <strong>radiant.events.UNLISTEN</strong> instead of unlistening directly, so the events can be counted correctly in the event service. Example of unlistening from the callback:</p>
+               <p>如果您想取消监听刚刚触发的事件，您的函数应该只返回 <strong>radiant.events.UNLISTEN</strong> 而不是直接取消监听，以便事件服务可以正确计数事件。从回调中取消监听的示例：</p>
                <pre><code>function ClassName:_on_attribute_changed()
    return radiant.events.UNLISTEN
 end
 </code></pre>
             </li>
             <li>
-               <p>If an object with a listener is still listening to an event at the time it's going to be destroyed, unlisten to the event. Example here assumes that the event was saved to <code>self._attribute_listener</code>, like in the example of the section above:</p>
+               <p>如果具有监听器的对象在即将被销毁时仍在监听事件，请取消监听该事件。此处的示例假定事件已保存到 <code>self._attribute_listener</code>，如上节示例所示：</p>
                <pre><code>if self._attribute_listener then
    self._attribute_listener:destroy()
    self._attribute_listener = nil
 end
 </code></pre>
-               <p>  This would normally be called in the <code>destroy()</code> function of the class.</p>
+               <p>这通常会在类的 <code>destroy()</code> 函数中调用。</p>
             </li>
          </ul>
          <!--
-            #List of Events
-            
-            All events listed below are prefaced in code by stonehearth:, because they are all part of the stonehearth mod.
-            
-            ##Time
-            
-               - **hourly** - triggered every in-game hour by the calendar service. Passes args: {now = self._sv.date}
-                  - Key: stonehearth.calendar
-                  - Args: {now = current date}
-            
-            For all the above events:
-            
-               - Key: stonehearth.calendar
-               - Args: none
-            
-            Note: times of day (midnight, sunrise, noon, sunset are defined in calendar constants)
+            #事件列表
+
+            下面列出的所有事件在代码中都以 stonehearth: 为前缀，因为它们都是 stonehearth mod 的一部分。
+
+            ##时间
+
+               - **hourly** - 由日历服务每游戏小时触发一次。传递参数：{now = self._sv.date}
+                  - 键：stonehearth.calendar
+                  - 参数：{now = 当前日期}
+
+            对于上述所有事件：
+
+               - 键：stonehearth.calendar
+               - 参数：无
+
+            注意：一天中的时间（午夜、日出、正午、日落在日历常量中定义）
                   "event_times" : {
                      "midnight" : 0,
                      "sunrise" : 6,
@@ -90,116 +90,116 @@ end
                      "sunset_start" : 20,
                      "sunset" : 22
                   }
-            
-            ##Combat
-            
-               - **combat:begin\_melee\_attack** - triggered whenever someone attacks another person in combat.
-                  - Key: entity that is attacking
-                  - Name: stonehearth:combat:begin\_melee\_attack
-                  - Args: the combat context
-               - **combat:melee\_attack\_connect** - triggered whenever an attackers blow hits the target. Passing the target's health means we can also tell if we've killed the target.
-                  - Key: entity that is attacking
-                  - Name: stonehearth:combat:melee\_attack\_connect
-                  - Args: action_details - some data about the nature of the attack (attacker, target, damage, target_health, target_exp). Target_exp is exp per hit.
-               - **combat:battery** - triggered whenever a person is hit in combat. Triggered by _combat\_service.lua_: radiant.events.trigger_async(target, 'stonehearth:combat:battery', context)
-                  - Key: entity that was targeted
-                  - Name: stonehearth:combat:battery
-                  - Args: context (some details on combat action included, like attacker, target, etc)
-            
-            ##Death
-            
-               - **kill_event** - triggered whenever a significant entity is killed and needs to inform its components etc that it is being destroyed. Only use if you are a component or an object related to that eneity, and must clean yourself up before the entity is destroyed.
-                  - Key: entity that was killed
-                  - Name: stonehearth:kill_event
-                  - Args: none
-                  - Note: this is a synchronous event, so don't do anything crazy in the event handlers listening to it. On the flip side, you know the entity still exists. Please only use if you are a component on the entity and need to clean up after yourself. Otherwise, really complicated things can happen when a sync event goes off.
-               - **entity_killed** - triggered when an entity of significance (a villager, an enemy) dies due to in-game causes. Like kill_event but is async, and should be used in preference to kill_event UNLESS you are a component or object related to the entity that must clean yourself up on its removal from the game.
-                  - Key: radiant.entities
-                  - Name: stonehearth:combat:entity_killed
-                  - Args: entity - the name, id, faction, and player_id of the entity that died
-                  - Note: this is async, so don't assume that the entity still exists.
-            
-            ##Everyday Tasks
-            
-               - **sleep\_in\_bed** - triggered whenever we get up from sleeping in a bed, passes in entity that was sleeping
-                  - Key: entity that was sleeping
-                  - Name: stonehearth:sleep\_in\_bed
-                  - Args: none
-               - **sleep\_on\_ground** - triggered when we get up from sleeping on the ground
-                  - Key: entity that was sleeping
-                  - Name: stonehearth:sleep\_on\_ground
-                  - Args: none
-               - **level\_up** - triggered whenever a civilian levels up
-                  - Key: entity that is leveling up
-                  - Name: stonehearth:level_up
-                  - Args: level - level, job\_uri, job\_name
-            
-            ##Gathering
-            
-               - **clear\_trap** - triggered whenever a trapper clears a set trap, passes in id of trapped entity
-                  - Key: The trapper
-                  - Name: stonehearth:clear\_trap
-                  - Args: trapped\_entity\_id - the id of the entity that was trapped, nil if none
-               - **befriend\_pet** - triggered whenever a trapper makes a pet friend
-                  - Key: The trapper
-                  - Name: stonehearth:befriend\_pet
-                  - Args: pet_id - the id of the pet, nil if none
-               - **set\_trap** - triggered whenever a trapper sets a trap
-                  - Key: The trapper
-                  - Name: stonehearth:set\_trap
-                  - Args: none
-               - **harvest\_crop** - triggered whenever a farmer harvests a plant from a field
-                  - Key: the farmer
-                  - Name: stonehearth:harvest\_crop
-                  - Args: crop - the crop that was harvested
-               - **on\_renewable\_resource\_renewed** - triggered when a renewable resource renews itself
-                  - Key: the entity being renewed
-                  - Name: stonehearth:on\_renewable\_resource\_renewed
-                  - Args: target - the thing spawning the resource; available_resource - the type of resource that is now available
-               - **on\_pasture\_animals\_changed** - triggered when the # of animals in the pasture changes
-                  - Key: the pasture
-                  - Name: stonehearth:on\_pasture\_animals\_changed
-                  - Args: none
-               - **tame\_animal** - triggered when the shepherd tames an animal
-                  - Key: the shepherd
-                  - Name: stonehearth:tame\_animal
-                  - Args: animal - the animal entity tamed
-               - **leave\_animal\_in\_pasture** - triggered when the shepherd leaves an animal in the pasture
-                  - Key: the shepherd
-                  - Name: stonehearth:leave\_animal\_in\_pasture
-                  - Args: animal - the animal entity tamed
-               - **gather\_renewable\_resource** - triggered when someone grabs a renewable resource
-                  - Key: the entity who harvests
-                  - Name: stonehearth:gather\_renewable\_resource
-                  - Args: harvested\_target - the entity harvested, spawned\_item - the thing dropped by the harvest
-            
-            ##Crafting
-            
-               - **crafter:craft\_item** - triggered when the crafter finishes making an item
-                  - Key: the crafter
-                  - Name: stonehearth:crafter:craft\_item
-                  - Args: crafting data, containing recipe_data (the recipe json) and product (the item crafted, may be iconic)
-            
-            ##Shops
-            
-               - **item\_bought** - triggered after buying an item
-                  - Key: the shop controller
-                  - Name: stonehearth:item\_bought
-                  - Args: item_uri, item_cost and quantity, containing the uri of the bought item, the individual cost, and how many were bought
-               - **item\_sold** - triggered after selling an item
-                  - Key: the shop controller
-                  - Name: stonehearth:item\sold
-                  - Args: item_uri, item_cost and quantity, containing the uri of the sold item, the individual benefit, and how many were sold
-            
-            ##Ownership
-            
-               - **owner\_changed** - triggered when the owner changes
-                  - Key: the ownable object component
-                  - Name: stonehearth:owner\_changed
-                  - Args: new_owner, containing the new owner (entity), can be nil
-            
-            ^^^ That list is incomplete, but you can find the events in the game files.
-            Events thrown from C++:
+
+            ##战斗
+
+               - **combat:begin_melee_attack** - 每当有人在战斗中攻击另一个人时触发。
+                  - 键：正在攻击的实体
+                  - 名称：stonehearth:combat:begin_melee_attack
+                  - 参数：战斗上下文
+               - **combat:melee_attack_connect** - 每当攻击者的打击命中目标时触发。传递目标的生命值意味着我们也可以判断是否杀死了目标。
+                  - 键：正在攻击的实体
+                  - 名称：stonehearth:combat:melee_attack_connect
+                  - 参数：action_details - 关于攻击性质的一些数据（攻击者、目标、伤害、target_health、target_exp）。Target_exp 是每次打击的经验值。
+               - **combat:battery** - 每当有人在战斗中被击中时触发。由 _combat_service.lua_ 触发：radiant.events.trigger_async(target, 'stonehearth:combat:battery', context)
+                  - 键：被 targeting 的实体
+                  - 名称：stonehearth:combat:battery
+                  - 参数：context（包含一些战斗动作的详细信息，如攻击者、目标等）
+
+            ##死亡
+
+               - **kill_event** - 每当一个重要实体被杀死并需要通知其组件等它正在被销毁时触发。仅当您是组件或与该实体相关的对象，并且必须在实体被销毁之前清理自己时使用。
+                  - 键：被杀死的实体
+                  - 名称：stonehearth:kill_event
+                  - 参数：无
+                  - 注意：这是一个同步事件，因此在监听它的事件处理程序中不要做任何疯狂的事情。另一方面，您知道实体仍然存在。请仅在您是实体上的组件并需要清理自己时使用。否则，当同步事件发生时，可能会发生非常复杂的事情。
+               - **entity_killed** - 当重要实体（村民、敌人）因游戏内原因死亡时触发。类似于 kill_event 但是异步的，应该优先于 kill_event 使用，除非您是必须在其从游戏中移除时清理自己的与实体相关的组件或对象。
+                  - 键：radiant.entities
+                  - 名称：stonehearth:combat:entity_killed
+                  - 参数：entity - 死亡实体的名称、id、派系和 player_id
+                  - 注意：这是异步的，所以不要假设实体仍然存在。
+
+            ##日常任务
+
+               - **sleep_in_bed** - 每当我们从床上睡觉起来时触发，传入正在睡觉的实体
+                  - 键：正在睡觉的实体
+                  - 名称：stonehearth:sleep_in_bed
+                  - 参数：无
+               - **sleep_on_ground** - 当我们从地上睡觉起来时触发
+                  - 键：正在睡觉的实体
+                  - 名称：stonehearth:sleep_on_ground
+                  - 参数：无
+               - **level_up** - 每当平民升级时触发
+                  - 键：正在升级的实体
+                  - 名称：stonehearth:level_up
+                  - 参数：level - 等级，job_uri，job_name
+
+            ##采集
+
+               - **clear_trap** - 每当捕兽者清除设置的陷阱时触发，传入被困实体的 id
+                  - 键：捕兽者
+                  - 名称：stonehearth:clear_trap
+                  - 参数：trapped_entity_id - 被困实体的 id，如果没有则为 nil
+               - **befriend_pet** - 每当捕兽者使宠物成为朋友时触发
+                  - 键：捕兽者
+                  - 名称：stonehearth:befriend_pet
+                  - 参数：pet_id - 宠物的 id，如果没有则为 nil
+               - **set_trap** - 每当捕兽者设置陷阱时触发
+                  - 键：捕兽者
+                  - 名称：stonehearth:set_trap
+                  - 参数：无
+               - **harvest_crop** - 每当农民从田地里收割植物时触发
+                  - 键：农民
+                  - 名称：stonehearth:harvest_crop
+                  - 参数：crop - 被收割的作物
+               - **on_renewable_resource_renewed** - 当可再生资源自我更新时触发
+                  - 键：正在更新的实体
+                  - 名称：stonehearth:on_renewable_resource_renewed
+                  - 参数：target - 生成资源的东西；available_resource - 现在可用的资源类型
+               - **on_pasture_animals_changed** - 当牧场中的动物数量变化时触发
+                  - 键：牧场
+                  - 名称：stonehearth:on_pasture_animals_changed
+                  - 参数：无
+               - **tame_animal** - 当牧羊人驯服动物时触发
+                  - 键：牧羊人
+                  - 名称：stonehearth:tame_animal
+                  - 参数：animal - 被驯服的动物实体
+               - **leave_animal_in_pasture** - 当牧羊人将动物留在牧场时触发
+                  - 键：牧羊人
+                  - 名称：stonehearth:leave_animal_in_pasture
+                  - 参数：animal - 被驯服的动物实体
+               - **gather_renewable_resource** - 当有人获取可再生资源时触发
+                  - 键：采集的实体
+                  - 名称：stonehearth:gather_renewable_resource
+                  - 参数：harvested_target - 被采集的实体，spawned_item - 采集掉落的物品
+
+            ##制作
+
+               - **crafter:craft_item** - 当工匠完成制作物品时触发
+                  - 键：工匠
+                  - 名称：stonehearth:crafter:craft_item
+                  - 参数：制作数据，包含 recipe_data（配方 json）和 product（制作的物品，可能是图标化的）
+
+            ##商店
+
+               - **item_bought** - 购买物品后触发
+                  - 键：商店控制器
+                  - 名称：stonehearth:item_bought
+                  - 参数：item_uri，item_cost 和 quantity，包含购买物品的 uri、单个成本和购买数量
+               - **item_sold** - 出售物品后触发
+                  - 键：商店控制器
+                  - 名称：stonehearth:item\sold
+                  - 参数：item_uri，item_cost 和 quantity，包含出售物品的 uri、单个收益和出售数量
+
+            ##所有权
+
+               - **owner_changed** - 当所有者更改时触发
+                  - 键：可拥有对象组件
+                  - 名称：stonehearth:owner_changed
+                  - 参数：new_owner，包含新所有者（实体），可以为 nil
+
+            ^^^ 该列表不完整，但您可以在游戏文件中找到事件。
+            从 C++ 触发的事件：
             radiant:client:server_ready
             radiant:client:game_joined
             radiant:client:disconnect_reason

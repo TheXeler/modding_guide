@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,17 +7,17 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Ore veins</title>
+      <title>矿脉</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Ore veins</h1>
-         <p><a name="OreVeins"></a>Ores and other resources can drop from mining. We can create our own resource veins that will spawn inside the terrain, and make them drop more of a certain resource.</p>
+         <h1>矿脉</h1>
+         <p><a name="OreVeins"></a>矿石和其他资源可以从采矿中掉落。我们可以创建自己的资源矿脉，它们将在地形中生成，并使它们掉落更多的特定资源。</p>
          <ol>
             <li>
-               <p>First, create a mining resource. This can be anything, and we'll use it as a drop from mining. You can copy an existing resource from <code>stonehearth/entities/resources</code>.</p>
-               <p>  In our example, we copied <code>lump_of_coal</code> and renamed it to <code>emerald</code>:</p>
+               <p>首先，创建一个采矿资源。这可以是任何东西，我们将用它作为采矿的掉落物。您可以从 <code>stonehearth/entities/resources</code> 复制现有的资源。</p>
+               <p>在我们的示例中，我们复制了 <code>lump_of_coal</code> 并将其重命名为 <code>emerald</code>：</p>
                <pre><code>{
    "mixins": "stonehearth:mixins:item_properties",
    "type": "entity",
@@ -55,29 +55,29 @@
    }
 }
 </code></pre>
-               <p>  The model will be used for the iconic/restockable resource. If this resource is going to be used for building, you can add the stacks inside the components:</p>
+               <p>该模型将用于图标/可补货的资源。如果此资源将用于建筑，您可以在组件内添加堆叠：</p>
                <pre><code>"stonehearth:stacks": {
    "max_stacks": 60
 }
 </code></pre>
-               <p>  That way the resource will last for N blocks while building with it. You would also need to add your resource to the list of building resources for this to work.</p>
-               <p>  Make sure to rename <code>coal</code> (or whatever resource name) in the material_tags to something unique and that it has a valid storage filter.</p>
+               <p>这样，在使用它进行建筑时，资源将持续 N 个方块。您还需要将您的资源添加到建筑资源列表中才能使其工作。</p>
+               <p>确保将 material_tags 中的 <code>coal</code>（或任何资源名称）重命名为唯一的内容，并且它具有有效的存储过滤器。</p>
             </li>
             <li>
-               <p>Add an alias for your resource in the manifest:</p>
+               <p>在清单中为您的资源添加别名：</p>
                <pre><code>"aliases" : {
    "resources:emerald": "file(entities/resources/emerald)"
 }
 </code></pre>
             </li>
             <li>
-               <p>Make your resource be dropped from mining:</p>
-               <p>  To do this, we need to add our resource to the <code>stonehearth/services/server/mining/mining_loot_tables.json</code> file via a mixinto:</p>
+               <p>使您的资源从采矿中掉落：</p>
+               <p>为此，我们需要通过 mixinto 将我们的资源添加到 <code>stonehearth/services/server/mining/mining_loot_tables.json</code> 文件中：</p>
                <pre><code>"mixintos" : {
    "stonehearth:mining:base_loot_table" : "file(mixintos/mining_loot_tables_mixinto.json)"
 }
 </code></pre>
-               <p>  Our mixinto file would look like this:</p>
+               <p>我们的 mixinto 文件看起来像这样：</p>
                <pre><code>{
    "mineable_blocks": {
       "rock": {
@@ -112,15 +112,15 @@
    }
 }
 </code></pre>
-               <p>  This is a <a href="../../misc_json/index.html#LootTables">loot table</a> that lists terrain types and the items that can drop when we mine them.</p>
-               <p>  This bit of data is telling us to add our resource to the "rock" loot table and give it a weight of 50. Check the numbers in <code>stonehearth/services/server/mining/mining_loot_tables.json</code> before adjusting this weight. If your number is too low, your resource will not drop much (if at all). If your number is too high, it will outweight every other resource and nothing else will drop!</p>
-               <p>  There are other loot tables in the <code>mining_loot_tables</code> that you can add your resource to if you so desire. Rock is just the most logical one to start with.</p>
-               <p>  There exist files in the biomes folder called <code>temperate_mining_loot_table.json</code>, <code>desert_mining_loot_table.json</code> and <code>arctic_mining_loot_table.json</code>. These files are for any additional mining loot tables you want to add that are specific to that biome type only. You can mixinto to them in this same way to make your resource dependent on the biome. The generic one we used will be applied for all the biomes. </p>
-               <p>  The keys inside <strong>"mineable_blocks"</strong> correspond to values from the <strong>"kind"</strong> keys in <code>stonehearth/data/terrain/terrain_blocks.json</code>. That way the resources will drop no matter which color of rock, grass, etc we mine.</p>
+               <p>这是一个<a href="../../misc_json/index.html#LootTables">战利品表</a>，列出了地形类型以及我们在挖掘它们时可以掉落的物品。</p>
+               <p>这段数据告诉我们将我们的资源添加到"rock"战利品表中，并赋予它 50 的权重。在调整此权重之前，请检查 <code>stonehearth/services/server/mining/mining_loot_tables.json</code> 中的数字。如果您的数字太低，您的资源将不会掉落太多（如果有的话）。如果您的数字太高，它将超过所有其他资源，而其他任何东西都不会掉落！</p>
+               <p>如果您愿意，<code>mining_loot_tables</code> 中还有其他战利品表可以添加您的资源。Rock 只是最合乎逻辑的开始。</p>
+               <p>生物群落文件夹中存在名为 <code>temperate_mining_loot_table.json</code>、<code>desert_mining_loot_table.json</code> 和 <code>arctic_mining_loot_table.json</code> 的文件。这些文件用于您要添加的任何仅特定于该生物群落类型的额外采矿战利品表。您可以以相同的方式 mixinto 到它们中，使您的资源依赖于生物群落。我们使用的通用战利品表将应用于所有生物群落。</p>
+               <p><strong>"mineable_blocks"</strong> 内的键对应于 <code>stonehearth/data/terrain/terrain_blocks.json</code> 中 <strong>"kind"</strong> 键的值。这样，无论我们挖掘哪种颜色的岩石、草地等，资源都会掉落。</p>
             </li>
             <li>
-               <p>Add your resource to the terrain blocks:</p>
-               <p>  Since we added "emerald" as an entry in "mineable_blocks", we need to ensure that a terrain type called "emerald" exists. Our mixinto to <code>terrain_blocks.json</code> looks like this:</p>
+               <p>将您的资源添加到地形块中：</p>
+               <p>由于我们在"mineable_blocks"中添加了"emerald"作为条目，我们需要确保存在名为"emerald"的地形类型。我们对 <code>terrain_blocks.json</code> 的 mixinto 看起来像这样：</p>
                <pre><code>{
    "block_types" : {
        "emerald" :               { "tag" :   550, "kind" : "emerald" }
@@ -130,8 +130,8 @@
    }
 }
 </code></pre>
-               <p>  We add a new key called "emerald", assign a <strong>tag</strong> (which is a unique number, check the other ones in terrain_blocks.json to avoid duplicates) to it, and also a <strong>"kind"</strong> which is our entry name in "mineable_blocks". The "kind" can be a different string than the main key string.</p>
-               <p>  We also add it inside the <strong>"selectable_kinds"</strong> section. This is so that we can click on our ore vein and its name will be shown in the unit frame. The alias it points to corresponds to this file:</p>
+               <p>我们添加一个名为"emerald"的新键，为其分配一个 <strong>tag</strong>（这是一个唯一的数字，检查 terrain_blocks.json 中的其他数字以避免重复），以及一个 <strong>"kind"</strong>，它是我们在"mineable_blocks"中的条目名称。"kind"可以是与主键字符串不同的字符串。</p>
+               <p>我们还在 <strong>"selectable_kinds"</strong> 部分中添加它。这样，当我们点击矿脉时，其名称将显示在单位框架中。它指向的别名对应于此文件：</p>
                <pre><code>{
    "mixins": "stonehearth/entities/terrain/ui/ore_block/ore_block.json",
    "components": {},
@@ -143,11 +143,11 @@
    }
 }
 </code></pre>
-               <p>  Make sure the "mixins" point to the stonehearth mod and adjust the name and description of our terrain type.</p>
+               <p>确保"mixins"指向 stonehearth mod，并调整我们地形类型的名称和描述。</p>
             </li>
             <li>
-               <p>Indicate the color for your new terrain block type.</p>
-               <p>  Currently this has to be done via a mixinto to the biomes generation_data files, which means we'll need to inject this mixinto for all the biomes where we'll spawn our ore vein, otherwise its color will be a default one (an almost black red):</p>
+               <p>指示新地形块类型的颜色。</p>
+               <p>目前，这必须通过对生物群落 generation_data 文件的 mixinto 来完成，这意味着我们需要为我们将生成矿脉的所有生物群落注入此 mixinto，否则其颜色将是默认颜色（几乎是黑色的红色）：</p>
                <pre><code>"mixintos" : {
    "stonehearth:mining:base_loot_table" : "file(mixintos/mining_loot_tables_mixinto.json)",
    "stonehearth/data/biome/temperate_generation_data.json" : "file(data/biome/ore_color_mixinto.json)",
@@ -155,7 +155,7 @@
    "stonehearth/data/biome/arctic_generation_data.json" : "file(data/biome/ore_color_mixinto.json)"
 }
 </code></pre>
-               <p>  The mixinto will look like this:</p>
+               <p>mixinto 将看起来像这样：</p>
                <pre><code>{
    "palettes": {
        "spring": {
@@ -173,12 +173,12 @@
    }
 }
 </code></pre>
-               <p>  We add an entry with our terrain type (the main keys inside <strong>"block_types"</strong> from terrain_blocks.json) for each season, and link it to the color that we want for our ore vein in hexadecimal format. Terrain blocks don't admit custom render materials, they will all use the same shader (hardcoded in the C++ side). Water has a separate renderer.</p>
-               <p>  <img src="/modding_guide/images/common/gold.png" alt="icon"/> <a name="SafeMixintos"></a>We can add mixintos to files from other mods even if the players don't have those mods installed. Warnings that those files couldn't be found will be written to the stonehearth.log, but won't pop up in the game. If there are too many warnings from several mods, the game might take a bit longer to start.</p>
+               <p>我们为每个季节添加一个包含我们地形类型（terrain_blocks.json 中 <strong>"block_types"</strong> 内的主键）的条目，并将其链接到我们想要用于矿脉的十六进制格式的颜色。地形块不接受自定义渲染材质，它们都将使用相同的着色器（在 C++ 端硬编码）。水有一个单独的渲染器。</p>
+               <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> <a name="SafeMixintos"></a>即使玩家没有安装其他 mod，我们也可以向它们的文件添加 mixinto。那些文件无法找到的警告将写入 stonehearth.log，但不会在游戏中弹出。如果来自多个 mod 的警告太多，游戏可能需要更长的时间才能启动。</p>
             </li>
             <li>
-               <p>Finally, we can create our ore vein and add it as a static scenario so that it spawns in the terrain.</p>
-               <p>  Copy <code>stonehearth/scenarios/static/terrain/coal_vein</code> (or any other ore vein), rename it and edit it:</p>
+               <p>最后，我们可以创建我们的矿脉并将其添加为静态场景，以便它在地形中生成。</p>
+               <p>复制 <code>stonehearth/scenarios/static/terrain/coal_vein</code>（或任何其他矿脉），重命名并编辑它：</p>
                <pre><code>{
    "mixins" : "stonehearth/scenarios/static/terrain/ore_vein/ore_vein.json",
    "name" : "emerald_vein",
@@ -186,32 +186,32 @@
    "weight" : 75
 }
 </code></pre>
-               <p>  Make sure the "mixins" point to the stonehearth mod. The <strong>"weight"</strong> will be used together with the other ore veins, so check the other files so that your ore has enough chances to spawn.</p>
-               <p>  Other fields we can include in this JSON file that have defaults in <code>ore_vein.json</code> are:</p>
+               <p>确保"mixins"指向 stonehearth mod。<strong>"weight"</strong> 将与其他矿脉一起使用，因此请检查其他文件，以确保您的矿脉有足够的生成机会。</p>
+               <p>我们可以包含在此 JSON 文件中的其他字段在 <code>ore_vein.json</code> 中有默认值：</p>
                <ul>
                   <li>
-                     <p><strong>habitat_types" : ["mountains"]</strong> -- will make it spawn only in the habitats declared here. Normally we want ore veins to spawn only in the "mountains" habitat.</p>
+                     <p><strong>"habitat_types" : ["mountains"]</strong> -- 将使其仅在声明的生境中生成。通常我们希望矿脉仅在"mountains"生境中生成。</p>
                   </li>
                   <li>
-                     <p><strong>"size" : { "width" : 88, "length" : 88 }</strong> -- this is the default size that the scenario will take when calculating its spawn location.</p>
+                     <p><strong>"size" : { "width" : 88, "length" : 88 }</strong> -- 这是场景在计算其生成位置时将占用的默认大小。</p>
                   </li>
                   <li>
-                     <p><strong>"unique" : false</strong> -- more than one vein of this resource type can spawn in the same map.</p>
+                     <p><strong>"unique" : false</strong> -- 同一地图中可以生成多个此资源类型的矿脉。</p>
                   </li>
                   <li>
-                     <p><strong>"data" : {}</strong> -- there are several properties we can customize here, and will be used to create the veins in <code>stonehearth/services/server/mining/ore_generator.lua</code>. These are their default values:</p>
+                     <p><strong>"data" : {}</strong> -- 我们可以在此处自定义几个属性，并将用于在 <code>stonehearth/services/server/mining/ore_generator.lua</code> 中创建矿脉。以下是它们的默认值：</p>
                      <ul>
-                        <li><strong>"num_veins_min" : 2</strong> -- minimum number of veins of this type that will spawn in the map.</li>
-                        <li><strong>"num_veins_max" : 4</strong> -- maximum number of veins of this type that will spawn in the map. The total number is random between min and max.</li>
-                        <li><strong>"vein_length_min" : 44</strong> -- minimum length for the vein.</li>
-                        <li><strong>"vein_length_max" : 72</strong> -- maximum length for the vein. The final length will be a random number of blocks between min and max.</li>
-                        <li><strong>"vein_radius" : 2</strong> -- the radius of the veins (so total width of the veins is 4 blocks by default).</li>
-                        <li><strong>"mother_lode_radius_min" : 3</strong> -- minimum radius for the mother lode.</li>
-                        <li><strong>"mother_lode_radius_max" : 5</strong> -- maximum radius for the mother lode. Final radius will be random between min and max, so the final width will be double of that.</li>
+                        <li><strong>"num_veins_min" : 2</strong> -- 将在地图中生成的此类型矿脉的最小数量。</li>
+                        <li><strong>"num_veins_max" : 4</strong> -- 将在地图中生成的此类型矿脉的最大数量。总数是在最小值和最大值之间的随机数。</li>
+                        <li><strong>"vein_length_min" : 44</strong> -- 矿脉的最小长度。</li>
+                        <li><strong>"vein_length_max" : 72</strong> -- 矿脉的最大长度。最终长度将是最小值和最大值之间的随机方块数。</li>
+                        <li><strong>"vein_radius" : 2</strong> -- 矿脉的半径（因此矿脉的总宽度默认为 4 个方块）。</li>
+                        <li><strong>"mother_lode_radius_min" : 3</strong> -- 母矿脉的最小半径。</li>
+                        <li><strong>"mother_lode_radius_max" : 5</strong> -- 母矿脉的最大半径。最终半径将是最小值和最大值之间的随机数，因此最终宽度将是该值的两倍。</li>
                      </ul>
                   </li>
                </ul>
-               <p>  Add the mixinto to the scenario index:</p>
+               <p>将 mixinto 添加到场景索引中：</p>
                <pre><code>"mixintos" : {
    "stonehearth:mining:base_loot_table" : "file(mixintos/mining_loot_tables_mixinto.json)",
    "stonehearth/data/biome/temperate_generation_data.json" : "file(data/biome/ore_color_mixinto.json)",
@@ -220,7 +220,7 @@
    "stonehearth:scenarios:scenario_index" : "file(scenarios/scenario_index.json)"
 }
 </code></pre>
-               <p>  The mixinto will look like this:</p>
+               <p>mixinto 将看起来像这样：</p>
                <pre><code>{
    "static" : {
       "scenarios" : [
@@ -231,8 +231,8 @@
 </code></pre>
             </li>
             <li>
-               <p>Test that your ore vein appears in the map.</p>
-               <p>  This might take a while since the placement is random. Promote a combat unit with <a href="../../../essentials/debugtools/debugtools_mod/index.html">debugtools</a> and make them run around the edge of a mountain until you spot a vein of your resource. Then click on it to check the unit frame, and order your hearthlings to mine it to see that your resource is being dropped. Also mine rock or whatever other terrain type you used in the mining loot table and check that the drops are working.
+               <p>测试您的矿脉是否出现在地图中。</p>
+               <p>这可能需要一段时间，因为放置是随机的。使用<a href="../../../essentials/debugtools/debugtools_mod/index.html">debugtools</a>提升一个战斗单位，并让他们沿着山脉的边缘奔跑，直到您发现您的资源矿脉。然后点击它以检查单位框架，并命令您的炉民挖掘它以查看您的资源是否正在掉落。还可以挖掘岩石或在采矿战利品表中使用的任何其他地形类型，并检查掉落是否正常工作。
                   <img src="/modding_guide/images/basic/static_scenarios/ore_vein.png" alt="ore_vein"/>
                </p>
             </li>

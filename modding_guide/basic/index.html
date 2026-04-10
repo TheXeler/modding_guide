@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,59 +7,59 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Basic Modding</title>
+        <title>基础 Modding</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Basic Modding</h1>
-            <p>In this guide we'll provide and explain basic modding examples, for those who want to know how to change or to add a specific thing to the game.
-                The intermediate and advanced guides cover more complex modding. If you're new to modding Stonehearth, it's recommended that you start by doing something simple to learn the structure of the game and the different tools that the modding API offers before starting to delve into more advanced topics.
+            <h1>基础 Modding</h1>
+            <p>在本指南中，我们将提供并解释基础 modding 示例，面向那些想要了解如何更改或向游戏添加特定内容的玩家。
+                中级和高级指南涵盖更复杂的 modding。如果您是 Stonehearth modding 的新手，建议在深入探讨更高级的主题之前，先从做一些简单的事情开始，以了解游戏的结构和 modding API 提供的不同工具。
             </p>
-            <p>You can check the art related guides <a href="art/index.html">here</a>.</p>
-            <p><strong>Please read the essentials guide before attempting any modding.</strong></p>
-            <p>Table of Contents</p>
+            <p>您可以在此处查看与艺术相关的指南<a href="art/index.html">这里</a>。</p>
+            <p><strong>在尝试任何 modding 之前，请阅读基础指南。</strong></p>
+            <p>目录</p>
             <ol>
                 <li>
-                    <a href="adding_items/index.html">How to create new items</a> : how to create new placeable items.
+                    <a href="adding_items/index.html">如何创建新物品</a>：如何创建新的可放置物品。
                     <ol>
-                        <li><a href="adding_items/entity_forms/index.html">Entity forms</a> : what are entity forms and why do we need them.</li>
-                        <li><a href="adding_items/cloning_manually/index.html">Adding items manually</a> : how to create new items manually.</li>
-                        <li><a href="adding_items/cloning_with_shed/index.html">Adding items with SHED</a> : how to create items faster by using SHED.</li>
-                        <li><a href="adding_items/item_scale/index.html">Scale of items</a> : how to change the scale of any entity.</li>
+                        <li><a href="adding_items/entity_forms/index.html">实体形态</a>：什么是实体形态以及为什么我们需要它们。</li>
+                        <li><a href="adding_items/cloning_manually/index.html">手动添加物品</a>：如何手动创建新物品。</li>
+                        <li><a href="adding_items/cloning_with_shed/index.html">使用 SHED 添加物品</a>：如何使用 SHED 更快地创建物品。</li>
+                        <li><a href="adding_items/item_scale/index.html">物品的比例</a>：如何更改任何实体的比例。</li>
                     </ol>
                 </li>
-                <li><a href="catalog/index.html">The catalog</a> : what is the catalog service and how to define data for it.</li>
-                <li><a href="generic_resources/index.html">Generic resources</a> : how to create generic resources for crafting.</li>
-                <li><a href="craftables/index.html">Adding recipes</a> : how to add crafting recipes.</li>
+                <li><a href="catalog/index.html">目录</a>：什么是目录服务以及如何为其定义数据。</li>
+                <li><a href="generic_resources/index.html">通用资源</a>：如何创建用于制作的通用资源。</li>
+                <li><a href="craftables/index.html">添加配方</a>：如何添加制作配方。</li>
                 <li>
-                    <a href="wearables/index.html">Adding equipment</a> : how to create equipment pieces that inject buffs, commands or AI.
+                    <a href="wearables/index.html">添加装备</a>：如何创建注入增益效果、命令或 AI 的装备部件。
                     <ol>
-                        <li><a href="wearables/armor/index.html">Armor and hats</a> : how to create armor / outfits and headgear.</li>
-                        <li><a href="wearables/weapons/index.html">Weapons</a> : how to create melee / ranged weapons and shields.</li>
+                        <li><a href="wearables/armor/index.html">护甲和帽子</a>：如何创建护甲/服装和头饰。</li>
+                        <li><a href="wearables/weapons/index.html">武器</a>：如何创建近战/远程武器和盾牌。</li>
                     </ol>
                 </li>
-                <li><a href="storages/index.html">Storage items</a> : how to create storage items and patrollable items. How filters work.</li>
-                <li><a href="color_maps/index.html">Color maps</a> : what are color maps and material maps and how to use them.</li>
-                <li><a href="customization/index.html">Adding customization</a> : how to add custom hairstyles, custom eye/hair/skin and building colors.</li>
-                <li><a href="crops/index.html">Adding crops</a> : how to add new farming crops and food items to the game.</li>
-                <li><a href="renewable_resources/index.html">Renewable resources</a> : how to create your own resources, renewable resources and seeds.</li>
-                <li><a href="plants/index.html">Plants and trees</a> : how to add your own plants and trees to the world generation. Seasonal variants.</li>
+                <li><a href="storages/index.html">存储物品</a>：如何创建存储物品和可巡逻物品。过滤器的工作原理。</li>
+                <li><a href="color_maps/index.html">颜色映射</a>：什么是颜色映射和材质映射以及如何使用它们。</li>
+                <li><a href="customization/index.html">添加自定义</a>：如何添加自定义发型、自定义眼睛/头发/皮肤和建筑颜色。</li>
+                <li><a href="crops/index.html">添加作物</a>：如何向游戏添加新的农场作物和食物物品。</li>
+                <li><a href="renewable_resources/index.html">可再生资源</a>：如何创建您自己的资源、可再生资源和种子。</li>
+                <li><a href="plants/index.html">植物和树木</a>：如何向世界生成添加您自己的植物和树木。季节性变体。</li>
                 <li>
-                    <a href="static_scenarios/index.html">Static scenarios</a> : what are static scenarios and how to create custom scenario types and categories.
+                    <a href="static_scenarios/index.html">静态场景</a>：什么是静态场景以及如何创建自定义场景类型和类别。
                     <ol>
-                        <li><a href="static_scenarios/ore_veins/index.html">Ore veins</a> : how to add new ore veins and drops for mining.</li>
-                        <li><a href="static_scenarios/landmarks/index.html">Landmarks</a> : how to create new landmarks that will spawn at world generation.</li>
-                        <li><a href="static_scenarios/nests_ruins/index.html">Critter nests and ruins</a> : how to add new critter nests and ruins.</li>
+                        <li><a href="static_scenarios/ore_veins/index.html">矿脉</a>：如何添加新的矿脉和采矿掉落物。</li>
+                        <li><a href="static_scenarios/landmarks/index.html">地标</a>：如何创建将在世界生成时生成的新地标。</li>
+                        <li><a href="static_scenarios/nests_ruins/index.html">小动物巢穴和废墟</a>：如何添加新的小动物巢穴和废墟。</li>
                     </ol>
                 </li>
                 <li>
-                    <a href="misc_json/index.html">Miscellaneous JSON</a> : how time expressions, loot tables and weighted sets work.
+                    <a href="misc_json/index.html">杂项 JSON</a>：时间表达式、战利品表和加权集的工作原理。
                     <ol>
-                        <li><a href="misc_json/shops/index.html">Loadouts and shops</a> : how to add new loadouts and shops.</li>
+                        <li><a href="misc_json/shops/index.html">负载和商店</a>：如何添加新的负载和商店。</li>
                     </ol>
                 </li>
-                <li><a href="localization_mod/index.html">Translating mods</a> : how to create a localization mod for the base game or for other mods.</li>
+                <li><a href="localization_mod/index.html">翻译 mods</a>：如何为基础游戏或其他 mod 创建本地化 mod。</li>
             </ol>
         </main>
     </body>

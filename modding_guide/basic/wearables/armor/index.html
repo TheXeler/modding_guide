@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,28 +7,28 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Armor and hats</title>
+        <title>护甲和帽子</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Armor and hats</h1>
+            <h1>护甲和帽子</h1>
             <ul>
-                <li><a href="#AddingArmor">Creating armor and outfits</a></li>
-                <li><a href="#Hats">Creating headgear</a></li>
+                <li><a href="#AddingArmor">创建护甲和服装</a></li>
+                <li><a href="#Hats">创建头饰</a></li>
             </ul>
-            <h2><a name="AddingArmor"></a>Creating armor and outfits</h2>
-            <p>Let's create a new armor for the footmen. As always, let's copy a similar item from the stonehearth mod into our mod, and modify the files. For example, copy <code>stonehearth/entities/armor/iron_mail</code>.</p>
+            <h2><a name="AddingArmor"></a>创建护甲和服装</h2>
+            <p>让我们为步兵创建一件新护甲。与往常一样，让我们从 stonehearth mod 中复制一个类似的物品到我们的 mod 中，并修改文件。例如，复制 <code>stonehearth/entities/armor/iron_mail</code>。</p>
             <ol>
                 <li>
-                    <p>Rename the files. We're going to use the startermod_items magic armor as example here, so substitute any "iron_mail" to "magic_armor" (or whatever identifier you want for your armor).</p>
+                    <p>重命名文件。我们将在这里使用 startermod_items 魔法护甲作为示例，因此将任何"iron_mail"替换为"magic_armor"（或您想要的任何护甲标识符）。</p>
                 </li>
                 <li>
-                    <p>Import the model into the voxel editor of your choice and modify it. Make sure the <a href="../../art/modeling/index.html#LayerNames">matrices/layers are named correctly</a> before exporting it (otherwise the armor won't stick to the hearthling's body and won't animate) and remember to take a screenshot for the icon. The armor doesn't need to have all the body parts if you don't want to, so you can remove any matrix/layer that you don't want.</p>
+                    <p>将模型导入到您选择的体素编辑器中并进行修改。确保在导出之前<a href="../../art/modeling/index.html#LayerNames">矩阵/层已正确命名</a>（否则护甲将无法粘附到炉民的身体上并且不会动画），并记得截取图标截图。如果您不愿意，护甲不需要包含所有身体部位，因此您可以删除任何不需要的矩阵/层。</p>
                 </li>
                 <li>
-                    <p>Modify the JSON files. Let's start by modifying the magic_armor_iconic.json. Here we only have to update the reference to the QB model, the icon and the display_name / description.</p>
-                    <p>  Now for magic_armor.json. These are the different components related to the equipment piece:</p>
+                    <p>修改 JSON 文件。让我们从修改 magic_armor_iconic.json 开始。这里我们只需要更新对 QB 模型、图标和 display_name/description 的引用。</p>
+                    <p>现在来看 magic_armor.json。以下是与装备部件相关的不同组件：</p>
                     <ul>
                         <li>
                             <p><a name="ModelVariants"></a><strong>"model_variants": {...}</strong></p>
@@ -50,29 +50,29 @@
    ...
 },
 </code></pre>
-                            <p>  Here we have several variants. The "default" one is for the male hearthling, the "female" one for the female. This way when females equip this armor, we can have a different QB model for them. We can also have model variants for the orcs, etc.</p>
-                            <p>The <strong>"female"</strong> key comes from the female_N.json files inside <code>stonehearth/entities/humans/female</code>:</p>
+                            <p>这里有几个变体。"default"用于男性炉民，"female"用于女性。这样当女性装备此护甲时，我们可以为她们使用不同的 QB 模型。我们还可以为兽人等拥有模型变体。</p>
+                            <p><strong>"female"</strong> 键来自 <code>stonehearth/entities/humans/female</code> 内的 female_N.json 文件：</p>
                             <pre><code>"render_info": {
    "animation_table": "stonehearth:skeletons:humanoid:female",
    "model_variant": "female"
 }
 </code></pre>
-                            <p>Males don't have this key defined, so they will get the <strong>"default"</strong> variant. <br/>
-                                Orcs and rabbits also have model variants, defined in some files inside <code>stonehearth/entities/monsters/orcs/orc</code> and <code>stonehearth/entities/rabbit_biped</code>. Goblins don't have them, they have their own equipment pieces which we don't use for any other entities, so they use a default variant instead.
+                            <p>男性没有定义此键，因此他们将获得 <strong>"default"</strong> 变体。<br/>
+                                兽人和兔子也有模型变体，定义在 <code>stonehearth/entities/monsters/orcs/orc</code> 和 <code>stonehearth/entities/rabbit_biped</code> 内的一些文件中。哥布林没有它们，它们有自己的装备部件，我们不用于任何其他实体，因此它们使用默认变体。
                             </p>
-                            <p>You can define your own variants for equipment pieces using that property in the render info of the corresponding entity.</p>
+                            <p>您可以使用相应实体的 render info 中的该属性为装备部件定义自己的变体。</p>
                             <ul>
                                 <li>
-                                    <p><a name="LayerGroup"></a><strong>"layer"</strong> : here we declare the layer of the outfit. These are the possible values:</p>
+                                    <p><a name="LayerGroup"></a><strong>"layer"</strong>：这里我们声明服装的层。以下是可能的值：</p>
                                     <pre><code>"skeleton" / "skin" / "hat" / "clothing" / "armor" / "cloak"
 </code></pre>
-                                    <p>If no layer is specified, "skin" will be used.</p>
-                                    <p>These layers allow us to stack different models on top of each other, basically clothes over the body. Don't confuse it with the matrices/layers from the QB file, this "layer" just acts like a group / category.</p>
-                                    <p>Normally we won't use "skeleton" nor "skin". The rest of layer values, used with the transparency setting, will hide (or not) the part of the hearthling body that matches the matrix/layer names from the QB model.</p>
+                                    <p>如果未指定层，将使用"skin"。</p>
+                                    <p>这些层允许我们将不同的模型堆叠在一起，基本上是身体上的衣服。不要将其与 QB 文件中的矩阵/层混淆，这个"layer"只是像一个组/类别一样起作用。</p>
+                                    <p>通常我们不会使用"skeleton"或"skin"。其余的层值，与透明度设置一起使用，将隐藏（或不隐藏）与 QB 模型中的矩阵/层名称匹配的炉民身体部分。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"transparent"</strong> : if this property is not defined, by default it will be <strong>"true"</strong> (notice the quotes). When it's <strong>"false"</strong>, it will completely replace the <a href="../../art/modeling/index.html#LayerNames">body part</a> of the hearthling with this model (when we use a render type of "merge_with_model"). Useful for hats, to keep showing the hearthling's hair (e.g. for circlets), and for items like bracelets.</p>
-                                    <p>All the matrices/layers of the QB model will be treated with the same transparency declared here. If you need different transparencies, you'll need to make separate items.</p>
+                                    <p><strong>"transparent"</strong>：如果未定义此属性，默认情况下它将是 <strong>"true"</strong>（注意引号）。当它为 <strong>"false"</strong> 时，它将完全用此模型替换炉民的<a href="../../art/modeling/index.html#LayerNames">身体部位</a>（当我们使用"merge_with_model"的渲染类型时）。对于帽子很有用，可以保持显示炉民的头发（例如对于头冠），以及对于手镯等物品。</p>
+                                    <p>QB 模型的所有矩阵/层都将使用此处声明的相同透明度进行处理。如果您需要不同的透明度，则需要制作单独的物品。</p>
                                 </li>
                             </ul>
                         </li>
@@ -82,7 +82,7 @@
    "iconic_form": "file(magic_armor_iconic.json)"
 },
 </code></pre>
-                            <p>Here we only declare the iconic form, since this item should be equippable and restockable but not placeable.</p>
+                            <p>这里我们只声明图标形态，因为此物品应该是可装备和可补货的，但不可放置。</p>
                         </li>
                         <li>
                             <p><a name="EPComp"></a><strong>"stonehearth:equipment_piece" : {}</strong></p>
@@ -95,72 +95,72 @@
    "equip_effect": "stonehearth:effects:weapon_level_up"
 }
 </code></pre>
-                            <p>Here we specify the properties of this equipment piece:</p>
+                            <p>这里我们指定此装备部件的属性：</p>
                             <ul>
                                 <li>
-                                    <p><strong>"render_type"</strong> : we use "merge_with_model" because we want the armor to merge with the hearthling's body, we exported our QB model with the correct names for the layers. Since we set the transparency to "false" in the model_variants component, any part of the skin that might pop out of our armor will be hidden (as if the armor part replaced that body part).</p>
+                                    <p><strong>"render_type"</strong>：我们使用"merge_with_model"，因为我们希望护甲与炉民的身体合并，我们导出了具有正确层名称的 QB 模型。由于我们在 model_variants 组件中将透明度设置为"false"，任何可能从我们的护甲中弹出的皮肤部分都将被隐藏（就像护甲部分替换了该身体部位一样）。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"slot"</strong> : we use "torso", which is one of the predefined slots that the game uses. This way hearthlings can replace this armor with better ones.</p>
+                                    <p><strong>"slot"</strong>：我们使用"torso"，这是游戏使用的预定义槽位之一。这样炉民可以用更好的护甲替换此护甲。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"ilevel"</strong> : we use a value of 7, a bit higher than the ilevel of the iron_mail that we copied.</p>
+                                    <p><strong>"ilevel"</strong>：我们使用值 7，略高于我们复制的 iron_mail 的 ilevel。</p>
                                 </li>
                             </ul>
-                            <p>  In the current implementation of the game, it's not possible to manually assing equipment to specific hearthlings. So if you want your item to be equipped, check the ilevel of the other items, taking into account the balancing.</p>
+                            <p>在游戏的当前实现中，无法手动将装备分配给特定的炉民。因此，如果您希望您的物品被装备，请考虑其他物品的 ilevel，并考虑到平衡性。</p>
                             <ul>
                                 <li>
-                                    <p><strong>"roles"</strong> : we keep the "mail_wearer" role since we want this armor to be equipped only by footmen.</p>
+                                    <p><strong>"roles"</strong>：我们保留"mail_wearer"角色，因为我们希望此护甲仅由步兵装备。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"required_job_level"</strong> : we'll use 4, so only footmen at level 4 or above will equip this item.</p>
+                                    <p><strong>"required_job_level"</strong>：我们将使用 4，因此只有 4 级或以上的步兵才会装备此物品。</p>
                                 </li>
                                 <li>
-                                    <p><strong>"equip_effect"</strong> : we reused the same effect that the other equippable items from the game use.</p>
+                                    <p><strong>"equip_effect"</strong>：我们重用了游戏中其他可装备物品使用的相同效果。</p>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                    <p>  <a name="ArmorData"></a>Inside the entity data, we have the armor data:</p>
+                    <p><a name="ArmorData"></a>在实体数据内部，我们有护甲数据：</p>
                     <pre><code>"entity_data": {
    "stonehearth:combat:armor_data": {
       "base_damage_reduction": 8
    },
    ...
 </code></pre>
-                    <p>  For <strong>"stonehearth:combat:armor_data"</strong> we only have the property <strong>"base_damage_reduction"</strong>, which represents the defense of this armor.</p>
-                    <p>  The final defense of the hearthling when in combat will vary depending on other items equipped, buffs/debuffs, etc.</p>
-                    <p>  We can also change the rest of properties from the "entity_data" section.</p>
+                    <p>对于 <strong>"stonehearth:combat:armor_data"</strong>，我们只有 <strong>"base_damage_reduction"</strong> 属性，它代表此护甲的防御力。</p>
+                    <p>炉民在战斗时的最终防御力将根据其他装备的物品、增益/减益效果等而变化。</p>
+                    <p>我们还可以更改"entity_data"部分中的其余属性。</p>
                 </li>
                 <li>
-                    <p>Add an alias to your manifest:</p>
+                    <p>向您的清单添加别名：</p>
                     <pre><code>"aliases": {
    "armor:magic_armor" : "file(entities/armor/magic_armor)"
 }
 </code></pre>
                 </li>
                 <li>
-                    <p>Test your new armor in the game:
+                    <p>在游戏中测试您的新护甲：
                         <img src="/modding_guide/images/basic/wearables/armor.png" alt="armor"/>
                     </p>
                 </li>
             </ol>
-            <h2><a name="Hats"></a>Creating headgear</h2>
-            <p>Most of the existing headgear can be found inside <code>stonehearth/entities/armor</code>.</p>
-            <p>You can have an outfit that's both the clothes and a hat, but then both of them will have to share the "transparent" setting from the model_variants component.</p>
-            <p>If you make the hat separately, then you can declare a different transparency for it.</p>
+            <h2><a name="Hats"></a>创建头饰</h2>
+            <p>大多数现有的头饰可以在 <code>stonehearth/entities/armor</code> 中找到。</p>
+            <p>您可以拥有一件既是衣服又是帽子的服装，但随后它们都必须共享 model_variants 组件中的"transparent"设置。</p>
+            <p>如果您单独制作帽子，那么您可以为其声明不同的透明度。</p>
             <ol>
                 <li>
-                    <p>For our example, we'll create a crown. Let's copy <code>stonehearth/entities/armor/bronze_helm</code> to our mod, or any other circlet/helmet.</p>
+                    <p>对于我们的示例，我们将创建一个王冠。让我们复制 <code>stonehearth/entities/armor/bronze_helm</code> 到我们的 mod，或任何其他头冠/头盔。</p>
                 </li>
                 <li>
-                    <p>Let's edit the models. The layer/matrix must be named <strong>"hat"</strong>:
+                    <p>让我们编辑模型。层/矩阵必须命名为 <strong>"hat"</strong>：
                         <img src="/modding_guide/images/basic/wearables/matrix_name.png" alt="matrix_name"/>
                     </p>
-                    <p>  We'll also edit the model for the iconic and take a screenshot for the icon.</p>
+                    <p>我们还将编辑图标的模型并截取图标截图。</p>
                 </li>
                 <li>
-                    <p>Now we edit the JSON files. For the iconic we adjust the model name. For magic_crown.json, we'll edit these properties:</p>
+                    <p>现在我们编辑 JSON 文件。对于图标，我们调整模型名称。对于 magic_crown.json，我们将编辑这些属性：</p>
                     <ul>
                         <li>
                             <p><a name="ModelVariantsHat"></a><strong>"model_variants": {...}</strong></p>
@@ -181,11 +181,11 @@
    }
 }
 </code></pre>
-                            <p>The <strong>"layer"</strong> will be "hat", so that our model gets merged on top of the body.</p>
-                            <p>We'll set the <strong>"transparent"</strong> property to "true" (notice that it is a string, not a boolean).</p>
-                            <p>We're using a render type of "merge_with_model" in the equipment component, our QB model's layer is named 'hat', and the layer that contains the upper part of the hearthling's hair is also named 'hat', so this transparency will make the hair be visible after merging the models.</p>
-                            <p>If our headgear covers all the head (such as a helmet or an archer hood), we can set it to "false", which will completely hide the upper part of the hearthling's hair.</p>
-                            <p>And last, we change the file names to point to our models.</p>
+                            <p><strong>"layer"</strong> 将是"hat"，以便我们的模型合并到身体顶部。</p>
+                            <p>我们将 <strong>"transparent"</strong> 属性设置为"true"（请注意它是一个字符串，而不是布尔值）。</p>
+                            <p>我们在装备组件中使用"merge_with_model"的渲染类型，我们的 QB 模型的层命名为'hat'，包含炉民头发上部的层也命名为'hat'，因此此透明度将使头发在合并模型后可见。</p>
+                            <p>如果我们的头饰覆盖整个头部（例如头盔或弓箭手兜帽），我们可以将其设置为"false"，这将完全隐藏炉民头发的上部。</p>
+                            <p>最后，我们更改文件名以指向我们的模型。</p>
                         </li>
                         <li>
                             <p><strong>"stonehearth:entity_forms" : {}</strong></p>
@@ -193,7 +193,7 @@
    "iconic_form": "file(magic_crown_iconic.json)"
 }
 </code></pre>
-                            <p>Here we only declare the iconic form, since this item should be equippable and restockable but not placeable.</p>
+                            <p>这里我们只声明图标形态，因为此物品应该是可装备和可补货的，但不可放置。</p>
                         </li>
                         <li>
                             <p><strong>"stonehearth:equipment_piece" : {}</strong></p>
@@ -206,27 +206,27 @@
    "equip_effect": "stonehearth:effects:weapon_level_up"
 }
 </code></pre>
-                            <p>Here we have the same properties than for the <a href="#EPComp">armor</a> example above.</p>
-                            <p>For the "render_type" we use "merge_with_model", our crown will go in the "helmet" slot. We make it only equippable by clerics (using the "cleric_job" role), we change the "ilevel" and "required_job_level", and we leave the default "equip_effect" as it is.</p>
+                            <p>这里我们具有与上面<a href="#EPComp">护甲</a>示例相同的属性。</p>
+                            <p>对于"render_type"，我们使用"merge_with_model"，我们的王冠将放入"helmet"槽位。我们使其仅可由牧师装备（使用"cleric_job"角色），更改"ilevel"和"required_job_level"，并将默认的"equip_effect"保持不变。</p>
                         </li>
                     </ul>
-                    <p>  For the entity data, we'll edit the properties on the "stonehearth:net_worth" and "stonehearth:catalog" sections.</p>
-                    <p>  Our crown will also add some defense, so we include the <strong>"stonehearth:combat:armor_data"</strong> entry inside "entity_data":</p>
+                    <p>对于实体数据，我们将编辑"stonehearth:net_worth"和"stonehearth:catalog"部分中的属性。</p>
+                    <p>我们的王冠还将增加一些防御力，因此我们在"entity_data"内包含 <strong>"stonehearth:combat:armor_data"</strong> 条目：</p>
                     <pre><code>    "stonehearth:combat:armor_data": {
        "base_damage_reduction": 1
     }
 </code></pre>
-                    <p>  This entry only has the "base_damage_reduction" property in it. The final defense value used in combat will also depend on other items that the hearthling has equipped, multiplier attributes from buffs, etc.</p>
+                    <p>此条目仅包含"base_damage_reduction"属性。战斗中使用的最终防御值还将取决于炉民装备的其他物品、来自增益效果的乘数属性等。</p>
                 </li>
                 <li>
-                    <p>Add an alias to your manifest:</p>
+                    <p>向您的清单添加别名：</p>
                     <pre><code>"aliases": {
    "armor:magic_crown" : "file(entities/armor/magic_crown)"
 }
 </code></pre>
                 </li>
                 <li>
-                    <p>Test your new headgear in the game. You might need to tweak the model several times if it's clipping too much with certain hairstyles, or if it's too high / low for the head:
+                    <p>在游戏中测试您的新头饰。如果它与某些发型 clipping 太多，或者对于头部来说太高/太低，您可能需要多次调整模型：
                         <img src="/modding_guide/images/basic/wearables/hats.png" alt="hats"/>
                     </p>
                 </li>

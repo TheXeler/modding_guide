@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,37 +7,37 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Translating mods</title>
+      <title>翻译 mods</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Translating mods</h1>
-         <p>Translations for the game can be provided as mods. We can also provide translations for mods from other players.</p>
+         <h1>翻译 mods</h1>
+         <p>游戏的翻译可以作为 mods 提供。我们也可以为其他玩家的 mods 提供翻译。</p>
          <ul>
-            <li><a href="#StartermodLocale">The startermod_locale mod</a></li>
-            <li><a href="#TranslationMod">How it works</a></li>
-            <li><a href="#I18NData">How to translate en.json</a></li>
-            <li><a href="#ProperNouns">Translating proper nouns</a></li>
-            <li><a href="#Fonts">How to change the fonts of the game</a></li>
-            <li><a href="#Localization">Enabling localization in your mod</a></li>
+            <li><a href="#StartermodLocale">startermod_locale mod</a></li>
+            <li><a href="#TranslationMod">工作原理</a></li>
+            <li><a href="#I18NData">如何翻译 en.json</a></li>
+            <li><a href="#ProperNouns">翻译专有名词</a></li>
+            <li><a href="#Fonts">如何更改游戏字体</a></li>
+            <li><a href="#Localization">在您的 mod 中启用本地化</a></li>
          </ul>
-         <h2><a name="StartermodLocale"></a>The startermod_locale mod</h2>
-         <p>To make a fan translation of the stonehearth mod or of any other mod, we can use the <strong>startermod_locale</strong> mod as a template.</p>
-         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> If you create the translation mod through the <a href="../../essentials/managing/workshop/index.html#UploadWorkshop">Create New Mod button</a> in the Mods menu, make sure to tick the "Is this a translation mod?" checkbox so that the mod gets properly tagged as <code>"client_only"</code>. Otherwise, make sure this property is set to true in the "info" section of your manifest.</p>
-         <p>Download <a href="https://github.com/stonehearth/startermod_locale">startermod_locale</a> from Github. Unzip it into the "mods" folder and make sure the folder is called startermod_locale and that it has the correct structure so that it can be loaded without <a href="../../essentials/managing/unmanaged/index.html#ModConflicts">conflicts</a>.</p>
-         <p>Inside the startermod_locale folder, you should see a manifest.json file, a added_languages.json file and a translations folder which has 2 folders in it representing the two mods that existed at the moment this mod was created (stonehearth and rayyas_children). Inside each of those folders there will be 2 files named en-XA.json and en-DEV.json.</p>
-         <p>The startermod_locale mod adds a pseudolocalization of stonehearth's and rayya children's en.json files. The en-DEV.json file is the plain english used to generate en-XA.json. Pseudolocalization replaces all the characters in stonehearth's en.json file with characters that have accents. This mimics what foreign languages will look like when displayed in the game.</p>
-         <p>When you start up Stonehearth with this mod installed, open the Settings menu and go to the System tab. You will see that a language named "[!!Ēņģľĭšħ!!]" and a language named "English(Dev)" will be added to the list of languages. Select the "[!!Ēņģľĭšħ!!]" language and click "OK" to see how it changes the game's language.</p>
-         <p>Any untranslated strings will appear in the original language (English).</p>
-         <h2><a name="TranslationMod"></a>How it works</h2>
-         <p>The startermod_locale's manifest.json has a mixinto for <code>supported_languages.json</code>:</p>
+         <h2><a name="StartermodLocale"></a>startermod_locale mod</h2>
+         <p>要制作 stonehearth mod 或任何其他 mod 的粉丝翻译，我们可以使用 <strong>startermod_locale</strong> mod 作为模板。</p>
+         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> 如果您通过 Mods 菜单中的<a href="../../essentials/managing/workshop/index.html#UploadWorkshop">“创建新 Mod”按钮</a>创建翻译 mod，请确保勾选“这是一个翻译 mod吗？”复选框，以便将 mod 正确标记为 <code>"client_only"</code>。否则，请确保在清单的"info"部分将此属性设置为 true。</p>
+         <p>从 Github 下载 <a href="https://github.com/stonehearth/startermod_locale">startermod_locale</a>。将其解压缩到"mods"文件夹中，并确保文件夹名为 startermod_locale，并且具有正确的结构，以便可以加载而不会出现<a href="../../essentials/managing/unmanaged/index.html#ModConflicts">冲突</a>。</p>
+         <p>在 startermod_locale 文件夹内，您应该看到一个 manifest.json 文件、一个 added_languages.json 文件和一个 translations 文件夹，其中包含 2 个文件夹，代表创建此 mod 时存在的两个 mods（stonehearth 和 rayyas_children）。在每个文件夹内，将有 2 个名为 en-XA.json 和 en-DEV.json 的文件。</p>
+         <p>startermod_locale mod 添加了 stonehearth 和 rayya children 的 en.json 文件的伪本地化。en-DEV.json 文件是用于生成 en-XA.json 的纯英文。伪本地化将 stonehearth 的 en.json 文件中的所有字符替换为带有重音符号的字符。这模拟了外语在游戏中显示时的样子。</p>
+         <p>当您安装此 mod 启动 Stonehearth 时，打开设置菜单并转到系统选项卡。您将看到名为"[!!Ēņģľĭšħ!!]"的语言和名为"English(Dev)"的语言已添加到语言列表中。选择"[!!Ēņģľĭšħ!!]"语言并点击“确定”以查看它如何更改游戏的语言。</p>
+         <p>任何未翻译的字符串将以原始语言（英语）显示。</p>
+         <h2><a name="TranslationMod"></a>工作原理</h2>
+         <p>startermod_locale 的 manifest.json 有一个针对 <code>supported_languages.json</code> 的 mixinto：</p>
          <pre><code>    "mixintos" : {
        "stonehearth/locales/supported_languages.json" : "file(added_languages.json)"
     }
 </code></pre>
-         <p>This causes all the data in <code>added_languages.json</code> to be added to the list of supported languages recognized by the stonehearth mod.</p>
-         <p>added_languages.json specifies two new languages, en-XA and en-DEV like so:</p>
+         <p>这会导致 <code>added_languages.json</code> 中的所有数据添加到 stonehearth mod 识别的支持语言列表中。</p>
+         <p>added_languages.json 指定了两种新语言，en-XA 和 en-DEV，如下所示：</p>
          <pre><code>    {
        "languages": {
           "en-XA": {
@@ -49,10 +49,10 @@
        }
     }
 </code></pre>
-         <p>The value for <strong>"display_name"</strong> is what the settings language dropdown will show for the name of the language. You can use this to display the name of a language in its native form.</p>
-         <p>The name ("en-XA") is the language code of the translation (see: <a href="http://www.science.co.il/Language/Locale-codes.asp">http://www.science.co.il/Language/Locale-codes.asp</a>). Most languages and language variants have a language code. In this case, "en" means English and the "XA" is a made up name for the pseudolocale. The German translation will be de-DE.json, and the Chinese Mandarin translation will be zh-CN.json.</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> If you have a region specific translation, the last 2 letters of the translation file's name MUST be capitalized!</p>
-         <p>Then, back to startermod_locale's manifest.json, we add the translations provided by this mod using overrides:</p>
+         <p><strong>"display_name"</strong> 的值是设置语言下拉菜单将显示的语言名称。您可以使用它以 native 形式显示语言名称。</p>
+         <p>名称（"en-XA"）是翻译的语言代码（参见：<a href="http://www.science.co.il/Language/Locale-codes.asp">http://www.science.co.il/Language/Locale-codes.asp</a>）。大多数语言和语言变体都有语言代码。在这种情况下，"en"表示英语，"XA"是为伪区域设置制作的名称。德语翻译将是 de-DE.json，中文普通话翻译将是 zh-CN.json。</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 如果您有特定区域的翻译，翻译文件名的最后 2 个字母必须大写！</p>
+         <p>然后，回到 startermod_locale 的 manifest.json，我们使用 overrides 添加此 mod 提供的翻译：</p>
          <pre><code>  "overrides": {
      "stonehearth/locales/en-XA.json": "file(translations/stonehearth/en-XA.json)",
      "stonehearth/locales/en-DEV.json": "file(translations/stonehearth/en-DEV.json)",
@@ -60,13 +60,13 @@
      "rayyas_children/locales/en-DEV.json": "file(translations/rayyas_children/en-DEV.json)"
   }
 </code></pre>
-         <p>These overrides will act as if you added <a href="../../essentials/mixintos_overrides/index.html#OverrideNonExisting">new files</a> under the stonehearth/locales/ and rayyas_children/locales/ directories.</p>
-         <p>The files that are pointed to are the en-XA.json / en-DEV.json files under the translations folder. These are the files that contain all the translated strings.</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> For your translation mod, copy the "en.json" from <code>stonehearth/locales</code>, the examples provided with this example mod don't contain all the strings from the latest version of the game. Copy the en.json from the rayyas_children and northern_alliance mods too, and from any other mod you wish to translate.</p>
-         <h2><a name="I18NData"></a>How to translate en.json</h2>
-         <p>Only translate strings that come after a colon (':') in the JSON file. You can more easily edit the JSON with tools like <a href="https://brunosupremo.github.io/Stonehearth-Translator/">Stonehearth-Translator</a>.</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Do not modify the strings that come on the left side of a ':', those are the string addresses used by the game. Also, do not modify strings that are surrounded by brackets ('[' or ']').</p>
-         <p>Example:</p>
+         <p>这些 overrides 的作用就像您在 stonehearth/locales/ 和 rayyas_children/locales/ 目录下添加了<a href="../../essentials/mixintos_overrides/index.html#OverrideNonExisting">新文件</a>一样。</p>
+         <p>指向的文件是 translations 文件夹下的 en-XA.json / en-DEV.json 文件。这些是包含所有翻译字符串的文件。</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 对于您的翻译 mod，请从 <code>stonehearth/locales</code> 复制"en.json"，此示例 mod 提供的示例不包含最新版本游戏的所有字符串。还要从 rayyas_children 和 northern_alliance mods 以及您希望翻译的任何其他 mod 中复制 en.json。</p>
+         <h2><a name="I18NData"></a>如何翻译 en.json</h2>
+         <p>仅翻译 JSON 文件中冒号（':'）后面的字符串。您可以使用像 <a href="https://brunosupremo.github.io/Stonehearth-Translator/">Stonehearth-Translator</a> 这样的工具更轻松地编辑 JSON。</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 不要修改 ':' 左侧的字符串，这些是游戏使用的字符串地址。另外，不要修改括号（'[' 或 ']'）包围的字符串。</p>
+         <p>示例：</p>
          <pre><code>    ...
     "ai": {
        "actions": {
@@ -74,13 +74,13 @@
              "chase_entity": "chasing [name(data.target)]",
     ...
 </code></pre>
-         <p>Here, the string that needs to be translated is "chasing [name(data.target)]". <br/>
-            DO NOT translate the "[name(data.target)]" portion. This is a special string replacement.
+         <p>这里，需要翻译的字符串是"chasing [name(data.target)]"。<br/>
+            不要翻译"[name(data.target)]"部分。这是一个特殊的字符串替换。
          </p>
-         <p>The name of the target will replace "[name(data.target)]" in the game (if a hearthling is chasing a goblin named "Jib", the game will replace "[name(data.target)]" with "Jib" and the final string will read: "chasing Jib").</p>
-         <p>The replacement is character sensitive, so do not change whether the string is upper or lower case, and do not replace any of the string with a different key. It is best to copy and paste the special portion into your translated text.</p>
-         <p>You can, however, move "[name(data.target)]" around to different locations within the string. <br/>
-            For example, the japanese translated file might show something like this:
+         <p>目标的名称将在游戏中替换"[name(data.target)]"（如果炉民正在追逐名为"Jib"的哥布林，游戏将用"Jib"替换"[name(data.target)]"，最终字符串将显示为："chasing Jib"）。</p>
+         <p>替换是区分大小写的，因此不要更改字符串是大写还是小写，也不要用不同的键替换任何字符串。最好将特殊部分复制并粘贴到您的翻译文本中。</p>
+         <p>但是，您可以将"[name(data.target)]"移动到字符串内的不同位置。<br/>
+            例如，日语翻译文件可能显示如下内容：
          </p>
          <pre><code>    ...
     "ai": {
@@ -89,7 +89,7 @@
              "chase_entity": "[name(data.target)]を追う",
     ...
 </code></pre>
-         <p>The Chinese file might look like:</p>
+         <p>中文文件可能看起来像：</p>
          <pre><code>    ...
     "ai": {
        "actions": {
@@ -97,43 +97,43 @@
              "chase_entity": "追逐[name(data.target)]",
     ...
 </code></pre>
-         <h2><a name="ProperNouns"></a>Translating proper nouns</h2>
-         <p>The names for hearthlings, monsters and towns are not stored in the en.json file. If you wish to translate those too, you can add mixintos to the files under <code>stonehearth/services/server/population/data</code>. See <a href="../../essentials/removing/index.html#MixintypeOverride">here</a> for a full example.</p>
-         <h2><a name="Fonts"></a>How to change the font of the game</h2>
-         <p>Some languages have characters that one or more of the default fonts from the game don't support. If you want to change them, do the following in your translation mod:</p>
+         <h2><a name="ProperNouns"></a>翻译专有名词</h2>
+         <p>炉民、怪物和城镇的名称不存储在 en.json 文件中。如果您也希望翻译这些名称，您可以对 <code>stonehearth/services/server/population/data</code> 下的文件添加 mixintos。完整示例请参见<a href="../../essentials/removing/index.html#MixintypeOverride">这里</a>。</p>
+         <h2><a name="Fonts"></a>如何更改游戏字体</h2>
+         <p>某些语言具有游戏默认字体中的一种或多种不支持的字符。如果您想更改它们，请在您的翻译 mod 中执行以下操作：</p>
          <ol>
             <li>
-               <p>Find the font that you want to change. To do this:</p>
+               <p>找到您要更改的字体。为此：</p>
                <ul>
-                  <li>With the game open and showing the UI piece that uses that font, type <code>localhost:1338</code> in your browser, and click on "Stonehearth UI".
+                  <li>在游戏打开并显示使用该字体的 UI 片段时，在浏览器中输入 <code>localhost:1338</code>，然后点击"Stonehearth UI"。
                      <img src="/modding_guide/images/essentials/debugging/ui_port.png" alt="ui_port"/>
                   </li>
-                  <li>Then activate the "Inspect element" button and go back to the game.
+                  <li>然后激活“检查元素”按钮并返回游戏。
                      <img src="/modding_guide/images/essentials/debugging/inspect_element_tool.png" alt="inspect_element_tool"/>
                   </li>
-                  <li>Click on the text that has the concerning font and go back to the browser. In the 'Style' tab you should find the name of the font in one of the CSS styles (font-family property).
+                  <li>点击具有相关字体的文本并返回浏览器。在“Style”选项卡中，您应该在其中一个 CSS 样式（font-family 属性）中找到字体名称。
                      <img src="/modding_guide/images/basic/localization_mod/finding_game_font.png" alt="finding_game_font"/>
                   </li>
                </ul>
             </li>
             <li>
-               <p>The fonts of the game can be found in <code>stonehearth/ui/root/css/fonts</code>. Once you find the folder corresponding to the font you want to change, check which formats does it use (woff, ttf, eot, svg...). You can use an online tool like <a href="https://onlinefontconverter.com/">this one</a> to convert fonts, if you're missing a file for a specific format.</p>
+               <p>游戏的字体可以在 <code>stonehearth/ui/root/css/fonts</code> 中找到。一旦找到对应于您要更改的字体的文件夹，检查它使用哪些格式（woff、ttf、eot、svg...）。如果您缺少特定格式的文件，可以使用像<a href="https://onlinefontconverter.com/">这个</a>这样的在线工具来转换字体。</p>
             </li>
             <li>
-               <p>Override the fonts: copy your new fonts into your mod and create overrides in your manifest for each of the font files you want to replace (.woff, .ttf, .eot, .svg).</p>
-               <p>  Alternatively, if you have your own @font-face defined in a stylesheet, you can override only the variables.less file, which is inside <code>stonehearth/ui/root/css</code>. Add an import for your font (make sure the path for your font is absolute): </p>
+               <p>覆盖字体：将新字体复制到您的 mod 中，并为要替换的每个字体文件（.woff、.ttf、.eot、.svg）在清单中创建 overrides。</p>
+               <p>或者，如果您在样式表中定义了自己的 @font-face，您可以仅覆盖 variables.less 文件，该文件位于 <code>stonehearth/ui/root/css</code> 内。为您的字体添加导入（确保字体路径是绝对的）：</p>
                <pre><code>@import "/my_translation/ui/root/css/fonts/my_font/stylesheet.css";
 </code></pre>
-               <p>  and change any of the typography variables to point to your imported font.</p>
+               <p>并更改任何排版变量以指向您导入的字体。</p>
             </li>
             <li>
-               <p>Optionally override any other .less file if you see that the translated text overflows the UI, or you want to change the font size, etc.</p>
-               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Remember that overriding .less files will not be compatible with other mods that also override the same files.</p>
-               <p>Your new fonts will be applied even when the player hasn't chosen your language in the System settings, as long as your translation mod is enabled.</p>
+               <p>可选地覆盖任何其他 .less 文件，如果您看到翻译后的文本溢出 UI，或者您想更改字体大小等。</p>
+               <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 请记住，覆盖 .less 文件将与也覆盖相同文件的其他 mod 不兼容。</p>
+               <p>只要您的翻译 mod 已启用，即使玩家未在系统设置中选择您的语言，也会应用您的新字体。</p>
             </li>
          </ol>
-         <h2><a name="Localization"></a>Enabling localization in your mod</h2>
-         <p>If you are creating your own content mod that has translatable strings (not a mod that is purely translation), you need to specify a <strong>"default_locale"</strong> in the mod's manifest.json in order to tell the game that your mod contains locale data:</p>
+         <h2><a name="Localization"></a>在您的 mod 中启用本地化</h2>
+         <p>如果您正在创建自己的具有可翻译字符串的内容 mod（不是纯粹的翻译 mod），您需要在 mod 的 manifest.json 中指定 <strong>"default_locale"</strong>，以告诉游戏您的 mod 包含区域设置数据：</p>
          <pre><code>    {
        "info" : {
           "name" : "rayyas_children",
@@ -143,8 +143,8 @@
        "default_locale": "en"
     }
 </code></pre>
-         <p>This tells the game that if the main stonehearth game is running in a language for which your mod doesn't have support, it will know to load the english translation file by default.</p>
-         <p>If a localization path doesn't exist in your en.json file because you spelled it wrong somewhere, it will display in the game as is ("i18n(my_namespace:my_broken_item.my_display_name)"). More on localization <a href="../../essentials/localization/index.html">here</a>.</p>
+         <p>这告诉游戏，如果主 stonehearth 游戏运行在您的 mod 不支持的语言下，它将知道默认加载英语翻译文件。</p>
+         <p>如果您的 en.json 文件中不存在本地化路径，因为您在某处拼写错误，它将在游戏中按原样显示（"i18n(my_namespace:my_broken_item.my_display_name)"）。更多关于本地化的信息请参见<a href="../../essentials/localization/index.html">这里</a>。</p>
       </main>
    </body>
 </html>

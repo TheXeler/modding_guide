@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,23 +7,23 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Materials and shaders</title>
+      <title>材质和着色器</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Materials and shaders</h1>
+         <h1>材质和着色器</h1>
          <ul>
-            <li><a href="#PipelinesContexts">Pipelines and contexts</a></li>
-            <li><a href="#RenderMaterials">Render materials</a></li>
-            <li><a href="#GLSL">GLSL, the shader language</a></li>
-            <li><a href="#Testing">Testing shaders</a></li>
+            <li><a href="#PipelinesContexts">管线和上下文</a></li>
+            <li><a href="#RenderMaterials">渲染材质</a></li>
+            <li><a href="#GLSL">GLSL，着色器语言</a></li>
+            <li><a href="#Testing">测试着色器</a></li>
          </ul>
-         <h2><a name="PipelinesContexts"></a>Pipelines and contexts</h2>
-         <p>In Stonehearth we use a renderer called Horde3D, and <strong>pipelines</strong> and <strong>contexts</strong> are constructs of that renderer. A pipeline is an XML file that describes what gets rendered when in a frame.</p>
-         <p>It indicates <strong>when</strong> a thing gets rendered implicitly by the order of the commands in the file, and it indicates <strong>what</strong> gets rendered by specifying a context in the attribute of a given command.</p>
-         <p>You can find them in <code>stonehearth/data/horde/pipelines</code>.</p>
-         <p>For example, this is the fog of war pipeline (<code>fow.pipeline.xml</code>):</p>
+         <h2><a name="PipelinesContexts"></a>管线和上下文</h2>
+         <p>在 Stonehearth 中，我们使用一个名为 Horde3D 的渲染器，<strong>管线</strong>和<strong>上下文</strong>是该渲染器的构造。管线是一个 XML 文件，描述了在一帧中何时渲染什么。</p>
+         <p>它通过文件中命令的顺序隐式指示<strong>何时</strong>渲染某物，并通过在给定命令的属性中指定上下文来指示<strong>什么</strong>被渲染。</p>
+         <p>您可以在 <code>stonehearth/data/horde/pipelines</code> 中找到它们。</p>
+         <p>例如，这是战争迷雾管线（<code>fow.pipeline.xml</code>）：</p>
          <pre><code>  &lt;Pipeline name="FOW"&gt;
      &lt;Setup&gt;
         &lt;GlobalRenderTarget id="FogOfWarRT" /&gt;
@@ -38,17 +38,17 @@
     &lt;/CommandQueue&gt;
   &lt;/Pipeline&gt;
 </code></pre>
-         <p>Let's take a single command as an example from this:</p>
+         <p>让我们从中选取一个命令作为示例：</p>
          <pre><code>  &lt;DrawGeometry context="FOW_RT_EXPLORED" forceLodLevel="0" cached="false"/&gt;
 </code></pre>
-         <p>Here, <code>DrawGeometry</code> is the command, and <code>FOW_RT_EXPLORED</code> is the context. The other attributes are arguments passed to the DrawGeometry command.</p>
-         <p>The context is essentially a tag to tell the renderer what to draw. In this case, all of the objects with a material that has the <code>FOW_RT_EXPLORED</code> context will be rendered, and the shader specified in that context for that material will be used to do the rendering.</p>
-         <p>There are two main pipelines in the game, <code>forward</code> and <code>forward_postprocess</code>. The forward_postprocess pipeline is the high quality renderer. You can add your own contexts to the pipelines by overwriting the .xml files (which might be bad for compatibility with other mods, if someone else overrides those same files) or just implement one or more of the existing contexts in your shaders.</p>
-         <p>More info about Horde3D pipelines <a href="http://www.horde3d.org/docs/html/_pipeline.html">here</a>. (Note that Stonehearth's version of Horde3D is slightly different, but this is mostly correct.)</p>
-         <h2><a name="RenderMaterials"></a>Render materials</h2>
-         <p>Inside <code>stonehearth/data/horde/materials</code> we have a bunch of JSON files that end with ".material.json". This is just a naming convention in the same way our cubemitter files (particle effects) end with ".cubemitter.json".</p>
-         <p>These are the materials that define how to render the 3D models inside the game.</p>
-         <p>Let's take a look to <code>glowy_voxel.material.json</code>:</p>
+         <p>这里，<code>DrawGeometry</code> 是命令，<code>FOW_RT_EXPLORED</code> 是上下文。其他属性是传递给 DrawGeometry 命令的参数。</p>
+         <p>上下文本质上是一个标签，用于告诉渲染器要绘制什么。在这种情况下，所有具有带有 <code>FOW_RT_EXPLORED</code> 上下文的材质的对象都将被渲染，并且将使用该上下文中为该材质指定的着色器进行渲染。</p>
+         <p>游戏中有两个主要管线，<code>forward</code> 和 <code>forward_postprocess</code>。forward_postprocess 管线是高质量渲染器。您可以通过覆盖 .xml 文件将自己的上下文添加到管线中（如果其他人也覆盖这些相同的文件，这可能会对其他 mod 的兼容性产生不良影响），或者只是在您的着色器中实现一个或多个现有上下文。</p>
+         <p>有关 Horde3D 管线的更多信息请参见<a href="http://www.horde3d.org/docs/html/_pipeline.html">这里</a>。（请注意，Stonehearth 的 Horde3D 版本略有不同，但这 mostly 是正确的。）</p>
+         <h2><a name="RenderMaterials"></a>渲染材质</h2>
+         <p>在 <code>stonehearth/data/horde/materials</code> 内，我们有一堆以".material.json"结尾的 JSON 文件。这只是一个命名约定，就像我们的 cubemitter 文件（粒子效果）以".cubemitter.json"结尾一样。</p>
+         <p>这些材质定义了如何渲染游戏中的 3D 模型。</p>
+         <p>让我们看看 <code>glowy_voxel.material.json</code>：</p>
          <pre><code>  {
      "materials" : {
         "VOXEL" : {
@@ -73,12 +73,12 @@
      }
   }
 </code></pre>
-         <p>There are relative paths here. If we were to copy this file to our mod and use it for one of our entities, these paths would be read from the <code>stonehearth/data/horde</code> directory by default, unless we change them to <a href="../../../essentials/mixins/index.html#AbsolutePaths">absolute paths</a> referencing our mod's folder.</p>
-         <p>Materials are composable. A material can optionally specify 'sub-materials' to include in itself, inside the <strong>"materials"</strong> entry. All sub-materials are included and flattened (recursively) to create the new material.</p>
-         <p>Materials that include materials can still specify shaders, and those contexts will override the included materials.</p>
-         <p>The <strong>"shaders"</strong> entry points to states and shaders. All <strong>.shader</strong> files are written in GLSL, and only contain one vertex program and one fragment program. Shaders used in the game can be found in <code>stonehearth/data/horde/shaders</code>.</p>
-         <p>Shader state (blending, etc) has been disentangled from shader declaration, and so can be reused as well (you can find them inside <code>stonehearth/data/horde/states</code>).</p>
-         <p>A material therefore declares the contexts being implemented, and binds shaders, shader states, and uniform inputs to create a context. It can also declare uniform inputs to the material, and bind them to shader uniforms. These material-level inputs form the 'interface' to the material, if you like. Example from <code>starfield.material.json</code>:</p>
+         <p>这里有相对路径。如果我们将此文件复制到我们的 mod 并用于我们的某个实体，除非我们将它们更改为引用我们 mod 文件夹的<a href="../../../essentials/mixins/index.html#AbsolutePaths">绝对路径</a>，否则这些路径将默认从 <code>stonehearth/data/horde</code> 目录中读取。</p>
+         <p>材质是可组合的。材质可以选择在 <strong>"materials"</strong> 条目内指定要包含在其中的"子材质"。所有子材质都被包含并扁平化（递归地）以创建新材质。</p>
+         <p>包含其他材质的材质仍然可以指定着色器，这些上下文将覆盖所包含的材质。</p>
+         <p><strong>"shaders"</strong> 条目指向状态和着色器。所有 <strong>.shader</strong> 文件都用 GLSL 编写，仅包含一个顶点程序和一个片段程序。游戏中使用的着色器可以在 <code>stonehearth/data/horde/shaders</code> 中找到。</p>
+         <p>着色器状态（混合等）已与着色器声明分离，因此也可以重用（您可以在 <code>stonehearth/data/horde/states</code> 内找到它们）。</p>
+         <p>因此，材质声明正在实现的上下文，并绑顶着色器、着色器状态和统一输入以创建上下文。它还可以声明材质的统一输入，并将它们绑定到着色器统一变量。如果您愿意，这些材质级输入构成了材质的"接口"。来自 <code>starfield.material.json</code> 的示例：</p>
          <pre><code>  {
      "shaders" : {
         "STARFIELD" : {
@@ -112,9 +112,9 @@
      ]
   }
 </code></pre>
-         <p>No attempt is made to deal with multiple conflicting shaders from different materials; the winner is the one that wins.</p>
-         <p>Also, you cannot adjust an included material's shader uniforms; you can ONLY adjust the material's inputs. Think of shader uniform defaults as private variables, and material uniforms as public, overridable variables.</p>
-         <p>Let's check out <code>ghost_item.json</code> as an example. Here, <code>transparent_with_depth.material.json</code> exposes the "alpha" uniform in its "inputs" section. We rewire it to be bound to our own "alpha" input:</p>
+         <p>没有尝试处理来自不同材质的多个冲突着色器；获胜者是最终胜出的那个。</p>
+         <p>此外，您不能调整所包含材质的着色器统一变量；您只能调整材质的输入。将着色器统一变量默认值视为私有变量，将材质统一变量视为公共可覆盖变量。</p>
+         <p>让我们以 <code>ghost_item.json</code> 为例。这里，<code>transparent_with_depth.material.json</code> 在其"inputs"部分公开了"alpha"统一变量。我们将其重新布线以绑定到我们自己的"alpha"输入：</p>
          <pre><code>  {
      "materials" : {
         "SELECTABLE" : {
@@ -138,11 +138,11 @@
      ]
   }
 </code></pre>
-         <h2><a name="GLSL"></a>GLSL, the shader language</h2>
-         <p>There's a lot to GLSL and good resources out there, so we won't go over all of it here. We will go over the basics though, and point you to where you can learn more.</p>
-         <p>Shaders are programs that run on your GPU to render triangles. As we mentioned above Stonehearth uses two types of shader programs: vertex programs and fragment programs.</p>
-         <p>Vertex programs take the vertices of a model one at a time as input and transform them for consumption of the fragment programs. The typical first step is to transform the position of the vertex to camera space so it appears in the correct place on the screen.</p>
-         <p>The vertex program in <code>color_only.shader</code> looks like this:</p>
+         <h2><a name="GLSL"></a>GLSL，着色器语言</h2>
+         <p>GLSL 有很多内容，外面也有很多好的资源，所以我们不会在这里全面介绍。不过，我们将介绍基础知识，并指出您可以进一步了解的地方。</p>
+         <p>着色器是在 GPU 上运行以渲染三角形的程序。如上所述，Stonehearth 使用两种类型的着色器程序：顶点程序和片段程序。</p>
+         <p>顶点程序一次接受模型的一个顶点作为输入，并转换它们以供片段程序使用。典型的第一步是将顶点的位置转换到相机空间，以便它出现在屏幕上的正确位置。</p>
+         <p><code>color_only.shader</code> 中的顶点程序如下所示：</p>
          <pre><code>  #include "shaders/utilityLib/vertCommon.glsl"
 
   uniform mat4 viewProjMat;
@@ -157,24 +157,24 @@
      gl_Position = viewProjMat * calcWorldPos(vec4(vertPos, 1.0));
   }
 </code></pre>
-         <p>It takes the color from each vertex and puts it in <code>outColor</code> for the fragment shader, and transforms <code>vertPos</code> to camera space by first calculating the world position with a helper function that was imported from <code>vertCommon.glsl</code> then multiplying the view projection matrix.</p>
-         <p>The fragment shader calculates the color of each fragment, where a fragment is basically a pixel on the screen. The <code>varying</code> values in the vertex shader are interpolated over the fragments that make up the face of the triangle being rendered. So if we have <code>varying float x</code>, and the value of x is 1.0 for one vertex, and it's 0.0 in another vertex in the same triangle, the fragment in between the two will get x = 0.5 automatically.</p>
-         <p>The fragment program in <code>color_only.shader</code> looks like this:</p>
+         <p>它从每个顶点获取颜色并将其放入 <code>outColor</code> 以供片段着色器使用，并通过首先使用从 <code>vertCommon.glsl</code> 导入的辅助函数计算世界位置，然后乘以视图投影矩阵，将 <code>vertPos</code> 转换到相机空间。</p>
+         <p>片段着色器计算每个片段的颜色，其中片段基本上是屏幕上的一个像素。顶点着色器中的 <code>varying</code> 值在构成正在渲染的三角形面的片段上进行插值。因此，如果我们有 <code>varying float x</code>，并且一个顶点的 x 值为 1.0，而同一三角形中另一个顶点的 x 值为 0.0，则两者之间的片段将自动获得 x = 0.5。</p>
+         <p><code>color_only.shader</code> 中的片段程序如下所示：</p>
          <pre><code>  varying vec4 outColor;
 
   void main() {
      gl_FragColor = outColor.rgba;
   }
 </code></pre>
-         <p>Here we're saying that every interpolated color gets assigned to the output color with no changes.</p>
-         <p>.shader files in Stonehearth have three sections:</p>
+         <p>这里我们说每个插值颜色都被分配给输出颜色，没有任何变化。</p>
+         <p>Stonehearth 中的 .shader 文件有三个部分：</p>
          <ul>
-            <li><strong>[[FX]]</strong> for declaring inputs to our shader.</li>
-            <li><strong>[[VS]]</strong> for declaring vertex shaders.</li>
-            <li><strong>[[FS]]</strong> for declaring fragment shaders.</li>
+            <li><strong>[[FX]]</strong> 用于声明着色器的输入。</li>
+            <li><strong>[[VS]]</strong> 用于声明顶点着色器。</li>
+            <li><strong>[[FS]]</strong> 用于声明片段着色器。</li>
          </ul>
-         <p>Separate .glsl files can be imported inside the shaders, which can be useful for sharing GLSL code between shaders.</p>
-         <p>The full <code>color_only.shader</code> file looks like this:</p>
+         <p>可以在着色器中导入单独的 .glsl 文件，这对于在着色器之间共享 GLSL 代码很有用。</p>
+         <p>完整的 <code>color_only.shader</code> 文件如下所示：</p>
          <pre><code>  [[FX]]
 
   [[VS]]
@@ -200,19 +200,19 @@
      gl_FragColor = outColor.rgba;
   }
 </code></pre>
-         <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/><strong>Technical note</strong>: in Stonehearth our shaders are written using a slightly older version of GLSL, which means we have some deprecated keywords like 'varying' and 'attribute'. They are still valid in compatibility contexts, more information on that can be found <a href="https://gamedev.stackexchange.com/questions/29672/in-out-keywords-in-glsl">here</a>.</p>
-         <p>For more information on GLSL you can dive into their docs <a href="https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language">here</a>.</p>
-         <h2><a name="Testing"></a>Testing shaders</h2>
-         <p>You can enable this property in your user_settings.json to be able to test changes to shaders and cubemitter files without needing to restart the game:</p>
+         <p><img src="/modding_guide/images/common/edit_big.png" alt="icon"/><strong>技术说明</strong>：在 Stonehearth 中，我们的着色器使用稍旧版本的 GLSL 编写，这意味着我们有一些已弃用的关键字，如"varying"和"attribute"。它们在兼容性上下文中仍然有效，更多信息可以在<a href="https://gamedev.stackexchange.com/questions/29672/in-out-keywords-in-glsl">这里</a>找到。</p>
+         <p>有关 GLSL 的更多信息，您可以深入阅读他们的文档<a href="https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language">这里</a>。</p>
+         <h2><a name="Testing"></a>测试着色器</h2>
+         <p>您可以在 user_settings.json 中启用此属性，以便能够在不需要重启游戏的情况下测试对着色器和 cubemitter 文件的更改：</p>
          <pre><code>  "enable_renderer_file_watcher" : true
 </code></pre>
-         <p>It should be at the same level than your user_id, make sure to add commas where needed.</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> This option might not always work as expected. You may need to reload the game for the changes to take effect in some cases. Beware of crashes due to wrong filepaths or invalid values in your rendering-related files.</p>
-         <p>Making new render materials and shaders is pretty complex, but if you're feeling adventurous, feel free to copy the existing shaders and tinker with them. Players might have older graphic cards which don't support some of the properties so be careful when creating shaders.</p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>For reference, Stonehearth uses OpenGL 4.1 for the high quality renderer, but the low quality renderer works with older drivers, so you should use old style GLSL. You can specify the version of the program to compile at the top of the shader with the <code>#version</code> pragma. See <a href="https://github.com/mattdesl/lwjgl-basics/wiki/GLSL-Versions">this page</a> for a reference. However, note that if you use syntax and functions that are exclusive from recent versions like the 4.1, your shaders might break when compiled by older GPU drivers because they don't support those functions.</p>
-         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> Sometimes a shader will cause visual glitches that can be avoided if you split the affected voxels to a separate matrix or layer in the QB model (for models that have materials applied only to some of their colors).</p>
+         <p>它应该与您的 user_id 处于同一级别，确保在需要的地方添加逗号。</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 此选项可能并不总是按预期工作。在某些情况下，您可能需要重新加载游戏才能使更改生效。注意由于渲染相关文件中的错误文件路径或无效值导致的崩溃。</p>
+         <p>制作新的渲染材质和着色器非常复杂，但如果您觉得冒险，可以随时复制现有着色器并进行修改。玩家可能拥有不支持某些属性的旧显卡，因此在创建着色器时要小心。</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>作为参考，Stonehearth 使用 OpenGL 4.1 进行高质量渲染，但低质量渲染器适用于较旧的驱动程序，因此您应该使用旧式 GLSL。您可以使用 <code>#version</code> pragma 在着色器顶部指定要编译的程序版本。请参阅<a href="https://github.com/mattdesl/lwjgl-basics/wiki/GLSL-Versions">此页面</a>作为参考。但是，请注意，如果您使用 4.1 等最新版本独有的语法和函数，您的着色器可能在由旧 GPU 驱动程序编译时崩溃，因为它们不支持这些函数。</p>
+         <p><img src="/modding_guide/images/common/gold.png" alt="icon"/> 有时着色器会导致视觉故障，如果将受影响的体素分割到 QB 模型中的单独矩阵或层中，可以避免这种情况（对于仅将材质应用于其部分颜色的模型）。</p>
          <p><img src="/modding_guide/images/basic/color_maps/render_materials_layers.png" alt="render_materials_layers"/></p>
-         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> In the current version of the game, it is a known issue that entities that have render materials won't show an outline when trying to select them. The parts of the model that have the custom render material will show an incorrect selection color.</p>
+         <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> 在当前版本的游戏中，已知具有渲染材质的实体在尝试选择它们时不会显示轮廓。具有自定义渲染材质的模型部分将显示不正确的选择颜色。</p>
       </main>
    </body>
 </html>

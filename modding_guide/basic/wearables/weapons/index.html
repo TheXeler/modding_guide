@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,69 +7,69 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>Weapons</title>
+        <title>武器</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>Weapons</h1>
+            <h1>武器</h1>
             <ul>
                 <li>
-                    <a href="#Weapons">Creating weapons</a>
+                    <a href="#Weapons">创建武器</a>
                     <ul>
-                        <li><a href="#TwoHanded">Two-handed weapons</a></li>
-                        <li><a href="#Shields">Shields</a></li>
-                        <li><a href="#RangedWeapons">Ranged weapons</a></li>
+                        <li><a href="#TwoHanded">双手武器</a></li>
+                        <li><a href="#Shields">盾牌</a></li>
+                        <li><a href="#RangedWeapons">远程武器</a></li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="Weapons"></a>Creating weapons</h2>
-            <p>Examples of weapons can be found inside <code>stonehearth/entities/weapons</code>.</p>
-            <p>Same steps than for adding gear and armor, with some minor differences.</p>
+            <h2><a name="Weapons"></a>创建武器</h2>
+            <p>武器示例可以在 <code>stonehearth/entities/weapons</code> 中找到。</p>
+            <p>与添加装备和护甲的步骤相同，但有一些细微差别。</p>
             <ol>
                 <li>
-                    <p>We'll start by copying <code>stonehearth/entities/weapons/short_sword</code> to our mod.</p>
+                    <p>我们将从复制 <code>stonehearth/entities/weapons/short_sword</code> 到我们的 mod 开始。</p>
                 </li>
                 <li>
-                    <p>We rename the files and folders, let's call it magic_sword, for example. Notice that there are 2 models, one is for the iconic/default version, and the other one will be shown when the weapon is equipped.</p>
-                    <p>  <a name="EquippedModel"></a>Notice its orientation and position. The point where the hearthlings will grab it should be at (0,0,0) on your modeling program, no matter the model size. The orientation will make it face forward in the game, so that hearthlings will swing it in the correct direction:
+                    <p>我们重命名文件和文件夹，例如称之为 magic_sword。请注意，有 2 个模型，一个是用于图标/默认版本，另一个将在装备武器时显示。</p>
+                    <p><a name="EquippedModel"></a>注意其方向和位置。炉民抓取它的点应该在您的建模程序中的 (0,0,0)，无论模型大小如何。方向将使其在游戏中朝前，以便炉民以正确的方向挥动它：
                         <img src="/modding_guide/images/basic/wearables/weapon.png" alt="weapon"/>
                     </p>
-                    <p>  The JSON file for the iconic doesn't have anything special. The other JSON file will have the usual properties for the net worth and catalog entries in "entity_data".</p>
-                    <p>  The weapon will only have a default model variant, which is the 'equipped' QB model.</p>
-                    <p>  It doesn't have a ghost JSON file in the entity_forms component, like the armor pieces, because it's not meant to be placeable.</p>
-                    <p>  Then, in the <strong>"stonehearth:equipment_piece"</strong> component, we have the same properties than for <a href="../armor/index.html#EPComp">armor</a>. Notice the values for the following properties:</p>
+                    <p>图标的 JSON 文件没有什么特别的。另一个 JSON 文件将在"entity_data"中具有净值和目录条目的常用属性。</p>
+                    <p>武器将只有一个默认模型变体，即"equipped"QB 模型。</p>
+                    <p>它在 entity_forms 组件中没有 ghost JSON 文件，像护甲部件那样，因为它不打算被放置。</p>
+                    <p>然后，在 <strong>"stonehearth:equipment_piece"</strong> 组件中，我们具有与<a href="../armor/index.html#EPComp">护甲</a>相同的属性。注意以下属性的值：</p>
                     <ul>
                         <li><strong>"slot": "mainhand"</strong></li>
                         <li><strong>"render_type": "attach_to_bone"</strong></li>
                     </ul>
-                    <p>  This means that the sword will be equipped in the "mainhand" slot. The "mainhand" slot is mapped to the "mainHand" bone of the hearthlings skeleton in <code>stonehearth/data/constants.json</code>. And "attach_to_bone" means that the sword will be attached to that bone, as opposed to merging with it.</p>
+                    <p>这意味着剑将装备在"mainhand"槽位中。"mainhand"槽位在 <code>stonehearth/data/constants.json</code> 中映射到炉民骨架的"mainHand"骨骼。而"attach_to_bone"意味着剑将附加到该骨骼上，而不是与之合并。</p>
                     <ul>
                         <li>
-                            <p><a name="Postures"></a>The <strong>"postures"</strong> array:</p>
-                            <pre><code>"postures": []
+                            <p><a name="Postures"></a><strong>"postures"</strong> 数组：</p>
+                            <pre><code>"postures": [
    "stonehearth:combat",
    "stonehearth:patrol"
 ]
 </code></pre>
-                            <p>This array contains postures defined in the postures files, take a look at <code>stonehearth/data/rigs/entities/humans/postures.json</code> for examples (postures will be explained in the animation guide - TBD).</p>
-                            <p>If we include this array, it means that the weapon will only be visible when the hearthling plays the animations defined for those postures, so that they don't stab themselves with it while playing the eat, sleep, etc. animations.</p>
+                            <p>此数组包含在姿势文件中定义的姿势，请查看 <code>stonehearth/data/rigs/entities/humans/postures.json</code> 获取示例（姿势将在动画指南中解释 - 待定）。</p>
+                            <p>如果我们包含此数组，这意味着武器仅在炉民播放为这些姿势定义的动画时可见，这样他们在播放进食、睡眠等动画时不会刺伤自己。</p>
                         </li>
                     </ul>
-                    <p>  Now, in the "entity_data", we have the following extra entries:</p>
+                    <p>现在，在"entity_data"中，我们有以下额外条目：</p>
                     <ul>
                         <li>
-                            <p><a name="WeaponData"></a><strong>"stonehearth:combat:weapon_data"</strong> (as opposed to "stonehearth:combat:armor_data"):</p>
+                            <p><a name="WeaponData"></a><strong>"stonehearth:combat:weapon_data"</strong>（与"stonehearth:combat:armor_data"相对）：</p>
                             <pre><code>"stonehearth:combat:weapon_data": {
    "base_damage": 16,
    "reach": 1.5
 }
 </code></pre>
-                            <p>The <strong>"base_damage"</strong> will be shown in the Equipment tab of the character sheet (if the item has a render type), just like the defense is for armor items.</p>
-                            <p>The <strong>"reach"</strong> is expressed in world units, so this sword can reach an enemy that is 1.5 blocks away from our hearthling (the hearthling will start attacking as soon as he/she's within that reach of the enemy).</p>
+                            <p><strong>"base_damage"</strong> 将显示在角色表的 Equipment 选项卡中（如果物品具有渲染类型），就像护甲物品的防御力一样。</p>
+                            <p><strong>"reach"</strong> 以世界单位表示，因此这把剑可以触及距离我们炉民 1.5 格远的敌人（一旦炉民进入该攻击范围内，他就会开始攻击）。</p>
                         </li>
                         <li>
-                            <p><a name="MeleeAttacks"></a><strong>"stonehearth:combat:melee_attacks"</strong> :</p>
+                            <p><a name="MeleeAttacks"></a><strong>"stonehearth:combat:melee_attacks"</strong>：</p>
                             <pre><code>"stonehearth:combat:melee_attacks": [
    {
       "name": "combat_1h_backhand",
@@ -87,43 +87,43 @@
    }
 ]
 </code></pre>
-                            <p>This is an array of objects. Each entry corresponds to a melee attack. We'll briefly cover the basic properties here:</p>
+                            <p>这是一个对象数组。每个条目对应一个近战攻击。我们将在此简要介绍基本属性：</p>
                             <ul>
-                                <li><strong>"name"</strong> is an identifier.</li>
-                                <li><strong>"effect"</strong> is the name of the effect's JSON file that contains the animation to be played. Notice that it's only the name, it doesn't end by ".json" nor includes the full path to the effect file.</li>
+                                <li><strong>"name"</strong> 是一个标识符。</li>
+                                <li><strong>"effect"</strong> 是包含要播放动画的效果 JSON 文件的名称。请注意，它只是名称，不以".json"结尾，也不包括效果文件的完整路径。</li>
                             </ul>
-                            <p>  Effects for hearthlings are inside <code>stonehearth/data/rigs/entities/humans/effects</code>.</p>
+                            <p>炉民的效果在 <code>stonehearth/data/rigs/entities/humans/effects</code> 内。</p>
                             <ul>
-                                <li><strong>"active_frame"</strong> is the frame from the animation at which we consider that the sword will hit the enemy (the game plays some sparks VFX at that moment).</li>
-                                <li><strong>"cooldown"</strong> is milliseconds to wait before attacking.</li>
-                                <li><strong>"priority"</strong> will make some attacks more frequent than other ones. </li>
+                                <li><strong>"active_frame"</strong> 是我们认为剑将击中敌人的动画帧（游戏在那一刻播放一些火花 VFX）。</li>
+                                <li><strong>"cooldown"</strong> 是攻击前等待的毫秒数。</li>
+                                <li><strong>"priority"</strong> 将使某些攻击比其他攻击更频繁。</li>
                             </ul>
-                            <p>These attacks will be used in combat when this weapon is equipped. They will cause the damage defined in the <strong>"base_damage"</strong> field from "stonehearth:combat:weapon_data", modified by any buffs etc. But there are some extra properties we can add to them, which will be explained in depth in the guide for creating custom combat jobs - TBD.</p>
-                            <p>You can browse different weapons to find them out in the meantime.</p>
+                            <p>这些攻击将在装备此武器时在战斗中使用。它们将造成在"stonehearth:combat:weapon_data"的 <strong>"base_damage"</strong> 字段中定义的伤害，并由任何增益效果等修改。但是我们可以向它们添加一些额外属性，这将在创建自定义战斗职业的指南中深入解释 - 待定。</p>
+                            <p>您可以浏览不同的武器以同时了解它们。</p>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <p>We add an alias to our manifest:</p>
+                    <p>我们将别名添加到我们的清单中：</p>
                     <pre><code>"aliases": {
    "weapons:magic_sword" : "file(entities/weapons/magic_sword)"
 }
 </code></pre>
                 </li>
                 <li>
-                    <p>Test your new weapon in the game:
+                    <p>在游戏中测试您的新武器：
                         <img src="/modding_guide/images/basic/wearables/armor.png" alt="armor"/>
                     </p>
                 </li>
             </ol>
-            <p>You can spawn enemies by triggering the ambient threats encounters in the <a href="../../../essentials/debugtools/debugtools_mod/index.html#CampaignBrowser">campaign browser</a> debug tool.</p>
-            <h3><a name="TwoHanded"></a>Two-handed weapons</h3>
-            <p>To implement a two-handed weapon, we have this extra field inside the <strong>"stonehearth:equipment_piece"</strong> component:</p>
+            <p>您可以通过在<a href="../../../essentials/debugtools/debugtools_mod/index.html#CampaignBrowser">战役浏览器</a>调试工具中触发环境威胁遭遇战来生成敌人。</p>
+            <h3><a name="TwoHanded"></a>双手武器</h3>
+            <p>要实现双手武器，我们在 <strong>"stonehearth:equipment_piece"</strong> 组件中有这个额外字段：</p>
             <pre><code>  "additional_equipment": {
      "stonehearth:armor:offhand_placeholder": true
   }
 </code></pre>
-            <p>This piece of equipment can be found inside <code>stonehearth/entities/armor</code>. It has very few properties:</p>
+            <p>这件装备可以在 <code>stonehearth/entities/armor</code> 中找到。它具有非常少的属性：</p>
             <pre><code>  {
      "type": "entity",
      "components": {
@@ -136,19 +136,19 @@
      "entity_data": {}
   }
 </code></pre>
-            <p>It's just an entity that can be equipped (no "render_type" because we want it to be invisible).</p>
-            <p>Notice the negative <strong>"ilevel"</strong>. Only items with positive "ilevel" can be upgraded. So this means the hearthling won't try to equip shields while wearing our two-handed sword, because the "leftArm" slot will be occupied by this invisible additional equipment.</p>
-            <p>He/she will still be able to upgrade the main weapon.</p>
-            <p>Two-handed weapons usually have a higher reach in "stonehearth:combat:weapon_data".</p>
-            <p>Make sure that any "additional_equipment" you add has a negative ilevel and <strong>"destroy_on_drop" : true</strong>, so that it gets destroyed when the hearthling is demoted or rescued (otherwise, they will just drop it, and a new one would be created when they recover and re-equip the weapon, which means the invisible item will stay somewhere in the map cluttering your game).</p>
-            <h3><a name="Shields"></a>Shields</h3>
-            <p>Shields are implemented like any other armor or weapon. Normally they're worn only on certain postures, like the weapons, but they have armor_data, because they're defensive items.</p>
-            <p>So inside their "entity_data" we can find the base_damage_reduction, which will always be applied when fighting:</p>
+            <p>它只是一个可以装备的实体（没有"render_type"，因为我们希望它是隐形的）。</p>
+            <p>注意负的 <strong>"ilevel"</strong>。只有具有正"ilevel"的物品才能升级。所以这意味着炉民在穿着我们的双手剑时不会尝试装备盾牌，因为"leftArm"槽位将被这个隐形的额外装备占据。</p>
+            <p>他/她仍然能够升级主武器。</p>
+            <p>双手武器通常在"stonehearth:combat:weapon_data"中具有更高的攻击范围。</p>
+            <p>确保您添加的任何"additional_equipment"都具有负的 ilevel 和 <strong>"destroy_on_drop" : true</strong>，以便在炉民被降职或救援时将其销毁（否则，他们只会丢弃它，并且当他们恢复并重新装备武器时会创建一个新的，这意味着隐形物品将留在地图上的某个地方，使您的游戏变得杂乱）。</p>
+            <h3><a name="Shields"></a>盾牌</h3>
+            <p>盾牌的实现方式与任何其他护甲或武器相同。通常它们仅在某些姿势下佩戴，就像武器一样，但它们具有 armor_data，因为它们是防御物品。</p>
+            <p>因此在它们的"entity_data"内部，我们可以找到 base_damage_reduction，这在战斗时将始终应用：</p>
             <pre><code>  "stonehearth:combat:armor_data": {
      "base_damage_reduction": 1
   }
 </code></pre>
-            <p>and a <strong>"stonehearth:combat:melee_defenses"</strong> array (as opposed to the "stonehearth:combat:melee_attacks"):</p>
+            <p>以及一个 <strong>"stonehearth:combat:melee_defenses"</strong> 数组（与"stonehearth:combat:melee_attacks"相对）：</p>
             <pre><code>  "stonehearth:combat:melee_defenses": [
      {
         "name": "simple_shield_block",
@@ -160,28 +160,28 @@
      }
   ]
 </code></pre>
-            <p>Notice the <strong>"chance_of_success"</strong> property here. This is a percentage that will be used to calculate the chances to run this defense, which will block the enemy attack on that turn.</p>
-            <p>The "chance_of_success" property is exclusive for melee defenses.</p>
-            <p>Remember to position the shield model over the (0,0,0) coordinates in your modeling program:
+            <p>请注意这里的 <strong>"chance_of_success"</strong> 属性。这是一个百分比，将用于计算运行此防御的几率，这将在该回合阻挡敌人的攻击。</p>
+            <p>"chance_of_success"属性是近战防御独有的。</p>
+            <p>请记住在您的建模程序中将盾牌模型定位在 (0,0,0) 坐标上：
                 <img src="/modding_guide/images/basic/wearables/shield.png" alt="shield"/>
             </p>
-            <h3><a name="RangedWeapons"></a>Ranged weapons</h3>
-            <p>To implement a ranged weapon, copy <code>stonehearth/weapons/bow</code> to your mod (ignore the bow_talisman.json file, it's used for the archer because this bow is their default weapon).</p>
-            <p>For the most part, it's like the other weapons. Rename the files and edit them. Mind the position and orientation of the QB model for the equipped version:
+            <h3><a name="RangedWeapons"></a>远程武器</h3>
+            <p>要实现远程武器，请将 <code>stonehearth/weapons/bow</code> 复制到您的 mod（忽略 bow_talisman.json 文件，它用于弓箭手，因为这把弓是他们的默认武器）。</p>
+            <p>在大多数方面，它与其他武器类似。重命名文件并编辑它们。注意装备版本的 QB 模型的位置和方向：
                 <img src="/modding_guide/images/basic/wearables/ranged_weapon.png" alt="ranged_weapon"/>
             </p>
             <blockquote>
-                <p><img src="/modding_guide/images/common/gold.png" alt="icon"/><a name="NoDrop"></a>In the equipment piece component, you may notice this field:</p>
+                <p><img src="/modding_guide/images/common/gold.png" alt="icon"/><a name="NoDrop"></a>在装备部件组件中，您可能会注意到此字段：</p>
                 <pre><code>    "no_drop": true
 </code></pre>
-                <p>This is used for default weapons or armor of the combat classes, which have no "roles" field either.</p>
-                <p>When combat units get incapacitated, they will drop their current equipment, so in order to keep their default clothes and weapon (which can't be obtained in the game, nor can be automatically equipped) we use this <strong>"no_drop"</strong> property.</p>
-                <p>Some of the enemy weapons also have this property set to true, since we equip their weapons manually from Lua.</p>
+                <p>这用于战斗职业的默认武器或护甲，它们也没有"roles"字段。</p>
+                <p>当战斗单位丧失能力时，他们将丢弃当前的装备，因此为了保留他们的默认服装和武器（无法在游戏中获得，也不能自动装备），我们使用此 <strong>"no_drop"</strong> 属性。</p>
+                <p>某些敌人武器也将此属性设置为 true，因为我们从 Lua 手动装备他们的武器。</p>
             </blockquote>
-            <p>Now let's check the "entity_data" of <code>bow.json</code>:</p>
+            <p>现在让我们检查 <code>bow.json</code> 的"entity_data"：</p>
             <ul>
                 <li>
-                    <p><strong>"stonehearth:combat:weapon_data"</strong> contains more properties than for the melee weapons:</p>
+                    <p><strong>"stonehearth:combat:weapon_data"</strong> 包含比近战武器更多的属性：</p>
                     <pre><code>"stonehearth:combat:weapon_data": {
    "base_damage": 25,
    "base_ranged_damage": 25,
@@ -192,12 +192,12 @@
    "projectile_end_offset": { "x": 0, "y": 1.5, "z": 0 }
 }
 </code></pre>
-                    <p>  We have both <strong>"base_damage"</strong> and <strong>"base_ranged_damage"</strong>. Ranged attacks will have preference so "base_ranged_damage" will be used.</p>
-                    <p>  In <strong>"range"</strong> we have a high value, the archers will start attacking when in that number of blocks between them and the target.</p>
-                    <p>  <strong>"projectile_speed"</strong> is how many blocks per real time seconds does it take to reach the target.</p>
-                    <p>  <strong>"projectile_uri"</strong> by default will be "stonehearth:weapons:arrow", but we can create our own projectile.</p>
-                    <p>  <strong>"projectile_start_offset"</strong> and <strong>"projectile_end_offset"</strong> are optional offsets if we need to spawn the projectile in a specific location so that it fits with the animation.</p>
-                    <p>  <a name="Projectiles"></a>We can find the projectiles inside <code>stonehearth/entities/weapons</code>. For example, the default arrow looks like this:</p>
+                    <p>我们既有 <strong>"base_damage"</strong> 又有 <strong>"base_ranged_damage"</strong>。远程攻击将具有优先权，因此将使用"base_ranged_damage"。</p>
+                    <p>在 <strong>"range"</strong> 中，我们有一个高值，弓箭手将在他们与目标之间达到该格数时开始攻击。</p>
+                    <p><strong>"projectile_speed"</strong> 是以真实时间秒为单位到达目标所需的格数。</p>
+                    <p><strong>"projectile_uri"</strong> 默认为"stonehearth:weapons:arrow"，但我们可以创建自己的投射物。</p>
+                    <p><strong>"projectile_start_offset"</strong> 和 <strong>"projectile_end_offset"</strong> 是可选偏移量，如果我们需要在特定位置生成投射物以使其与动画匹配。</p>
+                    <p><a name="Projectiles"></a>我们可以在 <code>stonehearth/entities/weapons</code> 中找到投射物。例如，默认箭头看起来像这样：</p>
                     <pre><code>{
    "type": "entity",
    "components": {
@@ -221,13 +221,13 @@
    }
 }
 </code></pre>
-                    <p>  It's an entity with very few properties. Notice the <strong>"stonehearth:projectile" : {}</strong> component. We can create our own projectiles this way.</p>
-                    <p>  The arrow.qb model is positioned over (0,0,0), with the tip of the arrow overflowing, which will be the part that will get sunk into the enemy before the arrow disappears:
+                    <p>它是一个具有非常少属性的实体。注意 <strong>"stonehearth:projectile" : {}</strong> 组件。我们可以用这种方式创建自己的投射物。</p>
+                    <p>arrow.qb 模型定位在 (0,0,0) 上，箭头的尖端溢出，这将是箭头消失之前沉入敌人的部分：
                         <img src="/modding_guide/images/basic/wearables/arrow.png" alt="arrow"/>
                     </p>
                 </li>
                 <li>
-                    <p><a name="RangedAttacks"></a><strong>"stonehearth:combat:ranged_attacks"</strong> (as opposed to "stonehearth:combat:melee_attacks"):</p>
+                    <p><a name="RangedAttacks"></a><strong>"stonehearth:combat:ranged_attacks"</strong>（与"stonehearth:combat:melee_attacks"相对）：</p>
                     <pre><code>"stonehearth:combat:ranged_attacks": [
    {
       "name": "archer_1h_shoot",
@@ -238,15 +238,15 @@
    }
 ]
 </code></pre>
-                    <p>  Same properties than for the melee attacks, but will be used by the combat service as ranged attacks.</p>
+                    <p>与近战攻击相同的属性，但将由战斗服务用作远程攻击。</p>
                 </li>
                 <li>
-                    <p><a name="IdleReady"></a><strong>"stonehearth:combat:idle:ready"</strong> : </p>
+                    <p><a name="IdleReady"></a><strong>"stonehearth:combat:idle:ready"</strong>：</p>
                     <pre><code>"stonehearth:combat:idle:ready": {
    "name": "archer_1h_idle"
 }
 </code></pre>
-                    <p>  With this we can change the idle animation that plays when they're fighting but not attacking. This field can only be used in main weapons.</p>
+                    <p>通过此功能，我们可以更改他们在战斗但不攻击时播放的空闲动画。此字段只能在主武器中使用。</p>
                 </li>
             </ul>
         </main>

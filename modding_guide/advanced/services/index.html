@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,35 +7,35 @@
     <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
     <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
     <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-    <title>Services</title>
+    <title>服务</title>
   </head>
   <body>
     <script src="/modding_guide/menus.js"></script>
     <main>
-      <h1>Services</h1>
-      <p>You can find the files of the existing services under <code>stonehearth/services</code>.</p>
+      <h1>服务</h1>
+      <p>您可以在 <code>stonehearth/services</code> 下找到现有服务的文件。</p>
       <ul>
-        <li><a href="#ServerClient">About server and client</a></li>
-        <li><a href="#AddingAService">Adding a new service to the game</a></li>
-        <li><a href="#OverridingServices">Overriding existing services</a></li>
+        <li><a href="#ServerClient">关于服务器和客户端</a></li>
+        <li><a href="#AddingAService">向游戏添加新服务</a></li>
+        <li><a href="#OverridingServices">覆盖现有服务</a></li>
       </ul>
-      <h2><a name="ServerClient"></a>About server and client</h2>
-      <p>The server renders the logic of the game and is the source of truth regarding all things that happen in the world of Stonehearth: data about the hearthlings, the entities in the world around them, and functions that manipulate this information. The server is written primarily in C++ and Lua.</p>
-      <p>The client renders things that only matter to an individual player: the renderer, the on-screen UI, music and sounds, and the in-game UI used for things like item placement.</p>
-      <p>This structure is useful when you're playing multiplayer: the server runs on one computer, and clients run on each player's computer, and the clients update themselves with the state on the server, and send commands to the server when the player wants to do something. If 2 commands from 2 players conflict, the server handles the issue and tells all clients what the new state of the world is. When playing Stonehearth's singleplayer, you're essentially running both the server and client on one computer.</p>
-      <p>As a modder, when you're working on the UI, you're clearly working in the client. When you're working on AI or components, you're clearly working on the server. The place it gets tricky is when you're:</p>
-      <p>a.) trying to get data from the server into the UI. To do this you want to create a <a href="../ui/index.html#HandlebarsTemplate">Handlebars template</a> that will absorb the data and render it, and then create an object that will extract the relevant data for you from the server. See workshop or citizens view for examples.</p>
-      <p>b.) trying to render a ghost or other client-only game object into the world to help the player select where something will be. For more data on this read <a href="../call_handlers/index.html">this page</a>.</p>
-      <h2><a name="AddingAService"></a>Adding a new service to the game</h2>
-      <p>See <code>stonehearth_tests_server.lua</code> and <code>stonehearth_tests_client.lua</code> in the <code>stonehearth_tests</code> mod (comes bundled with the game) for an example of adding a new service.</p>
-      <p><a name="InitScripts"></a>If your service is a client service, create a client init script (you can see an example <a href="../../intermediate/hotloading/index.html#ClientInitScript">here</a>. If it's a server service, a server init script.</p>
-      <p>For that, in your manifest you need to add one of this (or both if you have both a client and a server service):</p>
+      <h2><a name="ServerClient"></a>关于服务器和客户端</h2>
+      <p>服务器渲染游戏的逻辑，是 Stonehearth 世界中发生的所有事情的真相来源：有关炉民的数据、他们周围世界中的实体，以及操作这些信息的功能。服务器主要用 C++ 和 Lua 编写。</p>
+      <p>客户端渲染仅与单个玩家相关的事物：渲染器、屏幕 UI、音乐和声音，以及用于物品放置等事物的游戏内 UI。</p>
+      <p>这种结构在您进行多人游戏时很有用：服务器在一台计算机上运行，客户端在每个玩家的计算机上运行，客户端使用服务器上的状态更新自己，并在玩家想要执行某些操作时向服务器发送命令。如果来自 2 个玩家的 2 个命令冲突，服务器会处理问题并告诉所有客户端世界的新状态是什么。当玩 Stonehearth 的单人游戏时，您基本上是在一台计算机上同时运行服务器和客户端。</p>
+      <p>作为 modder，当您处理 UI 时，您显然是在客户端工作。当您处理 AI 或组件时，您显然是在服务器端工作。变得棘手的地方是当您：</p>
+      <p>a.) 尝试将数据从服务器获取到 UI 中。为此，您需要创建一个<a href="../ui/index.html#HandlebarsTemplate">Handlebars 模板</a>来吸收数据并渲染它，然后创建一个对象来为您从服务器提取相关数据。参见 workshop 或 citizens 视图以获取示例。</p>
+      <p>b.) 尝试将 ghost 或其他仅客户端的游戏对象渲染到世界中以帮助玩家选择某物的位置。有关此的更多数据，请阅读<a href="../call_handlers/index.html">此页面</a>。</p>
+      <h2><a name="AddingAService"></a>向游戏添加新服务</h2>
+      <p>有关添加新服务的示例，请参阅 <code>stonehearth_tests</code> mod（随游戏捆绑）中的 <code>stonehearth_tests_server.lua</code> 和 <code>stonehearth_tests_client.lua</code>。</p>
+      <p><a name="InitScripts"></a>如果您的服务是客户端服务，请创建客户端初始化脚本（您可以在此处看到一个<a href="../../intermediate/hotloading/index.html#ClientInitScript">示例</a>）。如果是服务器服务，则创建服务器初始化脚本。</p>
+      <p>为此，在您的清单中，您需要添加以下内容之一（或者如果您同时有客户端和服务器服务，则两者都添加）：</p>
       <pre><code>  "server_init_script" : "file(my_server_init_script)",
   "client_init_script" : "file(my_client_init_script)"
 </code></pre>
-      <p>They're at the same level than "aliases" or "mixintos".</p>
-      <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/> Notice that for these we don't include the ".lua" extension when pointing to them. Please follow this syntax.</p>
-      <p>For example, in our server init script we have this:</p>
+      <p>它们与"aliases"或"mixintos"同级。</p>
+      <p><img src="/modding_guide/images/common/row_alert2.png" alt="icon"/>请注意，对于这些，我们在指向它们时不包含".lua"扩展名。请遵循此语法。</p>
+      <p>例如，在我们的服务器初始化脚本中，我们有这个：</p>
       <pre><code>  ui_mod = {}
 
   local service_creation_order = {
@@ -48,14 +48,14 @@
 
   return ui_mod
 </code></pre>
-      <p>You want to add a listener that listens for the <code>radiant:init</code> event on your mod (<code>ui_mod</code> in the example above). This event is triggered right when your mod is created by the game.</p>
-      <p>Inside the callback function, you can call <code>radiant.service_creator.create_services</code> and pass in your mod, your mod namespace, and the list of services you want to create.</p>
-      <p>Once you've created your mod, you can access your service through the mod namespace, just like the stonehearth services. In the example above, we would call it like this:</p>
+      <p>您希望添加一个监听器，监听您的 mod 上的 <code>radiant:init</code> 事件（上面示例中的 <code>ui_mod</code>）。此事件在游戏创建您的 mod 时立即触发。</p>
+      <p>在回调函数内部，您可以调用 <code>radiant.service_creator.create_services</code> 并传入您的 mod、您的 mod 命名空间以及您要创建的服务列表。</p>
+      <p>一旦您创建了 mod，您就可以通过 mod 命名空间访问您的服务，就像 stonehearth 服务一样。在上面的示例中，我们将这样调用它：</p>
       <pre><code>  ui_mod.example:function_from_the_example_service()
 </code></pre>
-      <p>It's the namespace of the mod, a dot, and the key we defined for the service in the <code>service_creation_order</code> variable. You can find the list of existing client / server services in <code>stonehearth/data/constants.json</code>.</p>
-      <h2><a name="OverridingServices"></a>Overriding existing services</h2>
-      <p>To override an existing service, just add an override in the manifest that overrides the existing service's Lua file.</p>
+      <p>它是 mod 的命名空间、一个点，以及我们在 <code>service_creation_order</code> 变量中为服务定义的键。您可以在 <code>stonehearth/data/constants.json</code> 中找到现有客户端/服务器服务的列表。</p>
+      <h2><a name="OverridingServices"></a>覆盖现有服务</h2>
+      <p>要覆盖现有服务，只需在清单中添加一个覆盖，覆盖现有服务的 Lua 文件。</p>
     </main>
   </body>
 </html>

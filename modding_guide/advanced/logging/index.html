@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,32 +7,32 @@
         <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-        <title>User settings and logging</title>
+        <title>用户设置和日志记录</title>
     </head>
     <body>
         <script src="/modding_guide/menus.js"></script>
         <main>
-            <h1>User settings and logging</h1>
+            <h1>用户设置和日志记录</h1>
             <ul>
-                <li><a href="#Configs">Adding custom flags to user_settings.json</a></li>
-                <li><a href="#Logging">How to log from your code</a></li>
+                <li><a href="#Configs">向 user_settings.json 添加自定义标志</a></li>
+                <li><a href="#Logging">如何从代码中记录日志</a></li>
             </ul>
-            <h2><a name="Configs"></a>Adding custom flags to user_settings.json</h2>
-            <p>We can add custom config variables to the <code>user_settings.json</code> file for our mod in Lua scripts, regardless of whether we add an option in the UI to change them from within the game or not.</p>
-            <p>They will appear inside a key from the <strong>"mods"</strong> section of the user_settings file (the key will be the namespace of our mod).</p>
-            <p>We can add them programmatically if we need to save the value, but if it's for debugging purposes we can simply write the value manually in the user settings to enable/disable the flag.</p>
-            <pre><code>  -- Saving the 'max_quantity' property in user settings with a value of 5
+            <h2><a name="Configs"></a>向 user_settings.json 添加自定义标志</h2>
+            <p>我们可以在 Lua 脚本中向 <code>user_settings.json</code> 文件添加自定义配置变量，无论我们是否在游戏中添加 UI 选项来更改它们。</p>
+            <p>它们将出现在 user_settings 文件的 <strong>"mods"</strong> 部分的一个键内（该键将是我们的 mod 的命名空间）。</p>
+            <p>如果需要保存值，我们可以以编程方式添加它们，但如果是为了调试目的，我们可以简单地在用户设置中手动写入值以启用/禁用标志。</p>
+            <pre><code>  -- 在用户设置中保存 'max_quantity' 属性，值为 5
   radiant.util.set_config('max_quantity', 5)
 </code></pre>
-            <p>To retrieve the value from our code, we'd do:</p>
+            <p>要从我们的代码中检索值，我们会这样做：</p>
             <pre><code>  local max_qty = radiant.util.get_config('max_quantity', 1)
 </code></pre>
-            <p>The value will be read from the mod that the scripts belongs to. If the game can't find the config string, the default value will be returned (the second parameter that we pass, normally a number, string or boolean).</p>
-            <p>If we need to set or get a config value of a different mod from within our mod, we can use these instead:</p>
+            <p>该值将从脚本所属的 mod 中读取。如果游戏找不到配置字符串，将返回默认值（我们传递的第二个参数，通常是数字、字符串或布尔值）。</p>
+            <p>如果我们需要从我们的 mod 中设置或获取不同 mod 的配置值，我们可以使用这些：</p>
             <pre><code>  radiant.util.set_global_config('mods.other_mod.config_variable', 'custom_value')
   local auto_loot_enabled = radiant.util.get_global_config('mods.stonehearth.auto_loot', false)
 </code></pre>
-            <p>For doing this from a Javascript file, take a look at <code>stonehearth/ui/shell/settings/settings.js</code>:</p>
+            <p>要从 Javascript 文件中执行此操作，请查看 <code>stonehearth/ui/shell/settings/settings.js</code>：</p>
             <pre><code>  _updateGameplayTabPage: function() {
      var self = this;
      radiant.call('radiant:get_config', 'mods.stonehearth')
@@ -40,20 +40,20 @@
            var stonehearthOptions = response['mods.stonehearth'] || {};
            if (stonehearthOptions) {
               self.set('showHearthlingPaths', stonehearthOptions.show_hearthling_paths);
-              // More code...
+              // 更多代码...
            }
         })
   }
 </code></pre>
-            <h2><a name="Logging"></a>How to log from your code</h2>
-            <p>There are several ways to print text in the <code>stonehearth.log</code> file from our mod's Lua files.</p>
-            <p>First, at the top of your Lua file, create a logger and give it a unique tag:</p>
+            <h2><a name="Logging"></a>如何从代码中记录日志</h2>
+            <p>有几种方法可以从我们 mod 的 Lua 文件中在 <code>stonehearth.log</code> 文件中打印文本。</p>
+            <p>首先，在 Lua 文件的顶部，创建一个记录器并为其赋予一个唯一标签：</p>
             <pre><code>  local log = radiant.log.create_logger('tag_name')
 </code></pre>
-            <p>To write to the log inside your Lua functions, invoke methods on the logger:</p>
+            <p>要在 Lua 函数中写入日志，请在记录器上调用方法：</p>
             <pre><code>  log:info('hello world')
 </code></pre>
-            <p>We have multiple levels of logging. Here they are:</p>
+            <p>我们有多个日志级别。以下是它们：</p>
             <pre><code>  ALWAYS = 0,
   ERROR = 1,
   WARNING = 3,
@@ -62,12 +62,12 @@
   DETAIL = 8,
   SPAM = 9
 </code></pre>
-            <p>All of these have a corresponding method on the logger:</p>
+            <p>所有这些在记录器上都有相应的方法：</p>
             <pre><code>  log:detail('really fine grained logging information')
   log:error('OMG CRAZY IMPORTANT ERROR!')
 </code></pre>
-            <p>You probably figured most of that out on your own. Here's the secret sauce.</p>
-            <p>To actually show stuff in your log, add a logging block to your <code>user_settings.json</code> (at the same level than your user_id):</p>
+            <p>您可能已经自己弄清楚了大部分内容。这里是秘诀。</p>
+            <p>要在日志中实际显示内容，请在您的 <code>user_settings.json</code> 中添加一个日志记录块（与您的 user_id 同级）：</p>
             <pre><code>  "logging" : {
      "show_console" : true,
      "mods" : {
@@ -78,25 +78,25 @@
      }
   },
 </code></pre>
-            <p>The <strong>show_console</strong> flag will pop up a window showing the stonehearth.log at run time when your start the game.</p>
-            <p>Then we have a <strong>"mods"</strong> section, listing the different mods by namespace. Inside it we have the different log tags, and optionally a <strong>log_level</strong> flag, which is the default logging level to apply across the whole mod. For each tag we can define the log level that we want to use.</p>
-            <p>The idea is if your mod has several different logical features, you initialize a separate logger for each of them, with different tags. Then when you're debugging feature A vs. feature B, you can adjust the logging level in your user settings so your log isn't spammed with information that you don't care about.</p>
-            <p>Examples:</p>
-            <p>This will log ONLY <code>log:error('...')</code> entries from loggers created with the tag "feature_a":</p>
+            <p><strong>show_console</strong> 标志将在您启动游戏时在运行时弹出一个显示 stonehearth.log 的窗口。</p>
+            <p>然后我们有一个 <strong>"mods"</strong> 部分，按命名空间列出不同的 mod。在其中我们有不同的日志标签，以及可选的 <strong>log_level</strong> 标志，这是应用于整个 mod 的默认日志级别。对于每个标签，我们可以定义我们要使用的日志级别。</p>
+            <p>这个想法是，如果您的 mod 有几个不同的逻辑功能，您为每个功能初始化一个单独的记录器，带有不同的标签。然后，当您调试功能 A 与功能 B 时，您可以调整用户设置中的日志级别，这样您的日志就不会被您不关心的信息淹没。</p>
+            <p>示例：</p>
+            <p>这将仅记录使用标签"feature_a"创建的记录器中的 <code>log:error('...')</code> 条目：</p>
             <pre><code>  "mods" : {
      "your_mod_namespace" : {
         "feature_a" : 1
      }
   }
 </code></pre>
-            <p>This will log all log entries from loggers created with the "feature_b" tag:</p>
+            <p>这将记录使用"feature_b"标签创建的记录器中的所有日志条目：</p>
             <pre><code>  "mods" : {
      "your_mod_namespace" : {
         "feature_b" : 9
      }
   }
 </code></pre>
-            <p>And of course this works:</p>
+            <p>当然，这也有效：</p>
             <pre><code>  "mods" : {
      "your_mod_namespace" : {
         "feature_a" : 1
@@ -104,11 +104,11 @@
      }
   }
 </code></pre>
-            <p><a name="Print"></a><img src="/modding_guide/images/common/gold.png" alt="icon"/> For quickly printing text to the stonehearth.log that you know you will remove before shipping your mod, you can also use the <code>print()</code> function:</p>
+            <p><a name="Print"></a><img src="/modding_guide/images/common/gold.png" alt="icon"/> 对于快速打印到您知道在发布 mod 之前会删除的 stonehearth.log 的文本，您还可以使用 <code>print()</code> 函数：</p>
             <pre><code>  print('debugging stuff')
   printf('debugging variables %d and %s', num_times, my_string)
 </code></pre>
-            <p>These debug texts from the <code>print()</code> function will be shown preceded by a 'DEBUG' tag in the <code>stonehearth.log</code>, so you should be able to locate them quickly.</p>
+            <p>来自 <code>print()</code> 函数的这些调试文本将在 <code>stonehearth.log</code> 中以前缀'DEBUG'标签显示，因此您应该能够快速找到它们。</p>
         </main>
     </body>
 </html>

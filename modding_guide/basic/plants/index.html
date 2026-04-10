@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,32 +7,32 @@
       <link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-      <title>Plants and trees</title>
+      <title>植物和树木</title>
    </head>
    <body>
       <script src="/modding_guide/menus.js"></script>
       <main>
-         <h1>Plants and trees</h1>
-         <p>We've learned how to create renewable and non-renewable resources in a <a href="../renewable_resources/index.html">previous section</a>. Here we'll see how we can add them to an existing biome so that they spawn at world generation. For how to create your own biome from scratch, follow this other <a href="../../intermediate/biomes/index.html">guide</a>.</p>
+         <h1>植物和树木</h1>
+         <p>我们在<a href="../renewable_resources/index.html">上一节</a>中学习了如何创建可再生和不可再生资源。在这里，我们将了解如何将它们添加到现有生物群落中，以便它们在世界生成时生成。有关如何从头开始创建您自己的生物群落，请遵循此<a href="../../intermediate/biomes/index.html">指南</a>。</p>
          <ul>
-            <li><a href="#Plants">Adding new plants to an existing biome</a></li>
-            <li><a href="#Trees">About trees</a></li>
-            <li><a href="#SeasonalVariants">Seasonal variants</a></li>
+            <li><a href="#Plants">向现有生物群落添加新植物</a></li>
+            <li><a href="#Trees">关于树木</a></li>
+            <li><a href="#SeasonalVariants">季节性变体</a></li>
          </ul>
-         <h2><a name="Plants"></a>Adding new plants to an existing biome</h2>
+         <h2><a name="Plants"></a>向现有生物群落添加新植物</h2>
          <ol>
             <li>
-               <p>Decide in which biome(s) do you want your plant / tree to spawn. For our example, we'll make the Nightdew plant from the <code>silent_woods</code> mod appear in the temperate biome.</p>
+               <p>决定您希望您的植物/树木在哪个生物群落中生成。对于我们的示例，我们将使来自 <code>silent_woods</code> mod 的 Nightdew 植物出现在温带生物群落中。</p>
             </li>
             <li>
-               <p>Create a mixinto to the biome's generation_data file:</p>
+               <p>创建对生物群落 generation_data 文件的 mixinto：</p>
                <pre><code>"mixintos" : {
    "stonehearth/data/biome/temperate_generation_data.json" : "file(data/biome/temperate_generation_data.json)"
 }
 </code></pre>
             </li>
             <li>
-               <p>Include your plant in the appropiate places of the biome generation's data. This is how our mixinto looks like:</p>
+               <p>将您的植物包含在生物群落生成数据的适当位置。这是我们的 mixinto 的样子：</p>
                <pre><code>{
    "landscape": {
       "placement_table": {
@@ -72,19 +72,19 @@
    }
 }
 </code></pre>
-               <p>  Inside the <strong>"landscape"</strong> section, we added our plant inside the <strong>"placement_table"</strong> and <strong>"scattered" : { "plants" : {} }</strong> groups.</p>
-               <p>  The entries inside <strong>"placement_table"</strong> are the aliases of our plants, and contain the placement properties (to spawn them isolated or in clusters).</p>
-               <p>  Then, in the <strong>"scattered" : { "plants" : {} }</strong> section we have the <strong>"weights"</strong> for the different terrain elevations. Each number key inside <strong>"plains"</strong>, <strong>"foothills"</strong> and <strong>"mountains"</strong> represents a terrain elevation. Inside of them, we declare our plant's alias again and assign a <a href="../misc_json/index.html#WeightedSets">weight</a> to it (the weights are calculated with all the plants inside that entry).</p>
-               <p>  This way we determine how often compared to other plants will our plant appear for each terrain elevation.</p>
-               <p>  Now we can test and see if our plant appears in the temperate biome:
+               <p>在 <strong>"landscape"</strong> 部分内，我们在 <strong>"placement_table"</strong> 和 <strong>"scattered" : { "plants" : {} }</strong> 组内添加了我们的植物。</p>
+               <p><strong>"placement_table"</strong> 内的条目是我们植物的别名，并包含放置属性（以孤立或集群方式生成它们）。</p>
+               <p>然后，在 <strong>"scattered" : { "plants" : {} }</strong> 部分中，我们有不同地形海拔的 <strong>"weights"</strong>。<strong>"plains"</strong>、<strong>"foothills"</strong> 和 <strong>"mountains"</strong> 内的每个数字键代表一个地形海拔。在它们内部，我们再次声明我们植物的别名并为其分配一个<a href="../misc_json/index.html#WeightedSets">权重</a>（权重是根据该条目内的所有植物计算的）。</p>
+               <p>这样，我们确定了与每种植物相比，我们的植物在每个地形海拔上出现的频率。</p>
+               <p>现在我们可以测试并查看我们的植物是否出现在温带生物群落中：
                   <img src="/modding_guide/images/basic/plants/plants.png" alt="plants"/>
                </p>
             </li>
          </ol>
-         <h2><a name="Trees"></a>About trees</h2>
-         <p>Trees have a particularity in the biome files. If we organized them in the same way than the trees from the stonehearth mod, we can include them inside the <strong>"trees"</strong> section of our biome's generation_data file. This depends on the structure of the aliases for the trees.</p>
-         <p>If our tree aliases end by ":small", ":medium", ":large" or ":ancient", these suffixes can be used for determining sizes in the generation data.
-            For example:
+         <h2><a name="Trees"></a>关于树木</h2>
+         <p>树木在生物群落文件中有一个特殊性。如果我们按照 stonehearth mod 中的树木的方式组织它们，我们可以将它们包含在我们生物群落的 generation_data 文件的 <strong>"trees"</strong> 部分中。这取决于树木别名的结构。</p>
+         <p>如果我们的树木别名以":small"、":medium"、":large"或":ancient"结尾，这些后缀可用于在生成数据中确定大小。
+            例如：
          </p>
          <pre><code>  "trees": {
      "sizes": {
@@ -114,19 +114,19 @@
      }
   }
 </code></pre>
-         <p>Notice that the keys inside <strong>"sizes"</strong> and <strong>"weights"</strong> are not the full alias of the tree, just the common part before the last colon.</p>
-         <p>Then, in the sizes section, we can specify the sizes for each tree (which match with the suffixes of their aliases). These are specified as thresholds (values need to be 0 or higher), except for the "ancient" variant, which has a percentage. These thresholds are used in the noise functions that determine tree placement depending on the terrain features (water, hills, etc).</p>
-         <p>We can use other names for the sizes of our trees (as long as we follow this pattern), or have less different sizes.</p>
-         <p>Don't forget to add the individual full aliases of the trees inside the <strong>"placement_table"</strong> section too!</p>
-         <p>Always use the <code>stonehearth/data/biome/temperate_generation_data.json</code> file as an example, it's the one that has more comments for each parameter. You can also use the <code>desert_generation_data.json</code> or <code>arctic_generation_data.json</code> files as a template to start your own biomes.</p>
-         <h2><a name="SeasonalVariants"></a>Seasonal variants</h2>
-         <p>Biomes can have different colors and weather per season (you can invent your own <a href="../../intermediate/biomes/seasons_weather/index.html">seasons</a> too).
-            In addition to them, plants and trees can have different models per season if you want.
+         <p>请注意，<strong>"sizes"</strong> 和 <strong>"weights"</strong> 内的键不是树木的完整别名，只是最后一个冒号之前的公共部分。</p>
+         <p>然后，在 sizes 部分中，我们可以为每棵树指定大小（与它们别名的后缀匹配）。这些被指定为阈值（值需要为 0 或更高），除了"ancient"变体，它有一个百分比。这些阈值用于噪声函数中，根据地形特征（水、山丘等）确定树木的放置。</p>
+         <p>我们可以为我们的树木大小使用其他名称（只要我们遵循此模式），或者拥有较少的不同大小。</p>
+         <p>不要忘记也在 <strong>"placement_table"</strong> 部分中添加树木的各个完整别名！</p>
+         <p>始终使用 <code>stonehearth/data/biome/temperate_generation_data.json</code> 文件作为示例，它是每个参数注释最多的文件。您还可以使用 <code>desert_generation_data.json</code> 或 <code>arctic_generation_data.json</code> 文件作为模板来启动您自己的生物群落。</p>
+         <h2><a name="SeasonalVariants"></a>季节性变体</h2>
+         <p>生物群落每个季节可以有不同的颜色和天气（您也可以发明您自己的<a href="../../intermediate/biomes/seasons_weather/index.html">季节</a>）。
+            除此之外，如果您愿意，植物和树木每个季节可以有不同的模型。
          </p>
-         <p>These are the steps to make any entity have different models per season:</p>
+         <p>以下是使任何实体每个季节具有不同模型的步骤：</p>
          <ol>
             <li>
-               <p>In the JSON file where we define its QB models, we have to add a model variant per season.</p>
+               <p>在定义其 QB 模型的 JSON 文件中，我们必须为每个季节添加一个模型变体。</p>
                <pre><code>"model_variants": {
    "default": {
       "models": [
@@ -152,7 +152,7 @@
 </code></pre>
             </li>
             <li>
-               <p>Then, we have to add <strong>"stonehearth:seasonal_model_switcher"</strong> also inside "components":</p>
+               <p>然后，我们还必须在"components"内添加 <strong>"stonehearth:seasonal_model_switcher"</strong>：</p>
                <pre><code>"stonehearth:seasonal_model_switcher": {
    "stonehearth:biome:temperate": {
       "spring": "spring",
@@ -162,8 +162,8 @@
    }
 }
 </code></pre>
-               <p>  In this component, we can add an entry for each biome that has our plant. The keys are the biome aliases, and the values map seasons (as defined in each biome JSON file) with names of our model variants that we defined above. In our example, we map the "default" model variant for the "summer" season.</p>
-               <p>  If instead of a biome alias we use <strong>"*"</strong> as the key, the seasonal model variants will be applied for all the biomes that have these seasons defined, even the modded ones, which is useful:</p>
+               <p>在此组件中，我们可以为拥有我们植物的每个生物群落添加一个条目。键是生物群落别名，值将季节（如每个生物群落 JSON 文件中定义）与我们在上面定义的模型变体名称映射。在我们的示例中，我们将"summer"季节映射到"default"模型变体。</p>
+               <p>如果我们使用 <strong>"*"</strong> 作为键而不是生物群落别名，季节性模型变体将应用于所有定义了这些季节的生物群落，甚至是修改过的生物群落，这很有用：</p>
                <pre><code>"stonehearth:seasonal_model_switcher": {
    "*": {
       "spring": "spring",
@@ -173,9 +173,9 @@
    }
 }
 </code></pre>
-               <p>  When a season changes, the first days of the new season will be of transition. During this period the terrain will change its color palette gradually, and the entities that have seasonal variants will swap their models at a random moment during the transition. They will also prefer switching models during the night (so there will be nights when no model will change and other nights when several of them will be swapped).</p>
-               <p>  To test, it's faster to just choose different starting seasons and check that the plant has spawned in the correct seasonal variant, since seasons take a long time to pass even while playing at higher speeds.</p>
-               <p>  <img src="/modding_guide/images/basic/plants/seasonal_models.png" alt="seasonal_models"/></p>
+               <p>当季节变化时，新季节的前几天将是过渡期。在此期间，地形将逐渐改变其调色板，具有季节性变体的实体将在过渡期间的随机时刻交换其模型。它们还将优先在夜间切换模型（因此有些夜晚不会有模型更改，而其他夜晚会有多个模型被交换）。</p>
+               <p>为了测试，只需选择不同的起始季节并检查植物是否以正确的季节性变体生成会更快，因为即使以更高的速度播放，季节也需要很长时间才能过去。</p>
+               <p><img src="/modding_guide/images/basic/plants/seasonal_models.png" alt="seasonal_models"/></p>
             </li>
          </ol>
       </main>

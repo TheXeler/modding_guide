@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,38 +7,38 @@
 	<link rel="icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
 	<link rel="apple-touch-icon" type="image/png" href='/modding_guide/images/favicon_logo_sh.png'>
 	<link rel="icon" type="image/png" sizes="144x144" href='/modding_guide/images/favicon_logo_sh.png'>
-	<title>Controllers</title>
+	<title>控制器</title>
 </head>
 <body>
 	<script src="/modding_guide/menus.js"></script>
 	<main>
-		<h1>Controllers</h1>
-		<p>The existing controllers are distributed among many of the folders from the stonehearth mod, so to find them take a look at their paths in the manifest.</p>
+		<h1>控制器</h1>
+		<p>现有控制器分布在 stonehearth mod 的许多文件夹中，因此要找到它们，请查看清单中的路径。</p>
 		<ul>
-			<li><a href="#Controllers">About controllers</a></li>
-			<li><a href="#Anatomy">Anatomy of a controller</a></li>
-			<li><a href="#Using">Using a controller</a></li>
-			<li><a href="#ClientControllers">Client controllers</a></li>
+			<li><a href="#Controllers">关于控制器</a></li>
+			<li><a href="#Anatomy">控制器的结构</a></li>
+			<li><a href="#Using">使用控制器</a></li>
+			<li><a href="#ClientControllers">客户端控制器</a></li>
 		</ul>
-		<h2><a name="Controllers"></a>About controllers</h2>
-		<p>A controller is a utility class that stores data/performs a function (and isn't a component / service / call handler / etc). Components themselves are also controllers, except they get loaded at a specific time at game start up, and are specifically tied to an entity. Controllers have some behaviors that make initializing / loading / destroying easier.</p>
+		<h2><a name="Controllers"></a>关于控制器</h2>
+		<p>控制器是一个实用类，用于存储数据/执行功能（并且不是组件/服务/调用处理器等）。组件本身也是控制器，只是它们在游戏启动时的特定时间加载，并且专门绑定到实体。控制器具有一些使初始化/加载/销毁更容易的行为。</p>
 
-		<p>Example controllers:</p>
+		<p>控制器示例：</p>
 		<ul>
-			<li>All scenarios</li>
-			<li>Inventory trackers (and the util class that distinguishes each inventory tracker's functions)</li>
-			<li>Trait / buff scripts</li>
-			<li>Class-specific functions/logic</li>
+			<li>所有场景</li>
+			<li>库存跟踪器（以及区分每个库存跟踪器功能的实用类）</li>
+			<li>特性/增益效果脚本</li>
+			<li>特定职业的功能/逻辑</li>
 		</ul>
-		<h2><a name="Anatomy"></a>Anatomy of a controller</h2>
-		<p>Controllers are classes with <code>self._sv</code> for <a href="../index.html#SV">saving variables</a> and with <a href="../index.html#ControllerLifecycle">initialize/restore/etc functions</a> that guarantee some saved state flow control between saves and loads.</p>
+		<h2><a name="Anatomy"></a>控制器的结构</h2>
+		<p>控制器是具有用于<a href="../index.html#SV">保存变量</a>的 <code>self._sv</code> 和<a href="../index.html#ControllerLifecycle">initialize/restore/etc 函数</a>的类，这些函数保证在保存和加载之间的一些保存状态流控制。</p>
 
 		<pre><code>  local MyController = class()
 
-  -- Initialize is called when the controller is first created
+  -- Initialize 在控制器首次创建时调用
   function MyController:initialize()
-     -- Note: all controllers are automatically equipped with a
-     -- self._sv variable into which you can save things
+     -- 注意：所有控制器都自动配备一个
+     -- self._sv 变量，您可以将内容保存到其中
      self._sv._entity = nil
      self._sv._uri = nil
   end
@@ -48,9 +48,9 @@
      self._sv._uri = uri
   end
 
-  -- Called on load, after all datastores saved in self._sv have been restored
-  -- Note, if you want to be sure something has been restored, by the time we
-  -- initialize ourselves, save it in self._sv
+  -- 在加载时调用，在 self._sv 中保存的所有数据存储恢复之后
+  -- 注意，如果您想确保某些内容已被恢复，请在
+  -- 我们初始化自己时将其保存在 self._sv 中
   function MyController:restore()
   end
 
@@ -67,49 +67,49 @@
      some_component:reset_data()
   end
 
-  -- Return the controller so it can be used as a class. 
+  -- 返回控制器以便它可以用作类。
   return MyController
 </code></pre>
 
-		<p>Remember that you might not need to add all the special functions to your controllers, only the ones that you need for its correct behavior.</p>
+		<p>请记住，您可能不需要向控制器添加所有特殊函数，只需要添加其正确行为所需的函数。</p>
 
-		<h2><a name="Using"></a>Using a Controller</h2>
-		<p>Assuming you have a controller.lua file as described above, you can create an instance of it anywhere in Lua code. You can even pass controllers to each other!</p>
+		<h2><a name="Using"></a>使用控制器</h2>
+		<p>假设您有一个如上所述的 controller.lua 文件，您可以在 Lua 代码中的任何位置创建它的实例。您甚至可以将控制器相互传递！</p>
 
-		<p>First, declare the controller in the "controllers" section of your mod's manifest (at the same level than "aliases", "mixintos", etc). This maps a stonehearth-visible name to the controller file:</p>
+		<p>首先，在 mod 清单的"controllers"部分声明控制器（与"aliases"、"mixintos"等同级）。这将 stonehearth 可见的名称映射到控制器文件：</p>
 
 <pre><code>  "controllers" : {
      "my_controller" : "file(services/server/my_controller/my_controller.lua)"
   }
 </code></pre>
 
-		<p>The folder in which you save your controller Lua file will vary. Usually in the same folder than the main script or JSON file that will be using it, so that all the related files are together.</p>
+		<p>您保存控制器 Lua 文件的文件夹会有所不同。通常在与将使用它的主脚本或 JSON 文件相同的文件夹中，以便所有相关文件放在一起。</p>
 
-		<p>Then in some other script you can create an instance of the controller by calling:</p>
+		<p>然后在其他脚本中，您可以通过调用以下命令创建控制器的实例：</p>
 
 		<pre><code>  local controller = radiant.create_controller('my_mod_namespace:my_controller')
 </code></pre>
 
-		<p>Anything you pass after the name of the controller is passed into the <code>create</code> method of the controller as arguments, e.g.:</p>
+		<p>您在控制器名称之后传递的任何内容都将作为参数传递给控制器的 <code>create</code> 方法，例如：</p>
 
 		<pre><code>  local tracker = radiant.create_controller('stonehearth:inventory_tracker', controller)
 </code></pre>
 
-		<p>And finally you can call functions from that controller within your script:</p>
+		<p>最后，您可以在脚本中调用该控制器中的函数：</p>
 
 		<pre><code>  local tr_data = tracker:get_tracking_data()
 </code></pre>
 
-		<p><img src="/modding_guide/images/common/gold.png" alt="icon"/>Mind that sometimes there's already code from the stonehearth mod that will create and use your controller. Some JSON files reference a controller alias/file that will be created for you, so you just need to declare your controller in your manifest, write its Lua file and reference it in the JSON (for example: components, trait/buff scripts, etc).</p>
+		<p><img src="/modding_guide/images/common/gold.png" alt="icon"/>请注意，有时 stonehearth mod 中已经存在将创建和使用您的控制器的代码。一些 JSON 文件引用将为您创建的控制器别名/文件，因此您只需在清单中声明控制器，编写其 Lua 文件并在 JSON 中引用它（例如：组件、特性/增益效果脚本等）。</p>
 
-		<h2><a name="ClientControllers"></a>Client controllers</h2>
-		<p>The <strong>"controllers"</strong> section of the manifest is for server controllers. Most controllers will fall under this category. You can access server-side services like the population service from them. Controller state is saved.</p>
+		<h2><a name="ClientControllers"></a>客户端控制器</h2>
+		<p>清单的 <strong>"controllers"</strong> 部分用于服务器控制器。大多数控制器都属于此类别。您可以从它们访问服务器端服务，如人口服务。控制器状态会被保存。</p>
 
-		<p>Client controllers are generally for things like the camera, rendering, sound, and other client-side behavior. Unlike regular controllers, client controllers can access client services like the seasons_render service or the camera service. They can also access client C++ commands like <code>_radiant.client.get_render_entity</code>.</p>
+		<p>客户端控制器通常用于相机、渲染、声音和其他客户端行为等事物。与常规控制器不同，客户端控制器可以访问客户端服务，如 seasons_render 服务或相机服务。它们还可以访问客户端 C++ 命令，如 <code>_radiant.client.get_render_entity</code>。</p>
 
-		<p>Client controllers do not have saved state. Their <code>_sv</code> variables are used for remoting to the UI.</p>
+		<p>客户端控制器没有保存状态。它们的 <code>_sv</code> 变量用于远程传输到 UI。</p>
 
-		<p>You should add any controllers you plan to create through <code>radiant.create_controller</code> into the manifest. Not adding them can cause issues with the controller lifecycle methods. For client controllers, you should add them under the <strong>"client_controllers"</strong> section.</p>
+		<p>您应该将通过 <code>radiant.create_controller</code> 计划创建的任何控制器添加到清单中。不添加它们可能会导致控制器生命周期方法出现问题。对于客户端控制器，您应该将它们添加到 <strong>"client_controllers"</strong> 部分下。</p>
 	</main>
 </body>
 </html>
