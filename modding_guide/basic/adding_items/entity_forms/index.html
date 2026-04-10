@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,32 +7,33 @@
       <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
-      <title>Entity Forms</title>
+      <title>实体形式</title>
    </head>
    <body>
       <script src="/menus.js"></script>
       <main>
-         <h1>Entity Forms</h1>
-         <p>Let's take a look at the entity forms component. We'll be using the Piggy Bank from the startermod_basic mod for this explanation (refer to <a href="../../../essentials/startermods/index.html">this</a> for how to get it).</p>
+         <h1>实体形式</h1>
+         <p>让我们看看 entity forms 组件。我们将使用 startermod_basic mod 中的 Piggy Bank（存钱罐）来进行此说明（有关如何获取它，请参阅<a href="../../../essentials/startermods/index.html">此页面</a>）。</p>
          <ul>
             <li>
-               <a href="#EntityForms">Entity Forms</a>
+               <a href="#EntityForms">实体形式</a>
                <ul>
-                  <li><a href="#Root">Root</a></li>
-                  <li><a href="#Ghost">Ghost</a></li>
-                  <li><a href="#Iconic">Iconic</a></li>
+                  <li><a href="#Root">Root（根）</a></li>
+                  <li><a href="#Ghost">Ghost（幽灵）</a></li>
+                  <li><a href="#Iconic">Iconic（标志性）</a></li>
                </ul>
             </li>
          </ul>
-         <h2><a name="EntityForms"></a>Entity forms</h2>
-         <p>Entity forms is a component used by all the items in the game that can be placed in the world, picked up again, and moved. You should be aware of it when creating new items for your mod.</p>
-         <p>Some items don't really need it, so they don't have this specific component (for example, non-movable items such as trees/boulders created at world generation, wood or other resources that are not placeable, baskets of food, hearthlings, etc.).</p>
-         <p>Every placeable item must have 3 forms, represented by different JSON files:</p>
-         <h3><a name="Root"></a>Root</h3>
-         <p>This represents the placed item. Its JSON file contains the entity_forms component, therefore references the two other forms's files.
+         <h2><a name="EntityForms"></a>实体形式</h2>
+         <p>Entity forms 是游戏中所有可以放置在世界中、再次拾取和移动的物品使用的组件。在为您的 mod 创建新物品时，您应该了解它。</p>
+         <p>有些物品实际上不需要它，因此它们没有这个特定组件（例如，在世界生成时创建的不可移动物品，如树木/巨石，木材或其他不可放置的资源，食物篮子，炉民等）。</p>
+         <p>每个可放置物品必须有 3 种形式，由不同的 JSON 文件表示：</p>
+          <em>译者注：实际上这三种形式分别指的是<b>已放置方块</b>（Root）、<b>未放置方块</b>（Ghost）和<b>物品</b>（Iconic）形式的组件。</em>
+          <h3><a name="Root"></a>Root（根）</h3>
+         <p>这代表已放置的物品。其 JSON 文件包含 entity_forms 组件，因此引用了另外两种形式的文件。
             <img src="/images/basic/adding_items/piggy_root.png" alt="piggy_root"/>
          </p>
-         <p>This is the piggy_bank.json file that represents the Piggy Bank entity:</p>
+         <p>这是代表 Piggy Bank 实体的 piggy_bank.json 文件：</p>
          <pre><code>  {
      "type": "entity",
      "mixins" : "file(piggy_bank_ghost.json)",
@@ -65,13 +66,13 @@
      }
   }
 </code></pre>
-         <p>As you can see, this file also references the ghost form file as a mixin. That is because both the ghost and the final placed item share some properties, such as the QB model, name and description, and storage category. This way we don't have to repeat those properties in the piggy_bank.json file.</p>
-         <p>The entity_forms component will read the files for the ghost and iconic forms that we declare here, so the game will know how to represent this entity when it is in a stockpile, when we order to place it, and when it is already placed.</p>
-         <h3><a name="Ghost"></a>Ghost</h3>
-         <p>This represents the semi-transparent form that the item has when we order to place it in the world but it hasn't been placed yet.
+         <p>如您所见，此文件还将 ghost 形式文件引用为 mixin。这是因为 ghost 和最终放置的物品共享一些属性，例如 QB 模型、名称和描述，以及存储类别。这样我们就不必在 piggy_bank.json 文件中重复这些属性。</p>
+         <p>entity_forms 组件将读取我们在此声明的 ghost 和 iconic 形式的文件，因此游戏将知道当此实体在储藏室中、当我们下令放置它以及当它已经放置时如何表示它。</p>
+         <h3><a name="Ghost"></a>Ghost（幽灵）</h3>
+         <p>这代表当我们下令将其放置在世界中但尚未放置时物品具有的半透明形式。
             <img src="/images/basic/adding_items/piggy_ghost.png" alt="piggy_ghost"/>
          </p>
-         <p>This is the piggy_bank_ghost.json file:</p>
+         <p>这是 piggy_bank_ghost.json 文件：</p>
          <pre><code>  {
      "mixins": "stonehearth:mixins:placed_object",
      "components": {
@@ -105,12 +106,12 @@
      }
   }
 </code></pre>
-         <p>Notice that it doesn't have a "type" field, it's not really an entity, it's just a blob of data reused by other entities and components. It only has some mixins, components and entity_data that we need to represent the "ghost" form of the item. We also reuse it as a mixin in the piggy_bank.json file, so all of these properties are pulled into that file too.</p>
-         <h3><a name="Iconic"></a>Iconic</h3>
-         <p>This represents the small / simplified form of the item, which we get when we craft / obtain that item and when hearthlings carry it or move it to a stockpile.
+         <p>请注意，它没有"type"字段，它不是真正的实体，它只是被其他实体和组件重用的数据块。它只有一些我们需要表示物品"ghost"形式的 mixins、组件和 entity_data。我们还在 piggy_bank.json 文件中将其重用为 mixin，因此所有这些属性也被拉入该文件。</p>
+         <h3><a name="Iconic"></a>Iconic（标志性）</h3>
+         <p>这代表物品的小型/简化形式，当我们制作/获得该物品以及炉民携带它或将其移动到储藏室时会得到这种形式。
             <img src="/images/basic/adding_items/piggy_iconic.png" alt="piggy_iconic"/>
          </p>
-         <p>This is the piggy_bank_iconic.json file:</p>
+         <p>这是 piggy_bank_iconic.json 文件：</p>
          <pre><code>  {
      "mixins": "stonehearth:mixins:item_properties",
      "type": "entity",
@@ -128,7 +129,7 @@
      }
   }
 </code></pre>
-         <p>This file represents the "iconic" form of the item, notice that it's an entity in itself ("type": "entity"). It has its own mixins and components too (this way we can define a different QB model for it, for example). The iconic will have the same name / description / icon than the root form.</p>
+         <p>此文件代表物品的"iconic"形式，请注意它本身就是一个实体（"type": "entity"）。它也有自己的 mixins 和组件（这样我们可以为其定义不同的 QB 模型，例如）。Iconic 将与 root 形式具有相同的名称/描述/图标。</p>
       </main>
    </body>
 </html>

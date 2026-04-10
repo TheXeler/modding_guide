@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,21 +7,21 @@
       <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
-      <title>Light effects</title>
+      <title>灯光效果</title>
    </head>
    <body>
       <script src="/menus.js"></script>
       <main>
-         <h1>Light effects</h1>
-         <p>Lights in stonehearth are normally looping effects. We can use them together with cubemitter tracks, so that the light is more apparent.</p>
+         <h1>灯光效果</h1>
+         <p>Stonehearth 中的灯光通常是循环效果。我们可以将它们与 cubemitter 轨道一起使用，以使灯光更加明显。</p>
          <ul>
-            <li><a href="#LightTrack">The effect file</a></li>
-            <li><a href="#CreatingLights">Creating animated lights files</a></li>
-            <li><a href="#Testing">Testing light effects</a></li>
-            <li><a href="#SHED">How to create light effects in SHED</a></li>
+            <li><a href="#LightTrack">效果文件</a></li>
+            <li><a href="#CreatingLights">创建动画灯光文件</a></li>
+            <li><a href="#Testing">测试灯光效果</a></li>
+            <li><a href="#SHED">如何在 SHED 中创建灯光效果</a></li>
          </ul>
-         <h2><a name="LightTrack"></a>The effect file</h2>
-         <p>These are example tracks from the effect file:</p>
+         <h2><a name="LightTrack"></a>效果文件</h2>
+         <p>这些是效果文件中的示例轨道：</p>
          <pre><code>  "light": {
      "type": "light",
      "light": "/rayyas_children/data/horde/animatedlights/fire/hearth/hearth.lamp.animatedlight.json",
@@ -35,28 +35,28 @@
      "shadows": true
   }
 </code></pre>
-         <p>They have very few properties:</p>
+         <p>它们的属性很少：</p>
          <ul>
             <li>
-               <p><strong>"type" : "light"</strong> -- the type of the track (a light effect).</p>
+               <p><strong>"type" : "light"</strong> -- 轨道的类型（灯光效果）。</p>
             </li>
             <li>
-               <p><strong>"light"</strong> -- path to the JSON file that defines the settings for the lights. Like with the cubemitter files, by default they will be read from <code>stonehearth/data/horde</code>.</p>
-               <p>  In the light tracks from existing effects, you'll see that the path starts by the <code>animatedlights</code> folder. It will actually be read as <code>stonehearth/data/horde/animatedlights/lamp/lamp.animatedlight.json</code>, so our paths should start from the namespace of our mod, for example <code>/candyland/data/horde/animatedlights/cupcake_lamp/cupcake_lamp.animatedlight.json</code>. Otherwise the game will try to read them from <code>stonehearth/data/horde</code>.</p>
+               <p><strong>"light"</strong> -- 定义灯光设置的 JSON 文件的路径。与 cubemitter 文件一样，默认情况下它们将从 <code>stonehearth/data/horde</code> 读取。</p>
+               <p>在现有效果的灯光轨道中，您会看到路径以 <code>animatedlights</code> 文件夹开头。它实际上将被读取为 <code>stonehearth/data/horde/animatedlights/lamp/lamp.animatedlight.json</code>，因此我们的路径应从我们 mod 的命名空间开始，例如 <code>/candyland/data/horde/animatedlights/cupcake_lamp/cupcake_lamp.animatedlight.json</code>。否则游戏将尝试从 <code>stonehearth/data/horde</code> 读取它们。</p>
             </li>
             <li>
-               <p><strong>"transforms": {}</strong> -- contains <strong>"x"</strong>, <strong>"y"</strong> and <strong>"z"</strong> fields to define an offset (in number of blocks) at which to position the origin of the light.</p>
+               <p><strong>"transforms": {}</strong> -- 包含 <strong>"x"</strong>、<strong>"y"</strong> 和 <strong>"z"</strong> 字段，用于定义放置灯光原点的偏移量（以方块数为单位）。</p>
             </li>
             <li>
-               <p><strong>"shadows"</strong> -- optional field (<strong>false</strong> by default). A boolean for enabling/disabling casting shadows from this light source.</p>
-               <p>  Shadows are computationally expensive, so if your light is going to be small, you can use <strong>false</strong> here. For bigger lights, like the firepit, it's nice to see them casting shadows from the objects around (actual number of shadows can still be tweaked from the graphic settings in the game).</p>
+               <p><strong>"shadows"</strong> -- 可选字段（默认为 <strong>false</strong>）。一个布尔值，用于启用/禁用从此光源投射阴影。</p>
+               <p>阴影在计算上很昂贵，因此如果您的灯光很小，您可以在此处使用 <strong>false</strong>。对于更大的灯光，如火坑，看到它们从周围物体投射阴影是很好的（实际阴影数量仍然可以从游戏中的图形设置中调整）。</p>
             </li>
             <li>
-               <p><strong>"bone"</strong> -- optional field. It is the name of the entity's bone to which we want to attach this light.</p>
+               <p><strong>"bone"</strong> -- 可选字段。它是我们要附加此灯光的实体骨骼的名称。</p>
             </li>
          </ul>
-         <h2><a name="CreatingLights"></a>Creating animated lights files</h2>
-         <p>Example of an animatedlight JSON file:</p>
+         <h2><a name="CreatingLights"></a>创建动画灯光文件</h2>
+         <p>animatedlight JSON 文件的示例：</p>
          <pre><code>  {
      "name": "fire",
      "duration": 1800,
@@ -81,24 +81,24 @@
      }
   }
 </code></pre>
-         <p>We have the usual <strong>"name"</strong>, <strong>"duration"</strong> (in milliseconds) and <strong>"loops"</strong> properties. Animated lights normally loop.</p>
-         <p>Then we have these 3 properties:</p>
+         <p>我们有常见的 <strong>"name"</strong>、<strong>"duration"</strong>（以毫秒为单位）和 <strong>"loops"</strong> 属性。动画灯光通常循环。</p>
+         <p>然后我们有这 3 个属性：</p>
          <ul>
-            <li><strong>"intensity"</strong> -- the intensity of the light. It can be values higher than 1.</li>
-            <li><strong>"radius"</strong> -- the radius of the light. Lights will fade out at the borders, so it may not feel exact.</li>
-            <li><strong>"color"</strong> -- the color of the light. It blends with the terrain color.</li>
-            <li><strong>"inner_radius"</strong> -- optional property. It will give more intensity to the center of the light, feels like two lights at the same place, one smaller than the other one depending on this value.</li>
+            <li><strong>"intensity"</strong> -- 灯光的强度。值可以高于 1。</li>
+            <li><strong>"radius"</strong> -- 灯光的半径。灯光将在边缘淡出，因此可能感觉不精确。</li>
+            <li><strong>"color"</strong> -- 灯光的颜色。它与地形颜色混合。</li>
+            <li><strong>"inner_radius"</strong> -- 可选属性。它将给予灯光中心更多强度，感觉像是两个灯光在同一位置，一个比另一个小，具体取决于此值。</li>
          </ul>
-         <p>All of these properties can have <strong>"start"</strong> and/or <strong>"over_lifetime"</strong> fields. The <strong>"start"</strong> can be <code>"CONSTANT"</code> or <code>"RANDOM_BETWEEN"</code>, and the <strong>"over_lifetime"</strong> can be <code>"CONSTANT"</code>, <code>"RANDOM_BETWEEN"</code>, <code>"CURVE"</code> or <code>"RANDOM_BETWEEN_CURVES"</code>. See <a href="../index.html#TypesOfValues">this table</a> for examples on how to set up the "values" depending on the "kind".</p>
-         <h2><a name="Testing"></a>Testing light effects</h2>
-         <p>We can test light effects without having to restart the game each time by using the user_settings option mentioned <a href="../cubemitters/index.html#Testing">here</a>.</p>
-         <h2><a name="SHED"></a>How to create light effects in SHED</h2>
-         <p>At the time this guide was written, SHED won't be able to detect the effects if they're not inside the directories mentioned above.
-            So make sure you're using the same directory structure than in the stonehearth mod (<code>your__mod_namespace/data/horde/animatedlights</code>).
+         <p>所有这些属性都可以有 <strong>"start"</strong> 和/或 <strong>"over_lifetime"</strong> 字段。<strong>"start"</strong> 可以是 <code>"CONSTANT"</code> 或 <code>"RANDOM_BETWEEN"</code>，<strong>"over_lifetime"</strong> 可以是 <code>"CONSTANT"</code>、<code>"RANDOM_BETWEEN"</code>、<code>"CURVE"</code> 或 <code>"RANDOM_BETWEEN_CURVES"</code>。有关如何根据"kind"设置"values"的示例，请参见<a href="../index.html#TypesOfValues">此表</a>。</p>
+         <h2><a name="Testing"></a>测试灯光效果</h2>
+         <p>我们可以使用<a href="../cubemitters/index.html#Testing">这里</a>提到的 user_settings 选项来测试灯光效果，而无需每次都重新启动游戏。</p>
+         <h2><a name="SHED"></a>如何在 SHED 中创建灯光效果</h2>
+         <p>在编写本指南时，如果效果不在上述目录内，SHED 将无法检测到它们。
+            因此，请确保您使用与 stonehearth mod 相同的目录结构（<code>your__mod_namespace/data/horde/animatedlights</code>）。
          </p>
-         <p>Go to the Effects Editor, select the 'Lights' tab and clone an existing light:</p>
+         <p>转到 Effects Editor，选择'Lights'选项卡并克隆现有灯光：</p>
          <p><img src="/images/art/vfx/cloning_animatedlight_file.png" alt="cloning_animatedlight_file"/></p>
-         <p>Then edit the values in the web (CEF) editor at the right or in the JSON editor in the middle. Some tips about the curve editors can be found <a href="../cubemitters/index.html#UsingCEFEditor">here</a>.</p>
+         <p>然后在右侧的 Web (CEF) 编辑器或中间的 JSON 编辑器中编辑值。有关曲线编辑器的一些提示可以在<a href="../cubemitters/index.html#UsingCEFEditor">这里</a>找到。</p>
       </main>
    </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,19 +7,19 @@
       <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
-      <title>Changing the scale</title>
+      <title>更改比例</title>
    </head>
    <body>
       <script src="/menus.js"></script>
       <main>
-         <h1>Changing the scale</h1>
-         <p>It doesn't matter how big an object is when you model it compared with other objects in the game, because we can change its scale from its JSON file.</p>
-         <p>If you don't specify the scale of an item, by default it's 0.1.</p>
-         <p>Trees and boulders have a scale of 1 (defined in their mixins), which means that each of the voxels in their models occupies 1 terrain block (you can see the size of a terrain block by opening the zones menu or the building menu, a grid will be displayed on the terrain).</p>
-         <p>Iconics are usually modeled with a size of 10x10x10 voxels, and since the default scale is 0.1, they fit perfectly in 1 block of terrain inside the game, which makes them align nicely in the stockpiles, and also fit in the hands of the hearthlings. Hearthlings themselves also have a 0.1 scale. Their face is 13 voxels wide, and you can see in the game that they barely occupy more than one terrain block of width.
+         <h1>更改比例</h1>
+         <p>当您建模时，对象与游戏中其他对象相比的大小并不重要，因为我们可以从其 JSON 文件中更改其比例。</p>
+         <p>如果您未指定物品的比例，则默认为 0.1。</p>
+         <p>树木和巨石的比例为 1（在其 mixins 中定义），这意味着它们模型中的每个体素占据 1 个地形方块（您可以通过打开区域菜单或建筑菜单来查看地形方块的大小，地形上将显示网格）。</p>
+         <p>Iconics（标志性物品）通常以 10x10x10 体素的大小建模，并且由于默认比例为 0.1，它们在游戏中完美地适应 1 个地形方块，这使它们在储藏室中很好地对齐，并且也适合炉民的手。炉民本身也有 0.1 的比例。他们的脸宽 13 个体素，您可以在游戏中看到他们几乎只占据一个地形方块的宽度。
             <img src="/images/basic/adding_items/item_scale.png" alt="item_scale"/>
          </p>
-         <p>To change the scale of an object, we need to add the <strong>"render_info"</strong> component to its JSON file. For example, this is the wheat_pile_ghost.json file, which determines the aspect of a wheat pile once placed:</p>
+         <p>要更改对象的比例，我们需要在其 JSON 文件中添加 <strong>"render_info"</strong> 组件。例如，这是 wheat_pile_ghost.json 文件，它决定了放置后小麦堆的外观：</p>
          <pre><code>  {
      "mixins": "stonehearth:mixins:placed_object",
      "components": {
@@ -49,17 +49,17 @@
      }
   }
 </code></pre>
-         <p>Inside the "render_info" component we say <strong>"scale" : 0.12</strong>, which will make the object look slightly larger than with the default scale.
-            With this, we can make items smaller (e.g.: <strong>"scale" : 0.05</strong> - half as big as the default scale):
+         <p>在"render_info"组件内部，我们说 <strong>"scale" : 0.12</strong>，这将使对象看起来比默认比例稍大。
+            有了这个，我们可以使物品更小（例如：<strong>"scale" : 0.05</strong> - 默认比例的一半大小）：
             <img src="/images/basic/adding_items/small_scale.png" alt="small_scale"/>
-            or larger (e.g.: <strong>"scale" : 2</strong> - 20 times bigger than the default scale):
+            或更大（例如：<strong>"scale" : 2</strong> - 比默认比例大 20 倍）：
             <img src="/images/basic/adding_items/big_scale.png" alt="big_scale"/>
          </p>
-         <p>The render_info component is also used for defining other properties such as animation tables, <a href="../../color_maps/index.html">color maps</a>, and <a href="../../color_maps/index.html#RenderMaterials">material maps</a>.</p>
-         <p>We can also test this in game. Select an entity, open the <a href="../../../essentials/debugtools/debugtools_mod/index.html#LuaConsole">Lua console</a>, and type this:</p>
+         <p>render_info 组件还用于定义其他属性，如动画表、<a href="../../color_maps/index.html">颜色图</a>和<a href="../../color_maps/index.html#RenderMaterials">材质图</a>。</p>
+         <p>我们还可以在游戏中测试这一点。选择一个实体，打开 <a href="../../../essentials/debugtools/debugtools_mod/index.html#LuaConsole">Lua 控制台</a>，然后输入以下内容：</p>
          <pre><code>  e:get_component('render_info'):set_scale(0.2)
 </code></pre>
-         <p>then press Enter. Once you know the exact value that you want the scale to be, edit it in the JSON file and save the changes.</p>
+         <p>然后按 Enter。一旦您知道所需的确切比例值，请在 JSON 文件中编辑它并保存更改。</p>
       </main>
    </body>
 </html>

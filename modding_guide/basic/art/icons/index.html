@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,56 +7,56 @@
       <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
-      <title>Creating 2D assets</title>
+      <title>创建 2D 资产</title>
    </head>
    <body>
       <script src="/menus.js"></script>
       <main>
-         <h1>Creating 2D assets</h1>
-         <p>The game uses images in different parts of the UI. Many of them were created in Photoshop, but you can use any program to make them.</p>
+         <h1>创建 2D 资产</h1>
+         <p>游戏在 UI 的不同部分使用图像。其中许多是在 Photoshop 中创建的，但您可以使用任何程序来制作它们。</p>
          <ul>
-            <li><a href="#ImageSize">Image size</a></li>
-            <li><a href="#DynamicPortraits">Dynamic portraits</a></li>
-            <li><a href="#GeneratedIcons">Generated icons</a></li>
-            <li><a href="#StaticPortraits">Static portraits</a></li>
+            <li><a href="#ImageSize">图像大小</a></li>
+            <li><a href="#DynamicPortraits">动态肖像</a></li>
+            <li><a href="#GeneratedIcons">生成的图标</a></li>
+            <li><a href="#StaticPortraits">静态肖像</a></li>
             <li>
-               <a href="#UIIcons">UI icons</a>
+               <a href="#UIIcons">UI 图标</a>
                <ul>
-                  <li><a href="#StyleGuide">Style guide</a></li>
+                  <li><a href="#StyleGuide">风格指南</a></li>
                </ul>
             </li>
          </ul>
-         <h2><a name="ImageSize"></a>Image size</h2>
-         <p>For icons and recipe images, we usually take a screenshot with our voxel editor, and maybe add some darker outline to it with an illustration program (6px black with 40%-60% opacity). The size for these images is usually 300x300 pixels, but it can vary (make sure they're square).</p>
-         <p>Here's how you can take a screenshot in Qubicle 1:</p>
+         <h2><a name="ImageSize"></a>图像大小</h2>
+         <p>对于图标和配方图像，我们通常使用体素编辑器截图，并可能在插图程序中添加一些较深的轮廓（6px 黑色，40%-60% 不透明度）。这些图像的大小通常为 300x300 像素，但可以变化（确保它们是正方形）。</p>
+         <p>以下是在 Qubicle 1 中截图的方法：</p>
          <ul>
             <li>
-               <p>Open your QB model and don't touch the camera.</p>
+               <p>打开您的 QB 模型，不要触摸相机。</p>
             </li>
             <li>
-               <p>Go to the top menu, click on Render, then on 'Render Settings...'</p>
+               <p>转到顶部菜单，点击 Render，然后点击'Render Settings...'</p>
             </li>
             <li>
-               <p>Set the resolution to 300x300 in the small text boxes at the right and click OK to apply the changes.</p>
+               <p>将右侧小文本框中的分辨率设置为 300x300，然后点击 OK 应用更改。</p>
             </li>
             <li>
-               <p>In the menu bar that's right above the scene area, click on RES. GATE to enable visualizing the resolution gate.</p>
+               <p>在场景区域正上方的菜单栏中，点击 RES. GATE 以启用可视化分辨率门。</p>
             </li>
             <li>
-               <p>Pan your camera so that the model is inside it, trying to make it as big as possible without going out of the frame but leaving some margin so that the image is balanced. For some models you might want to rotate the view a little too.</p>
-               <p>  <img src="/images/art/icons/resolution_gate.png" alt="resolution_gate"/></p>
+               <p>平移相机，使模型位于其中，尝试使其尽可能大而不超出框架，但留出一些余量以使图像平衡。对于某些模型，您可能还想稍微旋转视图。</p>
+               <p><img src="/images/art/icons/resolution_gate.png" alt="resolution_gate"/></p>
             </li>
             <li>
-               <p>Now go to the Render menu again, click on 'Render As...' and save your image.</p>
+               <p>现在再次转到 Render 菜单，点击'Render As...'并保存您的图像。</p>
             </li>
             <li>
-               <p>You might want to edit it in Photoshop or similar to add the border. Mind that the image has the background transparent, if you save it solid the game would show the background white.</p>
+               <p>您可能希望在 Photoshop 或类似程序中编辑它以添加边框。请注意，图像具有透明背景，如果您保存为实心背景，游戏将显示白色背景。</p>
             </li>
          </ul>
-         <p>Other voxel editors will have different options for taking screenshots.</p>
-         <h2><a name="DynamicPortraits"></a>Dynamic portraits</h2>
-         <p>For dynamic portraits, such as those for hearthlings and pets (which are taken internally by the game), we need to add some info in the entity's JSON file.
-            This is from <code>rabbit.json</code>, inside its "entity_data" section:
+         <p>其他体素编辑器将有不同的截图选项。</p>
+         <h2><a name="DynamicPortraits"></a>动态肖像</h2>
+         <p>对于动态肖像，例如炉民和宠物的肖像（由游戏内部拍摄），我们需要在实体的 JSON 文件中添加一些信息。
+            这是来自 <code>rabbit.json</code>，在其"entity_data"部分内：
          </p>
          <pre><code>  "stonehearth:portrait": {
      "portrait_types": {
@@ -78,12 +78,12 @@
      }
   }
 </code></pre>
-         <p>We add <strong>"stonehearth:portrait" : {}</strong>. The information inside is used by portrait_renderer_service.lua. Currently the portraits only have <strong>"portrait_types" : { "headshot": {} }</strong> but you can customize the portrait you want to display in the UI (see portrait_renderer_service.lua and Javascript files that make use of the portrait service, like <code>citizens.js</code>, <code>show_team_workshop.js</code>, <code>unit_frame.js</code> and <code>select_roster.js</code>).</p>
-         <p>The properties for the headshot are the position of the camera, the look_at, and fov (field of view, how close or far from the camera we are). You can adjust these values if your entity is too small or too big and the portrait doesn't look good in the unit frame.</p>
-         <h3><a name="GeneratedIcons"></a>Generated icons</h3>
-         <p>The game also auto-generates icons for items for the thought bubbles, and caches them in the <code>saved_objects/generated_icons</code> directory. Some of the topics that hearthlings can chat about don't have a 3D representation, they are passed as a 2D static image that already exists (for example, the weather icons).</p>
-         <p>These icons are often taken for the iconic form of the entities, because it's the item that the hearthlings have interacted with (by carrying it). They are known to show hollow surfaces where the item had material maps applied, though.
-            If you need to adjust the camera for a generated portrait for the thoughts (sometimes it may clip through the item) use these fields instead for your entity data, and adjust the values until you get the desired result:
+         <p>我们添加 <strong>"stonehearth:portrait" : {}</strong>。内部信息由 portrait_renderer_service.lua 使用。目前肖像只有 <strong>"portrait_types" : { "headshot": {} }</strong>，但您可以自定义要在 UI 中显示的肖像（参见 portrait_renderer_service.lua 和使用肖像服务的 Javascript 文件，如 <code>citizens.js</code>、<code>show_team_workshop.js</code>、<code>unit_frame.js</code> 和 <code>select_roster.js</code>）。</p>
+         <p>头像的属性包括相机位置、look_at 和 fov（视野，距离相机的远近）。如果您的实体太小或太大，并且肖像在单位框架中看起来不好，您可以调整这些值。</p>
+         <h3><a name="GeneratedIcons"></a>生成的图标</h3>
+         <p>游戏还会自动为思想气泡中的物品生成图标，并将它们缓存在 <code>saved_objects/generated_icons</code> 目录中。炉民可以谈论的一些主题没有 3D 表示，它们作为已存在的 2D 静态图像传递（例如，天气图标）。</p>
+         <p>这些图标通常取自实体的标志性形式，因为它是炉民与之交互的物品（通过携带它）。然而，已知它们会在应用了材质图的物品上显示空心表面。
+            如果您需要调整思想的生成肖像的相机（有时它可能会穿过物品），请为您的实体数据使用这些字段，并调整值直到获得所需的结果：
          </p>
          <pre><code>  "stonehearth:portrait": {
       "portrait_types": {
@@ -98,24 +98,24 @@
       }
    }
 </code></pre>
-         <p>Since the icons are cached, you might have to clear the generated_icons folder for the portrait to be taken again.</p>
-         <h2><a name="StaticPortraits"></a>Static portraits</h2>
-         <p>For portraits for the campaign dialogs, we use static images made with our voxel editor, these are not auto-generated.
-            They range in size from 200x200 pixels to 400x400 pixels, most of them being 300x300 pixels. But it's up to your choice. You can also create your own encounter type that uses a custom UI and custom CSS (Less), which can rescale the image if it's too big or small.
+         <p>由于图标被缓存，您可能必须清除 generated_icons 文件夹才能重新拍摄肖像。</p>
+         <h2><a name="StaticPortraits"></a>静态肖像</h2>
+         <p>对于战役对话框的肖像，我们使用体素编辑器制作的静态图像，这些不是自动生成的。
+            它们的大小范围从 200x200 像素到 400x400 像素，大多数为 300x300 像素。但这取决于您的选择。您还可以创建自己的遭遇战类型，使用自定义 UI 和自定义 CSS (Less)，如果图像太大或太小，可以重新缩放它。
          </p>
-         <h2><a name="UIIcons"></a>UI icons</h2>
-         <p>You will already have these icons if you copy the existing files from the stonehearth mod, but just in case you want to make them from scratch, here are their sizes:</p>
+         <h2><a name="UIIcons"></a>UI 图标</h2>
+         <p>如果您从 stonehearth mod 复制现有文件，您将已经拥有这些图标，但以防万一您想从头开始制作，以下是它们的大小：</p>
          <ul>
-            <li>The size of buff icons is 46 x 51 pixels.</li>
-            <li>The size of trait icons is 60 x 40 pixels.</li>
-            <li>The size of job perks icons is 74 x 74 pixels.</li>
-            <li>The size of weather icons is 100 x 100 pixels.</li>
-            <li>The size of start menu icons is 74 x 74 pixels (there are some narrower exceptions).</li>
+            <li>增益效果图标的大小为 46 x 51 像素。</li>
+            <li>特性图标的大小为 60 x 40 像素。</li>
+            <li>职业 perk 图标的大小为 74 x 74 像素。</li>
+            <li>天气图标的大小为 100 x 100 像素。</li>
+            <li>开始菜单图标的大小为 74 x 74 像素（有一些较窄的例外）。</li>
          </ul>
-         <p>For the crafting workshop's UI, choose one that's similar to your crafter's theme and edit the images. All the images are in .png so it's easy to edit them. Make sure to use an application that supports transparency.</p>
-         <p>Same for customizing the rest of UI elements from the game.</p>
-         <h3><a name="StyleGuide"></a>Style guide</h3>
-         <p>For hand-made 2D icons we have a <a href="/modding_guide/files/StonehearthTraitIconStyleGuide.pdf">style guide</a>, if you want to follow Stonehearth's <a href="https://www.youtube.com/watch?v=6jadSn20Vi0">style</a>.</p>
+         <p>对于制作工作坊的 UI，选择一个与您的制作者主题相似的并编辑图像。所有图像都是 .png 格式，因此很容易编辑它们。确保使用支持透明度的应用程序。</p>
+         <p>自定义游戏的其余 UI 元素也是如此。</p>
+         <h3><a name="StyleGuide"></a>风格指南</h3>
+         <p>对于手工制作的 2D 图标，我们有一份<a href="/modding_guide/files/StonehearthTraitIconStyleGuide.pdf">风格指南</a>，如果您想遵循 Stonehearth 的<a href="https://www.youtube.com/watch?v=6jadSn20Vi0">风格</a>。</p>
       </main>
    </body>
 </html>

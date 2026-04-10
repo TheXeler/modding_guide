@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,61 +7,61 @@
       <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
       <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
-      <title>Adding items manually</title>
+      <title>手动添加物品</title>
    </head>
    <body>
       <script src="/menus.js"></script>
       <main>
-         <h1>Adding items manually</h1>
-         <p>Prepare your own mod (such as the basic, empty mod example on <a href="../../../essentials/manifest/index.html">this section</a>) or reuse startermod_basic or <a href="https://github.com/stonehearth/startermod_items">startermod_items</a> for this example.</p>
-         <p>Make sure to rename your stonehearth.smod to stonehearth.zip, and unzip it correctly so that it still works and we can take a look at the files, before proceeding.</p>
-         <p>The standard procedure to add a new item is:</p>
+         <h1>手动添加物品</h1>
+         <p>准备您自己的 mod（例如<a href="../../../essentials/manifest/index.html">此部分</a>中的基本空 mod 示例），或为此示例重用 startermod_basic 或 <a href="https://github.com/stonehearth/startermod_items">startermod_items</a>。</p>
+         <p>在继续之前，请确保将您的 stonehearth.smod 重命名为 stonehearth.zip，并正确解压缩，以便它仍然有效并且我们可以查看文件。</p>
+         <p>添加新物品的标准过程是：</p>
          <ol>
-            <li>Find a similar item than the one you want to create inside the stonehearth mod (or another mod).  </li>
-            <li>Copy the files for that entity into your mod folder.  </li>
-            <li>Modify the names and content of your copied JSON files.  </li>
-            <li>Add the alias of the item to your mod's manifest.  </li>
-            <li>Review all the paths and aliases within your files to make sure they point to existing files.  </li>
-            <li>Test your mod in the game to make sure the item looks and behaves correctly.</li>
+            <li>在 stonehearth mod（或其他 mod）中找到与您想要创建的物品相似的物品。</li>
+            <li>将该实体的文件复制到您的 mod 文件夹中。</li>
+            <li>修改复制的 JSON 文件的名称和内容。</li>
+            <li>将物品的别名添加到您的 mod 清单中。</li>
+            <li>检查文件中的所有路径和别名，以确保它们指向现有文件。</li>
+            <li>在游戏中测试您的 mod，以确保物品看起来和行为正确。</li>
          </ol>
-         <p>For example, to add a new item to the startermod_basic mod, those steps would work like the following:</p>
+         <p>例如，要向 startermod_basic mod 添加新物品，这些步骤的工作方式如下：</p>
          <ol>
             <li>
-               <p>Let's say we want to add a new table with roughly the same size as the "table for one" from the stonehearth mod.</p>
+               <p>假设我们要添加一个新桌子，其大小与 stonehearth mod 中的"table for one"（单人桌）大致相同。</p>
             </li>
             <li>
-               <p><strong>All the entities</strong> from the game (except for workbenches, job uniforms and a couple more things) <strong>reside inside the stonehearth/entities folder</strong>.</p>
-               <p>  For convenience, modders recreate the structure of the stonehearth directories, so that it's easier for them to find files later, but it is not required. You could have all the files of your mod at the same level than the manifest.json file, or inside just one folder, but that's bad practice for when the mod grows bigger.  </p>
-               <p>  The table for one files are inside <code>stonehearth/entities/furniture/table_for_one</code>. Create the entities/furniture subfolders if you don't have them inside your mod's folder. Then, <strong>copy</strong> the table_for_one folder from the stonehearth mod <strong>and paste</strong> it into the furniture folder from your mod.</p>
+               <p><strong>游戏中的所有实体</strong>（除了工作台、职业制服和一些其他东西）<strong>都位于 stonehearth/entities 文件夹内</strong>。</p>
+               <p>为了方便起见，模组作者会重建 stonehearth 目录的结构，以便以后更容易找到文件，但这不是必需的。您可以将 mod 的所有文件放在与 manifest.json 文件相同的级别，或仅放在一个文件夹内，但当 mod 变得更大时，这是一种不好的做法。</p>
+               <p>单人桌文件位于 <code>stonehearth/entities/furniture/table_for_one</code> 中。如果您的 mod 文件夹中没有 entities/furniture 子文件夹，请创建它们。然后，<strong>复制</strong> stonehearth mod 中的 table_for_one 文件夹，并将其<strong>粘贴</strong>到您 mod 的 furniture 文件夹中。</p>
                <p><img src="/images/basic/adding_items/copying.png" alt="copying"/></p>
             </li>
             <li>
-               <p><strong>Rename</strong> the table_for_one folder to the name of the entity you want to add. To avoid typos and troubles with paths, use only lowercase letters, numbers and underscores, both for folders and for naming files. In this case let's rename the folder to something like "custom_table".
+               <p>将 table_for_one 文件夹<strong>重命名</strong>为您要添加的实体的名称。为了避免拼写错误和路径问题，文件夹和文件命名只使用小写字母、数字和下划线。在这种情况下，让我们将文件夹重命名为类似"custom_table"的名称。
                   <img src="/images/basic/adding_items/renaming_folder.png" alt="renaming_folder"/>
-                  Now for the files. <strong>Rename</strong> the files replacing "table_for_one" with "custom_table".
+                  现在来看文件。<strong>重命名</strong>文件，将"table_for_one"替换为"custom_table"。
                   <img src="/images/basic/adding_items/renaming_files.png" alt="renaming_files"/>
-                  Then, we'd open the QB files in a voxel editor, change the model to our liking, and <strong>re-export</strong> it to a QB file with the corresponding name. More instructions on that in the <a href="../../art/modeling/index.html">art section</a> of the guide. Don't forget to take a <strong>screenshot</strong> of the model too, to replace the copied icon.
+                  然后，我们将在体素编辑器中打开 QB 文件，将模型更改为我们喜欢的样子，并将其<strong>重新导出</strong>为具有相应名称的 QB 文件。有关这方面的更多说明，请参阅指南的<a href="../../art/modeling/index.html">艺术部分</a>。也不要忘记对模型进行<strong>截图</strong>，以替换复制的图标。
                   <img src="/images/basic/adding_items/editing_model.png" alt="editing_model"/>
                   <img src="/images/basic/adding_items/editing_iconic_model.png" alt="editing_iconic_model"/>
-                  Now we have to open each JSON file and make sure everything is correct. Open custom_table.json.
+                  现在我们必须打开每个 JSON 文件并确保一切正确。打开 custom_table.json。
                </p>
-               <p><strong>Replace</strong> all text where it says table_for_one with custom_table, so that the paths point to our files.
+               <p>将所有显示 table_for_one 的文本<strong>替换</strong>为 custom_table，以便路径指向我们的文件。
                   <img src="/images/basic/adding_items/editing_root_file.png" alt="editing_root_file"/>
-                  Adjust the region_collision_shape values if needed (more info <a href="../../../intermediate/regions/collision_destination/index.html#RegionCollision">here</a>).
+                  如果需要，调整 region_collision_shape 值（更多信息见<a href="../../../intermediate/regions/collision_destination/index.html#RegionCollision">这里</a>）。
                   <img src="/images/basic/adding_items/region_collision_shape.png" alt="region_collision_shape"/>
-                  Modify the entity_data as you want. In this case, we'll increase the value in gold and appeal.
+                  根据需要修改 entity_data。在这种情况下，我们将增加金币价值和吸引力。
                   <img src="/images/basic/adding_items/editing_entity_data.png" alt="editing_entity_data"/>
-                  Next, open the custom_table_ghost.json file. Again, change the table_for_one to custom_table and adjust the model_origin and region_origin if needed. <br/>
-                  In the entity_data, change the name and description to another text and localize it (guide for localization <a href="../../../essentials/localization/index.html">here</a>, remember to add <strong>"default_locale" : "en"</strong> to your manifest!), or just leave the plain text without localization. Change the icon's name to point to our image and edit the material tags if you want (in this case, we changed 'wood' for 'stone'). <br/>
+                  接下来，打开 custom_table_ghost.json 文件。再次，将 table_for_one 更改为 custom_table，并在需要时调整 model_origin 和 region_origin。<br/>
+                  在 entity_data 中，将名称和描述更改为其他文本并对其进行本地化（本地化指南见<a href="../../../essentials/localization/index.html">这里</a>，记得在您的清单中添加 <strong>"default_locale" : "en"</strong>！），或者只是保留纯文本而不进行本地化。更改图标的名称以指向我们的图像，并在需要时编辑材质标签（在这种情况下，我们将'wood'更改为'stone'）。<br/>
                   <img src="/images/basic/adding_items/editing_ghost_file.png" alt="editing_ghost_file"/>
                </p>
-               <p>Finally, open the custom_table_iconic.json file, and adjust the values like explained above.
+               <p>最后，打开 custom_table_iconic.json 文件，并按上述说明调整值。
                   <img src="/images/basic/adding_items/editing_iconic_file.png" alt="editing_iconic_file"/>
                </p>
             </li>
             <li>
-               <p>Open your mod's manifest. If the "aliases" section doesn't exist on it, add it (add commas when necessary). Inside the "aliases" section, let's <strong>add an alias for our new item</strong>. Again, to be on the safe side to prevent typos, we'll only use lowercase, numbers and underscore. For organizing better the aliases, we can use colons (":").</p>
-               <p>  So in this case, the startermod_basic's manifest after adding our new alias will look like this:</p>
+               <p>打开您的 mod 清单。如果其中不存在"aliases"部分，请添加它（必要时添加逗号）。在"aliases"部分内，让我们<strong>为新物品添加别名</strong>。同样，为了安全起见以防止拼写错误，我们只使用小写字母、数字和下划线。为了更好地组织别名，我们可以使用冒号（":"）。</p>
+               <p>因此，在这种情况下，添加新别名后的 startermod_basic 清单将如下所示：</p>
                <pre><code>{
    "info" : {
       "name" : "startermod_basic",
@@ -80,14 +80,14 @@
 </code></pre>
             </li>
             <li>
-               <p>Double check your files to make sure the references to paths are correct (see <a href="../../../essentials/mixins/index.html#RelativePaths">this</a> for how to work with absolute/relative paths in stonehearth files). Also, to make sure we don't have any missing or extra commas, let's check our JSON files in <a href="https://jsonlint.com/">JSONLint</a>.</p>
+               <p>仔细检查您的文件以确保路径引用正确（有关如何在 stonehearth 文件中使用绝对/相对路径，请参见<a href="../../../essentials/mixins/index.html#RelativePaths">此页面</a>）。另外，为了确保我们没有缺少或多余的逗号，让我们在 <a href="https://jsonlint.com/">JSONLint</a> 中检查我们的 JSON 文件。</p>
             </li>
             <li>
-               <p>Open the game, make sure your mod / the startermod_basic mod is enabled, as well as the debugtools mod.</p>
-               <p>  Start a new game or load a savefile. Use the item stamper, write custom_table and press enter or click on the item in the dropdown to select it.</p>
-               <p>  Check the "iconic" checkbox, click on the stamp tool and click on the terrain to spawn it. Right-click to exit the item stamper.</p>
-               <p>  Click on the spawned item to verify the name and description.</p>
-               <p>  Order to place it somewhere to verify it looks correct in the 3 entity forms (you might need to create a stockpile first and wait for the item to be restocked, in order for the placement menu to detect it).
+               <p>打开游戏，确保您的 mod / startermod_basic mod 以及 debugtools mod 已启用。</p>
+               <p>开始新游戏或加载存档。使用物品印章工具，输入 custom_table 并按 Enter 或在 dropdown 中点击物品以选择它。</p>
+               <p>选中"iconic"复选框，点击印章工具并点击地形以生成它。右键单击以退出物品印章工具。</p>
+               <p>点击生成的物品以验证名称和描述。</p>
+               <p>下令将其放置在某个地方，以验证它在 3 种实体形式中看起来是否正确（您可能需要先创建一个储藏室并等待物品补货，以便放置菜单检测到它）。
                   <img src="/images/basic/adding_items/testing_new_item.png" alt="testing_new_item"/>
                </p>
             </li>

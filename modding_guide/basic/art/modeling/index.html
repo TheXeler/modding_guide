@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,162 +7,162 @@
         <link rel="icon" type="image/png" href='/images/favicon_logo_sh.png'>
         <link rel="apple-touch-icon" type="image/png" href='/images/favicon_logo_sh.png'>
         <link rel="icon" type="image/png" sizes="144x144" href='/images/favicon_logo_sh.png'>
-        <title>Creating models</title>
+        <title>创建模型</title>
     </head>
     <body>
         <script src="/menus.js"></script>
         <main>
-            <h1>Creating models</h1>
-            <p>This guide will only explain how to import and export the models, and some other tips. For how to create and add items to the game, refer to <a href="../../adding_items/index.html">this page</a>.</p>
-            <p>There's an official modeling guide to help you achieve the Stonehearth look and feel for your models : <a href="/modding_guide/files/SHModelingGuide.pdf">Download</a></p>
+            <h1>创建模型</h1>
+            <p>本指南仅解释如何导入和导出模型，以及一些其他提示。有关如何创建并将物品添加到游戏中，请参阅<a href="../../adding_items/index.html">此页面</a>。</p>
+            <p>有一份官方建模指南可帮助您实现 Stonehearth 的模型外观和感觉：<a href="/modding_guide/files/SHModelingGuide.pdf">下载</a></p>
             <ul>
-                <li><a href="#ModelingTools">Tools for voxel modeling</a></li>
-                <li><a href="#ModelingPipeline">The usual pipeline for modders</a></li>
-                <li><a href="#Matrices">About matrices / layers</a></li>
-                <li><a href="#ModelAlignment">Alignment of the models</a></li>
-                <li><a href="#NamingLayers">Naming matrices / layers</a></li>
+                <li><a href="#ModelingTools">体素建模工具</a></li>
+                <li><a href="#ModelingPipeline">模组作者的常用流程</a></li>
+                <li><a href="#Matrices">关于矩阵/层</a></li>
+                <li><a href="#ModelAlignment">模型对齐</a></li>
+                <li><a href="#NamingLayers">命名矩阵/层</a></li>
                 <li>
-                    <a href="#UsingQubicle">Modeling an item with Qubicle</a>
+                    <a href="#UsingQubicle">使用 Qubicle 建模物品</a>
                     <ul>
-                        <li><a href="#ImportingInQubicle">Importing models into Qubicle</a></li>
-                        <li><a href="#ExportingInQubicle">Exporting with Qubicle</a></li>
+                        <li><a href="#ImportingInQubicle">将模型导入 Qubicle</a></li>
+                        <li><a href="#ExportingInQubicle">使用 Qubicle 导出</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#UsingMagicavoxel">Modeling an item with Magicavoxel</a>
+                    <a href="#UsingMagicavoxel">使用 Magicavoxel 建模物品</a>
                     <ul>
-                        <li><a href="#ImportingInMagicavoxel">Importing models into Magicavoxel</a></li>
-                        <li><a href="#ExportingInMagicavoxel">Exporting with Magicavoxel</a></li>
+                        <li><a href="#ImportingInMagicavoxel">将模型导入 Magicavoxel</a></li>
+                        <li><a href="#ExportingInMagicavoxel">使用 Magicavoxel 导出</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#UsingVoxelshop">Modeling an item with Voxelshop</a>
+                    <a href="#UsingVoxelshop">使用 Voxelshop 建模物品</a>
                     <ul>
-                        <li><a href="#ImportingInVoxelshop">Importing models into Voxelshop</a></li>
-                        <li><a href="#ExportingInVoxelshop">Exporting with Voxelshop</a></li>
+                        <li><a href="#ImportingInVoxelshop">将模型导入 Voxelshop</a></li>
+                        <li><a href="#ExportingInVoxelshop">使用 Voxelshop 导出</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#UsingGoxel">Modeling an item with Goxel</a>
+                    <a href="#UsingGoxel">使用 Goxel 建模物品</a>
                     <ul>
-                        <li><a href="#ImportingInGoxel">Importing models into Goxel</a></li>
-                        <li><a href="#ExportingInGoxel">Exporting with Goxel</a></li>
+                        <li><a href="#ImportingInGoxel">将模型导入 Goxel</a></li>
+                        <li><a href="#ExportingInGoxel">使用 Goxel 导出</a></li>
                     </ul>
                 </li>
             </ul>
-            <h2><a name="ModelingTools"></a>Tools for voxel modeling</h2>
-            <p>The team uses Qubicle Constructor 1.0 for creating the 3D models for the game. It is a paid program. The current version of Qubicle (at the time this guide was written) is Qubicle 3.0.</p>
-            <p>As for free tools, <a href="https://ephtracy.github.io/">Magicavoxel</a>, <a href="https://discourse.stonehearth.net/t/stonevox-3d-community-voxel-modeler-for-stonehearth/8664">StoneVox</a>, <a href="https://blackflux.com/node/11">VoxelShop</a> and <a href="http://guillaumechereau.github.io/goxel/">Goxel</a> should help you if you can't afford a paid program.</p>
-            <h2><a name="ModelingPipeline"></a>The usual pipeline for modders</h2>
-            <p>Normally modders will find the asset they want in the game files, import it into their program of choice, edit it, and then export it again for using it on their mods.
-                This is the easiest thing to do since it helps figuring out the scale and position. Comparing different items will also help.
+            <h2><a name="ModelingTools"></a>体素建模工具</h2>
+            <p>团队使用 Qubicle Constructor 1.0 为游戏创建 3D 模型。这是一个付费程序。当前版本的 Qubicle（在编写本指南时）是 Qubicle 3.0。</p>
+            <p>至于免费工具，<a href="https://ephtracy.github.io/">Magicavoxel</a>、<a href="https://discourse.stonehearth.net/t/stonevox-3d-community-voxel-modeler-for-stonehearth/8664">StoneVox</a>、<a href="https://blackflux.com/node/11">VoxelShop</a> 和 <a href="http://guillaumechereau.github.io/goxel/">Goxel</a> 应该可以帮助您，如果您无法负担付费程序的话。</p>
+            <h2><a name="ModelingPipeline"></a>模组作者的常用流程</h2>
+            <p>通常，模组作者会在游戏文件中找到他们想要的资产，将其导入到他们选择的程序中，编辑它，然后再次导出以在他们的模组中使用。
+                这是最容易做的事情，因为它有助于弄清楚比例和位置。比较不同的物品也会有所帮助。
             </p>
-            <p>The basic scale is:</p>
+            <p>基本比例是：</p>
             <ul>
-                <li>Terrain, trees, and building blocks have a scale of 1.</li>
-                <li>The rest of the items you create with a 3D program will automatically get a scale of 0.1 (1/10 of a block).</li>
+                <li>地形、树木和建筑块的比例为 1。</li>
+                <li>您使用 3D 程序创建的其余物品将自动获得 0.1 的比例（1/10 个方块）。</li>
             </ul>
-            <p>You can easily see this by checking the hearthlings. A hearthling face is 13 voxels wide, and a hearthling in game occupies a little more than 1 terrain block.
-                A wood log is 10x10x10 voxels inside Qubicle, and exactly 1 block inside the game.
+            <p>您可以通过检查炉民来轻松看到这一点。炉民的脸宽 13 个体素，游戏中的炉民占据略多于 1 个地形方块。
+                一根木柴在 Qubicle 内是 10x10x10 体素，在游戏中正好是 1 个方块。
             </p>
-            <p>You can make the model with less voxels and then <a href="../../adding_items/item_scale/index.html">enlarge or reduce it in the game with JSON</a>. The amount of voxels will depend on the level of detail you want to achieve.
-                Too many voxels/details are bad for performance, however.
+            <p>您可以使用较少的体素制作模型，然后<a href="../../adding_items/item_scale/index.html">在游戏中使用 JSON 放大或缩小它</a>。体素的数量将取决于您想要实现的细节级别。
+                然而，过多的体素/细节对性能不利。
             </p>
-            <p>Other tips for performant models are:</p>
+            <p>其他关于高性能模型的提示是：</p>
             <ul>
                 <li>
-                    <p>Filling the model completely on the inside with voxels (if the inside of the model can't be seen from the outside).</p>
+                    <p>用体素完全填充模型内部（如果从外部看不到模型内部）。</p>
                 </li>
                 <li>
-                    <p>Reducing the size of the matrices/layers once the model is finished. This will save in mod size, unfortunately the game doesn't support compression of QB models so this is currently the only way to reduce model size.</p>
+                    <p>在模型完成后减小矩阵/层的大小。这将节省模组大小，不幸的是游戏不支持 QB 模型的压缩，因此这是目前减小模型大小的唯一方法。</p>
                 </li>
             </ul>
-            <h2><a name="Matrices"></a>About matrices / layers</h2>
-            <p>With matrices we refer to different layers in the 3D model. This is terminology from Qubicle, for other programs you might see it as "layers".</p>
-            <p>If your model has different movable parts, each of them will have to be in a different matrix.</p>
-            <p>The matrix size doesn't matter in the end, but for easier modeling you can give it some room around your model so that you can add more voxels if you want to (you can't add voxels outside of a matrix/layer, it's like a bounding box). This might be different depending on the voxel editor of your choice, though.</p>
-            <p>When working on your model, it's better to make the size of each matrix exactly the same, so that the parts are correctly aligned to one another. Then, right before exporting your final model, you can optimize the size of each matrix so that the file is not so big.</p>
-            <p>Usually your model will be touching the bottom of the matrix, since that will align it with the floor in game, but there are some exceptions.</p>
+            <h2><a name="Matrices"></a>关于矩阵/层</h2>
+            <p>矩阵指的是 3D 模型中的不同层。这是来自 Qubicle 的术语，对于其他程序，您可能会看到它被称为“层”。</p>
+            <p>如果您的模型有不同的可移动部分，每个部分都必须在不同的矩阵中。</p>
+            <p>矩阵的大小最终并不重要，但为了更容易建模，您可以在模型周围留出一些空间，以便在需要时可以添加更多体素（您不能在矩阵/层之外添加体素，它就像一个边界框）。不过，这可能因您选择的体素编辑器而异。</p>
+            <p>在处理模型时，最好使每个矩阵的大小完全相同，以便各部分正确对齐。然后，在导出最终模型之前，您可以优化每个矩阵的大小，以便文件不会太大。</p>
+            <p>通常，您的模型会接触矩阵的底部，因为这会使其与游戏中的地板对齐，但也有一些例外。</p>
             <blockquote>
-                <p><img src="/images/common/edit_big.png" alt="icon"/> If your model is going to be a static object with only 1 part (for example, a chair) you can use Magicavoxel. However, Magicavoxel is not suited for models that are meant to be animated, like armor, living creatures, doors, or certain types of workbenches. Hopefully, in future versions of Magicavoxel we might get the option to export several layers on the same .qb file. You may use other of the free editors that support layers in the meantime, or use all the files as part of the model in the JSON file.</p>
+                <p><img src="/images/common/edit_big.png" alt="icon"/> 如果您的模型将是一个只有 1 个部分的静态对象（例如，椅子），您可以使用 Magicavoxel。然而，Magicavoxel 不适合用于打算制作动画的模型，如盔甲、生物、门或某些类型的工作台。希望在未来的 Magicavoxel 版本中，我们可能会获得在同一 .qb 文件中导出多个层的选项。与此同时，您可以使用其他支持层的免费编辑器，或将所有文件作为 JSON 文件中模型的一部分使用。</p>
             </blockquote>
-            <h2><a name="ModelAlignment"></a>Alignment of the models</h2>
-            <p>You might see that some objects (like weapons, or wall-mounted items) are aligned weirdly when you open their model in your voxel editor. This is because the attachment point corresponds to the center in the program (at 0,0,0). In Qubicle, most of the Stonehearth models are not centered but instead expand on one of the quadrants.</p>
-            <p>However there are some models that require you to center them around (0,0,0) in your program of choice. Bad aligned models will appear at wrong places after placing them into the game, so make sure to double check this.</p>
-            <p>This is one of the reasons why most modders import a similar object and edit over it, so that the centering is correct and they don't have to fiddle much with the values in the JSON file.</p>
-            <p>Since models can have an odd number of voxels, they might look off-centered by a little, but that's no problem because we will adjust their center on the JSON file. For adjusting the model origin in JSON, see <a href="../../../intermediate/regions/origins/index.html">this page</a>.</p>
-            <h2><a name="NamingLayers"></a>Naming matrices / layers</h2>
-            <p>This is very important for items like armor, or creatures that reuse existing rigs (for example, if you wanted to create your own population/faction by reskinning an existing one).</p>
-            <p>For other items the name is not that important, but for animated ones make sure that their matrices are all correctly named. If you edited an existing model, they will probably have the correct names already (unless you imported other objects in your file for reference, in that case they might have changed to something we don't want).</p>
-            <p>You can of course create your own creatures from scratch, but make sure you name your matrices accordingly, so that later the task of animating is easier.</p>
-            <p><a name="LayerNames"></a>For reference, when modeling armor or outfits, here's the exact names that you should use for the layers (notice that with "left" and "right" we refer to the sides of the hearthling, not ours):
+            <h2><a name="ModelAlignment"></a>模型对齐</h2>
+            <p>您可能会看到某些对象（如武器或壁挂物品）在体素编辑器中打开其模型时对得很奇怪。这是因为附加点对应于程序中的中心（在 0,0,0）。在 Qubicle 中，大多数 Stonehearth 模型没有居中，而是扩展到一个象限中。</p>
+            <p>然而，有些模型要求您在选择的程序中围绕 (0,0,0) 居中对齐它们。对齐不良的模型在放入游戏后会出现在错误的位置，因此请务必仔细检查这一点。</p>
+            <p>这就是为什么大多数模组作者导入类似的对象并在其上编辑的原因之一，以便居中正确，并且他们不必在 JSON 文件中过多地调整值。</p>
+            <p>由于模型可以具有奇数个数的体素，它们可能看起来稍微偏离中心，但这不是问题，因为我们将调整 JSON 文件中的中心。有关在 JSON 中调整模型原点，请参见<a href="../../../intermediate/regions/origins/index.html">此页面</a>。</p>
+            <h2><a name="NamingLayers"></a>命名矩阵/层</h2>
+            <p>这对于盔甲或重用现有 rigs 的生物等物品非常重要（例如，如果您想通过重新换皮现有种群来创建自己的种群/派系）。</p>
+            <p>对于其他物品，名称不是那么重要，但对于动画物品，请确保它们的矩阵都已正确命名。如果您编辑了现有模型，它们可能已经具有正确的名称（除非您导入了其他对象作为参考，在这种情况下，它们可能会更改为我们不想要的内容）。</p>
+            <p>当然，您可以从头开始创建自己的生物，但请确保相应地命名您的矩阵，以便稍后更容易制作动画。</p>
+            <p><a name="LayerNames"></a>作为参考，在建模盔甲或服装时，以下是您应该用于层的准确名称（注意，“left”和“right”指的是炉民的两侧，而不是我们的）：
                 <img src="/images/art/modeling/human_body_parts_names.png" alt="human_body_parts_names"/>
                 <img src="/images/art/modeling/human_feet_parts_names.png" alt="human_feet_parts_names"/>
                 <img src="/images/basic/customization/hair_model.png" alt="hair_model"/>
                 <img src="/images/art/modeling/human_face.png" alt="human_face"/>
-                It's not needed to have all the layers for the armor. If you copy an existing one, you'll see that many of them are missing.
-                Here are the layer names for the left hand. For the right side (which is mirrored), replace all the "left"s with "right"s:
+                不需要为盔甲拥有所有层。如果您复制现有的，您会看到其中许多缺失。
+                以下是左手的层名称。对于右侧（镜像），将所有“left”替换为“right”：
                 <img src="/images/art/modeling/human_left_hand_parts_names.png" alt="human_left_hand_parts_names"/>
             </p>
-            <h2><a name="UsingQubicle"></a>Modeling an item with Qubicle</h2>
-            <p>Disclaimer: the development team uses Qubicle 1.0 Master edition for making the models. Nowadays you would only be able to purchase the most recent version, Qubicle 3.0.</p>
-            <p>For renaming matrices in Qubicle, you can select the matrix and press F2:
+            <h2><a name="UsingQubicle"></a>使用 Qubicle 建模物品</h2>
+            <p>免责声明：开发团队使用 Qubicle 1.0 Master edition 制作模型。如今，您只能购买最新版本 Qubicle 3.0。</p>
+            <p>要在 Qubicle 中重命名矩阵，您可以选择矩阵并按 F2：
                 <img src="/images/art/vfx/renaming_matrix.png" alt="renaming_matrix"/>
             </p>
-            <h3><a name="ImportingInQubicle"></a>Importing models into Qubicle</h3>
-            <p>A quick way of importing existing <strong>.qb</strong> models into Qubicle is by dragging and dropping them into the main modeling area. You can import several models into the same scene, but depending on which version of Qubicle you're using, the names of the matrices might change to something we don't want.</p>
-            <h3><a name="ExportingInQubicle"></a>Exporting with Qubicle</h3>
-            <p>Settings needed for exporting the <strong>.qb</strong> models:</p>
+            <h3><a name="ImportingInQubicle"></a>将模型导入 Qubicle</h3>
+            <p>将现有 <strong>.qb</strong> 模型快速导入 Qubicle 的一种方法是将它们拖放到主建模区域。您可以将多个模型导入到同一场景中，但根据您使用的 Qubicle 版本，矩阵的名称可能会更改为我们不想要的内容。</p>
+            <h3><a name="ExportingInQubicle"></a>使用 Qubicle 导出</h3>
+            <p>导出 <strong>.qb</strong> 模型所需的设置：</p>
             <ul>
-                <li>Compression must be unchecked. The game can't read compressed QB models.</li>
-                <li>Z-Axis must be Right-Handed. This will correctly align the model with the in-game axes.</li>
-                <li>Individual export must be unchecked, otherwise each matrix will be exported into separate files.</li>
+                <li>必须取消选中压缩。游戏无法读取压缩的 QB 模型。</li>
+                <li>Z 轴必须是右手坐标系。这将使模型与游戏内轴正确对齐。</li>
+                <li>必须取消选中单独导出，否则每个矩阵将被导出到单独的文件中。</li>
             </ul>
-            <p>If you happen to use an older version of Qubicle, the export settings are mostly the same. In Qubicle 1, the option color format should be "RGBA" and the "Single Object" option should be checked only if you want all your matrices to be merged into a single one. Uncheck it to keep your matrices separated within the same exported file (e.g. for animation):
+            <p>如果您碰巧使用较旧版本的 Qubicle，导出设置大致相同。在 Qubicle 1 中，颜色格式选项应为“RGBA”，并且只有在您希望将所有矩阵合并为一个时才应选中“Single Object”选项。取消选中它以在同一导出文件中保持矩阵分离（例如，用于动画）：
                 <img src="/images/art/modeling/qb_export_settings.png" alt="qb_export_settings"/>
             </p>
-            <h2><a name="UsingMagicavoxel"></a>Modeling an item with Magicavoxel</h2>
-            <p><strong>Disclaimer</strong>: At the time this guide was written, the latest version of Magicavoxel was 0.99.1 (alpha). With this version, some old functionality is not available, but we can work with layers in the model, which wasn't previously available. Unfortunately, when exporting to <strong>.qb</strong>, every layer will be exported to a different <strong>.qb</strong> file, so you might want to create the item in the same layer then split it into different layers in Voxelshop, or in Goxel.</p>
-            <h3><a name="ImportingInMagicavoxel"></a>Importing models into Magicavoxel</h3>
-            <p>This program can be a little finicky, so here's some instructions to import models into the latest version of MagicaVoxel:</p>
+            <h2><a name="UsingMagicavoxel"></a>使用 Magicavoxel 建模物品</h2>
+            <p><strong>免责声明</strong>：在编写本指南时，最新版本的 Magicavoxel 是 0.99.1（alpha）。使用此版本，一些旧功能不可用，但我们可以在模型中使用层，这以前是不可用的。不幸的是，当导出为 <strong>.qb</strong> 时，每个层将被导出到不同的 <strong>.qb</strong> 文件中，因此您可能希望在同一层中创建物品，然后在 Voxelshop 或 Goxel 中将其拆分为不同的层。</p>
+            <h3><a name="ImportingInMagicavoxel"></a>将模型导入 Magicavoxel</h3>
+            <p>这个程序可能有点挑剔，因此这里有一些将模型导入最新版 MagicaVoxel 的说明：</p>
             <ol>
-                <li>Drag and drop the .qb model into the palettes area. This will import the palette.</li>
-                <li>Drag and drop the .qb model again into the model area. This will import the model and apply the correct palette that we just imported.</li>
+                <li>将 .qb 模型拖放到调色板区域。这将导入调色板。</li>
+                <li>再次将 .qb 模型拖放到模型区域。这将导入模型并应用我们刚刚导入的正确调色板。</li>
             </ol>
-            <p>The layers won't be kept when importing either, they will get merged into a single object.</p>
-            <h3><a name="ExportingInMagicavoxel"></a>Exporting with Magicavoxel</h3>
-            <p>With Magicavoxel 0.99.1, you can click on export (on the lower right) and select "qb".
+            <p>导入时也不会保留层，它们将合并为一个对象。</p>
+            <h3><a name="ExportingInMagicavoxel"></a>使用 Magicavoxel 导出</h3>
+            <p>使用 Magicavoxel 0.99.1，您可以点击导出（在右下角）并选择“qb”。
                 <img src="/images/art/modeling/export_magicavoxel.png" alt="export_magicavoxel"/>
-                This will export all the objects present in the world, each one in a different file.
-                Currently there's no option to export all of the objects (layers) in a single file. 
+                这将导出世界中存在的所有对象，每个对象在一个不同的文件中。
+                目前没有选项可以将所有对象（层）导出到单个文件中。
             </p>
-            <h2><a name="UsingVoxelshop"></a>Modeling an item with Voxelshop</h2>
-            <p>Many modders model in Magicavoxel, then export the model and import it into Voxelshop to split it into different layers (if the model needs to have several layers).
-                For this to be efficient, note down the size of the layer when you're working in Magicavoxel, so that you know which size to use for the bounding box in Voxelshop.
+            <h2><a name="UsingVoxelshop"></a>使用 Voxelshop 建模物品</h2>
+            <p>许多模组作者在 Magicavoxel 中建模，然后导出模型并将其导入 Voxelshop 以将其拆分为不同的层（如果模型需要有多层）。
+                为了提高效率，请注意在 Magicavoxel 中工作时层的大小，以便您知道在 Voxelshop 中使用多大的边界框。
             </p>
-            <p>Voxelshop will optimize the size of the layer when exporting, which we might not want when modeling items with several parts for Stonehearth, so we need to use correctly the bounding box that the program provides.</p>
-            <h3><a name="ImportingInVoxelshop"></a>Importing models into Voxelshop</h3>
-            <p>You can import models via the 'File->Import' option, but only one will be shown (unlike in Qubicle, where we can drag and drop many models and all will be shown in the same scene). Voxelshop will correctly display the colors and layers of the imported model, just like Qubicle. There might be an extra empty layer in the Layer list, but you can either delete it or when re-exporting the model Voxelshop will ignore it as long as it's empty.</p>
-            <p>When importing an existing model into Voxelshop, it might appear outside of the bounding box. That is because the bounding box center is at 0,0,0, while the model object corner is at 0,0,0 (because of how the model was exported with Qubicle).</p>
-            <p>So first of all, select all the model and move it inside the bounding box (or do it layer by layer), making sure it is centered on the 3 views. Then when exporting, make sure to use the bounding box as matrix. This will keep the size of the bounding box for all pieces, so they will be correctly aligned with each other.</p>
-            <h3><a name="ExportingInVoxelshop"></a>Exporting with Voxelshop</h3>
-            <p>When selecting to export to <strong>.qb</strong> format in Voxelshop, the description of the different export settings will tell you if the option needs to be checked or unchecked for Stonehearth. But just in case, here's a list of the options and the value they must have:</p>
+            <p>Voxelshop 将在导出时优化层的大小，这在为 Stonehearth 建模具有多个部分的物品时可能不是我们想要的，因此我们需要正确使用程序提供的边界框。</p>
+            <h3><a name="ImportingInVoxelshop"></a>将模型导入 Voxelshop</h3>
+            <p>您可以通过'File->Import'选项导入模型，但只会显示一个（与 Qubicle 不同，在 Qubicle 中我们可以拖放多个模型，并且所有模型都将显示在同一场景中）。Voxelshop 将正确显示导入模型的颜色和层，就像 Qubicle 一样。层列表中可能有一个额外的空层，但您可以删除它，或者在重新导出模型时，只要它是空的，Voxelshop 就会忽略它。</p>
+            <p>将现有模型导入 Voxelshop 时，它可能出现在边界框之外。这是因为边界框中心在 0,0,0，而模型对象角在 0,0,0（因为模型是如何使用 Qubicle 导出的）。</p>
+            <p>因此，首先，选择所有模型并将其移动到边界框内（或逐层进行），确保它在 3 个视图中居中。然后在导出时，确保使用边界框作为矩阵。这将保持所有部分的边界框大小，以便它们彼此正确对齐。</p>
+            <h3><a name="ExportingInVoxelshop"></a>使用 Voxelshop 导出</h3>
+            <p>在 Voxelshop 中选择导出为 <strong>.qb</strong> 格式时，不同导出设置的描述将告诉您是否需要选中或取消选中 Stonehearth 的选项。但以防万一，以下是选项及其必须具有的值的列表：</p>
             <ul>
-                <li>Use compression : unchecked</li>
-                <li>Use bounding box as matrix : checked</li>
-                <li>Use origin as zero : unchecked</li>
-                <li>Use visibility mask encoding : unchecked</li>
-                <li>Use right handed z-axis orientation : checked
+                <li>Use compression（使用压缩）: unchecked（未选中）</li>
+                <li>Use bounding box as matrix（使用边界框作为矩阵）: checked（选中）</li>
+                <li>Use origin as zero（使用原点为零）: unchecked（未选中）</li>
+                <li>Use visibility mask encoding（使用可见性掩码编码）: unchecked（未选中）</li>
+                <li>Use right handed z-axis orientation（使用右手 Z 轴方向）: checked（选中）
                     <img src="/images/art/modeling/voxelshop_export_settings.png" alt="voxelshop_export_settings"/>
                 </li>
             </ul>
-            <h2><a name="UsingGoxel"></a>Modeling an item with Goxel</h2>
-            <p>To view the size of each layer in Goxel, select the layer, and click on "Bounded". You can then adjust the size and origin of the layer.</p>
-            <h3><a name="ImportingInGoxel"></a>Importing models into Goxel</h3>
-            <p>Go to 'File -> Import... -> qubicle' and select the QB file you wish to import.</p>
-            <h3><a name="ExportingInGoxel"></a>Exporting with Goxel</h3>
-            <p>Go to 'File -> Export As... -> qubicle'.</p>
-            <p>Like Magicavoxel, Goxel doesn't have export options for Qubicle files.</p>
+            <h2><a name="UsingGoxel"></a>使用 Goxel 建模物品</h2>
+            <p>要在 Goxel 中查看每个层的大小，请选择层，然后点击“Bounded”。然后您可以调整层的大小和原点。</p>
+            <h3><a name="ImportingInGoxel"></a>将模型导入 Goxel</h3>
+            <p>转到'File -> Import... -> qubicle'并选择您要导入的 QB 文件。</p>
+            <h3><a name="ExportingInGoxel"></a>使用 Goxel 导出</h3>
+            <p>转到'File -> Export As... -> qubicle'。</p>
+            <p>像 Magicavoxel 一样，Goxel 没有用于 Qubicle 文件的导出选项。</p>
         </main>
     </body>
 </html>
