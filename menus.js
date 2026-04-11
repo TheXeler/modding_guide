@@ -4,7 +4,7 @@ document.currentScript.outerHTML=`
 </header>
 <a id="go_to_the_top_button" href="#top">TOP</a>
 <nav>
-	<a href="/modding_guide/index.html">Stonehearth 模组制作指南</a>
+	<a href="/index.html">Stonehearth 模组制作指南</a>
 	<section>
 		<a href="/modding_guide/essentials/index.html">模组制作基础</a>
 		<div>
